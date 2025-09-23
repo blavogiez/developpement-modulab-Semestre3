@@ -1,0 +1,24 @@
+{
+  "sessions": [
+    {
+      "session_id": "2025-09-21T18:53:56.575863",
+      "start_time": 1758473636.5758638,
+      "duration_seconds": 30.173809051513672,
+      "words_typed": 0,
+      "initial_word_count": 14,
+      "final_word_count": 0,
+      "date": "2025-09-21",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-21T19:00:16.321165",
+      "start_time": 1758474016.3211656,
+      "duration_seconds": 36.90008616447449,
+      "words_typed": 0,
+      "initial_word_count": 0,
+      "final_word_count": 0,
+      "date": "2025-09-21",
+      "productivity_score": 0.0
+    }
+  ]
+}
