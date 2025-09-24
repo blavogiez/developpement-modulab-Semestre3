@@ -246,7 +246,7 @@
 			\end{flushright}
 		\end{minipage}
 		
-		\vspace{4cm}
+		\vspace{2cm}
 		{\large{\textcolor{TextMain}{\today}}\par}
 	\end{titlepage}
 	\endgroup
