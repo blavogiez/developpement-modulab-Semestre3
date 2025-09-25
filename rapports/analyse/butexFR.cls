@@ -60,7 +60,7 @@
 }
 
 % Palette de couleurs professionnelles plus sérieuses
-\definecolor{primary}{HTML}{8B1538}        % Bordeaux profond
+\definecolor{primary}{HTML}{263238}%{8B1538}        % Bordeaux profond
 \definecolor{secondary}{HTML}{263238}      % Bordeaux pour subsections
 \definecolor{accent}{HTML}{3A5998}         % Bleu modéré
 \definecolor{success}{HTML}{2E7D32}        % Vert foncé professionnel

@@ -39,6 +39,16 @@
       "final_word_count": 286,
       "date": "2025-09-25",
       "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-25T17:10:42.431037",
+      "start_time": 1758813042.4310374,
+      "duration_seconds": 682.5132622718811,
+      "words_typed": 325,
+      "initial_word_count": 286,
+      "final_word_count": 611,
+      "date": "2025-09-25",
+      "productivity_score": 28.570873385068552
     }
   ]
 }
