@@ -1,0 +1,29 @@
+model
+    Player (serializable) utilise pos
+    Player est plus ou moins une partie
+    Objet session ?
+
+    Position(x,y)
+
+    Cell (type dans enum) - utilise pos
+
+    (enum) CellType(entree,sortie,mur,marche)
+
+    Maze ([][] cell (arraylist avec gestion de taille ?), taille x y)
+    Modéliser son monde et son niveau
+
+    (classes algo, génération)
+
+    CellFactory
+
+    MazeFactory ?
+    Classe paramètre ?
+
+    Patterns utilisés (factory, strategy)
+
+
+view
+    fxml
+
+
+
