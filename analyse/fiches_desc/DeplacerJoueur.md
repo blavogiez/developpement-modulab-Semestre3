@@ -17,7 +17,7 @@
 
 **Scénario alternatifs:**
 *A: Le joueur arrive sur la sortie*
-    2(A): Le système affiche une notification annonçant que la sortie a été atteinte
+    2(A): Le système affiche une notification annonçant que la sortie a été atteinte et redirige vers le menu principal.
 
 *B: Le joueur veut se déplacer dans une case inaccessible*
     2(B): Le système affiche la position actuelle et pas la nouvelle position et revient en étape 1 du scénario principal
