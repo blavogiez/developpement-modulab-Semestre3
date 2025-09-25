@@ -11,7 +11,7 @@
 
 **Scénario nominal:**
 
-    1. L'utilisateur accède au menu du mode progression
+    1. L'utilisateur sélectionne la fonctionnalité "accéder au menu du mode progression"
     2. Le système récupère les données du joueur dans la base et calcule le score et caractéristiques afin d'afficher la progression
 
 **Scénario alternatifs:** /

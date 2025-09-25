@@ -22,4 +22,4 @@
     4(A): Le système affiche une notification (de quelles mauvaises informations il s'agit), puis revient en étape 2 du scénario principal
 
 *B: Le système détecte une occurence du nom dans la base de données (charger partie)*
-    4(B): Le système démarre le Cas d'utilisation "Charger profil"
+    4(B): Le système démarre le **Cas d'utilisation** "Charger profil"
