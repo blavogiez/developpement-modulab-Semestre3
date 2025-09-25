@@ -82,13 +82,86 @@ Inclure des fiches descriptives et des prototypes d’interface pour ces fonctio
     Lancer mode progression
     Déplacer joueur
 
-\subsubsection{Charger profil}
+\subsubsection{Cas d’utilisation: Charger profil}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} L'utilisateur est dans le menu de saisie du nom (``Lancer le mode progression'')\\
+\textbf{Garanties en cas de succès:} Le système charge le profil associé au nom et l'utilisateur reprend sa progression\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur a rentré un nom déjà existant dans la base de données lors du \textbf{Cas d'utilisation} ``Lancer le mode progression'' (suite de ce cas, ayant déjà vérifié l'occurence)
+    \item Le système affiche un menu où l'utilisateur peut choisir de ``Reprendre la partie existante'' ou ``Écraser la partie existante''.
+    \item L'utilisateur sélectionne ``Reprendre la partie''
+    \item Le système charge le profil associé au nom depuis la base de données et l'utilisateur reprend sa progression
+\end{enumerate}
+\textbf{Scénario alternatifs:} /
 
-\subsubsection{Afficher progression}
+\subsubsection{Cas d’utilisation: Afficher progression}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} Avoir un profil, être dans le mode progression\\
+\textbf{Garanties en cas de succès:} Le système affiche la progression associée au joueur (score, caractéristiques...)\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur sélectionne la fonctionnalité ``accéder au menu du mode progression''
+    \item Le système récupère les données du joueur dans la base et calcule le score et caractéristiques afin d'afficher la progression
+\end{enumerate}
+\textbf{Scénario alternatifs:} /
 
-\subsubsection{Lancer mode progression}
+\subsubsection{Cas d’utilisation: Lancer mode progression}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} / (avoir lancé le jeu)\\
+\textbf{Garanties en cas de succès:} L'utilisateur arrive sur le mode progression\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur sélectionne la fonctionnalité ``Lancer mode progression''.
+    \item Le système affiche un menu où l'utilisateur peut rentrer son nom
+    \item L'utilisateur rentre son nom
+    \item Le système vérifie que le nom est valide, sauvegarde son profil dans la base de données et lance le mode progression
+\end{enumerate}
+\textbf{Scénario alternatifs:}
 
-\subsubsection{Déplacer joueur}
+\emph{A: Le système détecte une erreur lors de la vérification}\\
+\hspace*{1em}4(A): Le système affiche une notification (de quelles mauvaises informations il s'agit), puis revient en étape 2 du scénario principal
+
+\emph{B: Le système détecte une occurence du nom dans la base de données (charger partie)}\\
+\hspace*{1em}4(B): Le système démarre le \textbf{Cas d'utilisation} ``Charger profil''
+
+\subsubsection{Cas d’utilisation: Déplacer joueur}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} Être dans le labyrinthe\\
+\textbf{Garanties en cas de succès:} Le système a déplacé le joueur à la case souhaitée\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item Le joueur appuie sur une flèche directionnelle
+    \item Le système vérifie que la direction est accessible et déplace le joueur sur la case associée
+\end{enumerate}
+\textbf{Scénario alternatifs:}
+
+\emph{A: Le joueur arrive sur la sortie}\\
+\hspace*{1em}2(A): Le système affiche une notification annonçant que la sortie a été atteinte et redirige vers le menu principal.
+
+\emph{B: Le joueur veut se déplacer dans une case inaccessible}\\
+\hspace*{1em}2(B): Le système affiche la position actuelle et pas la nouvelle position et revient en étape 1 du scénario principal
+
+
+
+\emph{A: L'utilisateur choisit ``Écraser la partie existante''}\\
+\hspace*{1em}4(A): Le système écrase la partie existante, sauvegarde le nouveau dans la base de données et lance le mode progression
 
 \subsection{Prototypes d'interface}
 
@@ -113,5 +186,6 @@ Inclure un diagramme de classes qui permet d’implémenter toutes les fonctionn
 \merci
 
 \end{document}
+
 
 
