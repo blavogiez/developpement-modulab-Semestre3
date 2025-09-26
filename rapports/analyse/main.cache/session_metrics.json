@@ -69,6 +69,66 @@
       "final_word_count": 613,
       "date": "2025-09-26",
       "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:41:22.519691",
+      "start_time": 1758904882.5196915,
+      "duration_seconds": 1.3838181495666504,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:41:25.129081",
+      "start_time": 1758904885.1290815,
+      "duration_seconds": 0.9616212844848633,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:41:27.395124",
+      "start_time": 1758904887.395125,
+      "duration_seconds": 357.6778748035431,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:47:26.177525",
+      "start_time": 1758905246.1775253,
+      "duration_seconds": 413.16534066200256,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:54:24.580500",
+      "start_time": 1758905664.580501,
+      "duration_seconds": 0.8637733459472656,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-09-26T18:54:27.554571",
+      "start_time": 1758905667.5545719,
+      "duration_seconds": 1.4309651851654053,
+      "words_typed": 0,
+      "initial_word_count": 613,
+      "final_word_count": 613,
+      "date": "2025-09-26",
+      "productivity_score": 0.0
     }
   ]
 }
