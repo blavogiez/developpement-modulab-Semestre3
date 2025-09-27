@@ -1,0 +1,55 @@
+@startuml totof
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+interface Observable {
+  +addObserver(observer: Observer)
+  +removeObserver(observer: Observer)
+  +notifyObservers()
+}
+
+interface Observer {
+  +update(observable)
+}
+
+class Maze {
+  -grid: boolean[][]
+  -player: Player
+  -observers: List<Observer>
+  +width: int
+  +height: int
+  +Maze(width: int, height: int, player: Player)
+  +getPlayer(): Player
+  +isWall(x: int, y: int): boolean
+  +setWall(x: int, y: int, wall: boolean)
+  +movePlayerUp()
+  +movePlayerDown()
+  +movePlayerLeft()
+  +movePlayerRight()
+  +addObserver(observer: Observer)
+  +removeObserver(observer: Observer)
+  +notifyObservers()
+}
+
+class Player {
+  -numserial
+  +position: Position
+  +Player()
+  +Player(position: Position)
+  setPosition(position: newPos)
+}
+
+class Position {
+  +x: int
+  +y: int
+  +Position(x: int, y: int)
+  +equals(obj)
+}
+
+' Relations
+Maze *-- Player : contient
+Maze *-- "0..*" Observer : observers
+Maze ..> Observable
+Player --> Position : position
+
+@enduml
