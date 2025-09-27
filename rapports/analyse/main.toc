@@ -6,7 +6,7 @@
 \contentsline {subsection}{\numberline {3.2}Fiches descriptives}{5}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Cas d’utilisation: Charger profil}{5}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Cas d’utilisation: Afficher progression}{6}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Cas d’utilisation: Lancer mode progression}{6}{subsubsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.4}Cas d’utilisation: Déplacer joueur}{7}{subsubsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.3}Prototypes d'interface}{7}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Diagramme de classes}{9}{section.4}%
+\contentsline {subsubsection}{\numberline {3.2.3}Cas d’utilisation: Lancer mode progression}{7}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Cas d’utilisation: Déplacer joueur}{8}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Prototypes d'interface}{9}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Diagramme de classes}{10}{section.4}%
