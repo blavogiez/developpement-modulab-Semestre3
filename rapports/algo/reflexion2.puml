@@ -1,0 +1,105 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+interface Observable {
+  +addObserver(observer: Observer)
+  +removeObserver(observer: Observer)
+  +notifyObservers()
+}
+
+interface Observer {
+  +update(observable)
+}
+
+class Maze {
+  - width: int
+  - height: int
+  - grid: boolean[][]
+  - observers: List<Observer>
+  - playerPosition: Position
+  + Maze(width: int, height: int, wallPercentage: int)
+  + movePlayer(direction: String)
+}
+
+class Player {
+  - name: String
+  - score: int
+  - progress: PlayerProgress
+  + Player(name: String)
+  + addScore(points: int)
+}
+
+class PlayerProgress {
+  - stageProgress: List<Stage>
+  + markChallengeCompleted(challenge: Challenge)
+}
+
+class Position {
+  - x: int
+  - y: int
+  + Position(x: int, y: int)
+}
+
+abstract class GameMode {
+  - player: Player
+  - currentMaze: Maze
+  + start()
+  + createMaze(): Maze
+}
+
+class FreeMode {
+  + start()
+  + createMaze(): Maze
+}
+
+class ProgressionMode {
+  - stages: List<Stage>
+  + start()
+  + createMaze(): Maze
+}
+
+class Stage {
+  - number: int
+  - challenges: List<Challenge>
+  + Stage(number: int)
+}
+
+class Challenge {
+  - difficulty: String
+  - width: int
+  - height: int
+  - wallPercentage: int
+  - completed : boolean
+  + Challenge(difficulty: String)
+  + validate()
+}
+
+class Main {
+  {static} + main(args: String[])
+  {static} - selectMode(player: Player): GameMode
+  {static} - gameLoop(mode: GameMode)
+}
+
+class PlayerDatabase {
+  {static} + savePlayer(player: Player)
+  {static} + loadPlayer(name: String): Player
+  {static} + playerExists(name: String): boolean
+}
+
+Observable <|.. Maze
+Maze *--> "0..*" Observer : observers
+Maze --> Position : playerPosition
+
+GameMode --> Player : player
+GameMode --> Maze : currentMaze
+
+GameMode <|-- FreeMode
+GameMode <|-- ProgressionMode
+ProgressionMode --> "3" Stage : stages
+Stage --> "3" Challenge : challenges
+
+Player --> PlayerProgress : progress
+PlayerProgress --> Stage : stageProgress
+@enduml
