@@ -3,21 +3,10 @@ skinparam monochrome true
 skinparam shadowing true
 skinparam classAttributeIconSize 0
 
-interface Observable {
-  +addObserver(observer: Observer)
-  +removeObserver(observer: Observer)
-  +notifyObservers()
-}
-
-interface Observer {
-  +update(observable)
-}
-
 class Maze {
   - width: int
   - height: int
   - grid: boolean[][]
-  - observers: List<Observer>
   - playerPosition: Position
   + Maze(width: int, height: int, wallPercentage: int)
   + movePlayer(direction: String)
@@ -26,13 +15,11 @@ class Maze {
 class Player {
   - name: String
   - score: int
-  - progress: PlayerProgress
   + Player(name: String)
   + addScore(points: int)
 }
 
 class PlayerProgress {
-  - stageProgress: List<Stage>
   + markChallengeCompleted(challenge: Challenge)
 }
 
@@ -43,8 +30,6 @@ class Position {
 }
 
 abstract class GameMode {
-  - player: Player
-  - currentMaze: Maze
   + start()
   + createMaze(): Maze
 }
@@ -55,14 +40,13 @@ class FreeMode {
 }
 
 class ProgressionMode {
-  - stages: List<Stage>
   + start()
   + createMaze(): Maze
+  + loadProgress(progress: PlayerProgress)
 }
 
 class Stage {
   - number: int
-  - challenges: List<Challenge>
   + Stage(number: int)
 }
 
@@ -77,9 +61,12 @@ class Challenge {
 }
 
 class Main {
-  {static} + main(args: String[])
-  {static} - selectMode(player: Player): GameMode
-  {static} - gameLoop(mode: GameMode)
+  startGame(player: Player) : GameMode
+  movePlayer(game: GameMode, direction: String)
+  displayProgress(player: Player)
+  loadGame(game: GameMode, player: Player)
+  
+  'displayProgress(player: Player)'
 }
 
 class PlayerDatabase {
@@ -88,18 +75,15 @@ class PlayerDatabase {
   {static} + playerExists(name: String): boolean
 }
 
-Observable <|.. Maze
-Maze --> "0..*" Observer : observers
-Maze --> Position : playerPosition
+Maze --> "playerPosition" Position
 
-GameMode --> Player : player
-GameMode --> Maze : currentMaze
+GameMode --> "player" Player
+GameMode --> "currentMaze" Maze
 
 GameMode <|-- FreeMode
 GameMode <|-- ProgressionMode
-ProgressionMode --> "3" Stage : stages
-Stage --> "3" Challenge : challenges
+Stage --> "challenges 3" Challenge
 
-Player --> PlayerProgress : progress
-PlayerProgress --> Stage : stageProgress
+Player --> "progress" PlayerProgress
+PlayerProgress --> "stageProgress 3" Stage 
 @enduml
