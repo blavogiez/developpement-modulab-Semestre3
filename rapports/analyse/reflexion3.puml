@@ -9,7 +9,14 @@ class Maze {
   - grid: boolean[][]
   - playerPosition: Position
   + Maze(width: int, height: int, wallPercentage: int)
-  + movePlayer(direction: String)
+  + movePlayer(direction: Direction)
+}
+
+enum Direction {
+  UP
+  DOWN
+  LEFT
+  RIGHT
 }
 
 class Player {
@@ -62,7 +69,7 @@ class Challenge {
 
 class Main {
   startGame(player: Player) : GameMode
-  movePlayer(game: GameMode, direction: String)
+  movePlayer(game: GameMode, direction: Direction)
   displayProgress(player: Player)
   loadGame(game: GameMode, player: Player)
   
