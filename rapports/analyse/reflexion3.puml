@@ -9,14 +9,7 @@ class Maze {
   - grid: boolean[][]
   - playerPosition: Position
   + Maze(width: int, height: int, wallPercentage: int)
-  + movePlayer(direction: Direction)
-}
-
-enum Direction {
-  UP
-  DOWN
-  LEFT
-  RIGHT
+  + movePlayer(direction: String)
 }
 
 class Player {
@@ -24,6 +17,7 @@ class Player {
   - score: int
   + Player(name: String)
   + addScore(points: int)
+  + getHighestStage(): int
 }
 
 class PlayerProgress {
@@ -38,17 +32,17 @@ class Position {
 
 abstract class GameMode {
   + start()
-  + createMaze(): Maze
+  + createMaze(width: int, height: int, wallPercentage: int): Maze
 }
 
 class FreeMode {
   + start()
-  + createMaze(): Maze
+  + createMaze(width: int, height: int, wallPercentage: int): Maze
 }
 
 class ProgressionMode {
   + start()
-  + createMaze(): Maze
+  + createMaze(width: int, height: int, wallPercentage: int): Maze
   + loadProgress(progress: PlayerProgress)
 }
 
@@ -68,10 +62,11 @@ class Challenge {
 }
 
 class Main {
-  startGame(player: Player) : GameMode
-  movePlayer(game: GameMode, direction: Direction)
+  startGame(player: Player): GameMode
+  movePlayer(game: GameMode, direction: String)
   displayProgress(player: Player)
-  loadGame(game: GameMode, player: Player)
+  savePlayer(player: Player)
+  loadGame(player: Player)
   
   'displayProgress(player: Player)'
 }
@@ -82,15 +77,15 @@ class PlayerDatabase {
   {static} + playerExists(name: String): boolean
 }
 
-Maze --> "playerPosition" Position
+Maze --> "playerPosition 1" Position
 
-GameMode --> "player" Player
-GameMode --> "currentMaze" Maze
+GameMode --> "player 1" Player
+GameMode --> "currentMaze 1" Maze
 
 GameMode <|-- FreeMode
 GameMode <|-- ProgressionMode
 Stage --> "challenges 3" Challenge
 
-Player --> "progress" PlayerProgress
+Player --> "progress 1" PlayerProgress
 PlayerProgress --> "stageProgress 3" Stage 
 @enduml

@@ -8,7 +8,7 @@ rectangle Labyrinthe #lightyellow {
   usecase "Commencer une partie" as UC2
   usecase "Se déplacer\ndans le labyrinthe" as UC3
   usecase "Afficher la progression" as UC4
-' usecase "Sauvegarder la progression" as UC5
+  usecase "Sauvegarder la progression" as UC5
   usecase "Charger une partie" as UC6
   usecase "Lancer en mode progression" as UC7
 }
