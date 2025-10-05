@@ -2,12 +2,13 @@
 skinparam monochrome true
 skinparam shadowing true
 skinparam classAttributeIconSize 0
-
 class Maze {
   - width: int
   - height: int
   - grid: boolean[][]
   - playerPosition: Position
+  - entryPosition: Position
+  - exitPosition: Position
   + Maze(width: int, height: int, wallPercentage: int)
   + movePlayer(direction: String)
 }
@@ -16,7 +17,7 @@ class Player {
   - name: String
   - score: int
   + Player(name: String)
-  + addScore(points: int)
+  + calculateScore(): int
   + getHighestStage(): int
 }
 
@@ -62,12 +63,12 @@ class Challenge {
 }
 
 class Main {
-  startGame(player: Player): GameMode
+  startGame(): GameMode
   movePlayer(game: GameMode, direction: String)
   displayProgress(player: Player)
   savePlayer(player: Player)
-  loadGame(player: Player)
-  
+  loadPlayer(name: String)
+ 
   'displayProgress(player: Player)'
 }
 
@@ -78,14 +79,11 @@ class PlayerDatabase {
 }
 
 Maze --> "playerPosition 1" Position
-
-GameMode --> "player 1" Player
 GameMode --> "currentMaze 1" Maze
-
 GameMode <|-- FreeMode
 GameMode <|-- ProgressionMode
+ProgressionMode --> "player 1" Player
 Stage --> "challenges 3" Challenge
-
 Player --> "progress 1" PlayerProgress
-PlayerProgress --> "stageProgress 3" Stage 
+PlayerProgress --> "stageProgress 3" Stage
 @enduml
