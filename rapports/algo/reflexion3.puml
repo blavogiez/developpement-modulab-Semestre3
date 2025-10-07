@@ -8,22 +8,17 @@ class Maze {
   - height: int
   - grid: boolean[][]
   - playerPosition: Position
-  - entryPosition: Position
-  - exitPosition: Position
   + Maze(width: int, height: int, wallPercentage: int)
-  + isPlayerPositionAtExit(): boolean
 }
 
 class Player {
   - name: String
   - score: int
-  + Player(name: String, defaultProgress: PlayerProgress)
-  + calculateScore(): int
-  + getHighestStage(): int
+  + Player(name: String)
+  + addScore(points: int)
 }
 
 class PlayerProgress {
-  + copy(): PlayerProgress
   + markChallengeCompleted(challenge: Challenge)
 }
 
@@ -35,20 +30,19 @@ class Position {
 
 abstract class GameMode {
   + start()
-  + createMaze(width: int, height: int, wallPercentage: int): Maze
-  + movePlayerPosition(direction: String)
-  + isPlayerPositionAtExit(): boolean
+  + createMaze(): Maze
+  + movePlayer(direction: String)
 }
 
 class FreeMode {
-  + start() {overrides start}
+  + start()
+  + createMaze(): Maze
 }
 
 class ProgressionMode {
-  + start() {overrides start}
-  + createMaze(chosenChallenge: Challenge): Maze
-  + loadPlayer(name: String)
-  {static} defaultProgress: PlayerProgress
+  + start()
+  + createMaze(): Maze
+  + loadProgress(progress: PlayerProgress)
 }
 
 class Stage {
@@ -67,11 +61,11 @@ class Challenge {
 }
 
 class Main {
-  {static} startGame(): GameMode
-  {static} movePlayerPosition(game: GameMode, direction: String)
-  {static} displayProgress(player: Player)
-  {static} savePlayer(player: Player)
- 
+  startGame(player: Player) : GameMode
+  movePlayer(game: GameMode, direction: String)
+  displayProgress(player: Player)
+  loadGame(game: GameMode, player: Player)
+  
   'displayProgress(player: Player)'
 }
 
@@ -81,12 +75,15 @@ class PlayerDatabase {
   {static} + playerExists(name: String): boolean
 }
 
-Maze --> "playerPosition 1" Position
-GameMode --> "currentMaze 1" Maze
+Maze --> "playerPosition" Position
+
+GameMode --> "player" Player
+GameMode --> "currentMaze" Maze
+
 GameMode <|-- FreeMode
 GameMode <|-- ProgressionMode
-ProgressionMode --> "player 1" Player
 Stage --> "challenges 3" Challenge
-Player --> "progress 1" PlayerProgress
-PlayerProgress --> "stageProgress 3" Stage
+
+Player --> "progress" PlayerProgress
+PlayerProgress --> "stageProgress 3" Stage 
 @enduml
