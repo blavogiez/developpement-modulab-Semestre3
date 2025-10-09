@@ -1,6 +1,8 @@
 package fr.univlille.labyrinth.model;
 
+// Serialization static handler for the player (Object writing / reading)
 public class PlayerDatabase {
+
 
     public static void savePlayer(Player player) {
 
