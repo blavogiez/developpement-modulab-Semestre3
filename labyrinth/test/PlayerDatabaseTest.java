@@ -54,7 +54,13 @@ public class PlayerDatabaseTest {
     }
 
     testPlayerExists(){
+        Player p1=new Player();
+        Player p2=new Player();
+        boolean exists = playerDatabase.playerExists(p1,file);
+        assertTrue(exists);
 
+        boolean notExists = playerDatabase.playerExists(p2,file);
+        assertFalse(notExists);
     }
 
     testVerifyData(){
