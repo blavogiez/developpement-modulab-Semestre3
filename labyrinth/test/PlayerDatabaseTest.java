@@ -33,6 +33,23 @@ public class PlayerDatabaseTest {
 }
 
     testLoadPlayer(){
+        String[] result = new String[] {};
+        try {
+            result = playerDatabase.getDataFromCSV(" ");
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (InvalidStructureException e) {
+            System.err.println(e.getMessage());
+        }
+        assertNotEquals(result, data);
+        try {
+            result = playerDatabase.getDataFromCSV(file);
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (InvalidStructureException e) {
+            System.err.println(e.getMessage());
+        }
+        assertTrue(Arrays.equals(result, data));
 
     }
 
