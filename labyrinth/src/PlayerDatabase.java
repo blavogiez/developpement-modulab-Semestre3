@@ -1,8 +1,12 @@
 public class PlayerDatabase{
 
-    private String file="./PlayerDatabase";
+    private String file;
     public PlayerDatabase(String file) {
         this.file=file;
+    }
+
+    public PlayerDatabase() {
+        this.file="./PlayerDatabase";
     }
 
     public savePlayer(Player player){
@@ -17,7 +21,7 @@ public class PlayerDatabase{
 
     }
 
-    public VerifyData(){
+    public VerifyData(Player[] players){
 
     }
 }
