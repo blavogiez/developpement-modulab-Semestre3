@@ -7,7 +7,8 @@ public class Stage {
     private Challenge[] challenges;
 
     public Stage(int number) {
-        number=number;
+        this.number=number;
+        this.challenges = new Challenge[3];
     }
 
     public int getNumber() {

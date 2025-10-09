@@ -7,8 +7,11 @@ public class Challenge {
     private int wallPercentage;
     private boolean completed;
 
-    public Challenge(String difficulty) {
+    public Challenge(String difficulty, int width, int height, int wallPercentage) {
         this.difficulty=difficulty;
+        this.width=width;
+        this.height=height;
+        this.wallPercentage=wallPercentage;
         // load width and height data;
     }
 

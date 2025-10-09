@@ -6,7 +6,7 @@ public class Player {
     private PlayerProgress progress;
 
     public Player(String name, PlayerProgress defaultProgress) {
-        name=name;
+        this.name=name;
         progress=defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
     }
 
