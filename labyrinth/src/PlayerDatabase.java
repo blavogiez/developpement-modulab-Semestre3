@@ -6,7 +6,7 @@ public class PlayerDatabase{
     }
 
     public PlayerDatabase() {
-        this.file="./PlayerDatabase";
+        this.file="./res/PlayerDatabase.csv";
     }
 
     public savePlayer(Player player){
