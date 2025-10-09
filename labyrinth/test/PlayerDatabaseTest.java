@@ -20,8 +20,17 @@ public class PlayerDatabaseTest {
     }
 
     testSavePlayer(){
-
+        boolean result = false;
+        try {
+            playerDatabase.exportToCSV(data, file);
+            result = true;
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        assertTrue(result);
     }
+
+}
 
     testLoadPlayer(){
 
@@ -34,7 +43,7 @@ public class PlayerDatabaseTest {
     testVerifyData(){
         boolean result = false;
         try {
-            PlayerDatabase.verifyData(data);
+            playerDatabase.verifyData(data);
             result = true;
         } catch (InvalidStructureException e) {
             System.err.println(e.getMessage());
@@ -43,7 +52,7 @@ public class PlayerDatabaseTest {
         result = false;
         data = new String[] {};
         try {
-            PlayerDatabase.verifyData(data);
+            playerDatabase.verifyData(data);
             result = true;
         } catch (InvalidStructureException e) {
             System.err.println(e.getMessage());
@@ -51,7 +60,7 @@ public class PlayerDatabaseTest {
         assertFalse(result);
         data = new String[] { "" };
         try {
-            PlayerDatabase.verifyData(data);
+            playerDatabase.verifyData(data);
             result = true;
         } catch (InvalidStructureException e) {
             System.err.println(e.getMessage());
