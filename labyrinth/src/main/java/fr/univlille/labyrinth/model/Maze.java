@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.Main;
+
 public class Maze {
     private int width;
     private int height;
@@ -8,8 +10,12 @@ public class Maze {
     private Position entryPosition;
     private Position exitPosition;
 
-    public Maze(int width, int height, int wallPercentage) {
-
+    public Maze(int width, int height, double wallPercentage) {
+        this.width=width;
+        this.height=height;
+        this.grid = Main.getAlgo().createLabyrinthe(0, 0, 0);
+        
+        
     }
 
     public boolean isPlayerPositionAtExit() {

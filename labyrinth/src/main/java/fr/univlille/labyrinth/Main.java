@@ -1,9 +1,16 @@
 package fr.univlille.labyrinth;
 
+import fr.univlille.labyrinth.model.AlgoLaby;
 import fr.univlille.labyrinth.model.GameMode;
 import fr.univlille.labyrinth.model.Player;
 
 public class Main {
+
+    private static AlgoLaby algo = new AlgoLaby();
+
+    public static AlgoLaby getAlgo() {
+        return algo;
+    }
 
     public static GameMode startGame() {
         return null;
