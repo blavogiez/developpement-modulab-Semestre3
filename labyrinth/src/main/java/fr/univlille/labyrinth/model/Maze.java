@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model;
 import fr.univlille.labyrinth.Main;
 
 public class Maze {
+
     private int width;
     private int height;
     private boolean[][] grid;
@@ -13,7 +14,7 @@ public class Maze {
     public Maze(int width, int height, int wallPercentage) {
         this.width=width*2+1;
         this.height=height*2+1;
-        this.grid = Main.getAlgo().createLabyrinthe(width, height, wallPercentage);
+        this.grid = Main.getInstance().getAlgo().createLabyrinthe(width, height, wallPercentage);
 
         this.playerPosition=new Position(1,1);
         this.entryPosition=new Position(1,1);
