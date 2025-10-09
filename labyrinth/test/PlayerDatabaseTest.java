@@ -56,10 +56,24 @@ public class PlayerDatabaseTest {
     testPlayerExists(){
         Player p1=new Player();
         Player p2=new Player();
-        boolean exists = playerDatabase.playerExists(p1,file);
-        assertTrue(exists);
+        boolean result;
+        try {
+            result = playerDatabase.playerExists(p1,file);
+        }
+        catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        assertTrue(result);
+        try {
+            result = playerDatabase.playerExists(p2,file);
+        }
+        catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        assertFalse(result);
 
-        boolean notExists = playerDatabase.playerExists(p2,file);
+
+
         assertFalse(notExists);
     }
 
