@@ -40,8 +40,5 @@ public class Position {
         return Objects.hash(x, y);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+
 }
