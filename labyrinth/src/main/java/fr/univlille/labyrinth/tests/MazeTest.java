@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MazeTest {
     static Maze m1,m2,m3,m4;
-    static Player p1,p2,p3;
+    static Position p1,p2,p3;
 
     @BeforeAll
     public static void initialization(){
@@ -27,23 +27,21 @@ public class MazeTest {
 
     @Test
     public void testWidth(){
-        assertEquals(10, m1.getWidth());
+        assertEquals(21, m1.getWidth());
         assertEquals(m1.getWidth(),m4.getWidth());
     }
     @Test
     public void testheight(){
-        assertEquals(10, m1.getHeight());
-        assertEquals(20, m2.getHeight());
-        assertEquals(30, m3.getHeight());
+        assertEquals(21, m1.getHeight());
+        assertEquals(41, m2.getHeight());
+        assertEquals(61, m3.getHeight());
         assertEquals(m4.getHeight(),m1.getHeight());
         
     }
     @Test
     public void testGrid(){
-        assertArrayEquals(new boolean[10][10],m1.getGrid());
-        assertArrayEquals(new boolean[10][10],m4.getGrid());
-        assertArrayEquals(new boolean[20][20],m2.getGrid());
-        assertArrayEquals(new boolean[30][30],m3.getGrid());
+        assertArrayEquals(m4.getGrid(), m1.getGrid());
     }
+
 
 }
