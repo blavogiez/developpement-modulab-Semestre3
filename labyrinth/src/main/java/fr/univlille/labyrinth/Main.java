@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.model.AlgoLaby;
+import fr.univlille.labyrinth.model.Direction;
 import fr.univlille.labyrinth.model.GameMode;
 import fr.univlille.labyrinth.model.Player;
 
@@ -16,7 +17,7 @@ public class Main {
         return null;
     }
 
-    public static void movePlayerPosition(GameMode game, String direction) {
+    public static void movePlayerPosition(GameMode game, Direction direction) {
 
     }
 

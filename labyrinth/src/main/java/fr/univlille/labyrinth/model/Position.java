@@ -23,4 +23,9 @@ public class Position {
     public void setY(int y) {
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

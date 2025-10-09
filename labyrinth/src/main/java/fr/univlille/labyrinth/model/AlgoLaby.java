@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model;
 
+
 import java.util.Random;
 
 public class AlgoLaby {
@@ -14,12 +15,11 @@ public class AlgoLaby {
 //        System.out.println(algo.mazeToString(newMaze));
 //    }
 
-    public boolean[][] createLabyrinthe(int width, int height, double percentageWall){
+    public boolean[][] createLabyrinthe(int width, int height, int percentageWall){
 
-        int[][] maze = generateGrid(width*2+1,height*2+1);
+        int[][] maze = generateGrid(width,height,percentageWall);
         maze = generatePath(maze);
-        boolean[][] newMaze = exportMaze(maze);
-        return newMaze;
+        return exportMaze(maze);
     }
 
 //    public void testShow(int[][] maze){
@@ -34,12 +34,12 @@ public class AlgoLaby {
 //        }
 //    }
 
-    public int[][] generateGrid(int height, int width){
-        int[][] maze = new int[height][width];
-        for (int l = 0; l<height;l++){
-            for (int c = 0; c<width;c++){
+    public int[][] generateGrid(int width, int height, int percentageWall){
+        int[][] maze = new int[width][height];
+        for (int l = 0; l<width;l++){
+            for (int c = 0; c<height;c++){
                 if (c%2==0 || l%2==0) maze[l][c] = -1;
-                else maze[l][c] = random.nextInt(100);
+                else maze[l][c] = random.nextInt(percentageWall);
             }
         }
         return maze;
@@ -59,21 +59,21 @@ public class AlgoLaby {
 
     }
 
-    public String mazeToString(boolean[][] maze){
-        StringBuilder res = new StringBuilder();
-        int height = maze.length;
-        int width = maze[0].length;
-        for (int l = 0; l < height;l++) {
-            for (int c = 0; c < width; c++) {
-                if (l==1 && c==1) res.append("S");
-                else if (l==height-2 && c==width-2) res.append("E");
-                else if (maze[l][c]) res.append(" ");
-                else res.append("W");
-            }
-            res.append("\n");
-        }
-        return res.toString();
-    }
+//    public String mazeToString(boolean[][] maze){
+//        StringBuilder res = new StringBuilder();
+//        int height = maze.length;
+//        int width = maze[0].length;
+//        for (int l = 0; l < height;l++) {
+//            for (int c = 0; c < width; c++) {
+//                if (l==1 && c==1) res.append("S");
+//                else if (l==height-2 && c==width-2) res.append("E");
+//                else if (maze[l][c]) res.append(" ");
+//                else res.append("W");
+//            }
+//            res.append("\n");
+//        }
+//        return res.toString();
+//    }
 
     public int[][] generatePath(int[][] maze){
         while (!AllTheSameNumber(maze)){

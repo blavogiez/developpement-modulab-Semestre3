@@ -12,8 +12,7 @@ public class ProgressionMode extends GameMode {
     }
 
     public Maze createMaze(Challenge chosenChallenge) {
-        Maze maze = new Maze(0, 0, 0)
-        return 
+        return null;
 
 
     }
