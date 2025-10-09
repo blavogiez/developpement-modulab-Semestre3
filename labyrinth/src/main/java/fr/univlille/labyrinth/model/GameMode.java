@@ -52,11 +52,10 @@ public abstract class GameMode {
         } else {
             throw new RuntimeException("The maze isn't generated");
         }
-
     }
 
     public boolean isPlayerPositionAtExit() {
-        return false;
+        return currentMaze.isPlayerPositionAtExit();
     }
 
     public Maze getCurrentMaze() {

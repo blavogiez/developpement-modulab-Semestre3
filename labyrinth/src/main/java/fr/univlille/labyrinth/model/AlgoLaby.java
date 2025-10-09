@@ -16,7 +16,6 @@ public class AlgoLaby {
 //    }
 
     public boolean[][] createLabyrinthe(int width, int height, int percentageWall){
-
         int[][] maze = generateGrid(width,height,percentageWall);
         maze = generatePath(maze);
         return exportMaze(maze);
