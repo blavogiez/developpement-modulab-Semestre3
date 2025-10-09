@@ -6,7 +6,8 @@ public class Player {
     private PlayerProgress progress;
 
     public Player(String name, PlayerProgress defaultProgress) {
-
+        name=name;
+        progress=defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
     }
 
     public int calculateScore() {
@@ -14,7 +15,7 @@ public class Player {
     }
 
     public int getHighestStage() {
-        return 0;
+        return getProgress().getHighestStage() ;
     }
 
     public String getName() {

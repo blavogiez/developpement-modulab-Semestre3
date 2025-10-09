@@ -6,7 +6,7 @@ public abstract class GameMode {
     public abstract void start();
 
     public Maze createMaze(int width, int height, int wallPercentage) {
-        return null;
+        return null ;
     }
 
     public void movePlayerPosition(String direction) {
