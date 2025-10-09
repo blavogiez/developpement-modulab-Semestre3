@@ -1,26 +1,42 @@
 package fr.univlille.labyrinth.model;
 
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
 
     public Position(int x, int y) {
-
+        this.x=x;
+        this.y=y;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
-    public void setX(int x) {
-
+    public void setX(int newX) {
+        if(x>=0) this.x=newX;
     }
 
-    public void setY(int y) {
+    public void setY(int newY) {
+        if(y>=0) y=newY;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

@@ -8,11 +8,12 @@ public class Challenge {
     private boolean completed;
 
     public Challenge(String difficulty) {
-
+        this.difficulty=difficulty;
+        // load width and height data;
     }
 
     public void validate() {
-
+        this.setCompleted(true);
     }
 
     public String getDifficulty() {
@@ -36,6 +37,6 @@ public class Challenge {
     }
 
     public void setCompleted(boolean completed) {
-
+        this.completed = completed ;
     }
 }
