@@ -2,18 +2,18 @@ public class PlayerDatabase{
 
     private String file="./PlayerDatabase";
     public PlayerDatabase(String file) {
+        this.file=file;
+    }
+
+    public savePlayer(Player player){
 
     }
 
-    public savePlayer(Player player, String file){
+    public Player loadPlayer(Player player){
 
     }
 
-    public Player loadPlayer(Player player,String file){
-
-    }
-
-    public boolean playerExists(String nom,String file){
+    public boolean playerExists(String nom){
 
     }
 

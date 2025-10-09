@@ -15,14 +15,15 @@ public class PlayerDatabaseTest {
     public void initialisation() {
 
         data = new String[] {""};
-        playerDatabase = new PlayerDatabaseTest();
         file = "./res/testPlayerDatabase.csv";
+        playerDatabase = new PlayerDatabase(file);
+
     }
 
     testSavePlayer(){
         boolean result = false;
         try {
-            playerDatabase.SavePlayer(data, file);
+            playerDatabase.SavePlayer(data);
             result = true;
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -43,7 +44,7 @@ public class PlayerDatabaseTest {
         }
         assertNotEquals(result, data);
         try {
-            result = playerDatabase.LoadPlayer(file);
+            result = playerDatabase.LoadPlayer(data);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         } catch (InvalidStructureException e) {
@@ -58,14 +59,14 @@ public class PlayerDatabaseTest {
         Player p2=new Player();
         boolean result;
         try {
-            result = playerDatabase.playerExists(p1,file);
+            result = playerDatabase.playerExists(p1);
         }
         catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
         assertTrue(result);
         try {
-            result = playerDatabase.playerExists(p2,file);
+            result = playerDatabase.playerExists(p2);
         }
         catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
