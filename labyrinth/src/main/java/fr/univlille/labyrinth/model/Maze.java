@@ -18,7 +18,11 @@ public class Maze {
         this.playerPosition=new Position(1,1);
         this.entryPosition=new Position(1,1);
         this.exitPosition=new Position(width*2,height*2);
+
+        
     }
+
+    
 
     public boolean isPlayerPositionAtExit() {
 
