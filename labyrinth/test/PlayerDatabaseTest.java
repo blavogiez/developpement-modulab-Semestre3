@@ -22,7 +22,7 @@ public class PlayerDatabaseTest {
     testSavePlayer(){
         boolean result = false;
         try {
-            playerDatabase.exportToCSV(data, file);
+            playerDatabase.SavePlayer(data, file);
             result = true;
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -35,7 +35,7 @@ public class PlayerDatabaseTest {
     testLoadPlayer(){
         String[] result = new String[] {};
         try {
-            result = playerDatabase.getDataFromCSV(" ");
+            result = playerDatabase.LoadPlayer(" ");
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         } catch (InvalidStructureException e) {
@@ -43,7 +43,7 @@ public class PlayerDatabaseTest {
         }
         assertNotEquals(result, data);
         try {
-            result = playerDatabase.getDataFromCSV(file);
+            result = playerDatabase.LoadPlayer(file);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         } catch (InvalidStructureException e) {
