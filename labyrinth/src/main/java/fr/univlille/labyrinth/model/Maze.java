@@ -51,12 +51,4 @@ public class Maze {
     public Position getExitPosition() {
         return exitPosition;
     }
-
-    public boolean isPositionInRange(Position position) {
-       return (position.getX() >= 0 && position.getX() <= this.getWidth()) && (position.getY() >= 0 && position.getY() <= this.getHeight());
-    }
-
-    public void setPlayerPosition(Position playerPosition) {
-
-    }
 }
