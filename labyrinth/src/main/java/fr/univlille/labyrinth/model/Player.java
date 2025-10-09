@@ -1,20 +1,30 @@
 package fr.univlille.labyrinth.model;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String name;
     private int score;
     private PlayerProgress progress;
 
     public Player(String name, PlayerProgress defaultProgress) {
-
+        this.name=name;
+        progress=defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
     }
 
     public int calculateScore() {
-        return 0;
+        int score = 0 ;
+        for (Stage stage : progress.getStageProgress()) {
+            for (Challenge chall : stage.getChallenges()) {
+                score+=chall.getScoreValue();
+            }
+        }
+        this.score=score;
+        return score ;
     }
 
     public int getHighestStage() {
-        return 0;
+        return getProgress().getHighestStage() ;
     }
 
     public String getName() {
@@ -22,7 +32,7 @@ public class Player {
     }
 
     public int getScore() {
-        return score;
+        return this.calculateScore();
     }
 
     public PlayerProgress getProgress() {
