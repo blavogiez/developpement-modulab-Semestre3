@@ -1,6 +1,8 @@
 package fr.univlille.labyrinth.model;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String name;
     private int score;
     private PlayerProgress progress;
@@ -17,6 +19,7 @@ public class Player {
                 score+=chall.getScoreValue();
             }
         }
+        this.score=score;
         return score ;
     }
 
@@ -29,7 +32,7 @@ public class Player {
     }
 
     public int getScore() {
-        return score;
+        return this.calculateScore();
     }
 
     public PlayerProgress getProgress() {
