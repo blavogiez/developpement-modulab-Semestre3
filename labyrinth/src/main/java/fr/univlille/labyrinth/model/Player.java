@@ -11,7 +11,13 @@ public class Player {
     }
 
     public int calculateScore() {
-        return 0;
+        int score = 0 ;
+        for (Stage stage : progress.getStageProgress()) {
+            for (Challenge chall : stage.getChallenges()) {
+                score+=chall.getScoreValue();
+            }
+        }
+        return score ;
     }
 
     public int getHighestStage() {

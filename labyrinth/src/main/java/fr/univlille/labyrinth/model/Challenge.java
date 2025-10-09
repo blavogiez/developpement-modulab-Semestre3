@@ -35,6 +35,17 @@ public class Challenge {
         return wallPercentage;
     }
 
+    // calculate the score for the progress
+    public int getScoreValue() {
+        int score = 0 ;
+        if(!completed){
+            return score ;
+        }
+        score+=width*height ;
+        score*= wallPercentage ;
+        return score ;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
