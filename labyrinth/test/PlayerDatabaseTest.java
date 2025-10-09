@@ -32,6 +32,29 @@ public class PlayerDatabaseTest {
     }
 
     testVerifyData(){
-        
-    }
+        boolean result = false;
+        try {
+            PlayerDatabase.verifyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {
+            System.err.println(e.getMessage());
+        }
+        assertTrue(result);
+        result = false;
+        data = new String[] {};
+        try {
+            PlayerDatabase.verifyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {
+            System.err.println(e.getMessage());
+        }
+        assertFalse(result);
+        data = new String[] { "" };
+        try {
+            PlayerDatabase.verifyData(data);
+            result = true;
+        } catch (InvalidStructureException e) {
+            System.err.println(e.getMessage());
+
+        }
 }
