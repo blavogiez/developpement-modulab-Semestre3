@@ -20,11 +20,11 @@ public class Position {
     }
 
     public void setX(int newX) {
-        if(x>=0) this.x=newX;
+        if(newX>=0) this.x=newX;
     }
 
     public void setY(int newY) {
-        if(y>=0) y=newY;
+        if(newY>=0) this.y=newY;
     }
 
     @Override
