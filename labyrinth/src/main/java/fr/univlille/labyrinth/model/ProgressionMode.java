@@ -12,7 +12,7 @@ public class ProgressionMode extends GameMode {
 
     // static default progress for new players (Belongs to factory module)
     // Only concerns the player ; Progress shall never be manipulated inside this class
-    public void initDefaultProgress() {
+    public static void initDefaultProgress() {
         Stage[] defaultStages = new Stage[3];
 
         // first stage
