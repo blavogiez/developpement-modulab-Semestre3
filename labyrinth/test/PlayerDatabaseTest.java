@@ -7,6 +7,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerDatabaseTest {
+    PlayerDatabase playerDatabase;
+    String[] data;
+    String file;
+
+    @BeforeEach
+    public void initialisation() {
+
+        data = new String[] {""};
+        playerDatabase = new PlayerDatabaseTest();
+        file = "./res/testPlayerDatabase.csv";
+    }
+
     testSavePlayer(){
 
     }
@@ -17,5 +29,9 @@ public class PlayerDatabaseTest {
 
     testPlayerExists(){
 
+    }
+
+    testVerifyData(){
+        
     }
 }
