@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.tests;
+package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;

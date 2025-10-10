@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.tests;
+package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.model.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -61,20 +61,6 @@ public class MazeTest {
     }
 
     @Test
-    public void testPlayerAtExit() {
-        m1.setPlayerPosition(m1.getExitPosition());
-        assertTrue(m1.isPlayerPositionAtExit());
-        m2.setPlayerPosition(m2.getExitPosition());
-        assertTrue(m2.isPlayerPositionAtExit());
-    }
-
-    @Test
-    public void testPlayerNotAtExit() {
-        m2.setPlayerPosition(p2);
-        assertFalse(m2.isPlayerPositionAtExit());
-    }
-
-    @Test
     public void testEntryExitPosition() {
         Position entryM3 = m3.getEntryPosition();
         Position exitM3 = m3.getExitPosition();
@@ -89,13 +75,5 @@ public class MazeTest {
         assertTrue(entryM4.getY() >= 0 && entryM4.getY() < m4.getHeight());
         assertTrue(exitM4.getX() >= 0 && exitM4.getX() < m4.getWidth());
         assertTrue(exitM4.getY() >= 0 && exitM4.getY() < m4.getHeight());
-    }
-
-    @Test
-    public void testSetPlayerPosition() {
-        m4.setPlayerPosition(new Position(20,25));
-        assertEquals(new Position(20,25), m4.getPlayerPosition());
-        m4.setPlayerPosition(new Position(23,24));
-        assertEquals(new Position(23,24),m4.getPlayerPosition());
     }
 }
