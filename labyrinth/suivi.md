@@ -40,7 +40,9 @@ Fiche descriptive du "Déplacer joueur"
 
 ### **Angèl** :
 
-### **Baptiste** : Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven)
+### **Baptiste** : 
+
+- Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven)
 
 ## **Semaine du 06/10 au 13/10**
 
@@ -58,6 +60,11 @@ Création de la classe "PlayerDatabase"
 ### **Angèl** :
 
 ### **Baptiste** :
+
+- Code de Player et de sa progression (progression par défaut, calcul du score)
+- Code de PlayerDatabase (sauvegarde par sérialisation)
+- Test de PlayerDatabase (Test de sauvegarde, lecture, effacement...)
+- Start de FreeMode et ProgressionMode (Tour, choix challenge)
 
 ## **Semaine du 13/10 au 20/10**
 

@@ -10,11 +10,11 @@ Réalisé par :
 
 ## Liens utiles
 
-Mme Boneva : lien main.pdf
+Mme Boneva : [Rapport d'analyse](rapports/analyse/main.pdf)
 
-Mr Delecroix : lien suivi md
+Mr Delecroix : [Rapport qualité](rapports/qualite/main.pdf) | [Suivi](labyrinth/suivi.md)
 
-Mme Everaere : lien main.pdf
+Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
 
 ## Présentation
