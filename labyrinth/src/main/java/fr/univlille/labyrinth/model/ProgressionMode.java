@@ -8,9 +8,8 @@ public class ProgressionMode extends GameMode {
     private Player player;
     public static PlayerProgress defaultProgress;
 
-    public ProgressionMode(String name) {
+    public ProgressionMode() {
         // Player entered a name, that refers to a player in the database
-        this.player = PlayerDatabase.loadPlayer(name);
     }
 
     // static default progress for new players (Belongs to factory module)
@@ -57,8 +56,18 @@ public class ProgressionMode extends GameMode {
 
     @Override
     public void start() {
+        // Progression mode contains a player
+        // The player has asked for the progression mode
+        String playerName = "toto" ;
+        // The loading | creation of the player is handled by PlayerDatabase, as always
+        this.player = PlayerDatabase.loadPlayer(playerName);
 
+        // Enter into the main loop for as long as exit isn't chosen
+        // Main loop shall handle challenge choice which'll result in maze creations (No params choice in ProgressionMode)
+        // Main loop shall handle progression modifications for the player (Different loop than FreeMode)
+        navigate();
     }
+
 
     public Maze createMaze(Challenge chosenChallenge) {
         int width = chosenChallenge.getWidth();
