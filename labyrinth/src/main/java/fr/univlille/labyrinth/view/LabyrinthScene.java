@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.view;
 
+import fr.univlille.labyrinth.controller.LabyrinthControler;
+import fr.univlille.labyrinth.model.Direction;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import javafx.scene.Scene;
@@ -16,7 +18,11 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
     protected Rectangle[][] pixels;
     protected GridPane grid;
 
-//    protected  controler
+    protected LabyrinthControler controler;
+
+    public void setControler(LabyrinthControler controler) {
+        this.controler = controler;
+    }
 
     public LabyrinthScene(Maze maze){
         super(pane);
@@ -32,13 +38,30 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         Button buttonDown = new Button("↓");
 
         buttonDown.setOnAction(e -> {
-
+            controler.movePlayer(Direction.DOWN);
         });
+        buttonUp.setOnAction(e -> {
+            controler.movePlayer(Direction.UP);
+        });
+        buttonLeft.setOnAction(e -> {
+            controler.movePlayer(Direction.LEFT);
+        });
+        buttonRight.setOnAction(e -> {
+            controler.movePlayer(Direction.RIGHT);
+        });
+
+        keyboard.add(buttonUp,1,0);
+        keyboard.add(buttonLeft,0,1);
+        keyboard.add(buttonRight,2,1);
+        keyboard.add(buttonDown,1,2);
+
 
 
 
 
         hbox.getChildren().add(grid);
+        hbox.getChildren().add(keyboard);
+        pane.getChildren().add(hbox);
 
         //Make the VB/HB, set it up and replace null with it
         //If it change depending of the model, make a method "update" & implements a Observer interface, to be notified. Dont forget to add the observable
@@ -54,12 +77,13 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         for (int l = 0; l<mazeGrid.length;l++){
             for (int c = 0; c <mazeGrid[0].length;c++) {
                 Rectangle rect = new Rectangle(pixelHeight,pixelHeight);
-                if (mazeGrid[l][c]){
-                    rect.setFill(Paint.valueOf("#000000"));
-                } else if (maze.getPlayerPosition().getX()==l && maze.getPlayerPosition().getY()==c){
-                    rect.setFill(Paint.valueOf("#FF00AA"));
-                } else {
+                if (maze.getPlayerPosition().getX()==l && maze.getPlayerPosition().getY()==c){
+                    rect.setFill(Paint.valueOf("#FF0000"));
+                }
+                 else if (mazeGrid[l][c]){
                     rect.setFill(Paint.valueOf("#FFFFFF"));
+                }  else {
+                    rect.setFill(Paint.valueOf("#000000"));
                 }
                 pixels[l][c] = rect;
                 grid.add(rect,l,c);

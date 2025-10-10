@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth;
 
+import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.*;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
@@ -51,12 +52,16 @@ public class Main extends Application {
             @Override
             public void start() {
                 currentMaze=new Maze(11,11,10);
-                Main.getInstance().getScenes().push(new LabyrinthScene(currentMaze));
+                LabyrinthScene labyScene = new LabyrinthScene(currentMaze);
+                labyScene.setControler(new LabyrinthControler());
+                Main.getInstance().getScenes().push(labyScene);
+                currentMaze.add(labyScene);
 
 
             }
         };
         this.gameMode.start();
+
         stage.setTitle("Test");
         stage.show();
 
