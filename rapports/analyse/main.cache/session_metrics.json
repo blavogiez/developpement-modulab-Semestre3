@@ -149,6 +149,26 @@
       "final_word_count": 613,
       "date": "2025-10-01",
       "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-10-09T19:10:38.883354",
+      "start_time": 1760029838.8833542,
+      "duration_seconds": 0.5798051357269287,
+      "words_typed": 0,
+      "initial_word_count": 541,
+      "final_word_count": 541,
+      "date": "2025-10-09",
+      "productivity_score": 0.0
+    },
+    {
+      "session_id": "2025-10-09T19:10:40.006098",
+      "start_time": 1760029840.0060985,
+      "duration_seconds": 1277.1869795322418,
+      "words_typed": 61,
+      "initial_word_count": 541,
+      "final_word_count": 602,
+      "date": "2025-10-09",
+      "productivity_score": 2.8656728095837947
     }
   ]
 }
