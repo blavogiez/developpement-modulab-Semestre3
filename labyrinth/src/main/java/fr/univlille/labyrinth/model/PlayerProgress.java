@@ -5,6 +5,9 @@ import java.util.List;
 public class PlayerProgress {
     private Stage[] stageProgress;
 
+    public PlayerProgress(Stage[] stageProgress) {
+        this.stageProgress=stageProgress;
+    }
     public PlayerProgress copy() {
         return null;
     }

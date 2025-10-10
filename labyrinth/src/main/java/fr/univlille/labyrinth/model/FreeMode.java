@@ -6,4 +6,9 @@ public class FreeMode extends GameMode {
     public void start() {
 
     }
+
+
+
+
+
 }
