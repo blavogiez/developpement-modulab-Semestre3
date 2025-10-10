@@ -36,6 +36,7 @@ Attendus pour le jalon 1, commit dépôt git taggé [V1] pour le vendredi 24 oct
 ### **Antonin** :
 
 ### **Romain** :
+Fiche descriptive du "Déplacer joueur"
 
 ### **Angèl** :
 
@@ -50,6 +51,8 @@ Attendus pour le jalon 1, commit dépôt git taggé [V1] pour le vendredi 24 oct
 ### **Antonin** :
 
 ### **Romain** :
+Création de test pour "PlayerDatabase"
+Création de la classe "PlayerDatabase"
 
 ### **Angèl** :
 
