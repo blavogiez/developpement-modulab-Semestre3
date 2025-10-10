@@ -26,7 +26,7 @@ public class PlayerDatabaseTest {
     @BeforeEach
     public void setUp() {
         // Nettoyage de la base de données avant chaque test si nécessaire
-        // PlayerDatabase.clear(); // À décommenter si une méthode clear() existe
+        PlayerDatabase.clear();
     }
 
     @Test

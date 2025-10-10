@@ -77,4 +77,16 @@ public class PlayerDatabase {
             return new ArrayList<>();
         }
     }
+
+    // clearing database (only for tests)
+    public static void clear() {
+        try {
+            File file = new File(SAVE_FILE);
+            if (file.exists()) {
+                file.delete();
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
 }
