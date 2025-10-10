@@ -6,6 +6,8 @@ import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,6 +38,18 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         Button buttonLeft = new Button("←");
         Button buttonRight = new Button("→");
         Button buttonDown = new Button("↓");
+
+        setOnKeyPressed((KeyEvent event) -> {
+            if (event.getCode() == KeyCode.UP) {
+                controler.movePlayer(Direction.UP);
+            } else if (event.getCode() == KeyCode.LEFT) {
+                controler.movePlayer(Direction.LEFT);
+            } else if (event.getCode() == KeyCode.RIGHT) {
+                controler.movePlayer(Direction.RIGHT);
+            } else if (event.getCode() == KeyCode.DOWN) {
+                controler.movePlayer(Direction.DOWN);
+            }
+        });
 
         buttonDown.setOnAction(e -> {
             controler.movePlayer(Direction.DOWN);

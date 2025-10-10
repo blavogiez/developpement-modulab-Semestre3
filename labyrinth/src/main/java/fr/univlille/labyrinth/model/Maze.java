@@ -28,6 +28,10 @@ public class Maze {
         notifyObserver();
     }
 
+    public boolean isWall(int x, int y){
+        return !grid[x][y];
+    }
+
 
     private int width;
     private int height;

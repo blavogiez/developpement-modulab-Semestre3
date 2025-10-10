@@ -60,7 +60,8 @@ public abstract class GameMode {
             if (playerPosition.getX()+direction.x<0
                     || playerPosition.getX()+direction.x>=currentMaze.getHeight()
                     || playerPosition.getX()+direction.y<0
-                    || playerPosition.getX()+direction.y>=currentMaze.getWidth())
+                    || playerPosition.getX()+direction.y>=currentMaze.getWidth()
+                    || currentMaze.isWall(playerPosition.getX()+direction.x,playerPosition.getY()+direction.y))
                 System.out.println("You tried to move to the "+direction.name());
             else {
                 currentMaze.movePlayer(direction);
