@@ -2,7 +2,7 @@ package fr.univlille.labyrinth.view;
 
 import javafx.scene.Scene;
 
-public class LabyrinthScene extends Scene {
+public class LabyrinthScene extends Scene  {
 
 
     public LabyrinthScene(){
