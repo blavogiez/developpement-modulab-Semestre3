@@ -2,16 +2,26 @@ package fr.univlille.labyrinth.model;
 
 import fr.univlille.labyrinth.Main;
 
+import java.io.LineNumberInputStream;
+
 public class ProgressionMode extends GameMode {
     private Player player;
     public static PlayerProgress defaultProgress;
 
-    public ProgressionMode(Player player) {
-        this.player=player;
+    public ProgressionMode(String name) {
+        // Player entered a name, that refers to a player in the database
+        this.player = PlayerDatabase.loadPlayer(name);
     }
 
     // static default progress for new players (Belongs to factory module)
     // Only concerns the player ; Progress shall never be manipulated inside this class
+
+
+    // execute at start to init
+    static {
+        ProgressionMode.initDefaultProgress();
+    }
+
     public static void initDefaultProgress() {
         Stage[] defaultStages = new Stage[3];
 
@@ -42,7 +52,7 @@ public class ProgressionMode extends GameMode {
         defaultStages[2].getChallenges()[1] = thirdStageSecondChall;
         defaultStages[2].getChallenges()[2] = thirdStageThirdChall;
 
-        defaultProgress = new PlayerProgress(defaultStages);
+        ProgressionMode.defaultProgress = new PlayerProgress(defaultStages);
     }
 
     @Override
@@ -51,13 +61,11 @@ public class ProgressionMode extends GameMode {
     }
 
     public Maze createMaze(Challenge chosenChallenge) {
-        return null;
-
-
-    }
-
-    public void loadPlayer(String name) {
-
+        int width = chosenChallenge.getWidth();
+        int height = chosenChallenge.getHeight();
+        int wallPercentage = chosenChallenge.getWallPercentage();
+        // remonter plus haut pour le créer
+        return null ;
     }
 
     public Player getPlayer() {
