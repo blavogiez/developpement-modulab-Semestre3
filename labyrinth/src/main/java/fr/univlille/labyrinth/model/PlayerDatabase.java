@@ -6,7 +6,7 @@ import java.util.List;
 
 // Serialization static handler for the player (Object writing / reading)
 public class PlayerDatabase {
-    private static final String SAVE_FILE = "saves/players.dat";
+    private static final String SAVE_FILE = "res/saves/players.dat";
 
     // Create saves directory if it doesn't exist
     static {
