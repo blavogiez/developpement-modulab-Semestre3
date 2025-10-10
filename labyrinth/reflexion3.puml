@@ -88,5 +88,5 @@ GameMode <|-- ProgressionMode
 ProgressionMode --> "player 1" Player
 Stage --> "challenges 3" Challenge
 Player --> "progress 1" PlayerProgress
-PlayerProgress --> "stageProgress 3" Stage
+PlayerProgress --> "worldProgresses 3" Stage
 @enduml

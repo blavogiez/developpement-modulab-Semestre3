@@ -35,11 +35,7 @@ public abstract class GameMode {
     }
     private List<Observer> observers;
 
-    public void notifyScene(){
-        for (Observer observer : observers){
-            observer.update();
-        }
-    }
+
 
     private Direction askDirection() {
         System.out.println("Please, choose a direction");

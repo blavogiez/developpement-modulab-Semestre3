@@ -1,12 +1,10 @@
 package fr.univlille.labyrinth.model;
 
-import java.util.List;
-
 public class PlayerProgress {
-    private Stage[] stageProgress;
+    private World[] worldProgresses;
 
-    public PlayerProgress(Stage[] stageProgress) {
-        this.stageProgress=stageProgress;
+    public PlayerProgress(World[] worldProgresses) {
+        this.worldProgresses = worldProgresses;
     }
     public PlayerProgress copy() {
         return null;
@@ -18,15 +16,15 @@ public class PlayerProgress {
 
     public int getHighestStage() {
         int max=0; // the first Stage
-        for (Stage stage: stageProgress) {
-            if(stage.isCompleted()) {
-                max=stage.getNumber();
+        for (World world : worldProgresses) {
+            if(world.isCompleted()) {
+                max= world.getNumber();
             }
         }
         return max;
     }
 
-    public Stage[] getStageProgress() {
-        return stageProgress;
+    public World[] getStageProgress() {
+        return worldProgresses;
     }
 }

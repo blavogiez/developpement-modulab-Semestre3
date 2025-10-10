@@ -14,8 +14,8 @@ public class Player implements Serializable {
 
     public int calculateScore() {
         int score = 0 ;
-        for (Stage stage : progress.getStageProgress()) {
-            for (Challenge chall : stage.getChallenges()) {
+        for (World world : progress.getStageProgress()) {
+            for (Challenge chall : world.getChallenges()) {
                 score+=chall.getScoreValue();
             }
         }
