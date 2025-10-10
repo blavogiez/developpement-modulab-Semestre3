@@ -1,9 +1,6 @@
 package fr.univlille.labyrinth.tests;
 
 import fr.univlille.labyrinth.model.*;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,11 +21,6 @@ public class MazeTest {
         p3=new Position(15,15);
 
     }
-    @BeforeEach
-    public void setUp(){
-
-    }
-
     @Test
     public void testGridInitialization() {
         assertNotNull(m1.getGrid());
@@ -72,6 +64,8 @@ public class MazeTest {
     public void testPlayerAtExit() {
         m1.setPlayerPosition(m1.getExitPosition());
         assertTrue(m1.isPlayerPositionAtExit());
+        m2.setPlayerPosition(m2.getExitPosition());
+        assertTrue(m2.isPlayerPositionAtExit());
     }
 
     @Test
