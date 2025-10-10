@@ -7,9 +7,9 @@ public class Player implements Serializable {
     private int score;
     private PlayerProgress progress;
 
-    public Player(String name, PlayerProgress defaultProgress) {
+    public Player(String name) {
         this.name=name;
-        progress=defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
+        progress=ProgressionMode.defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
     }
 
     public int calculateScore() {

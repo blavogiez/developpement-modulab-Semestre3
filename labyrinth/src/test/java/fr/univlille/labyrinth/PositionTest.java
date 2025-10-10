@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.tests;
+package fr.univlille.labyrinth;
 import fr.univlille.labyrinth.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
