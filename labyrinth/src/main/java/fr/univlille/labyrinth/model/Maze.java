@@ -12,17 +12,15 @@ public class Maze {
     private Position exitPosition;
 
     public Maze(int width, int height, int wallPercentage) {
-        this.width=width*2+1;
-        this.height=height*2+1;
-        this.grid = Main.getInstance().getAlgo().createLabyrinthe(width, height, wallPercentage);
+        this.width = width * 2 + 1;
+        this.height = height * 2 + 1;
+        this.grid = Main.getAlgo().createLabyrinthe(width, height, wallPercentage);
 
-        this.playerPosition=new Position(1,1);
-        this.entryPosition=new Position(1,1);
-        this.exitPosition=new Position(width*2,height*2);
+        this.playerPosition = new Position(1, 1);
+        this.entryPosition = new Position(1, 1);
+        this.exitPosition = new Position(width * 2, height * 2);
 
     }
-
-
     public boolean isPlayerPositionAtExit() {
         return playerPosition.equals(exitPosition);
     }
