@@ -59,13 +59,25 @@ public class ProgressionMode extends GameMode {
         // Progression mode contains a player
         // The player has asked for the progression mode
         String playerName = "toto" ;
+
         // The loading | creation of the player is handled by PlayerDatabase, as always
         this.player = PlayerDatabase.loadPlayer(playerName);
 
-        // Enter into the main loop for as long as exit isn't chosen
-        // Main loop shall handle challenge choice which'll result in maze creations (No params choice in ProgressionMode)
-        // Main loop shall handle progression modifications for the player (Different loop than FreeMode)
+        // A "turn" in progression mode is : 1. Choose a challenge ; 2. Run your level ; 3. Mark challenge as done, save player
+        // "Turns" shall be called for as long as no exit is entered (Remains todo)
+        progressionTurn();
+    }
+
+    public void progressionTurn() {
+        // Controller will communicate challenge choice which'll result in maze creations (No params choice in ProgressionMode)
+        // To change later
+        Challenge chosenChallenge = new Challenge("toto",10,10,1);
+        createMaze(chosenChallenge);
+
+        // Enter into the main movement loop for as long as exit isn't chosen
         navigate();
+
+        // At the end, if completed, navigate will mark the challenge as done, and save player
     }
 
 
