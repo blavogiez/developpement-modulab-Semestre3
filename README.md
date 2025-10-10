@@ -8,6 +8,15 @@ Réalisé par :
 - **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr@univ-lille.fr)   
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 
+## Liens utiles
+
+Mme Boneva : lien main.pdf
+
+Mr Delecroix : lien suivi md
+
+Mme Everaere : lien main.pdf
+
+
 ## Présentation
 
 ...
