@@ -27,6 +27,14 @@ public class Position {
         if(newY>=0) this.y=newY;
     }
 
+    public void addX(int x){
+        this.x+=x;
+    }
+
+    public void addY(int y){
+        this.y+=y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

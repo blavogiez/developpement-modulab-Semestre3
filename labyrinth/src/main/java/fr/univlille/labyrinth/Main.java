@@ -1,8 +1,11 @@
 package fr.univlille.labyrinth;
 
+import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.Stack;
@@ -24,6 +27,12 @@ public class Main extends Application {
         return null;
     }
 
+    private GameMode gameMode;
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
     private SceneManager scenes;
 
     public void displayProgress(Player player) {
@@ -37,9 +46,25 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.algo=new AlgoLaby();
-        this.scenes = new SceneManager(stage);
+        this.scenes = new SceneManager(stage, new Scene(new Pane()));
         this.instance=this;
-        ProgressionMode.initDefaultProgress(); //i got u
+        this.gameMode=new GameMode() {
+            @Override
+            public void start() {
+                currentMaze=new Maze(11,11,10);
+                LabyrinthScene labyScene = new LabyrinthScene(currentMaze);
+                labyScene.setControler(new LabyrinthControler());
+                Main.getInstance().getScenes().push(labyScene);
+                currentMaze.add(labyScene);
+
+
+            }
+        };
+        this.gameMode.start();
+
+        stage.setTitle("Test");
+        stage.show();
+
 
     }
 

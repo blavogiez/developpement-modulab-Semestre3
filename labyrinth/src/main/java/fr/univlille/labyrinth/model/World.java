@@ -1,13 +1,11 @@
 package fr.univlille.labyrinth.model;
 
-import java.util.List;
-
-public class Stage {
+public class World {
     //Can you rename this class since it already exist in Javafx? ...
     private int number;
     private Challenge[] challenges;
 
-    public Stage(int number) {
+    public World(int number) {
         this.number=number;
         this.challenges = new Challenge[3];
     }
