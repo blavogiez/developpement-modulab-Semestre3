@@ -40,7 +40,7 @@ public class MazeTest {
         assertEquals(m1.getWidth(),m4.getWidth());
     }
     @Test
-    public void testheight(){
+    public void testHeight(){
         assertEquals(21, m1.getHeight());
         assertEquals(41, m2.getHeight());
         assertEquals(61, m3.getHeight());
