@@ -23,14 +23,16 @@ public class PlayerTest {
         assertEquals("tata", p3.getName());
     }
 
-    // test if default progress is correctly initialized
 
+    // tests if default progress is correctly initialized
     @Test
     public void testProgressNotNull() {
         assertNotNull(p1.getProgress());
         assertNotNull(p2.getProgress());
         assertNotNull(p3.getProgress());
     }
+
+    // if correctly initialized, then there are existing challenges that return a score (even 0 as none is done)
 
     @Test
     public void testGetHighestStage() {

@@ -1,0 +1,242 @@
+\documentclass{butexFR}
+
+
+\titre{Solution aux besoins}
+\UE{Analyse}
+\sujet{SAÉ 3.02 - Labyrinthe}
+\enseignant{Mme Boneva}
+\eleves{Bredelle Victor \\ Marouze Antonin \\ Harlaut Romain \\ Zheng Angèl \\ Lavogiez Baptiste}
+
+
+\begin{document}
+
+\fairepagedegarde
+\fairemarges
+\tabledematieres
+
+
+
+\section{Introduction}
+
+Le présent rapport détaille la composante \texttt{Analyse} relative au projet \textbf{SAÉ S3.02 - Labyrinthe}. Il aborde l'organisation interne de notre équipe ainsi que notre approche de modélisation des exigences du client, structurée comme suit :
+
+\begin{enumerate}
+    \item Diagrammes de cas d'utilisation
+    \item Fiches descriptives
+    \item Prototype d'interface
+    \item Diagramme de classe
+\end{enumerate}
+
+Il est entendu que chaque section est itérative.
+
+\section{Équipe et organisation du travail}
+\textbf{Groupe G3.3}
+
+\begin{itemize}
+    \item Bredelle Victor
+    \item Marouze Antonin
+    \item Harlaut Romain
+    \item Zheng Angèl
+    \item Lavogiez Baptiste
+\end{itemize}
+
+\tsec{Victor}
+
+Rédaction de trois fiches descriptives avec Baptiste :
+\begin{enumerate}
+    \item Charger profil
+    \item Afficher progression
+    \item Lancer mode progression
+\end{enumerate}
+
+\tsec{Antonin}
+
+Réalisation de la maquette \textit{Figma} avec % ⟨1: Original: "Angèl / Romain"⟩
+Angèl et Romain.
+
+\tsec{Romain}
+
+Réalisation de la fiche descriptive "Avancer d'une case", aide à la maquette \textit{Figma}.
+
+\tsec{Angèl}
+
+Réalisation de la maquette \textit{Figma} avec % ⟨2: Original: "Antonin / Romain"⟩
+Antonin et Romain.
+
+\tsec{Baptiste}
+
+Rédaction de trois fiches descriptives avec Victor :
+\begin{enumerate}
+    \item Charger profil
+    \item Afficher progression
+    \item Lancer mode progression
+\end{enumerate}
+
+Rédaction du présent rapport.
+
+\tsecnonum{Le groupe}
+
+Outre les responsabilités individuelles, nous avons collectivement débattu de la manière de modéliser chaque exigence en l'examinant sous divers angles.
+
+\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
+
+\section{Cas d'utilisation}
+
+\subsection{Diagrammes de cas d'utilisation}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/cas_dutilisation/diagrammes_de_cas_dutilisation/default/fig_1.png}
+    \caption{Cas d'utilisation identifiés}
+    \label{fig:cas_dutilisation_diagrammes_de_cas_dutilisation_1}
+\end{figure} /
+
+(Review en TP avec autres)
+
+\newpage
+
+\subsection{Fiches descriptives}
+
+\subsubsection{% ⟨3: Original: "Cas d’utilisation: Charger profil"⟩
+Cas d’utilisation : Charger profil}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} L'utilisateur est dans le menu de saisie du nom (``Lancer le mode progression'')\\
+\textbf{Garanties en cas de succès:} Le système charge le profil associé au nom et l'utilisateur reprend sa progression\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur a rentré un nom déjà existant dans la base de données lors du \textbf{Cas d'utilisation} ``Lancer le mode progression'' (suite de ce cas, ayant déjà vérifié % ⟨7: Original: "l'occurence"⟩
+l'occurrence)
+    \item Le système affiche un menu où l'utilisateur peut choisir de ``Reprendre la partie existante'' ou ``Écraser la partie existante''.
+    \item L'utilisateur sélectionne ``Reprendre la partie''
+    \item Le système charge le profil associé au nom depuis la base de données et l'utilisateur reprend sa progression
+\end{enumerate}
+\textbf{Scénario alternatifs:} /
+
+\newpage
+
+\subsubsection{% ⟨9: Original: "Cas d’utilisation: Afficher progression"⟩
+Cas d’utilisation : Afficher progression}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} % ⟨12: Original: "Avoir un profil, être dans le mode progression"⟩
+L'utilisateur possède un profil et se trouve en mode progression.\\
+\textbf{Garanties en cas de succès:} Le système affiche la progression associée au joueur (score, caractéristiques...)\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur sélectionne la fonctionnalité ``accéder au menu du mode progression''
+    \item Le système récupère les données du joueur dans la base et % ⟨14: Original: "calcule le score et caractéristiques"⟩
+calcule le score et les caractéristiques du joueur afin d'afficher la progression
+\end{enumerate}
+\textbf{Scénario alternatifs:} /
+
+\newpage
+
+\subsubsection{% ⟨16: Original: "Cas d’utilisation: Lancer mode progression"⟩
+Cas d’utilisation : Lancer mode progression}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} % ⟨19: Original: "/ (avoir lancé le jeu)"⟩
+Le jeu a été lancé.\\
+\textbf{Garanties en cas de succès:} L'utilisateur % ⟨20: Original: "arrive sur le mode progression"⟩
+accède au mode progression\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur sélectionne la fonctionnalité ``Lancer mode progression''.
+    \item Le système affiche un menu où l'utilisateur peut % ⟨22: Original: "rentrer son nom"⟩
+saisir son nom
+    \item L'utilisateur % ⟨23: Original: "rentre son nom"⟩
+saisit son nom
+    \item Le système vérifie que le nom est valide, sauvegarde son profil dans la base de données et lance le mode progression
+\end{enumerate}
+\textbf{Scénario alternatifs:}
+
+\emph{A: Le système détecte une erreur lors de la vérification}\\
+\hspace*{1em}4(A): Le système affiche une notification % ⟨24: Original: "(de quelles mauvaises informations il s'agit)"⟩
+(précisant la nature de l'erreur), puis revient en étape 2 du scénario principal
+
+\emph{B: Le système détecte une occurence du nom dans la base de données (charger partie)}\\
+\hspace*{1em}4(B): Le système démarre le \textbf{Cas d'utilisation} ``Charger profil''
+
+\newpage
+
+\subsubsection{% ⟨26: Original: "Cas d’utilisation: Déplacer joueur"⟩
+Cas d’utilisation : Déplacer joueur}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} /\\
+\textbf{Autres acteurs:} /\\[0.25em]
+\textbf{Préconditions:} % ⟨29: Original: "Être dans le labyrinthe"⟩
+Le joueur se trouve dans le labyrinthe.\\
+\textbf{Garanties en cas de succès:} Le système % ⟨30: Original: "a déplacé le joueur"⟩
+déplace le joueur à la case souhaitée\\
+\textbf{Garanties minimales:} /\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item Le joueur appuie sur une flèche directionnelle
+    \item Le système vérifie que la direction est accessible et déplace le joueur sur la case associée
+\end{enumerate}
+\textbf{Scénario alternatifs:}
+
+\emph{A: Le joueur % ⟨32: Original: "arrive sur la sortie"⟩
+atteint la sortie}\\
+\hspace*{1em}2(A): Le système affiche une notification annonçant que la sortie a été atteinte et redirige vers le menu principal.
+
+\emph{B: Le joueur veut se déplacer dans une case inaccessible}\\
+\hspace*{1em}2(B): Le système affiche la position actuelle % ⟨33: Original: "et pas la nouvelle position"⟩
+et non la nouvelle position et revient en étape 1 du scénario principal
+
+\newpage
+
+\subsection{Prototypes d'interface}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/cas_dutilisation/prototypes_dinterface/default/fig_1.png}
+    \caption{Prototype principal}
+    \label{fig:cas_dutilisation_prototypes_dinterface_1}
+\end{figure}
+
+% ⟨34: Original: "Faire photos successives ?"⟩
+Il serait pertinent d'ajouter des photos successives pour illustrer les étapes.
+
+L'interface est pensée pour être simple, intuitive, et sans % ⟨35: Original: "ambiguité"⟩
+ambiguïté. La priorité demeure, comme toujours, le \textbf{strict respect des attentes du client}.
+
+Ces prototypes ont été élaborés préalablement à la rédaction des fiches descriptives, dans le but de garantir une modélisation adéquate de la séquence, conformément à la méthodologie enseignée dans le cadre du cours d'\texttt{Analyse}.
+
+\section{Diagramme de classe}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/diagramme_de_classe/default/default/fig_1.png}
+    \caption{Diagramme de classe identifié}
+    \label{fig:diagramme_de_classe_default_1}
+\end{figure}
+
+Le diagramme de classe a été généré à l'aide de \textit{PlantUML} dans un format textuel, assurant ainsi une portabilité et une facilité de modification accrues, quelle que soit la localisation.
+
+La conception de ce diagramme a nécessité un investissement conséquent, considérant que, par nature, un diagramme de classe requiert une \textbf{réflexion soutenue et l'intégration de multiples perspectives}. 
+
+Des retours ont été sollicités auprès des professeurs spécialisés en analyse, ainsi qu'auprès de ceux enseignant la qualité de développement.
+
+\newpage
+
+Par conséquent, nous estimons avoir abouti à une solution hautement optimisée, caractérisée par l'absence de redondance et le respect du \textbf{principe de responsabilité unique} pour chaque classe. 
+
+\merci
+
+\end{document}
+
+
+
+
