@@ -1,9 +1,7 @@
 package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.model.*;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

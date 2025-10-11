@@ -1,8 +1,9 @@
 package fr.univlille.labyrinth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PlayerProgress {
+public class PlayerProgress implements Serializable {
     private Stage[] stageProgress;
 
     public PlayerProgress(Stage[] stageProgress) {
