@@ -1,8 +1,9 @@
 package fr.univlille.labyrinth.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Stage {
+public class Stage implements Serializable {
     //Can you rename this class since it already exist in Javafx? ...
     private int number;
     private Challenge[] challenges;

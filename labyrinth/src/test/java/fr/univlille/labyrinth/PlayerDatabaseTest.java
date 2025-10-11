@@ -25,7 +25,7 @@ public class PlayerDatabaseTest {
 
     @BeforeEach
     public void setUp() {
-        // Nettoyage de la base de données avant chaque test si nécessaire
+        // cleaning database before every test
         PlayerDatabase.clear();
     }
 
@@ -89,7 +89,6 @@ public class PlayerDatabaseTest {
 
         assertNotNull(loadedPlayer);
         assertEquals(player1.getName(), loadedPlayer.getName());
-        // Ajouter d'autres assertions selon les propriétés de Player
         // assertEquals(player1.getScore(), loadedPlayer.getScore());
         // assertEquals(player1.getLevel(), loadedPlayer.getLevel());
     }

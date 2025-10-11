@@ -1,6 +1,8 @@
 package fr.univlille.labyrinth.model;
 
-public class Challenge {
+import java.io.Serializable;
+
+public class Challenge implements Serializable {
     private String difficulty;
     private int width;
     private int height;
