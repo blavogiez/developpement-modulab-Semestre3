@@ -100,7 +100,7 @@ Outre les responsabilités individuelles, nous avons collectivement débattu de 
 
 Le diagramme présenté ci-dessus modélise l'ensemble des interactions fonctionnelles du système Labyrinthe. Il identifie \textbf{sept cas d'utilisation principaux} répartis entre deux acteurs : l'Utilisateur et le Système.
 
-\tsecnonum{Acteurs identifiés}
+\subsection{Acteurs identifiés}
 
 \begin{itemize}
     \item \textbf{Utilisateur} : acteur principal, représente le joueur interagissant avec l'application (lancement du jeu, déplacement dans le labyrinthe, consultation de la progression)
@@ -109,7 +109,7 @@ Le diagramme présenté ci-dessus modélise l'ensemble des interactions fonction
 
 La présence d'un acteur "Système" se justifie dans notre contexte par la nécessité de modéliser explicitement les opérations de persistance automatique. Cette modélisation permet de distinguer clairement les actions intentionnelles de l'utilisateur des mécanismes de sauvegarde implicites déclenchés par le système après chaque action significative (complétion d'un niveau, modification du profil).
 
-\tsecnonum{Cas d'utilisation}
+\subsection{Cas d'utilisation}
 
 Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue le cœur fonctionnel de l'application :
 
@@ -123,7 +123,9 @@ Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue l
     \item \textbf{Sauvegarder la progression} : persistance automatique de l'état du joueur (acteur Système)
 \end{enumerate}
 
-\tsecnonum{Clarifications}
+\subsection{Clarifications}
+
+à rephrase
 
 \begin{itemize}
     \item Distinction nette entre "Charger une partie" pour un profil existant et "Lancer en mode progression" pour une nouvelle partie.
@@ -287,77 +289,99 @@ Le diagramme de classe a été généré à l'aide de \textit{PlantUML} dans un 
 
 La conception de ce diagramme a nécessité un investissement conséquent, considérant que, par nature, un diagramme de classe requiert une \textbf{réflexion soutenue et l'intégration de multiples perspectives}.
 
-Des retours ont été sollicités auprès des professeurs spécialisés en analyse, ainsi qu'auprès de ceux enseignant la qualité de développement.
+L'approche collaborative adoptée par l'équipe a permis d'aboutir à une solution cohérente et robuste.
 
-\tsecnonum{Structure générale}
+Des retours ont été sollicités auprès des professeurs spécialisés en analyse, ainsi qu'auprès de ceux enseignant la qualité de développement, garantissant la conformité de notre modélisation aux standards académiques.
+
+\subsection{Structure générale}
 
 L'architecture se décompose en trois niveaux conceptuels :
 
 \begin{enumerate}
-    \item \textbf{Niveau contrôleur} : \texttt{Main} orchestre le flux général (lancement du jeu, sélection du mode, interaction avec la base de données)
-    \item \textbf{Niveau logique métier} : \texttt{GameMode}, \texttt{Maze}, \texttt{Player}, \texttt{PlayerProgress}, \texttt{Level}, \texttt{Challenge} encapsulent les règles métier et l'état de la partie
-    \item \textbf{Niveau persistance} : \texttt{PlayerDatabase} isole les opérations de sauvegarde et de chargement
+
+\item \textbf{Niveau contrôleur} : \texttt{Main} orchestre le flux général (lancement du jeu, sélection du mode, interaction avec la base de données)
+\item \textbf{Niveau logique métier} : \texttt{GameMode}, \texttt{Maze}, \texttt{Player}, \texttt{PlayerProgress}, \texttt{Level}, \texttt{Challenge} encapsulent les règles métier et l'état de la partie
+\item \textbf{Niveau persistance} : \texttt{PlayerDatabase} isole les opérations de sauvegarde et de chargement
 \end{enumerate}
 
-Cette séparation garantit une maintenance facilitée et une testabilité accrue : chaque niveau peut être testé indépendamment.
+Cette séparation en couches garantit une maintenance facilitée et une testabilité accrue : chaque niveau peut être testé indépendamment, réduisant ainsi les risques d'anomalies et facilitant l'évolution future du système.
 
-\tsecnonum{Conformité avec la méthode vue en cours}
+\subsection{Conformité avec la méthode vue en cours}
 
 La méthodologie vue en \texttt{Analyse} préconise l'ordre suivant :
 
 \begin{enumerate}
-    \item Une classe \texttt{Main} est créée
-    \item Elle comporte une fonction par cas d'utilisation
-    \item Pour chaque cas d'utilisation, on enrichit le diagramme de façon à la supporter
+\item Une classe \texttt{Main} est créée
+\item Elle comporte une fonction par cas d'utilisation
+\item Pour chaque cas d'utilisation, on enrichit le diagramme de façon à la supporter
 \end{enumerate}
 
-PARTIE A REPHRASE
+Notre conception respecte cette méthodologie tout en l'adaptant aux spécificités du projet. 
 
-Afin de s'assurer que cette méthodologie est respectée dans le diagramme (tous les cas d'utilisation couverts par le \texttt{Main}), nous reprenons donc un tableau de correspondance  :
+\subsection{Correspondance avec les cas d'utilisation}
+
+Afin de démontrer que l'ensemble des cas d'utilisation sont effectivement couverts par la classe \texttt{Main}, nous établissons la correspondance suivante :
 
 \vspace{1em}
 \begin{center}
 \begin{tabular}{p{5cm}p{8cm}}
 \textbf{Fonctions du \texttt{Main}} & \textbf{Cas d'utilisation correspondants} \\
-\texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie (englobe donc Charger une partie et Jouer)\\
+\texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie (englobe donc Jouer)\\
 \texttt{movePlayerPosition(game: GameMode, direction: String)} & Se déplacer dans le labyrinthe \\
 \texttt{displayProgress(player: Player)} & Afficher progression \\
-\texttt{savePlayer(player: Player)}  & Sauvegarder progression \\
-\texttt{loadPlayer(name: String): Player}
+\texttt{savePlayer(player: Player)}  & Sauvegarder progression (donc le joueur car contenue dans le joueur)\\
+\texttt{loadPlayer(name: String): Player} & Charger profil \\
 \end{tabular}
 \end{center}
 \vspace{1em}
 
-Si nous avions strictement une fonction par cas d'utilisation dans le \texttt{Main}, plusieurs fonctions deviendraient superflues ou redondantes (Jouer, commencer une partie), compte tenu de la structure actuelle de nos classes.
+Cette approche évite la création de fonctions redondantes qui résulteraient d'une correspondance stricte entre chaque cas d'utilisation et chaque méthode. En effet, plusieurs cas d'utilisation partagent une logique commune et bénéficient d'un regroupement fonctionnel.
 
-\tsecnonum{Compromis avec le besoin client}
+\subsection{Équilibre entre méthodologie et besoin client}
 
-Ces correspondances permettent d'avoir une conformité maximale entre les demandes de la méthode d'\texttt{Analyse} et du sujet donné (besoin client). En effet, nous devons être conformes aux deux demandes, et si nous étions conformes à 100\% à une demande, nous ne pourrions plus être aussi conformes à l'autre. Nous sommes donc ici conformes aux deux demandes combinées. 
+Notre modélisation représente un équilibre optimal entre le respect de la méthodologie d'\texttt{Analyse} et la satisfaction des exigences fonctionnelles exprimées dans le sujet.
 
-Les cas d'utilisation identifiés en cours sont donc redondants, car "Jouer", "Commencer une partie", ou "Lancer mode progression" peuvent être englobés par la même fonction : \texttt{startGame(): GameMode}, le type abstrait GameMode permettant la distinction.
+En effet, une application strictement littérale de la méthodologie (une fonction par cas d'utilisation) aurait généré des fonctions superflues ou redondantes, notamment pour "Jouer" et "Commencer une partie", compte tenu de la structure actuelle de nos classes. 
 
-\tsecnonum{Clarifications}
+À l'inverse, ignorer complètement la méthodologie aurait compromis la cohérence pédagogique du projet.
 
-La fonction \texttt{startGame()}, comme vu dans le tableau, englobe plusieurs cas d'utilisation. Ce choix nécessite une explication :
+Notre solution concilie ces deux impératifs : les cas d'utilisation présentant un recouvrement fonctionnel ("Jouer", "Commencer une partie", "Lancer mode progression") sont unifiés au sein de la méthode \texttt{startGame(): GameMode}. 
 
-Elle retourne un GameMode, qui peut aussi bien être le mode libre que le mode progression (Type abstrait hérité). Cette fonction a pour but d'être appelée dans le menu de départ. Ce type abstrait permet un traitement commun aux deux classes (par exemple, \texttt{movePlayerPosition}, afin d'éviter les redondances de code).
+L'utilisation d'un type abstrait \texttt{GameMode} et du polymorphisme permet de préserver la distinction nécessaire entre les différents modes de jeu tout en mutualisant le code commun.
+
+\subsection{Clarifications}
+
+La fonction \texttt{startGame()}, comme indiqué dans le tableau précédent, supporte plusieurs cas d'utilisation. Ce choix de conception mérite une explication détaillée :
+
+Cette méthode retourne un \texttt{GameMode}, qui peut aussi bien être le mode libre que le mode progression (type abstrait hérité). Elle est conçue pour être appelée depuis le menu de départ. 
+
+Ce type abstrait permet un traitement unifié des deux modes de jeu pour les opérations communes (par exemple, \texttt{movePlayerPosition}), évitant ainsi les duplications de code.
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/diagramme_de_classe/default/default/fig_2.png}
-    \caption{startGame() dans le Menu}
-    \label{fig:diagramme_de_classe_default_2}
+\centering
+\includegraphics[width=0.8\textwidth]{figures/diagramme_de_classe/default/default/fig_2.png}
+\caption{startGame() dans le Menu}
+\label{fig:diagramme_de_classe_default_2}
 \end{figure}
 
+Elle sert donc à démarrer une partie, quel que soit le mode choisi, et couvre naturellement le cas d'utilisation "Lancer mode progression".
 
-Elle sert donc à Commencer une partie (mode quelconque), donc aussi Lancer mode progression (un mode).
+Dans le cas d'un lancement en mode progression, le joueur est dirigé vers une interface de saisie du nom. Une fois le nom validé, la fonction
 
-Dans le cas d'un Lancer mode progression, le joueur est emmené sur une page où il peut rentrer son nom. Une fois qu'il valide son nom, la fonction \texttt{loadPlayer(name: String): Player} est appelée afin de :
-
+\texttt{loadPlayer(name: String): Player} est invoquée afin de :
 \begin{itemize}
-    \item Charger le profil si un joueur avec ce nom existe, donc charger sa partie
-    \item Créer un nouveau profil si aucun joueur avec ce nom n'existe
+\item Charger le profil existant si un joueur avec ce nom est enregistré dans la base de données, permettant ainsi de reprendre la progression sauvegardée
+\item Créer un nouveau profil si aucun joueur avec ce nom n'existe, assurant une expérience fluide pour les nouveaux joueurs
 \end{itemize}
 
+Cette conception garantit une gestion cohérente et efficace du cycle de vie des profils joueurs.
+
+\section{Conclusion}
+
+conclusion à faire ?
+
+\merci 
+
 \end{document}
+
 
