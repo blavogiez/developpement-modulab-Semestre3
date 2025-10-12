@@ -8,10 +8,10 @@ rectangle Labyrinthe #lightyellow {
   usecase "Jouer" as UC1
   usecase "Commencer une partie" as UC2
   usecase "Se déplacer\ndans le labyrinthe" as UC3
-  usecase "Afficher la progression" as UC4
-  usecase "Sauvegarder la progression" as UC5
-  usecase "Charger une partie" as UC6
-  usecase "Lancer en mode progression" as UC7
+  usecase "Afficher progression" as UC4
+  usecase "Sauvegarder progression" as UC5
+  usecase "Charger profil" as UC6
+  usecase "Lancer mode progression" as UC7
 }
 
 ' Relations principales (acteur -> cas d'utilisation)
