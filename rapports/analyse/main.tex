@@ -278,9 +278,9 @@ Cette traçabilité garantit que l'ensemble des fonctionnalités modélisées di
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth]{figures/diagramme_de_classe/default/default/fig_1.png}
+    \includegraphics[width=0.8\textwidth]{figures/diagramme_de_classe/default/default/fig_3.png}
     \caption{Diagramme de classe identifié}
-    \label{fig:diagramme_de_classe_default_1}
+    \label{fig:diagramme_de_classe_default_3}
 \end{figure}
 
 Le diagramme de classe a été généré à l'aide de \textit{PlantUML} dans un format textuel, assurant ainsi une portabilité et une facilité de modification accrues.
@@ -323,6 +323,7 @@ Afin de s'assurer que cette méthodologie est respectée dans le diagramme (tous
 \texttt{movePlayerPosition(game: GameMode, direction: String)} & Se déplacer dans le labyrinthe \\
 \texttt{displayProgress(player: Player)} & Afficher progression \\
 \texttt{savePlayer(player: Player)}  & Sauvegarder progression \\
+\texttt{loadPlayer(name: String): Player}
 \end{tabular}
 \end{center}
 \vspace{1em}
@@ -333,13 +334,13 @@ Si nous avions strictement une fonction par cas d'utilisation dans le \texttt{Ma
 
 Ces correspondances permettent d'avoir une conformité maximale entre les demandes de la méthode d'\texttt{Analyse} et du sujet donné (besoin client). En effet, nous devons être conformes aux deux demandes, et si nous étions conformes à 100\% à une demande, nous ne pourrions plus être aussi conformes à l'autre. Nous sommes donc ici conformes aux deux demandes combinées. 
 
-Avoir une méthode par cas d'utilisation dans le Main serait appréciable mais donnerait lieu à des incohérences :
+Les cas d'utilisation identifiés en cours sont donc redondants, car "Jouer", "Commencer une partie", ou "Lancer mode progression" peuvent être englobés par la même fonction : \texttt{startGame(): GameMode}, le type abstrait GameMode permettant la distinction.
 
 \tsecnonum{Clarifications}
 
 La fonction \texttt{startGame()}, comme vu dans le tableau, englobe plusieurs cas d'utilisation. Ce choix nécessite une explication :
 
-Elle retourne un GameMode, qui peut aussi bien être le mode libre que le mode progression. Cette fonction a pour but d'être appelée dans le menu de départ.
+Elle retourne un GameMode, qui peut aussi bien être le mode libre que le mode progression (Type abstrait hérité). Cette fonction a pour but d'être appelée dans le menu de départ. Ce type abstrait permet un traitement commun aux deux classes (par exemple, \texttt{movePlayerPosition}, afin d'éviter les redondances de code).
 
 \begin{figure}[h!]
     \centering
@@ -351,8 +352,12 @@ Elle retourne un GameMode, qui peut aussi bien être le mode libre que le mode p
 
 Elle sert donc à Commencer une partie (mode quelconque), donc aussi Lancer mode progression (un mode).
 
-Dans le cas d'une 
+Dans le cas d'un Lancer mode progression, le joueur est emmené sur une page où il peut rentrer son nom. Une fois qu'il valide son nom, la fonction \texttt{loadPlayer(name: String): Player} est appelée afin de :
 
+\begin{itemize}
+    \item Charger le profil si un joueur avec ce nom existe, donc charger sa partie
+    \item Créer un nouveau profil si aucun joueur avec ce nom n'existe
+\end{itemize}
 
 \end{document}
 

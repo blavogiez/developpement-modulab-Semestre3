@@ -4,66 +4,66 @@ skinparam shadowing true
 skinparam classAttributeIconSize 0
 
 class Maze {
-  - width: int
-  - height: int
-  - grid: boolean[][]
-  - playerPosition: Position
-  - entryPosition: Position
-  - exitPosition: Position
-  + Maze(width: int, height: int, wallPercentage: int)
-  + isPlayerPositionAtExit(): boolean
+  width: int
+  height: int
+  grid: boolean[][]
+  playerPosition: Position
+  entryPosition: Position
+  exitPosition: Position
+  Maze(width: int, height: int, wallPercentage: int)
+  isPlayerPositionAtExit(): boolean
 }
 
 class Player {
-  - name: String
-  - score: int
-  + Player(name: String, defaultProgress: PlayerProgress)
-  + calculateScore(): int
-  + getHighestStage(): int
+  name: String
+  score: int
+  Player(name: String, defaultProgress: PlayerProgress)
+  calculateScore(): int
+  getHighestLevel(): int
 }
 
 class PlayerProgress {
-  + copy(): PlayerProgress
-  + markChallengeCompleted(challenge: Challenge)
+  copy(): PlayerProgress
+  markChallengeCompleted(challenge: Challenge)
 }
 
 class Position {
-  - x: int
-  - y: int
-  + Position(x: int, y: int)
+  x: int
+  y: int
+  Position(x: int, y: int)
 }
 
 abstract class GameMode {
-  + start()
-  + createMaze(width: int, height: int, wallPercentage: int): Maze
-  + movePlayerPosition(direction: String)
-  + isPlayerPositionAtExit(): boolean
+  start()
+  createMaze(width: int, height: int, wallPercentage: int): Maze
+  movePlayerPosition(direction: String)
+  isPlayerPositionAtExit(): boolean
 }
 
 class FreeMode {
-  + start() {overrides start}
+  start() {overrides start}
 }
 
 class ProgressionMode {
-  + start() {overrides start}
-  + createMaze(chosenChallenge: Challenge): Maze
-  + loadPlayer(name: String)
+  start() {overrides start}
+  createMaze(chosenChallenge: Challenge): Maze
+  loadPlayer(name: String)
   {static} defaultProgress: PlayerProgress
 }
 
-class Stage {
+class Level {
   - number: int
-  + Stage(number: int)
+  + Level(number: int)
 }
 
 class Challenge {
-  - difficulty: String
-  - width: int
-  - height: int
-  - wallPercentage: int
-  - completed : boolean
-  + Challenge(difficulty: String)
-  + validate()
+  difficulty: String
+  width: int
+  height: int
+  wallPercentage: int
+  completed : boolean
+  Challenge(difficulty: String)
+  validate()
 }
 
 class Main {
@@ -71,14 +71,15 @@ class Main {
   {static} movePlayerPosition(game: GameMode, direction: String)
   {static} displayProgress(player: Player)
   {static} savePlayer(player: Player)
+  {static} loadPlayer(player: player)
  
   'displayProgress(player: Player)'
 }
 
 class PlayerDatabase {
-  {static} + savePlayer(player: Player)
-  {static} + loadPlayer(name: String): Player
-  {static} + playerExists(name: String): boolean
+  {static} savePlayer(player: Player)
+  {static} loadPlayer(name: String): Player
+  {static} playerExists(name: String): boolean
 }
 
 Maze --> "playerPosition 1" Position
@@ -86,7 +87,7 @@ GameMode --> "currentMaze 1" Maze
 GameMode <|-- FreeMode
 GameMode <|-- ProgressionMode
 ProgressionMode --> "player 1" Player
-Stage --> "challenges 3" Challenge
+Level --> "challenges 3" Challenge
 Player --> "progress 1" PlayerProgress
-PlayerProgress --> "stageProgress 3" Stage
+PlayerProgress --> "levelProgress 3" Level
 @enduml
