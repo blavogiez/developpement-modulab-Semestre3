@@ -87,7 +87,7 @@ Outre les responsabilités individuelles, nous avons collectivement débattu de 
 
 \section{Cas d'utilisation}
 
-\subsection{Diagramme de cas d'utilisation}
+\subsection{Diagrammes de cas d'utilisation}
 
 \begin{figure}[h!]
     \centering
@@ -96,13 +96,11 @@ Outre les responsabilités individuelles, nous avons collectivement débattu de 
     \label{fig:cas_dutilisation_diagrammes_de_cas_dutilisation_1}
 \end{figure}
 
-\subsection{Analyse du diagramme de cas d'utilisation}
-
-Retirer cas jouer ?
+\subsubsection{Analyse du diagramme de cas d'utilisation}
 
 Le diagramme présenté ci-dessus modélise l'ensemble des interactions fonctionnelles du système Labyrinthe. Il identifie \textbf{sept cas d'utilisation principaux} répartis entre deux acteurs : l'Utilisateur et le Système.
 
-\subsubsection{Acteurs identifiés}
+\subsection{Acteurs identifiés}
 
 \begin{itemize}
     \item \textbf{Utilisateur} : acteur principal, représente le joueur interagissant avec l'application (lancement du jeu, déplacement dans le labyrinthe, consultation de la progression)
@@ -111,7 +109,7 @@ Le diagramme présenté ci-dessus modélise l'ensemble des interactions fonction
 
 La présence d'un acteur "Système" se justifie dans notre contexte par la nécessité de modéliser explicitement les opérations de persistance automatique. Cette modélisation permet de distinguer clairement les actions intentionnelles de l'utilisateur des mécanismes de sauvegarde implicites déclenchés par le système après chaque action significative (complétion d'un niveau, modification du profil).
 
-\subsubsection{Description des cas d'utilisation}
+\subsection{Cas d'utilisation}
 
 Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue le cœur fonctionnel de l'application :
 
@@ -125,19 +123,20 @@ Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue l
     \item \textbf{Sauvegarder la progression} : persistance automatique de l'état du joueur (acteur Système)
 \end{enumerate}
 
-\subsubsection{Clarifications}
+\subsection{Clarifications}
 
-Afin de respecter une stricte conformité aux besoins client du sujet, le diagramme de cas d'utilisation reflète les choix de modélisation suivants :
+Le diagramme de cas d'utilisation reflète les choix de modélisation suivants :
 
 \begin{itemize}
-    \item \textbf{Distinction entre "Charger une partie" et "Lancer en mode progression"} : Le premier cas concerne exclusivement la reprise d'un profil existant avec sa progression sauvegardée. Le second englobe l'initialisation du mode progression (saisie du nom, vérification d'existence, création ou chargement du profil). "Charger une partie" dépend donc de "Lancer en mode progression".
+    \item \textbf{Distinction entre "Charger une partie" et "Lancer en mode progression"} : Le premier cas concerne exclusivement la reprise d'un profil existant avec sa progression sauvegardée. Le second englobe l'initialisation du mode progression (saisie du nom, vérification d'existence, création ou chargement du profil).
 
     \item \textbf{Attribution de la sauvegarde au "Système"} : Conformément aux standards UML, les opérations automatiques de persistance sont modélisées par un acteur secondaire. Cette distinction clarifie que la sauvegarde intervient sans action explicite de l'utilisateur après chaque complétion de défi ou modification significative de l'état du joueur.
 
-    \item \textbf{Hiérarchie "Jouer", "Commencer une partie" et "Se déplacer dans le labyrinthe"} : Le cas d'utilisation "Jouer" représente l'action de démarrer le jeu. "Commencer une partie" spécifie le démarrage effectif d'un défi après sélection dans l'interface de progression. "Se déplacer dans le labyrinthe" détaille l'action atomique de déplacement case par case, qui est l'interaction principale durant une partie en cours.
+    \item \textbf{Hiérarchie "Jouer", "Commencer une partie" et "Se déplacer dans le labyrinthe"} : Le cas d'utilisation "Jouer" représente l'action globale d'interaction avec le jeu (démarrage, déplacement, consultation). "Commencer une partie" spécifie le démarrage effectif d'un défi après sélection dans l'interface de progression. "Se déplacer dans le labyrinthe" détaille l'action atomique de déplacement case par case, qui est l'interaction principale durant une partie en cours.
 
-    \item \textbf{Mode libre} : Bien que non représenté dans ce diagramme centré sur le mode progression, le mode libre constitue un parcours alternatif du système. Il suit un flux simplifié sans authentification ni persistance : l'utilisateur sélectionne le mode libre, paramètre les caractéristiques du labyrinthe (largeur, hauteur, pourcentage de murs), puis lance directement une partie sur un labyrinthe généré aléatoirement. L'absence de sauvegarde distingue fondamentalement ce mode du mode progression.
+    \item \textbf{Mode libre} : Bien que non représenté dans ce diagramme centré sur le mode progression, le mode libre suit un flux simplifié : sélection du mode, paramétrage (taille, pourcentage de murs), génération du labyrinthe, et jeu sans sauvegarde de progression.
 \end{itemize}
+
 \newpage
 
 \subsection{Fiches descriptives}
@@ -244,6 +243,28 @@ Conformément à la méthodologie dispensée en cours, la présente fiche détai
     \label{fig:cas_dutilisation_prototypes_dinterface_2}
 \end{figure}
 
+
+\subsubsection{Clarifications}
+
+Les boutons "Retour" et "Quitter" ont une flèche d'arborescence prévisible qui n'est pas mentionnée afin de ne pas surcharger le prototype d'interface.
+
+La fenêtre de progression est bien entendu liée au profil chargé ; que l'on reprenne une partie ou que l'on en crée une nouvelle, la page de progression sera adaptée aux données de progression du joueur (monde, défis complétés...).
+
+La fenêtre de progression comporte un élément spécifique : les informations du défi survolé (\textit{hover}). Ce choix a été fait afin que le prototype comporte la visualisation de la progression ainsi que le choix du défi dans la même page ; deux pages différentes nécessiteraient plus d'arborescence (notamment un bouton visualiser progression...) résultant en moins de fluidité pour l'utilisateur. Lorsque l'on clique sur le défi, nous sommes donc emmenés sur le labyrinthe correspondant au niveau (généré avec les caractéristiques de taille et de pourcentage du défi, conformément au sujet).
+
+La voici en meilleure résolution :
+
+\smallskip
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/cas_dutilisation/prototypes_dinterface/clarifications/fig_1.png}
+    \caption{Page de progression avec survol d'un niveau}
+    \label{fig:cas_dutilisation_prototypes_dinterface_1}
+\end{figure}
+
+Enfin, une fois la sortie d'un labyrinthe de mode progression atteinte, les données sont sauvegardées et la page de progression est donc mise à jour en conséquence.
+
 \subsubsection{Vue d'ensemble et parcours utilisateur}
 
 Le prototype présenté ci-dessus illustre le flux complet de navigation dans l'application pour les deux modes de jeu implémentés. Il matérialise visuellement les cas d'utilisation précédemment décrits et garantit une cohérence entre la modélisation fonctionnelle et l'expérience utilisateur finale.
@@ -302,27 +323,6 @@ Sauvegarder progression & Automatique après sortie (mise à jour de la sélecti
 
 Cette traçabilité garantit que l'ensemble des fonctionnalités modélisées du mode progression dispose d'une représentation visuelle concrète, et inversement, qu'aucun élément de l'interface n'est superflu par rapport aux exigences fonctionnelles.
 
-\subsubsection{Clarifications}
-
-Les boutons "Retour" et "Quitter" ont une flèche d'arborescence prévisible qui n'est pas mentionnée afin de ne pas surcharger le prototype d'interface.
-
-La fenêtre de progression est bien entendu liée au profil chargé ; que l'on reprenne une partie ou que l'on en crée une nouvelle, la page de progression sera adaptée aux données de progression du joueur (monde, défis complétés...).
-
-La fenêtre de progression comporte un élément spécifique : les informations du défi survolé (\textit{hover}). Ce choix a été fait afin que le prototype comporte la visualisation de la progression ainsi que le choix du défi dans la même page ; deux pages différentes nécessiteraient plus d'arborescence (notamment un bouton visualiser progression...) résultant en moins de fluidité pour l'utilisateur. Lorsque l'on clique sur le défi, nous sommes donc emmenés sur le labyrinthe correspondant au niveau (généré avec les caractéristiques de taille et de pourcentage du défi, conformément au sujet).
-
-La voici en meilleure résolution :
-
-\smallskip
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/cas_dutilisation/prototypes_dinterface/clarifications/fig_1.png}
-    \caption{Page de progression avec survol d'un niveau}
-    \label{fig:cas_dutilisation_prototypes_dinterface_1}
-\end{figure}
-
-Enfin, une fois la sortie d'un labyrinthe de mode progression atteinte, les données sont sauvegardées et la page de progression est donc mise à jour en conséquence.
-
 \newpage
 
 \section{Diagramme de classe}
@@ -365,7 +365,7 @@ La méthodologie vue en \texttt{Analyse} préconise l'ordre suivant :
 \item Pour chaque cas d'utilisation, on enrichit le diagramme de façon à la supporter
 \end{enumerate}
 
-Notre conception respecte cette méthodologie tout en l'adaptant aux spécificités du projet. 
+Notre conception respecte cette méthodologie tout en l'adaptant aux spécificités du projet.
 
 \subsection{Correspondance avec les cas d'utilisation}
 
@@ -377,7 +377,7 @@ Afin de démontrer que l'ensemble des cas d'utilisation sont effectivement couve
 \hline
 \textbf{Fonctions du \texttt{Main}} & \textbf{Cas d'utilisation correspondants} \\
 \hline
-\texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie\\
+\texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie (englobe donc Jouer)\\
 \hline
 \texttt{movePlayerPosition(game: GameMode, direction: String)} & Se déplacer dans le labyrinthe \\
 \hline
@@ -397,11 +397,11 @@ Cette approche évite la création de fonctions redondantes qui résulteraient d
 
 Notre modélisation représente un équilibre optimal entre le respect de la méthodologie d'\texttt{Analyse} et la satisfaction des exigences fonctionnelles exprimées dans le sujet.
 
-En effet, une application strictement littérale de la méthodologie (une fonction par cas d'utilisation) aurait généré des fonctions superflues ou redondantes, notamment pour "Lancer mode progression" et "Commencer une partie", compte tenu de la structure actuelle de nos classes. 
+En effet, une application strictement littérale de la méthodologie (une fonction par cas d'utilisation) aurait généré des fonctions superflues ou redondantes, notamment pour "Jouer" et "Commencer une partie", compte tenu de la structure actuelle de nos classes.
 
 À l'inverse, ignorer complètement la méthodologie aurait compromis la cohérence pédagogique du projet.
 
-Notre solution concilie ces deux impératifs : les cas d'utilisation présentant un recouvrement fonctionnel ("Jouer", "Commencer une partie", "Lancer mode progression") sont unifiés au sein de la méthode \texttt{startGame(): GameMode}. 
+Notre solution concilie ces deux impératifs : les cas d'utilisation présentant un recouvrement fonctionnel ("Jouer", "Commencer une partie", "Lancer mode progression") sont unifiés au sein de la méthode \texttt{startGame(): GameMode}.
 
 L'utilisation d'un type abstrait \texttt{GameMode} et du polymorphisme permet de préserver la distinction nécessaire entre les différents modes de jeu tout en mutualisant le code commun.
 
@@ -409,7 +409,7 @@ L'utilisation d'un type abstrait \texttt{GameMode} et du polymorphisme permet de
 
 La fonction \texttt{startGame()}, comme indiqué dans le tableau précédent, supporte plusieurs cas d'utilisation. Ce choix de conception mérite une explication détaillée :
 
-Cette méthode retourne un \texttt{GameMode}, qui peut aussi bien être le mode libre que le mode progression (type abstrait hérité). Elle est conçue pour être appelée depuis le menu de départ. 
+Cette méthode retourne un \texttt{GameMode}, qui peut aussi bien être le mode libre que le mode progression (type abstrait hérité). Elle est conçue pour être appelée depuis le menu de départ.
 
 Ce type abstrait permet un traitement unifié des deux modes de jeu pour les opérations communes (par exemple, \texttt{movePlayerPosition}), évitant ainsi les duplications de code.
 
@@ -431,6 +431,49 @@ Dans le cas d'un lancement en mode progression, le joueur est dirigé vers une i
 \end{itemize}
 
 Cette conception garantit une gestion cohérente et efficace du cycle de vie des profils joueurs.
+
+\section{Traçabilité globale}
+
+La cohérence de notre modélisation repose sur une traçabilité bidirectionnelle entre les différents artefacts produits. Cette section synthétise les correspondances établies tout au long du rapport.
+
+\subsection{Traçabilité verticale : Du sujet au code}
+
+La chaîne de traçabilité suivante garantit que chaque exigence du sujet se retrouve dans notre conception :
+
+\begin{enumerate}
+    \item \textbf{Exigences du sujet} : Les deux modes (libre/progression), la structure des défis, la sauvegarde de progression
+    \item \textbf{Cas d'utilisation} : Sept cas identifiés couvrant l'ensemble des interactions utilisateur-système
+    \item \textbf{Prototypes d'interface} : Huit écrans représentant visuellement les cas d'utilisation (tableaux de correspondance lignes 298-317)
+    \item \textbf{Diagramme de classe} : Classes et méthodes implémentant les cas d'utilisation (tableau de correspondance lignes 372-386)
+\end{enumerate}
+
+\subsection{Traçabilité horizontale : Cohérence inter-artefacts}
+
+Les tableaux de correspondance établis dans ce rapport démontrent la cohérence entre :
+
+\begin{itemize}
+    \item \textbf{Cas d'utilisation $\leftrightarrow$ Écrans} : Chaque cas d'utilisation du mode progression est représenté par un ou plusieurs écrans du prototype (section 3.5.3)
+    \item \textbf{Cas d'utilisation $\leftrightarrow$ Méthodes de Main} : Chaque cas d'utilisation est implémenté par une ou plusieurs méthodes de la classe \texttt{Main} (section 4.3)
+    \item \textbf{Fiches descriptives $\leftrightarrow$ Diagramme de classe} : Les scénarios décrits dans les fiches se traduisent par des appels de méthodes cohérents avec l'architecture proposée
+\end{itemize}
+
+Cette double traçabilité garantit l'absence d'incohérences ou d'éléments orphelins dans notre conception, facilitant ainsi la phase d'implémentation et les évolutions futures du système.
+
+\section{Conclusion}
+
+Le présent rapport a exposé l'ensemble de notre démarche de modélisation pour le projet SAÉ S3.02 - Labyrinthe. Nous avons couvert les sept cas d'utilisation identifiés, développé quatre fiches descriptives détaillées, conçu huit écrans de prototype d'interface, et élaboré un diagramme de classe structuré en trois couches (contrôleur, logique métier, persistance).
+
+Notre approche a privilégié la conformité avec la méthodologie enseignée en cours d'Analyse, tout en l'adaptant aux spécificités fonctionnelles du sujet. La structure en mondes et défis du mode progression a été fidèlement modélisée, depuis les cas d'utilisation jusqu'aux classes \texttt{Challenge} et \texttt{Level}, en passant par les prototypes d'interface avec leur système de code couleur et de sélection par clic.
+
+Les choix de conception (acteur Système pour la sauvegarde automatique, type abstrait \texttt{GameMode} pour mutualiser le code entre modes libre et progression, séparation en couches architecturales) ont été justifiés par des considérations de maintenabilité, d'extensibilité et de testabilité. Ces principes garantissent que le code produit sera robuste et évolutif, notamment pour l'intégration future des étapes supplémentaires du jalon 2.
+
+La traçabilité globale établie tout au long du rapport (tableaux de correspondance, clarifications, cohérence inter-artefacts) assure que chaque exigence du sujet se retrouve dans notre conception, sans éléments superflus ni manquants.
+
+L'ensemble de l'équipe a contribué à cette modélisation à travers des discussions collectives, une répartition claire des responsabilités (fiches descriptives, maquette Figma, diagramme de classe), et des validations régulières auprès des enseignants spécialisés. Cette démarche collaborative a permis de converger vers des solutions consensuelles et optimales, en examinant chaque exigence sous divers angles.
+
+Ce travail constitue la base de la phase d'implémentation du jalon 1, qui pourra s'appuyer sur des spécifications fonctionnelles et techniques rigoureuses, complètes et cohérentes.
+
+\merci
 
 \end{document}
 
