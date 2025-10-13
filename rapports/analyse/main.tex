@@ -231,12 +231,31 @@ Conformément à la méthodologie dispensée en cours, la présente fiche détai
 
 \subsection{Prototypes d'interface}
 
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{figures/cas_dutilisation/prototypes_dinterface/default/fig_1.png}
-    \caption{Prototype principal}
+    \caption{Vito}
     \label{fig:cas_dutilisation_prototypes_dinterface_1}
 \end{figure}
+
+\subsubsection{Clarifications}
+
+Les boutons "Retour" ont une flèche d'arborescence prévisible qui n'est pas mentionnée afin de ne pas surcharger le prototype d'interface.
+
+La fenêtre de progression comporte un élément spécifique : les informations du défi survolé (\textit{hover}). Ce choix a été fait afin que le prototype comporte la visualisation de la progression ainsi que le choix du défi dans la même page ; deux pages différentes nécessiteraient plus d'arborescence (notamment un bouton visualiser progression...) résultant en moins de fluidité pour l'utilisateur.
+
+La voici en meilleure résolution :
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/cas_dutilisation/prototypes_dinterface/clarifications/fig_1.png}
+    \caption{Page de progression avec survol}
+    \label{fig:cas_dutilisation_prototypes_dinterface_1}
+\end{figure}
+
+Enfin, une fois la sortie d'un labyrinthe de mode progression atteinte, les données sont sauvegardées et la page de progression est donc mise à jour en conséquence.
+
 
 \subsubsection{Vue d'ensemble et parcours utilisateur}
 
@@ -260,14 +279,22 @@ Le tableau suivant établit la correspondance entre les écrans du prototype et 
 
 \vspace{1em}
 \begin{center}
-\begin{tabular}{p{5cm}p{8cm}}
+\begin{tabular}{|p{5cm}|p{8cm}|}
+\hline
 \textbf{Cas d'utilisation} & \textbf{Écrans concernés} \\
+\hline
 Lancer mode progression & Menu principal (bouton "Mode progression") + Écran de saisie du nom \\
+\hline
 Charger profil & Écran "Gestion du profil existant" (bouton "Reprendre") \\
+\hline
 Afficher progression & Écran "Sélection monde/niveau" avec tableau des niveaux et code couleur \\
+\hline
 Commencer une partie & Transition de l'écran de sélection vers l'écran de jeu (clic sur un niveau) \\
+\hline
 Se déplacer dans le labyrinthe & Écran de jeu avec déplacement du carré vert via flèches directionnelles \\
+\hline
 Sauvegarder la progression & Opération invisible déclenchée automatiquement après chaque niveau complété \\
+\hline
 \end{tabular}
 \end{center}
 \vspace{1em}
@@ -324,13 +351,20 @@ Afin de démontrer que l'ensemble des cas d'utilisation sont effectivement couve
 
 \vspace{1em}
 \begin{center}
-\begin{tabular}{p{5cm}p{8cm}}
+\begin{tabular}{|p{5cm}|p{8cm}|}
+\hline
 \textbf{Fonctions du \texttt{Main}} & \textbf{Cas d'utilisation correspondants} \\
+\hline
 \texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie (englobe donc Jouer)\\
+\hline
 \texttt{movePlayerPosition(game: GameMode, direction: String)} & Se déplacer dans le labyrinthe \\
+\hline
 \texttt{displayProgress(player: Player)} & Afficher progression \\
+\hline
 \texttt{savePlayer(player: Player)}  & Sauvegarder progression (donc le joueur car contenue dans le joueur)\\
+\hline
 \texttt{loadPlayer(name: String): Player} & Charger profil \\
+\hline
 \end{tabular}
 \end{center}
 \vspace{1em}
