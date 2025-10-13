@@ -9,11 +9,12 @@ import java.util.Stack;
 
 public class Main extends Application {
 
-    private AlgoLaby algo;
+    private static AlgoLaby algo;
 
 
 
-    public AlgoLaby getAlgo() {
+    public static AlgoLaby getAlgo() {
+        if (algo==null) algo = new AlgoLaby();
         return algo;
     }
     public static Main instance;

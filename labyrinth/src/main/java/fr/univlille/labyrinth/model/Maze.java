@@ -14,7 +14,7 @@ public class Maze {
     public Maze(int width, int height, int wallPercentage) {
         this.width=width*2+1;
         this.height=height*2+1;
-        this.grid = Main.getInstance().getAlgo().createLabyrinthe(width, height, wallPercentage);
+        this.grid = Main.getAlgo().createLabyrinthe(width, height, wallPercentage);
 
         this.playerPosition=new Position(1,1);
         this.entryPosition=new Position(1,1);
@@ -22,9 +22,6 @@ public class Maze {
 
 
     }
-
-
-
     public boolean isPlayerPositionAtExit() {
         return playerPosition.equals(exitPosition);
     }

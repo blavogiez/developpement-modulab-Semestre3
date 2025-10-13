@@ -2,6 +2,7 @@
 left to right direction
 
 actor "Utilisateur" as us
+actor "Système" as sy
 
 rectangle Labyrinthe #lightyellow {
   usecase "Jouer" as UC1
@@ -20,4 +21,6 @@ us --> UC3
 us --> UC4
 us --> UC6
 us --> UC7
+
+sy --> UC5
 @enduml

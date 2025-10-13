@@ -64,7 +64,7 @@ public class PlayerDatabase {
     }
 
     // Load all players from file
-    private static List<Player> loadAllPlayers() {
+    public static List<Player> loadAllPlayers() {
         File file = new File(SAVE_FILE);
         if (!file.exists()) {
             return new ArrayList<>();
@@ -75,6 +75,18 @@ public class PlayerDatabase {
         } catch (Exception e) {
             System.out.println(e);
             return new ArrayList<>();
+        }
+    }
+
+    // clearing database (only for tests)
+    public static void clear() {
+        try {
+            File file = new File(SAVE_FILE);
+            if (file.exists()) {
+                file.delete();
+            }
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }

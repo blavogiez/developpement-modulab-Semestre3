@@ -1,0 +1,56 @@
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# IDE - VS Code
+.vscode/
+
+.claude/
+
+# IDE - Eclipse
+.project
+.classpath
+.settings/
+
+# Java
+*.class
+out/
+target/
+*.jar
+*.war
+*.ear
+!.mvn/wrapper/maven-wrapper.jar
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.nlo
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.cache/
+*~
+*.bak
+
+# PDFs générés par LaTeX (décommentez si vous voulez les exclure)
+# rapports/**/main.pdf
+
+# Données et sauvegardes générées
+*.dat
+res/saves/
+saves/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Fichiers temporaires
+*~
+*.tmp
+*.temp
