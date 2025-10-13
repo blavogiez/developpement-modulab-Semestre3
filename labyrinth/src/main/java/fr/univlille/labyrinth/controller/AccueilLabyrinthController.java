@@ -23,7 +23,7 @@ public class AccueilLabyrinthController  {
     @FXML
     private void goToModeLibre() throws IOException {
         Stage stage = (Stage) HelloApplication.getPrimaryStage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fr/univlille/labyrinth/modeLibre.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fr/univlille/labyrinth/ModeLibre.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -31,7 +31,7 @@ public class AccueilLabyrinthController  {
     @FXML
     private void goToModeProgression() throws IOException {
         Stage stage = (Stage) HelloApplication.getPrimaryStage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fr/univlille/labyrinth/modeLibre.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fr/univlille/labyrinth/ModeLibre.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
