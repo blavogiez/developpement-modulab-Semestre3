@@ -10,17 +10,17 @@
    <center>
       <VBox alignment="CENTER" prefHeight="272.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="b1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changerPage" text="Mode Libre" VBox.vgrow="ALWAYS">
+            <Button fx:id="bouttonModeLibre" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToModeLibre" text="Mode Libre" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="35.0" left="150.0" right="150.0" />
                </VBox.margin>
             </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS">
+            <Button fx:id="BouttonModeProgression" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToModeProgression" text="Mode Progression" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="35.0" left="150.0" right="150.0" />
                </VBox.margin>
             </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS">
+            <Button fx:id="bouttonQuitter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quitter" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="150.0" right="150.0" />
                </VBox.margin>
