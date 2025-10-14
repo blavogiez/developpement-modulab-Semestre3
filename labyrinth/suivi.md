@@ -92,6 +92,7 @@ Création de la classe "PlayerDatabase"
 - Modification de Scene pour détecter les touches directionnelles au clavier
 - Ajout d'une méthode activé et envoyé à GameMode lorsqu'un joueur termine un labyrinthe
 - Ajout des Javadocs et suppressions des warnings de GameMode, Maze, LabyrinthScene, AlgoLabyNew et LabyrinthControler
+- Rendre LabyrinthScene dynamique (:D, j'ai pété mon crâne)
 
 ## **Semaine du 20/10 au 24/10**
 

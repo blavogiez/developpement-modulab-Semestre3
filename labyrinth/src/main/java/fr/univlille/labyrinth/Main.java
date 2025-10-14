@@ -46,13 +46,31 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+        final double minHeigth = screen.getHeight()/1.5;
+        final double minWidth = screen.getWidth()/1.5;
+
+        stage.setOnShown(x ->{
+            stage.setMinHeight(minHeigth);
+            stage.setMinWidth(minWidth);
+        });
+
+
+
+        stage.setX(screen.getMinX());
+        stage.setY(screen.getMinY());
+        stage.setWidth(screen.getWidth());
+        stage.setHeight(screen.getHeight());
+        stage.setTitle("Labyrinthe");
+        stage.show();
+
         this.algo=new AlgoLabyOld();
         this.scenes = new SceneManager(stage, new Scene(new Pane()));
         this.instance=this;
         this.gameMode=new GameMode() {
             @Override
             public void start() {
-                gameMode.setCurrentMaze(new Maze(11,9,0.3));
+                gameMode.setCurrentMaze(new Maze(11,11,0.5));
                 LabyrinthScene labyScene = new LabyrinthScene(gameMode.getCurrentMaze());
                 labyScene.setControler(new LabyrinthControler(this));
                 Main.getInstance().getScenes().push(labyScene);
@@ -67,14 +85,10 @@ public class Main extends Application {
             }
         };
         this.gameMode.start();
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        stage.setX(screenBounds.getMinX());
-        stage.setY(screenBounds.getMinY());
-        stage.setWidth(screenBounds.getWidth());
-        stage.setHeight(screenBounds.getHeight());
-        stage.setTitle("Labyrinthe");
-        stage.show();
+
+
+
 
 
     }
