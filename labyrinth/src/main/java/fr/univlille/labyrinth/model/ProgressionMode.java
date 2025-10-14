@@ -71,7 +71,7 @@ public class ProgressionMode extends GameMode {
         createMaze(chosenChallenge);
 
         // Enter into the main movement loop for as long as exit isn't chosen
-        navigate();
+//        navigate();
 
         // At the end, if completed, navigate will mark the challenge as done, and save player
     }
@@ -83,6 +83,11 @@ public class ProgressionMode extends GameMode {
         int wallPercentage = chosenChallenge.getWallPercentage();
         // remonter plus haut pour le créer
         return null ;
+    }
+
+    @Override
+    public void playerWin() {
+
     }
 
     public Player getPlayer() {

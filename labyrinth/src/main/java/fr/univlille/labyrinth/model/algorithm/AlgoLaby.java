@@ -1,5 +1,7 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.algorithm;
 
+
+import fr.univlille.labyrinth.model.Direction;
 
 import java.util.Random;
 

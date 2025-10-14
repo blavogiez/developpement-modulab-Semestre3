@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model;
 
 import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.model.algorithm.AlgoLaby2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ public class Maze {
         playerPosition.addX(direction.x);
         playerPosition.addY(direction.y);
 
-        System.out.println("x= "+playerPosition.getX());
-
-        System.out.println("y= "+playerPosition.getY());
+//        System.out.println("x= "+playerPosition.getX());
+//
+//        System.out.println("y= "+playerPosition.getY());
 
         notifyObserver();
     }
@@ -44,11 +45,11 @@ public class Maze {
         this.observers=new ArrayList<>();
         this.width = width * 2 + 1;
         this.height = height * 2 + 1;
-        this.grid = Main.getAlgo().createLabyrinthe(this.width, this.height, wallPercentage);
+        this.grid = AlgoLaby2.createMaze(this.width, this.height, wallPercentage);
 
         this.playerPosition = new Position(1, 1);
         this.entryPosition = new Position(1, 1);
-        this.exitPosition = new Position(width -1, height -1);
+        this.exitPosition = new Position(width*2 -1, height*2 -1);
 
     }
     public boolean isPlayerPositionAtExit() {
@@ -78,4 +79,6 @@ public class Maze {
     public Position getExitPosition() {
         return exitPosition;
     }
+
+
 }

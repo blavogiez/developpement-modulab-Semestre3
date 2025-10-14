@@ -2,13 +2,12 @@ package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.algorithm.AlgoLaby;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.util.Stack;
 
 public class Main extends Application {
 
@@ -53,11 +52,16 @@ public class Main extends Application {
             public void start() {
                 currentMaze=new Maze(11,11,10);
                 LabyrinthScene labyScene = new LabyrinthScene(currentMaze);
-                labyScene.setControler(new LabyrinthControler());
+                labyScene.setControler(new LabyrinthControler(this));
                 Main.getInstance().getScenes().push(labyScene);
                 currentMaze.add(labyScene);
 
+            }
 
+            @Override
+            public void playerWin() {
+                System.out.println("Le joueur à win !");
+                scenes.pop();
             }
         };
         this.gameMode.start();
