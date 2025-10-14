@@ -35,24 +35,6 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         grid = new GridPane();
 
 
-
-//        Button buttonUp = new Button("↑");
-//        Button buttonLeft = new Button("←");
-//        Button buttonRight = new Button("→");
-//        Button buttonDown = new Button("↓");
-
-//        setOnKeyPressed((KeyEvent event) -> {
-//            if (event.getCode() == KeyCode.UP) {
-//                controler.movePlayer(Direction.UP);
-//            } else if (event.getCode() == KeyCode.LEFT) {
-//                controler.movePlayer(Direction.LEFT);
-//            } else if (event.getCode() == KeyCode.RIGHT) {
-//                controler.movePlayer(Direction.RIGHT);
-//            } else if (event.getCode() == KeyCode.DOWN) {
-//                controler.movePlayer(Direction.DOWN);
-//            }
-//        });
-
         setOnKeyPressed(x -> {
             if (x.getCode().equals(KeyCode.DOWN)) controler.movePlayer(Direction.DOWN);
             else if (x.getCode().equals(KeyCode.UP)) controler.movePlayer(Direction.UP);
@@ -60,36 +42,10 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
             else if (x.getCode().equals(KeyCode.RIGHT)) controler.movePlayer(Direction.RIGHT);
         });
 
-//        buttonDown.setOnAction(e -> {
-//            controler.movePlayer(Direction.DOWN);
-//        });
-//        buttonUp.setOnAction(e -> {
-//            controler.movePlayer(Direction.UP);
-//        });
-//        buttonLeft.setOnAction(e -> {
-//            controler.movePlayer(Direction.LEFT);
-//        });
-//        buttonRight.setOnAction(e -> {
-//            controler.movePlayer(Direction.RIGHT);
-//        });
-
-
-
-//        keyboard.add(buttonUp,1,0);
-//        keyboard.add(buttonLeft,0,1);
-//        keyboard.add(buttonRight,2,1);
-//        keyboard.add(buttonDown,1,2);
-
-
-
-
-
         hbox.getChildren().add(grid);
 
         pane.getChildren().add(hbox);
 
-        //Make the VB/HB, set it up and replace null with it
-        //If it change depending of the model, make a method "update" & implements a Observer interface, to be notified. Dont forget to add the observable
         update(maze);
 
     }

@@ -9,8 +9,8 @@ public class AlgoLaby2 {
     private static double percentageWall;
     static final boolean WALL = false, PATH = true;
 
-    public static boolean[][] createMaze(int height, int width, double percentageOfWall){
-        maze=new boolean[height*2+1][width*2+1];
+    public static boolean[][] createMaze(int width, int height, double percentageOfWall){
+        maze=new boolean[width*2+1][height*2+1];
         percentageWall=percentageOfWall+0.5;
 
         tracePath();
