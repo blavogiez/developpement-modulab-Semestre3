@@ -64,7 +64,7 @@ public class AlgoLaby2 {
     }
 
     private static boolean findPath(Stack<Cell> cellStack) {
-        List<Direction> directions = Arrays.stream(Direction.values()).toList();
+        List<Direction> directions = new ArrayList<>(Arrays.stream(Direction.values()).toList());
         Collections.shuffle(directions);
         while (!directions.isEmpty()){
             Direction direction = directions.remove(0);
