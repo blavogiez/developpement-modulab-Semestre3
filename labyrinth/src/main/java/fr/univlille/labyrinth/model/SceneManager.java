@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model;
 
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 import java.util.Stack;
@@ -13,14 +14,19 @@ public class SceneManager {
         scenes=new Stack<>();
     }
 
-    public SceneManager(javafx.stage.Stage stage){
+    public SceneManager(javafx.stage.Stage stage, Scene scene){
+        this.stage=stage;
         scenes=new Stack<>();
-        push(stage.getScene());
+        push(scene);
     }
 
     public Scene push(Scene scene){
         this.stage.setScene(scene);
         return scenes.push(scene);
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public Scene pop(){

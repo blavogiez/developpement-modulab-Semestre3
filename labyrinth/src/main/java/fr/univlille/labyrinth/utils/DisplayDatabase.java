@@ -10,8 +10,8 @@ public class DisplayDatabase {
             System.out.println("Player: " + player.getName());
             System.out.println("Score: " + player.getScore());
             System.out.println("Highest Stage: " + player.getHighestStage());
-            Stage[] stages = player.getProgress().getStageProgress();
-            for (Stage stage : stages) {
+            World[] stages = player.getProgress().getStageProgress();
+            for (World stage : stages) {
                 System.out.println("  Stage " + stage.getNumber() + " (completed: " + stage.isCompleted() + ")");
                 for (Challenge challenge : stage.getChallenges()) {
                     System.out.println("    Challenge: " + challenge.getDifficulty() +
