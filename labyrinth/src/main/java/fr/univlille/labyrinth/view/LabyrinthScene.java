@@ -63,10 +63,10 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
 //        pane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         grid = new GridPane();
-        grid.setStyle("-fx-border-color: #FFFFFF;");
         NumberBinding db = Bindings.min( Main.getInstance().getScenes().getStage().heightProperty().divide(1.2), Main.getInstance().getScenes().getStage().widthProperty().divide(1.2));
         grid.prefHeightProperty().bind(db);
         grid.prefWidthProperty().bind(db);
+        grid.setAlignment(Pos.CENTER);
 
         widthProperty().addListener((obs, oldVal, newVal) -> {
             update(maze);
@@ -113,10 +113,11 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
     public void update(Maze maze) {
         grid.getChildren().clear();
         boolean[][] mazeGrid = maze.getGrid();
+        double length = Math.min(grid.getPrefHeight()/(double) mazeGrid.length,grid.getPrefWidth()/(double) mazeGrid[0].length);
         for (int l = 0; l<mazeGrid.length;l++){
             for (int c = 0; c <mazeGrid[0].length;c++) {
 
-                Rectangle rect = new Rectangle(grid.getPrefHeight()/(double) mazeGrid.length,grid.getPrefWidth()/(double) mazeGrid[0].length);
+                Rectangle rect = new Rectangle(length,length);
 
 //                rect.widthProperty().bind(Bindings.min( stock.widthProperty(),stock.heightProperty()));
 //                rect.heightProperty().bind(Bindings.min( stock.widthProperty(),stock.heightProperty()));
