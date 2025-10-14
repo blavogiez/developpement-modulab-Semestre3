@@ -1,9 +1,13 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.HelloApplication;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
+import java.util.Objects;
 import java.util.Stack;
 
 public class SceneManager {
@@ -39,6 +43,17 @@ public class SceneManager {
         Scene scene = this.scenes.peek();
         this.stage.setScene(scene);
         return scene;
+    }
+
+    public void goTo(String name){
+        try {
+            Stage stage = (Stage) HelloApplication.getPrimaryStage();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(name)));
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e){
+            System.out.println(e.getMessage() +" - "+ e.getCause());
+        }
     }
 
 

@@ -101,4 +101,8 @@ public class Main extends Application {
     public SceneManager getScenes() {
         return scenes;
     }
+
+    public void goTo(String name){
+        scenes.goTo(name);
+    }
 }

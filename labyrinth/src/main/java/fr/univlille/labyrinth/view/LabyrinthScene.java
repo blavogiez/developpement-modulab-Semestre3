@@ -7,7 +7,6 @@ import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -68,13 +67,9 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         grid.prefWidthProperty().bind(db);
         grid.setAlignment(Pos.CENTER);
 
-        widthProperty().addListener((obs, oldVal, newVal) -> {
-            update(maze);
-        });
+        widthProperty().addListener((obs, oldVal, newVal) -> update(maze));
 
-        heightProperty().addListener((obs, oldVal, newVal) -> {
-            update(maze);
-        });
+        heightProperty().addListener((obs, oldVal, newVal) -> update(maze));
 
         GridPane.setHgrow(grid, Priority.ALWAYS);
         GridPane.setVgrow(grid, Priority.ALWAYS);
@@ -119,9 +114,6 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
 
                 Rectangle rect = new Rectangle(length,length);
 
-//                rect.widthProperty().bind(Bindings.min( stock.widthProperty(),stock.heightProperty()));
-//                rect.heightProperty().bind(Bindings.min( stock.widthProperty(),stock.heightProperty()));
-//                stock.getChildren().add(rect);
                 if (maze.getPlayerPosition().getX()==l && maze.getPlayerPosition().getY()==c){
                     rect.setFill(Paint.valueOf("#FF0000"));
                 } else if (maze.getExitPosition().equals(new Position(l,c))) {
