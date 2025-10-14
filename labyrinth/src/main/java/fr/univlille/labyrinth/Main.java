@@ -52,11 +52,11 @@ public class Main extends Application {
         this.gameMode=new GameMode() {
             @Override
             public void start() {
-                currentMaze=new Maze(11,9,0.3);
-                LabyrinthScene labyScene = new LabyrinthScene(currentMaze);
+                gameMode.setCurrentMaze(new Maze(11,9,0.3));
+                LabyrinthScene labyScene = new LabyrinthScene(gameMode.getCurrentMaze());
                 labyScene.setControler(new LabyrinthControler(this));
                 Main.getInstance().getScenes().push(labyScene);
-                currentMaze.add(labyScene);
+                gameMode.getCurrentMaze().add(labyScene);
 
             }
 
