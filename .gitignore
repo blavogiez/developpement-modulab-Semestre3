@@ -22,6 +22,7 @@ target/
 *.war
 *.ear
 !.mvn/wrapper/maven-wrapper.jar
+doc/
 
 # LaTeX
 *.aux
