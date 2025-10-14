@@ -4,11 +4,26 @@ import fr.univlille.labyrinth.model.Direction;
 
 import java.util.*;
 
-public class AlgoLaby2 {
+/**
+ * Cette classe est un algorithme de labyrinthe, générant un labyrinthe avec l'algorithme du parcours en profondeur
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
+public class AlgoLabyNew {
     private static boolean[][] maze;
     private static double percentageWall;
-    static final boolean WALL = false, PATH = true;
+    private static final boolean PATH = true;
 
+
+    /**
+     * Cette méthode permet de générer un labyrinthe de taille width*2 et height*2
+     *
+     * @param width Permet de mettre la largeur du labyrinthe.
+     * @param height Permet de mettre la hauteur du labyrinthe.
+     * @param percentageOfWall Permet de mettre un pourcentage de mur (entre 0 et 0.5)
+     */
     public static boolean[][] createMaze(int width, int height, double percentageOfWall){
         maze=new boolean[width*2+1][height*2+1];
         percentageWall=percentageOfWall+0.5;

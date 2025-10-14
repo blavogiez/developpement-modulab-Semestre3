@@ -6,28 +6,43 @@ import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+
+/**
+ * LabyrinthScene est la scène de Labyrinthe. Elle montre l'avancement au joueur. C'est une vue.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class LabyrinthScene extends Scene implements Observer<Maze> {
-    private static BorderPane pane= new BorderPane();
-    private int pixelHeight = 30;
+
+    private final static BorderPane pane= new BorderPane();
     protected Rectangle[][] pixels;
     protected GridPane grid;
-
     protected LabyrinthControler controler;
 
+    /**
+     * Cette méthode permet d'accorder un controler à cette vue
+     *
+     * @param controler le controleur mis en place de type LabyrinthControler.
+     */
     public void setControler(LabyrinthControler controler) {
         this.controler = controler;
     }
 
+    /**
+     * Cette méthode permet de générer cette scène
+     *
+     * @param maze l'observable que cette vue observe.
+     */
     public LabyrinthScene(Maze maze){
         super(pane);
 
@@ -50,6 +65,11 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
 
     }
 
+    /**
+     * Met à jour la méthode.
+     *
+     * @param maze l'observable que cette vue observe.
+     */
     @Override
     public void update(Maze maze) {
         grid.getChildren().clear();
@@ -57,7 +77,8 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         boolean[][] mazeGrid = maze.getGrid();
         for (int l = 0; l<mazeGrid.length;l++){
             for (int c = 0; c <mazeGrid[0].length;c++) {
-                Rectangle rect = new Rectangle(pixelHeight,pixelHeight);
+                int pixelHeight = 30;
+                Rectangle rect = new Rectangle(pixelHeight, pixelHeight);
                 if (maze.getPlayerPosition().getX()==l && maze.getPlayerPosition().getY()==c){
                     rect.setFill(Paint.valueOf("#FF0000"));
                 } else if (maze.getExitPosition().equals(new Position(l,c))) {
@@ -81,8 +102,4 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
         }
 
     }
-
-
-
-
 }

@@ -1,9 +1,10 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.model.algorithm.AlgoLaby2;
+import fr.univlille.labyrinth.model.algorithm.AlgoLabyNew;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Maze est une classe qui permet récupérer un labyrinthe, et gérer les intéractions des joueurs.
  *
@@ -67,7 +68,7 @@ public class Maze {
      */
     public Maze(int width, int height, double wallPercentage) {
         this.observers=new ArrayList<>();
-        this.grid = AlgoLaby2.createMaze(width, height, wallPercentage);
+        this.grid = AlgoLabyNew.createMaze(width, height, wallPercentage);
         this.width = width * 2 + 1;
         this.height = height * 2 + 1;
         this.playerPosition = new Position(1, 1);

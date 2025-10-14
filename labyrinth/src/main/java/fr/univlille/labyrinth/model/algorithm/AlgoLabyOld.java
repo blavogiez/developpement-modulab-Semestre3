@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.model.Direction;
 
 import java.util.Random;
 
-public class AlgoLaby {
+public class AlgoLabyOld {
 
     Random random = new Random();
 

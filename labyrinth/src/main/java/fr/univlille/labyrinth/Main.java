@@ -2,7 +2,7 @@ package fr.univlille.labyrinth;
 
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.*;
-import fr.univlille.labyrinth.model.algorithm.AlgoLaby;
+import fr.univlille.labyrinth.model.algorithm.AlgoLabyOld;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -13,12 +13,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static AlgoLaby algo;
+    private static AlgoLabyOld algo;
 
 
 
-    public static AlgoLaby getAlgo() {
-        if (algo==null) algo = new AlgoLaby();
+    public static AlgoLabyOld getAlgo() {
+        if (algo==null) algo = new AlgoLabyOld();
         return algo;
     }
     public static Main instance;
@@ -46,7 +46,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.algo=new AlgoLaby();
+        this.algo=new AlgoLabyOld();
         this.scenes = new SceneManager(stage, new Scene(new Pane()));
         this.instance=this;
         this.gameMode=new GameMode() {
