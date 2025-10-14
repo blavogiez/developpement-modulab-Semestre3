@@ -227,10 +227,10 @@ Conformément à la méthodologie dispensée en cours, la présente fiche détai
     \item Le joueur appuie sur une flèche directionnelle
     \item Le système vérifie que la direction est accessible et déplace le joueur sur la case associée
 \end{enumerate}
-\textbf{Scénario alternatifs:}
+\textbf{Scénarios alternatifs:}
 
 \emph{A: Le joueur atteint la sortie}\\
-\hspace*{1em}2(A): Le système affiche une notification annonçant que la sortie a été atteinte et redirige vers le menu de sélection pour choisir un nouveau labyrinthe (sélection d'étape/défi en mode progression ou configuration des paramètres en mode libre) (il s'agit donc de choisir un nouveau labyrinthe à la fin).
+\hspace*{1em}2(A): Le système affiche une notification annonçant que la sortie a été atteinte et redirige vers le menu de sélection pour choisir un nouveau labyrinthe (sélection d'étape/défi en mode progression ou configuration des paramètres en mode libre).
 
 \emph{B: Le joueur se déplace dans une case inaccessible}\\
 \hspace*{1em}2(B): Le système affiche la position actuelle et non la nouvelle position et revient en étape 1 du scénario principal
@@ -289,19 +289,19 @@ Le tableau suivant établit la correspondance entre les écrans du prototype (mo
 \hline
 \textbf{Cas d'utilisation} & \textbf{Écrans concernés} \\
 \hline
-Lancer mode progression & Menu de choix du mode$\rightarrow$ Choix du mode $\rightarrow$ Saisie du nom \\
+Lancer mode progression & Choix du mode $\rightarrow$ Saisie du nom \\
 \hline
 Charger profil & Page de profil existant (choix "Reprendre" ou "Nouvelle partie") \\
 \hline
 Jouer & Menu d'accueil $\rightarrow$ Clic sur jouer\\
 \hline
-Commencer une partie & Sélection étape (clic sur un défi) $\rightarrow$ Labyrinthe en jeu (aussi Sélection dimensions du labyrinthe (mode libre) $\rightarrow$ Labyrinthe en jeu)\\
+Commencer une partie & Sélection étape/défi (clic sur un défi) $\rightarrow$ Labyrinthe en jeu (également Sélection dimensions du labyrinthe (pour mode libre) $\rightarrow$ Labyrinthe en jeu)\\
 \hline
-Afficher progression & Sélection défi (affichage des 3 étapes avec code couleur) + Survol pour voir un défi précis \\
+Afficher progression & Sélection étape/défi (affichage des 3 étapes avec code couleur) + Survol (hover) sur un défi pour afficher les détails du défi \\
 \hline
 Se déplacer dans le labyrinthe & Labyrinthe en jeu (déplacement carré vert $\rightarrow$ carré rouge) \\
 \hline
-Sauvegarder progression & Automatique après sortie (mise à jour de la sélection d'étape) \\
+Sauvegarder progression & Automatique après sortie (mise à jour de la sélection d'étape/défi) \\
 \hline
 \end{tabular}
 \end{center}
@@ -460,6 +460,5 @@ Une lecture très attentive des attentes a permis d'obtenir une correspondance m
 Ce dossier d'analyse nous permettra alors de réaliser très efficacement le logiciel, la partie de réflexion ayant été poussée le plus loin possible.
 
 \end{document}
-
 
 
