@@ -270,7 +270,7 @@ Le prototype couvre \textbf{huit écrans distincts} répartis entre deux parcour
     \item \textbf{Interface de jeu} : labyrinthe généré aléatoirement selon les paramètres choisis
 \end{enumerate}
 
-Ces deux séquences garantissent une progression logique et intuitive adaptée aux besoins spécifiques de chaque mode, sans étape superflue, dans une stricte conformité aux exigences du client.
+Ces parcours respect    ent les exigences client avec une progression logique et sans étapes superflues.
 
 \subsubsection{Correspondance avec les cas d'utilisation}
 
@@ -367,7 +367,7 @@ La méthodologie vue en \texttt{Analyse} préconise l'ordre suivant :
 \item Pour chaque cas d'utilisation, on enrichit le diagramme de façon à la supporter
 \end{enumerate}
 
-Notre conception respecte cette méthodologie tout en l'adaptant aux spécificités du projet. 
+Le \texttt{Main} contient bien une fonction par cas d'utilisation et le diagramme supporte chacune ; la méthode est respectée.
 
 \subsection{Correspondance avec les cas d'utilisation}
 
@@ -423,9 +423,9 @@ Ce type abstrait permet un traitement unifié des deux modes de jeu pour les op�
 \label{fig:diagramme_de_classe_default_2}
 \end{figure}
 
-Elle sert donc à démarrer une partie, quel que soit le mode choisi, et couvre naturellement le cas d'utilisation "Lancer mode progression".
+Elle sert donc à démarrer une session dans un mode, quel que soit le mode choisi, et couvre naturellement le cas d'utilisation "Lancer mode progression".
 
-\tsecnonum{L'initialisation de \texttt{Player} dans \texttt{ProgresionMode}}
+\tsecnonum{L'initialisation de \texttt{Player} dans \texttt{ProgressionMode}}
 Dans le cas d'un lancement en mode progression, le joueur est dirigé vers une interface de saisie du nom. Une fois le nom validé, la fonction
 
 \texttt{loadPlayer(name: String): Player} est invoquée dans le constructeur \texttt{ProgressionMode} afin de :
@@ -440,7 +440,7 @@ Cette conception garantit une gestion cohérente et efficace du cycle de vie des
 
 \section{Conclusion}
 
-Tous les choix de conceptions ont \textbf{toujours} été guidés par un strict respect du besoin client du sujet. 
+Tous les choix de conceptions ont \textbf{toujours} été guidés par la volonté du strict respect du besoin client du sujet. 
 
 Une lecture très attentive des attentes a permis d'obtenir une correspondance maximale au besoin client décrit, que ce soit dans les cas d'utilisation, le prototype ou le diagramme de classe.
 Ce dossier d'analyse nous permettra alors de réaliser très efficacement le logiciel, la partie de réflexion ayant été poussée le plus loin possible.
