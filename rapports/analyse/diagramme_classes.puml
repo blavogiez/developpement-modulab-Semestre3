@@ -53,8 +53,10 @@ class ProgressionMode {
 }
 
 class Level {
-  - number: int
-  + Level(number: int)
+  number: int
+  Level(number: int)
+  isAccessible(challenge: Challenge): boolean
+  isCompleted(): boolean
 }
 
 class Challenge {
@@ -78,7 +80,7 @@ class Main {
   {static} movePlayerPosition(game: GameMode, direction: String)
   {static} displayProgress(player: Player)
   {static} savePlayer(player: Player)
-  {static} loadPlayer(player: player)
+  {static} loadPlayer(name: String): Player
   {static} createMaze(gameMode: GameMode, attributs du mode): Maze
  
   'displayProgress(player: Player)'
