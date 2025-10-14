@@ -67,11 +67,13 @@ class Challenge {
 }
 
 class Main {
+  {static} play()
   {static} startGame(): GameMode
   {static} movePlayerPosition(game: GameMode, direction: String)
   {static} displayProgress(player: Player)
   {static} savePlayer(player: Player)
   {static} loadPlayer(player: player)
+  {static} createMaze(gameMode: GameMode): Maze
  
   'displayProgress(player: Player)'
 }

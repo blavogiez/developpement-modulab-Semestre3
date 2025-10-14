@@ -31,7 +31,6 @@ Le présent rapport aborde l'organisation interne de notre équipe ainsi que not
     \item Fiches descriptives
     \item Prototype d'interface
     \item Diagramme de classe
-    \item Traçabilité globale
 \end{enumerate}
 
 Il est entendu que chaque section est itérative et a fait l'objet de plusieurs cycles de révision pour garantir la cohérence et la complétude de la modélisation.
@@ -98,8 +97,6 @@ Outre les responsabilités individuelles, nous avons collectivement débattu de 
 
 \subsection{Analyse du diagramme de cas d'utilisation}
 
-Retirer cas jouer ?
-
 Le diagramme présenté ci-dessus modélise l'ensemble des interactions fonctionnelles du système Labyrinthe. Il identifie \textbf{sept cas d'utilisation principaux} répartis entre deux acteurs : l'Utilisateur et le Système.
 
 \subsubsection{Acteurs identifiés}
@@ -116,12 +113,12 @@ La présence d'un acteur "Système" se justifie dans notre contexte par la néce
 Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue le cœur fonctionnel de l'application :
 
 \begin{enumerate}
+    \item \textbf{Jouer} : point d'entrée du jeu (appuyer sur jouer)
     \item \textbf{Lancer en mode progression} : point d'entrée du mode progression, incluant la saisie du nom du joueur
-    \item \textbf{Charger une partie} : reprise d'une progression existante pour un joueur connu
-    \item \textbf{Jouer} : action générique d'interaction avec le jeu
-    \item \textbf{Commencer une partie} : démarrage d'une nouvelle session de jeu
-    \item \textbf{Se déplacer dans le labyrinthe} : déplacement case par case du joueur (cas d'utilisation détaillé dans la fiche "Déplacer joueur")
+    \item \textbf{Charger profil} : reprise d'une progression existante pour un joueur connu
+    \item \textbf{Commencer une partie} : démarrage d'un labyrinthe choisi : en mode libre, on choisit la taille et le pourcentage de murs et en progression, on choisit un défi qui définira le labyrinthe
     \item \textbf{Afficher la progression} : consultation du tableau de bord avec niveaux complétés, score, caractéristiques
+    \item \textbf{Se déplacer dans le labyrinthe} : déplacement case par case du joueur (cas d'utilisation détaillé dans la fiche "Déplacer joueur")
     \item \textbf{Sauvegarder la progression} : persistance automatique de l'état du joueur (acteur Système)
 \end{enumerate}
 
@@ -130,21 +127,49 @@ Le diagramme couvre intégralement le \textbf{mode progression}, qui constitue l
 Afin de respecter une stricte conformité aux besoins client du sujet, le diagramme de cas d'utilisation reflète les choix de modélisation suivants :
 
 \begin{itemize}
-    \item \textbf{Distinction entre "Charger une partie" et "Lancer en mode progression"} : Le premier cas concerne exclusivement la reprise d'un profil existant avec sa progression sauvegardée. Le second englobe l'initialisation du mode progression (saisie du nom, vérification d'existence, création ou chargement du profil). "Charger une partie" dépend donc de "Lancer en mode progression".
+    \item \textbf{Distinction entre "Charger profil" et "Lancer en mode progression"} : Le premier cas concerne exclusivement la reprise d'un profil existant avec sa progression sauvegardée. Le second englobe l'initialisation du mode progression (saisie du nom, vérification d'existence, création ou chargement du profil). "Charger une partie" dépend donc de "Lancer en mode progression".
 
     \item \textbf{Attribution de la sauvegarde au "Système"} : Conformément aux standards UML, les opérations automatiques de persistance sont modélisées par un acteur secondaire. Cette distinction clarifie que la sauvegarde intervient sans action explicite de l'utilisateur après chaque complétion de défi ou modification significative de l'état du joueur.
 
-    \item \textbf{Hiérarchie "Jouer", "Commencer une partie" et "Se déplacer dans le labyrinthe"} : Le cas d'utilisation "Jouer" représente l'action de démarrer le jeu. "Commencer une partie" spécifie le démarrage effectif d'un défi après sélection dans l'interface de progression. "Se déplacer dans le labyrinthe" détaille l'action atomique de déplacement case par case, qui est l'interaction principale durant une partie en cours.
+    \item \textbf{Hiérarchie "Jouer", "Commencer une partie" et "Se déplacer dans le labyrinthe"} : Le cas d'utilisation "Jouer" représente l'action de démarrer le jeu (fonctionnalité "Jouer"). "Commencer une partie" spécifie le démarrage effectif d'un défi après sélection dans l'interface de progression. "Se déplacer dans le labyrinthe" détaille l'action atomique de déplacement case par case, qui est l'interaction principale durant une partie en cours.
 
     \item \textbf{Mode libre} : Bien que non représenté dans ce diagramme centré sur le mode progression, le mode libre constitue un parcours alternatif du système. Il suit un flux simplifié sans authentification ni persistance : l'utilisateur sélectionne le mode libre, paramètre les caractéristiques du labyrinthe (largeur, hauteur, pourcentage de murs), puis lance directement une partie sur un labyrinthe généré aléatoirement. L'absence de sauvegarde distingue fondamentalement ce mode du mode progression.
 \end{itemize}
+
+\textbf{Tous les cas présentés ont été vu en TD.}
+
+\newpage
+
+\subsubsection{Cas d'utilisation : Lancer mode progression}
+\textbf{Système:} Labyrinthe\\
+\textbf{Acteur principal:} Utilisateur\\
+\textbf{Déclencheur:} Aucun\\
+\textbf{Autres acteurs:} Aucun\\[0.25em]
+\textbf{Préconditions:} Le jeu a été lancé.\\
+\textbf{Garanties en cas de succès:} L'utilisateur accède au mode progression\\
+\textbf{Garanties minimales:} L'intégrité de la base de données est préservée. Aucune donnée n'est perdue\\[0.25em]
+\textbf{Scénario nominal:}
+\begin{enumerate}
+    \item L'utilisateur sélectionne la fonctionnalité ``Lancer mode progression''.
+    \item Le système affiche un menu où l'utilisateur peut saisir son nom
+    \item L'utilisateur saisit son nom
+    \item Le système vérifie que le nom est valide, sauvegarde son profil dans la base de données et lance le mode progression
+\end{enumerate}
+\textbf{Scénarios alternatifs:}
+
+\emph{A: Le système détecte une erreur lors de la vérification}\\
+\hspace*{1em}4(A): Le système affiche une notification (précisant la nature de l'erreur), puis revient en étape 2 du scénario principal
+
+\emph{B: Le système détecte une occurrence du nom dans la base de données (charger profil)}\\
+\hspace*{1em}4(B): Le système démarre le \textbf{Cas d'utilisation} ``Charger profil''
+
 \newpage
 
 \subsection{Fiches descriptives}
 \subsubsection{Cas d'utilisation : Charger profil}
 \textbf{Système:} Labyrinthe\\
 \textbf{Acteur principal:} Utilisateur\\
-\textbf{Déclencheur:} Aucun\\
+\textbf{Déclencheur:} Le système détecte une occurence du nom dans la base de données lors de la saisie dans "Lancer le mode progression"\\
 \textbf{Autres acteurs:} Aucun\\[0.25em]
 \textbf{Préconditions:} L'utilisateur est dans le menu de saisie du nom (``Lancer le mode progression'')\\
 \textbf{Garanties en cas de succès:} Le système charge le profil associé au nom et l'utilisateur reprend sa progression\\
@@ -183,31 +208,6 @@ Comme expliqué, cette fonctionnalité est la suite du Cas d'utilisation "Lancer
 \smallskip
 \tsecnonum{Clarification}
 Conformément à la méthodologie dispensée en cours, la présente fiche détaille peu les décisions techniques, privilégiant une approche abstraite.
-
-\newpage
-
-\subsubsection{Cas d'utilisation : Lancer mode progression}
-\textbf{Système:} Labyrinthe\\
-\textbf{Acteur principal:} Utilisateur\\
-\textbf{Déclencheur:} Aucun\\
-\textbf{Autres acteurs:} Aucun\\[0.25em]
-\textbf{Préconditions:} Le jeu a été lancé.\\
-\textbf{Garanties en cas de succès:} L'utilisateur accède au mode progression\\
-\textbf{Garanties minimales:} L'intégrité de la base de données est préservée. Aucune donnée n'est perdue\\[0.25em]
-\textbf{Scénario nominal:}
-\begin{enumerate}
-    \item L'utilisateur sélectionne la fonctionnalité ``Lancer mode progression''.
-    \item Le système affiche un menu où l'utilisateur peut saisir son nom
-    \item L'utilisateur saisit son nom
-    \item Le système vérifie que le nom est valide, sauvegarde son profil dans la base de données et lance le mode progression
-\end{enumerate}
-\textbf{Scénarios alternatifs:}
-
-\emph{A: Le système détecte une erreur lors de la vérification}\\
-\hspace*{1em}4(A): Le système affiche une notification (précisant la nature de l'erreur), puis revient en étape 2 du scénario principal
-
-\emph{B: Le système détecte une occurrence du nom dans la base de données (charger profil)}\\
-\hspace*{1em}4(B): Le système démarre le \textbf{Cas d'utilisation} ``Charger profil''
 
 \newpage
 
@@ -300,6 +300,8 @@ Sauvegarder progression & Automatique après sortie (mise à jour de la sélecti
 \end{center}
 \vspace{1em}
 
+Rappel des cas d'utilisation : lienfigure
+
 Cette traçabilité garantit que l'ensemble des fonctionnalités modélisées du mode progression dispose d'une représentation visuelle concrète, et inversement, qu'aucun élément de l'interface n'est superflu par rapport aux exigences fonctionnelles.
 
 \subsubsection{Clarifications}
@@ -377,39 +379,40 @@ Afin de démontrer que l'ensemble des cas d'utilisation sont effectivement couve
 \hline
 \textbf{Fonctions du \texttt{Main}} & \textbf{Cas d'utilisation correspondants} \\
 \hline
-\texttt{startGame(): GameMode} & Lancer mode progression + Commencer une partie\\
+\texttt{play()} & Jouer
+\hline
+\texttt{startGame(): GameMode} & Lancer mode progression\\
 \hline
 \texttt{movePlayerPosition(game: GameMode, direction: String)} & Se déplacer dans le labyrinthe \\
 \hline
 \texttt{displayProgress(player: Player)} & Afficher progression \\
 \hline
-\texttt{savePlayer(player: Player)}  & Sauvegarder progression (donc le joueur car contenue dans le joueur)\\
+\texttt{savePlayer(player: Player)} & Sauvegarder progression (donc le joueur, car elle est contenue dans le joueur)\\
 \hline
 \texttt{loadPlayer(name: String): Player} & Charger profil \\
+\hline
+\texttt{createMaze(gameMode: GameMode)} & Commencer une partie (créer labyrinthe choisi) \\
 \hline
 \end{tabular}
 \end{center}
 \vspace{1em}
 
-Cette approche évite la création de fonctions redondantes qui résulteraient d'une correspondance stricte entre chaque cas d'utilisation et chaque méthode. En effet, plusieurs cas d'utilisation partagent une logique commune et bénéficient d'un regroupement fonctionnel.
-
-\subsection{Équilibre entre méthodologie et besoin client}
-
-Notre modélisation représente un équilibre optimal entre le respect de la méthodologie d'\texttt{Analyse} et la satisfaction des exigences fonctionnelles exprimées dans le sujet.
-
-En effet, une application strictement littérale de la méthodologie (une fonction par cas d'utilisation) aurait généré des fonctions superflues ou redondantes, notamment pour "Lancer mode progression" et "Commencer une partie", compte tenu de la structure actuelle de nos classes. 
-
-À l'inverse, ignorer complètement la méthodologie aurait compromis la cohérence pédagogique du projet.
-
-Notre solution concilie ces deux impératifs : les cas d'utilisation présentant un recouvrement fonctionnel ("Jouer", "Commencer une partie", "Lancer mode progression") sont unifiés au sein de la méthode \texttt{startGame(): GameMode}. 
+Rappel des cas d'utilisation : lienfigure
 
 L'utilisation d'un type abstrait \texttt{GameMode} et du polymorphisme permet de préserver la distinction nécessaire entre les différents modes de jeu tout en mutualisant le code commun.
 
 \subsection{Clarifications}
 
-La fonction \texttt{startGame()}, comme indiqué dans le tableau précédent, supporte plusieurs cas d'utilisation. Ce choix de conception mérite une explication détaillée :
+\tsecnonum{Les étapes et défis}
 
-Cette méthode retourne un \texttt{GameMode}, qui peut aussi bien être le mode libre que le mode progression (type abstrait hérité). Elle est conçue pour être appelée depuis le menu de départ. 
+\info{Il est entendu qu'un \texttt{Level} correspond à une \textit{Étape}. La traduction littérale de l'anglais aurait donné \texttt{Stage} ce qui rentrerait en conflit avec l'objet \texttt{Stage} du JavaFX.}
+\info{Un \texttt{Challenge} est un défi (traduction littérale de l'anglais).}
+
+Il y a 3 étapes et 3 défis (information confirmée en ayant demandé aux professeurs), donc les structures pour les contenir ont cette taille fixe.
+
+\tsecnonum{Le type \texttt{GameMode}}
+
+La fonction \texttt{startGame()} retourne un type \texttt{GameMode}, qui peut aussi bien être le mode libre que le mode progression (type abstrait hérité). Elle est conçue pour être appelée depuis le menu de choix (voir prototypes). 
 
 Ce type abstrait permet un traitement unifié des deux modes de jeu pour les opérations communes (par exemple, \texttt{movePlayerPosition}), évitant ainsi les duplications de code.
 
@@ -422,15 +425,25 @@ Ce type abstrait permet un traitement unifié des deux modes de jeu pour les op�
 
 Elle sert donc à démarrer une partie, quel que soit le mode choisi, et couvre naturellement le cas d'utilisation "Lancer mode progression".
 
+\tsecnonum{L'initialisation de \texttt{Player} dans \texttt{ProgresionMode}}
 Dans le cas d'un lancement en mode progression, le joueur est dirigé vers une interface de saisie du nom. Une fois le nom validé, la fonction
 
-\texttt{loadPlayer(name: String): Player} est invoquée afin de :
+\texttt{loadPlayer(name: String): Player} est invoquée dans le constructeur \texttt{ProgressionMode} afin de :
 \begin{itemize}
 \item Charger le profil existant si un joueur avec ce nom est enregistré dans la base de données, permettant ainsi de reprendre la progression sauvegardée
 \item Créer un nouveau profil si aucun joueur avec ce nom n'existe, assurant une expérience fluide pour les nouveaux joueurs
 \end{itemize}
 
-Cette conception garantit une gestion cohérente et efficace du cycle de vie des profils joueurs.
+\texttt{ProgressionMode} prendra donc en attribut le \texttt{Player} retourné.
+
+Cette conception garantit une gestion cohérente et efficace du cycle de vie des profils joueurs, les utilisant uniquement dans le mode progression.
+
+\section{Conclusion}
+
+Tous les choix de conceptions ont \textbf{toujours} été guidés par un strict respect du besoin client du sujet. 
+
+Une lecture très attentive des attentes a permis d'obtenir une correspondance maximale au besoin client décrit, que ce soit dans les cas d'utilisation, le prototype ou le diagramme de classe.
+Ce dossier d'analyse nous permettra alors de réaliser très efficacement le logiciel, la partie de réflexion ayant été poussée le plus loin possible.
 
 \end{document}
 

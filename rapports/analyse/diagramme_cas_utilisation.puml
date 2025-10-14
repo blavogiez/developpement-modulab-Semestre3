@@ -6,21 +6,23 @@ actor "Système" as sy
 
 rectangle Labyrinthe #lightyellow {
   usecase "Jouer" as UC1
-  usecase "Commencer une partie" as UC2
-  usecase "Se déplacer\ndans le labyrinthe" as UC3
-  usecase "Afficher progression" as UC4
-  usecase "Sauvegarder progression" as UC5
-  usecase "Charger profil" as UC6
-  usecase "Lancer mode progression" as UC7
+  usecase "Lancer mode progression" as UC2
+  usecase "Charger profil" as UC3
+  usecase "Commencer une partie" as UC4
+
+  usecase "Afficher progression" as UC5
+  usecase "Se déplacer\ndans le labyrinthe" as UC6
+  usecase "Sauvegarder progression" as UC7
 }
 
 ' Relations principales (acteur -> cas d'utilisation)
+
 us --> UC1
 us --> UC2
 us --> UC3
 us --> UC4
+us --> UC5
 us --> UC6
-us --> UC7
 
-sy --> UC5
+sy --> UC7
 @enduml
