@@ -41,7 +41,7 @@ public class Maze {
     private Position entryPosition;
     private Position exitPosition;
 
-    public Maze(int width, int height, int wallPercentage) {
+    public Maze(int width, int height, double wallPercentage) {
         this.observers=new ArrayList<>();
         this.grid = AlgoLaby2.createMaze(width, height, wallPercentage);
         this.width = width * 2 + 1;

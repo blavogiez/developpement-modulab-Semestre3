@@ -11,14 +11,10 @@ public class AlgoLaby2 {
 
     public static boolean[][] createMaze(int height, int width, double percentageOfWall){
         maze=new boolean[height*2+1][width*2+1];
-        percentageWall=percentageOfWall;
-//        for (int l = 0; l<height;l++){
-//            for (int c = 0; c<width;c++){
-//                maze[l][c] = WALL;
-//            }
-//        }
+        percentageWall=percentageOfWall+0.5;
+
         tracePath();
-//        removePercentageWall();
+        removePercentageWall();
         return maze;
     }
 
