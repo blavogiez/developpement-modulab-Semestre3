@@ -10,6 +10,7 @@ class Maze {
   playerPosition: Position
   entryPosition: Position
   exitPosition: Position
+  distanceBetweenEntryAndExit: int
   Maze(width: int, height: int, wallPercentage: int)
   isPlayerPositionAtExit(): boolean
 }
@@ -61,7 +62,12 @@ class Challenge {
   width: int
   height: int
   wallPercentage: int
-  completed : boolean
+  completed: boolean
+  completedTime: int
+  attempts: int
+  bestLength: int
+  bonus: String
+  malus: String
   Challenge(difficulty: String)
   validate()
 }
@@ -73,7 +79,7 @@ class Main {
   {static} displayProgress(player: Player)
   {static} savePlayer(player: Player)
   {static} loadPlayer(player: player)
-  {static} createMaze(gameMode: GameMode): Maze
+  {static} createMaze(gameMode: GameMode, attributs du mode): Maze
  
   'displayProgress(player: Player)'
 }
