@@ -5,8 +5,10 @@ import fr.univlille.labyrinth.model.*;
 import fr.univlille.labyrinth.model.algorithm.AlgoLaby;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -65,8 +67,13 @@ public class Main extends Application {
             }
         };
         this.gameMode.start();
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        stage.setTitle("Test");
+        stage.setX(screenBounds.getMinX());
+        stage.setY(screenBounds.getMinY());
+        stage.setWidth(screenBounds.getWidth());
+        stage.setHeight(screenBounds.getHeight());
+        stage.setTitle("Labyrinthe");
         stage.show();
 
 

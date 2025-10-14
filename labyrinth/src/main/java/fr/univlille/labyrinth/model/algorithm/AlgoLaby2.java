@@ -12,13 +12,13 @@ public class AlgoLaby2 {
     public static boolean[][] createMaze(int height, int width, double percentageOfWall){
         maze=new boolean[height*2+1][width*2+1];
         percentageWall=percentageOfWall;
-        for (int l = 0; l<height;l++){
-            for (int c = 0; c<width;c++){
-                maze[l][c] = WALL;
-            }
-        }
+//        for (int l = 0; l<height;l++){
+//            for (int c = 0; c<width;c++){
+//                maze[l][c] = WALL;
+//            }
+//        }
         tracePath();
-        removePercentageWall();
+//        removePercentageWall();
         return maze;
     }
 
@@ -52,7 +52,7 @@ public class AlgoLaby2 {
 
     private static void tracePath(){
         Stack<Cell> cellStack = new Stack<>();
-        cellStack.add(new Cell(1,1));
+        cellStack.push(new Cell(1,1));
         markCell(cellStack.peek());
         while (!cellStack.isEmpty()){
             boolean result = findPath(cellStack);
@@ -80,7 +80,7 @@ public class AlgoLaby2 {
 
     private static boolean isWall(int x, int y){
         if (x<1 || x> maze.length-1 || y<1 || y>maze[0].length-1) return false;
-        return maze[x][y];
+        return !maze[x][y];
     }
     private static boolean isWall(Cell cell){
         return isWall(cell.x,cell.y);
