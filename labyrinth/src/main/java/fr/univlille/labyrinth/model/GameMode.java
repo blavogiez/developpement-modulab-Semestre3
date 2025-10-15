@@ -1,113 +1,58 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.Main;
-
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera intermédiaire entre Labyrinthe et Joueur.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public abstract class GameMode {
-    protected Maze currentMaze;
 
+    private Maze currentMaze;
+
+    /**
+     * Cette méthode est appelé lorsque le GameMode est généré
+     */
     public abstract void start();
 
+    /**
+     * Cette méthode est appelé lorsque le joueur fini un labyrinthe
+     */
+    public abstract void playerWin();
+
+    /**
+     * Cette méthode permet de générer un labyrinthe, afin de le stocker en paramètre.
+     *
+     * @param width la largeur du labyrinthe.
+     * @param height la hauteur du labyrinthe.
+     * @param wallPercentage le taux de mur entre 0 et 0.5.
+     */
     public void createMaze(int width, int height, int wallPercentage) {
         this.currentMaze = new Maze(width,height,wallPercentage);
     }
 
-    public void navigate(){
-        if (currentMaze==null) {
-            System.out.println("The maze wasn't generated");
-            return; //need to be updated
-        }
-        while (!isPlayerPositionAtExit()){
-            Direction direction = askDirection();
-            movePlayerPosition(direction);
-        }
-        if (isPlayerPositionAtExit() && this instanceof FreeMode) ;//The user access to the victory screen, then goes back to the menu
-        else if (isPlayerPositionAtExit() && this instanceof ProgressionMode progressionMode){
-            progressionMode.getPlayer().getProgress().markChallengeCompleted(null); //set the challenge complete (idk where he supposed to be stocked)
-            Main.getInstance().getScenes().pop();
-        } else {
-            throw new RuntimeException("The GameMode isn't recognizable");
-        }
-
-
-    }
-    private List<Observer> observers;
-
-    public void notifyScene(){
-        for (Observer observer : observers){
-            observer.update();
-        }
-    }
-
-    private Direction askDirection() {
-        System.out.println("Please, choose a direction");
-        Scanner scanner = new Scanner(System.in);
-        switch (scanner.nextLine()){
-            case "right":
-                return Direction.RIGHT;
-            case "left":
-                return Direction.LEFT;
-            case "up":
-                return Direction.UP;
-            case "down":
-                return Direction.DOWN;
-        }
-        return Direction.RIGHT;
-    }
-    //That's a TMP method, it'll be changed with javafx 's implementation
-
+    /**
+     * Cette méthode vérifie si le joueur peut se déplacer à l'endroit demander, et envoie au labyrinthe de le déplacer si c'est le cas.
+     *
+     * @param direction la largeur du labyrinthe.
+     */
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
             Position playerPosition = currentMaze.getPlayerPosition();
-            switch (direction) {
-                case RIGHT:
-                    if (playerPosition.getX()+2<currentMaze.getWidth()){
-                        playerPosition.setX(playerPosition.getX()+2);
-                        System.out.println("You are moving to the right");
-                    }
-                    System.out.println("You tried to move to the right");
-
-                    break;
-                case LEFT:
-                    if (playerPosition.getX()-2<currentMaze.getWidth()){
-                        playerPosition.setX(playerPosition.getX()-2);
-                        System.out.println("You are moving to the left");
-                    }
-                    System.out.println("You tried to move to the left");
-
-                    break;
-                case UP:
-                    if (playerPosition.getY()+2<currentMaze.getHeight()){
-                        playerPosition.setX(playerPosition.getY()+2);
-                        System.out.println("You are moving to the top");
-                    }
-                    System.out.println("You tried to move to the top");
-                    break;
-                case DOWN:
-                    if (playerPosition.getY()-2<currentMaze.getHeight()){
-                        playerPosition.setX(playerPosition.getY()-2);
-                        System.out.println("You are moving to the bottom");
-                    }
-                    System.out.println("You tried to move to the bottom");
-                    break;
-
-                default:
-
-                    break;
+            if ( !currentMaze.isWall(playerPosition.getX()+direction.x,playerPosition.getY()+direction.y)){
+                currentMaze.movePlayer(direction);
             }
-        } else {
-            throw new RuntimeException("The maze wasn't generated");
-
         }
     }
 
-    public boolean isPlayerPositionAtExit() {
-        return currentMaze.isPlayerPositionAtExit();
+    public void setCurrentMaze(Maze currentMaze) {
+        this.currentMaze = currentMaze;
     }
 
     public Maze getCurrentMaze() {
         return currentMaze;
     }
+
+
 }

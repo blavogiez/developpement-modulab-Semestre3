@@ -1,5 +1,5 @@
 # IDE - IntelliJ IDEA
-.idea/
+*/.idea/
 *.iml
 *.iws
 *.ipr
@@ -22,6 +22,7 @@ target/
 *.war
 *.ear
 !.mvn/wrapper/maven-wrapper.jar
+doc/
 
 # LaTeX
 *.aux

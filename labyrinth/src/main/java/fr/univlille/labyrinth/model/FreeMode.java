@@ -16,11 +16,11 @@ public class FreeMode extends GameMode {
         createMaze(width, height, wallPercentage);
 
         // Enter into the main loop for as long as exit isn't chosen
-        navigate();
+//        navigate();
     }
 
+    @Override
+    public void playerWin() {
 
-
-
-
+    }
 }

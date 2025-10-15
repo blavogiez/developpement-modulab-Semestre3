@@ -1,19 +1,15 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.algorithm;
 
+
+import fr.univlille.labyrinth.model.Direction;
 
 import java.util.Random;
 
-public class AlgoLaby {
+public class AlgoLabyOld {
 
     Random random = new Random();
 
-//    public static void main(String[] args) {
-//        AlgoLaby algo = new AlgoLaby();
-//        int[][] maze = algo.generateGrid(21,21);
-//        maze = algo.generatePath(maze);
-//        boolean[][] newMaze = algo.exportMaze(maze);
-//        System.out.println(algo.mazeToString(newMaze));
-//    }
+
 
     public boolean[][] createLabyrinthe(int width, int height, int percentageWall){
         int[][] maze = generateGrid(width,height,percentageWall);
@@ -21,17 +17,7 @@ public class AlgoLaby {
         return exportMaze(maze);
     }
 
-//    public void testShow(int[][] maze){
-//        int height = maze.length;
-//        int width = maze[0].length;
-//        for (int l = 0; l<height;l++){
-//            for (int c = 0; c<width;c++){
-//                if(maze[l][c]==-1) System.out.print("=");
-//                else System.out.print(maze[l][c]);
-//            }
-//            System.out.println("");
-//        }
-//    }
+
 
     public int[][] generateGrid(int width, int height, int percentageWall){
         int[][] maze = new int[width][height];
@@ -58,21 +44,6 @@ public class AlgoLaby {
 
     }
 
-//    public String mazeToString(boolean[][] maze){
-//        StringBuilder res = new StringBuilder();
-//        int height = maze.length;
-//        int width = maze[0].length;
-//        for (int l = 0; l < height;l++) {
-//            for (int c = 0; c < width; c++) {
-//                if (l==1 && c==1) res.append("S");
-//                else if (l==height-2 && c==width-2) res.append("E");
-//                else if (maze[l][c]) res.append(" ");
-//                else res.append("W");
-//            }
-//            res.append("\n");
-//        }
-//        return res.toString();
-//    }
 
     public int[][] generatePath(int[][] maze){
         while (!AllTheSameNumber(maze)){

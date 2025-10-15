@@ -1,0 +1,103 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+class Maze {
+  width: int
+  height: int
+  grid: boolean[][]
+  playerPosition: Position
+  entryPosition: Position
+  exitPosition: Position
+  distanceBetweenEntryAndExit: int
+  Maze(width: int, height: int, wallPercentage: int)
+  isPlayerPositionAtExit(): boolean
+}
+
+class Player {
+  name: String
+  score: int
+  Player(name: String, defaultProgress: PlayerProgress)
+  calculateScore(): int
+  getHighestLevel(): int
+}
+
+class PlayerProgress {
+  copy(): PlayerProgress
+  markChallengeCompleted(challenge: Challenge)
+}
+
+class Position {
+  x: int
+  y: int
+  Position(x: int, y: int)
+}
+
+abstract class GameMode {
+  start()
+  createMaze(width: int, height: int, wallPercentage: int): Maze
+  movePlayerPosition(direction: String)
+  isPlayerPositionAtExit(): boolean
+}
+
+class FreeMode {
+  start() {overrides start}
+}
+
+class ProgressionMode {
+  start() {overrides start}
+  createMaze(chosenChallenge: Challenge): Maze
+  loadPlayer(name: String)
+  {static} defaultProgress: PlayerProgress
+}
+
+class Level {
+  number: int
+  Level(number: int)
+  isAccessible(challenge: Challenge): boolean
+  isCompleted(): boolean
+}
+
+class Challenge {
+  difficulty: String
+  width: int
+  height: int
+  wallPercentage: int
+  completed: boolean
+  completedTime: int
+  attempts: int
+  bestLength: int
+  bonus: String
+  malus: String
+  Challenge(difficulty: String)
+  validate()
+}
+
+class Main {
+  {static} play()
+  {static} startGame(): GameMode
+  {static} movePlayerPosition(game: GameMode, direction: String)
+  {static} displayProgress(player: Player)
+  {static} savePlayer(player: Player)
+  {static} loadPlayer(name: String): Player
+  {static} createMaze(gameMode: GameMode, attributs du mode): Maze
+ 
+  'displayProgress(player: Player)'
+}
+
+class PlayerDatabase {
+  {static} savePlayer(player: Player)
+  {static} loadPlayer(name: String): Player
+  {static} playerExists(name: String): boolean
+}
+
+Maze --> "playerPosition 1" Position
+GameMode --> "currentMaze 1" Maze
+GameMode <|-- FreeMode
+GameMode <|-- ProgressionMode
+ProgressionMode --> "player 1" Player
+Level --> "challenges 3" Challenge
+Player --> "progress 1" PlayerProgress
+PlayerProgress --> "levelProgress 3" Level
+@enduml
