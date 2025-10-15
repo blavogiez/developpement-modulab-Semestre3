@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.HelloApplication;
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
@@ -63,12 +62,9 @@ public class LabyrinthGridView implements Observer<Maze> {
         pane.setAlignment(Pos.CENTER);
         pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        GridPane.setHgrow(grid, Priority.ALWAYS);
-        GridPane.setVgrow(grid, Priority.ALWAYS);
-
-        NumberBinding db = Bindings.min(HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
-        grid.prefHeightProperty().bind(db);
-        grid.prefWidthProperty().bind(db);
+        grid.setPrefSize(600, 600);
+        grid.setMaxSize(600, 600);
+        grid.setMinSize(600, 600);
         grid.setAlignment(Pos.CENTER);
 
 
@@ -96,12 +92,11 @@ public class LabyrinthGridView implements Observer<Maze> {
     public void update(Maze maze) {
         grid.getChildren().clear();
         boolean[][] mazeGrid = maze.getGrid();
-        double length = Math.min(grid.getPrefHeight()/(double) mazeGrid.length, grid.getPrefWidth()/(double) mazeGrid[0].length);
 
         for (int l = 0; l < mazeGrid.length; l++){
             for (int c = 0; c < mazeGrid[0].length; c++) {
 
-                Rectangle rect = new Rectangle(length, length);
+                Rectangle rect = new Rectangle();
 
                 NumberBinding size = Bindings.min(
                         grid.widthProperty().divide(mazeGrid[0].length),

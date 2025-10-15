@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="pane1" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#movement" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.LabyrinthModeLibreController">
+<BorderPane fx:id="pane1" focusTraversable="true" onKeyPressed="#movement" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.LabyrinthModeLibreController">
    <top>
       <VBox alignment="TOP_RIGHT" prefHeight="92.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
