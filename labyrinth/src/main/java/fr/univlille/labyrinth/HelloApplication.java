@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         Stage stage = primaryStage;
         Parent root = FXMLLoader.load(HelloApplication.class.getResource(page));
         stage.setScene(new Scene(root));
-        stage.show();
+
     }
 
     @Override
