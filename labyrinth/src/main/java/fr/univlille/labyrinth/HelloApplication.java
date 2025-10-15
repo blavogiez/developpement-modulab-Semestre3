@@ -32,4 +32,8 @@ public class HelloApplication extends Application {
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
+
+    public static void goTo(Scene scene){
+        primaryStage.setScene(scene);
+    }
 }

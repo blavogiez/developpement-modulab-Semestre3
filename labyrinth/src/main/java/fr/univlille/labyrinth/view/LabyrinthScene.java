@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.view;
 
+import fr.univlille.labyrinth.HelloApplication;
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.Direction;
@@ -63,7 +64,7 @@ public class LabyrinthScene extends Scene implements Observer<Maze> {
 //        pane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         grid = new GridPane();
-        NumberBinding db = Bindings.min( Main.getInstance().getScenes().getStage().heightProperty().divide(1.2), Main.getInstance().getScenes().getStage().widthProperty().divide(1.2));
+        NumberBinding db = Bindings.min( HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
         grid.prefHeightProperty().bind(db);
         grid.prefWidthProperty().bind(db);
         grid.setAlignment(Pos.CENTER);
