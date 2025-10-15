@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,11 +22,11 @@ public class AccueilLabyrinthController  {
 
     @FXML
     private void goToModeLibre() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
+        Main.goTo("ModeLibre.fxml");
     }
 
     @FXML
     private void goToModeProgression() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
+        Main.goTo("ModeLibre.fxml");
     }
 }

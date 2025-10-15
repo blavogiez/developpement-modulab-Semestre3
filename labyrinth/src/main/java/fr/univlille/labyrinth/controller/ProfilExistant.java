@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -15,18 +15,18 @@ public class ProfilExistant {
 
     @FXML
     private void goToNewProgression() throws IOException { //nouvelle partie
-        HelloApplication.goTo("Progression.fxml");
+        Main.goTo("Progression.fxml");
     }
 
 
 
     @FXML
     private void goToProgression() throws IOException { //reprendre partie
-        HelloApplication.goTo("Progression.fxml");
+        Main.goTo("Progression.fxml");
     }
 
     @FXML
     private void goToProgressionEntreNom() throws IOException {
-        HelloApplication.goTo("ProgressionEntreNom.fxml");
+        Main.goTo("ProgressionEntreNom.fxml");
     }
 }
