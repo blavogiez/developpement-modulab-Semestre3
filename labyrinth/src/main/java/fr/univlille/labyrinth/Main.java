@@ -63,11 +63,8 @@ public class Main extends Application {
             stage.setMinWidth(minWidth);
         });
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AccueilLabyrinth.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello !");
 
-
+        Scene scene = new Scene(FXMLLoader.load(Main.class.getResource("AccueilLabyrinth.fxml")));
         this.scenes = new SceneManager(stage, scene);
 
         stage.setX(screen.getMinX());
@@ -83,7 +80,7 @@ public class Main extends Application {
         this.gameMode=new GameMode() {
             @Override
             public void start() {
-                gameMode.setCurrentMaze(new Maze(11,11,0.5));
+                gameMode.setCurrentMaze(new Maze(11,33,0.5));
                 LabyrinthScene labyScene = new LabyrinthScene(gameMode.getCurrentMaze());
                 labyScene.setControler(new LabyrinthControler(this));
                 Main.getInstance().getScenes().push(labyScene);
