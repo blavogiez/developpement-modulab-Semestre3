@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+// Controller for the FreeMode maze interface
+// FXML base that contains a GridPane (LabyrinthGridView) which observes the Maze
 public class LabyrinthModeLibreController {
 
     @FXML
@@ -27,7 +29,6 @@ public class LabyrinthModeLibreController {
         gameMode.getCurrentMaze().add(labyrinth);
         labyrinth.setControler(new LabyrinthControler(gameMode));
 
-        labyrinth.update(gameMode.getCurrentMaze());
         pane1.setCenter(labyrinth.getCompletePane());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());

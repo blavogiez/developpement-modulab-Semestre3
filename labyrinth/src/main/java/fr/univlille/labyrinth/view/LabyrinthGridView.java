@@ -11,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -62,6 +61,7 @@ public class LabyrinthGridView implements Observer<Maze> {
         pane.setAlignment(Pos.CENTER);
         pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        // Taille fixe : le labyrinthe a toujours la meme taille, ce qui change c'est la taille des cases ! de ce fait on peut avoir un tableau en 200x10 sans probleme.
         grid.setPrefSize(600, 600);
         grid.setMaxSize(600, 600);
         grid.setMinSize(600, 600);
