@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.* ;
-import fr.univlille.labyrinth.view.LabyrinthScene;
+import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+// Controller for the FreeMode maze interface
+// FXML base that contains a GridPane (LabyrinthGridView) which observes the Maze
 public class LabyrinthModeLibreController {
 
     @FXML
@@ -16,20 +18,21 @@ public class LabyrinthModeLibreController {
 
     //private final GameMode gameMode = new GameMode();
 
-    private LabyrinthScene labyrinth;
+    private LabyrinthGridView labyrinth;
 
     @FXML
     public void initialize() {
         FreeMode gameMode = new FreeMode();
         gameMode.start();
 
-        labyrinth = new LabyrinthScene(gameMode.getCurrentMaze());
+        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
         labyrinth.setControler(new LabyrinthControler(gameMode));
 
         labyrinth.update(gameMode.getCurrentMaze());
 
         pane1.setCenter(labyrinth.getGridPane());
+
         pane1.requestFocus();
 
         labyrinth.update(gameMode.getCurrentMaze());

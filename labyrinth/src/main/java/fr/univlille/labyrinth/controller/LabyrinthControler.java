@@ -4,7 +4,7 @@ import fr.univlille.labyrinth.model.Direction;
 import fr.univlille.labyrinth.model.GameMode;
 
 /**
- * LabyrinthControler est le controleur de LabyrinthScene. C'est un controleur.
+ * LabyrinthControler est le controleur de LabyrinthGridView. C'est un controleur.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
