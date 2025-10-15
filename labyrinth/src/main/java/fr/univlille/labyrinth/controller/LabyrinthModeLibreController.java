@@ -16,12 +16,14 @@ public class LabyrinthModeLibreController {
 
     //private final GameMode gameMode = new GameMode();
 
+    private LabyrinthScene labyrinth;
+
     @FXML
     public void initialize() {
         FreeMode gameMode = new FreeMode();
         gameMode.start();
 
-        LabyrinthScene labyrinth = new LabyrinthScene(gameMode.getCurrentMaze());
+        labyrinth = new LabyrinthScene(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
         labyrinth.setControler(new LabyrinthControler(gameMode));
 
@@ -29,19 +31,19 @@ public class LabyrinthModeLibreController {
         pane1.setCenter(labyrinth.getCompletePane());
         pane1.requestFocus();
 
-        labyrinth.getControler().movePlayer(Direction.RIGHT);
         labyrinth.getControler().movePlayer(Direction.DOWN);
         labyrinth.getControler().movePlayer(Direction.UP);
-        labyrinth.getControler().movePlayer(Direction.RIGHT);
+        labyrinth.getControler().movePlayer(Direction.LEFT);
+        labyrinth.update(gameMode.getCurrentMaze());
 
     }
 
     @FXML
     public void movement(KeyEvent e){
-        System.out.println(e);
-//if (e.getCode().equals(KeyCode.DOWN)) controler.movePlayer(Direction.DOWN);
-//        else if (x.getCode().equals(KeyCode.UP)) controler.movePlayer(Direction.UP);
-//        else if (x.getCode().equals(KeyCode.LEFT)) controler.movePlayer(Direction.LEFT);
-//        else if (x.getCode().equals(KeyCode.RIGHT)) controler.movePlayer(Direction.RIGHT);
+        System.out.println(e.getCode());
+        if (e.getCode().equals(KeyCode.S)) labyrinth.getControler().movePlayer(Direction.DOWN);
+        else if (e.getCode().equals(KeyCode.Z)) labyrinth.getControler().movePlayer(Direction.UP);
+        else if (e.getCode().equals(KeyCode.Q)) labyrinth.getControler().movePlayer(Direction.LEFT);
+        else if (e.getCode().equals(KeyCode.D)) labyrinth.getControler().movePlayer(Direction.RIGHT);
     }
 }
