@@ -74,7 +74,6 @@ public class Maze {
         this.playerPosition = new Position(1, 1);
         this.entryPosition = new Position(1, 1);
         this.exitPosition = new Position(this.width-2 , this.height-2);
-
     }
 
     /**
