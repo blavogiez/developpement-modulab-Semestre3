@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ed497b18-d7a6-439d-bc2b-e0b9d9852479" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ProfilExistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ProfilExistant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/resources/fr/univlille/labyrinth/ProfilExistant.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/resources/fr/univlille/labyrinth/ProfilExistant.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

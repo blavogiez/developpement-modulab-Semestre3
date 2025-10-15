@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -8,30 +9,49 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.Progression">
    <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Retour" />
+            <Button mnemonicParsing="false" onAction="#goToProgressionEntreNom" prefHeight="8.0" prefWidth="62.0" text="Retour" />
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
       </HBox>
    </bottom>
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce profil figure déja dans la base de donnée.">
+            <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce profil figure déja dans la base de donnée." textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Voulez vous créer une nouvelle partie ou reprendre la sauvegarde existante " />
-            <Button mnemonicParsing="false" text="Nouvelle partie" />
-            <Button mnemonicParsing="false" text="Reprendre" />
+            <Text fill="#f80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Voulez vous créer une nouvelle partie ou reprendre la sauvegarde existante " textAlignment="CENTER" wrappingWidth="598.0861217975616">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-20.0" />
+               </VBox.margin>
+            </Text>
+            <Button mnemonicParsing="false" onAction="#goToNewProgression" text="Nouvelle partie" />
+            <Button mnemonicParsing="false" onAction="#goToProgression" text="Reprendre" />
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
       </VBox>
    </center>
    <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Progession">
                <font>
