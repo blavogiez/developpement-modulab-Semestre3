@@ -1,6 +1,9 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.HelloApplication;
+
+import fr.univlille.labyrinth.model.Maze;
+import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +26,7 @@ public class ModeLibreController {
 
     @FXML
     private void goToModeLaby() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
+        HelloApplication.goTo("LabyrinthModeLibre.fxml");
     }
 
     @FXML
