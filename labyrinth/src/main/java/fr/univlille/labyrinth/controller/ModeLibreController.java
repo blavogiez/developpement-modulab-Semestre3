@@ -3,7 +3,6 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.HelloApplication;
 
 import fr.univlille.labyrinth.model.Maze;
-import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

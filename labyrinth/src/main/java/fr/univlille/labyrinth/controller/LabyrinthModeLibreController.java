@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.* ;
-import fr.univlille.labyrinth.view.LabyrinthScene;
+import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -16,14 +16,14 @@ public class LabyrinthModeLibreController {
 
     //private final GameMode gameMode = new GameMode();
 
-    private LabyrinthScene labyrinth;
+    private LabyrinthGridView labyrinth;
 
     @FXML
     public void initialize() {
         FreeMode gameMode = new FreeMode();
         gameMode.start();
 
-        labyrinth = new LabyrinthScene(gameMode.getCurrentMaze());
+        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
         labyrinth.setControler(new LabyrinthControler(gameMode));
 
