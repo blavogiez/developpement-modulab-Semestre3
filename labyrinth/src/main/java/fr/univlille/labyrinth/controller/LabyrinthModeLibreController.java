@@ -28,12 +28,10 @@ public class LabyrinthModeLibreController {
         labyrinth.setControler(new LabyrinthControler(gameMode));
 
         labyrinth.update(gameMode.getCurrentMaze());
+
         pane1.setCenter(labyrinth.getGridPane());
         pane1.requestFocus();
 
-        labyrinth.getControler().movePlayer(Direction.DOWN);
-        labyrinth.getControler().movePlayer(Direction.UP);
-        labyrinth.getControler().movePlayer(Direction.LEFT);
         labyrinth.update(gameMode.getCurrentMaze());
 
     }
@@ -46,4 +44,5 @@ public class LabyrinthModeLibreController {
         else if (e.getCode().equals(KeyCode.Q)) labyrinth.getControler().movePlayer(Direction.LEFT);
         else if (e.getCode().equals(KeyCode.D)) labyrinth.getControler().movePlayer(Direction.RIGHT);
     }
+
 }

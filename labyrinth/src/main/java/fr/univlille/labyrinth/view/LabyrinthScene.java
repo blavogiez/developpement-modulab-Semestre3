@@ -7,17 +7,10 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 
 /**
@@ -28,6 +21,7 @@ import javafx.scene.text.FontWeight;
  * @since 0.0
  */
 public class LabyrinthScene implements Observer<Maze> {
+
 
 //    private static GridPane pane;
     protected static GridPane grid;
@@ -66,9 +60,20 @@ public class LabyrinthScene implements Observer<Maze> {
      */
     public LabyrinthScene(Maze maze){
 
+
+
+
         grid=new GridPane();
         GridPane.setHgrow(grid, Priority.ALWAYS);
         GridPane.setVgrow(grid, Priority.ALWAYS);
+
+
+        NumberBinding db = Bindings.min(HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
+        grid.prefHeightProperty().bind(db);
+        grid.prefWidthProperty().bind(db);
+        grid.setAlignment(Pos.CENTER);
+
+
 
         update(maze);
     }
@@ -109,6 +114,7 @@ public class LabyrinthScene implements Observer<Maze> {
                 }
 
                 grid.add(rect, c, l); // Note: JavaFX GridPane uses (col, row)
+
             }
         }
 
@@ -117,6 +123,7 @@ public class LabyrinthScene implements Observer<Maze> {
             controler.playerWin();
         }
     }
+
 
     public GridPane getGridPane() {
         return this.grid;
