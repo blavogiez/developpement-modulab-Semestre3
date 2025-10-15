@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.ProgressionController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="813.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="1.0" prefWidth="100.0" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text scaleX="3.0" scaleY="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progression" VBox.vgrow="ALWAYS" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étapes de :" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" scaleZ="0.0" style="-fx-background-color: #C7C7C7;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #d9d7d7; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 1" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                                 <children>
+                                    <Button fx:id="bouttonWorld1Challenge1" mnemonicParsing="false" onAction="#goToWorld1Challenge1" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonWorld1Challenge2" disable="true" mnemonicParsing="false" onAction="#goToWorld1Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld1Challenge3" disable="true" mnemonicParsing="false" onAction="#goToWorld1Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children></VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #C7C7C7;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #d9d7d7; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 2" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                                 <children>
+                                    <Button fx:id="bouttonWorld2Challenge1" disable="true" mnemonicParsing="false" onAction="#goToWorld2Challenge1" scaleX="2.0" scaleY="2.0" scaleZ="0.0" text="1" />
+                                    <Button fx:id="bouttonWorld2Challenge2" disable="true" mnemonicParsing="false" onAction="#goToWorld2Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld2Challenge3" disable="true" mnemonicParsing="false" onAction="#goToWorld2Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children></VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #C7C7C7;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #d9d7d7; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 3" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                                 <children>
+                                    <Button fx:id="bouttonWorld3Challenge1" disable="true" mnemonicParsing="false" onAction="#goToWorld3Challenge1" scaleX="2.0" scaleY="2.0" scaleZ="0.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonWorld3Challenge2" disable="true" mnemonicParsing="false" onAction="#goToWorld3Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld3Challenge3" disable="true" mnemonicParsing="false" onAction="#goToWorld3Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children></VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToAccueil" text="RETOUR" HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets left="280.0" right="280.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>

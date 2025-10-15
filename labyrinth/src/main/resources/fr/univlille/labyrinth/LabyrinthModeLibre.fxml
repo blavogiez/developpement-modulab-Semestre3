@@ -9,7 +9,7 @@
    <top>
       <VBox alignment="TOP_RIGHT" prefHeight="92.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="bouttonRetour" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
             <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="600.0" text="d" />
             <Label text="Label" />
          </children>

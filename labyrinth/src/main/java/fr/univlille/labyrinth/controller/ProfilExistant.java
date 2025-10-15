@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 public class ProfilExistant {
+    @FXML
     private Button bouttonNouvellePartie;
     @FXML
     private Button bouttonReprendre;
