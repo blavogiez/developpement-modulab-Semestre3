@@ -8,23 +8,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
 
     private static Stage primaryStage;
 
     public static void goTo(String page) throws IOException {
-        Stage stage = primaryStage;
-        Parent root = FXMLLoader.load(HelloApplication.class.getResource(page));
-        stage.setScene(new Scene(root));
-
+        Parent root = FXMLLoader.load(Main.class.getResource(page));
+        primaryStage.setScene(new Scene(root));
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
 
-        Scene scene = new Scene(FXMLLoader.load(HelloApplication.class.getResource("AccueilLabyrinth.fxml")));
-        stage.setTitle("Hello !");
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AccueilLabyrinth.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Labyrinth");
+
         stage.setScene(scene);
         stage.show();
 
@@ -32,5 +34,9 @@ public class HelloApplication extends Application {
 
     public static Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

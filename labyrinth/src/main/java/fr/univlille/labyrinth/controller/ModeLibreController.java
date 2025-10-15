@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 
 import fr.univlille.labyrinth.model.FreeMode;
 import fr.univlille.labyrinth.model.Maze;
@@ -51,12 +51,12 @@ public class ModeLibreController {
         } catch (NumberFormatException e) {
             FreeMode.mazeWallPercentage = 80;
         }
-        HelloApplication.goTo("LabyrinthModeLibre.fxml");
+        Main.goTo("LabyrinthModeLibre.fxml");
     }
 
     @FXML
     private void goToAccueil() throws IOException {
-        HelloApplication.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("AccueilLabyrinth.fxml");
 
     }
 
