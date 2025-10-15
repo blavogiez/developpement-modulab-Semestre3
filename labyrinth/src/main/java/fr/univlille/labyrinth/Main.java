@@ -5,7 +5,9 @@ import fr.univlille.labyrinth.model.*;
 import fr.univlille.labyrinth.model.algorithm.AlgoLabyOld;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static AlgoLabyOld algo;
+
 
 
 
@@ -46,6 +49,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+
+
+
+
         Rectangle2D screen = Screen.getPrimary().getVisualBounds();
         final double minHeigth = screen.getHeight()/1.5;
         final double minWidth = screen.getWidth()/1.5;
@@ -55,7 +63,12 @@ public class Main extends Application {
             stage.setMinWidth(minWidth);
         });
 
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AccueilLabyrinth.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Hello !");
 
+
+        this.scenes = new SceneManager(stage, scene);
 
         stage.setX(screen.getMinX());
         stage.setY(screen.getMinY());
@@ -65,7 +78,7 @@ public class Main extends Application {
         stage.show();
 
         this.algo=new AlgoLabyOld();
-        this.scenes = new SceneManager(stage, new Scene(new Pane()));
+//        this.scenes = new SceneManager(stage, new Scene(new Pane()));
         this.instance=this;
         this.gameMode=new GameMode() {
             @Override
@@ -84,7 +97,7 @@ public class Main extends Application {
                 scenes.pop();
             }
         };
-        this.gameMode.start();
+
 
 
 
@@ -92,6 +105,7 @@ public class Main extends Application {
 
 
     }
+
 
     public static Main getInstance() {
         return instance;

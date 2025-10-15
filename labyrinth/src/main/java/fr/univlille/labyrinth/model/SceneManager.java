@@ -20,12 +20,14 @@ public class SceneManager {
 
     public SceneManager(javafx.stage.Stage stage, Scene scene){
         this.stage=stage;
+
         scenes=new Stack<>();
         push(scene);
     }
 
     public Scene push(Scene scene){
         this.stage.setScene(scene);
+
         return scenes.push(scene);
     }
 

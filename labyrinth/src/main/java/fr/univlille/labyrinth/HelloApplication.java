@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AccueilLabyrinth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Hello !");
         stage.setScene(scene);
         stage.show();
     }
