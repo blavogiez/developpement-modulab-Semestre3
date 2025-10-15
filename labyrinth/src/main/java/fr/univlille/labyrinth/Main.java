@@ -13,8 +13,10 @@ public class Main extends Application {
     private static Stage primaryStage;
 
     public static void goTo(String page) throws IOException {
+        double width = primaryStage.getScene().getWidth();
+        double height = primaryStage.getScene().getHeight();
         Parent root = FXMLLoader.load(Main.class.getResource(page));
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root, width, height));
     }
 
     @Override
