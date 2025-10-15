@@ -16,55 +16,47 @@ import fr.univlille.labyrinth.view.LabyrinthScene;
 
 public class HelloApplication extends Application {
 
-    private GameMode gameMode;
-
-    public GameMode getGameMode() {
-        return gameMode;
-    }
     private static Stage primaryStage;
 
     public static void goTo(String page) throws IOException {
-        Stage stage = primaryStage;
+        //Stage stage = primaryStage;
         Parent root = FXMLLoader.load(HelloApplication.class.getResource(page));
-        stage.setScene(new Scene(root));
-        stage.show();
+        System.out.println(root);
+        primaryStage.setScene(new Scene(root));
+        System.out.println(primaryStage.getScene());
+
+        //primaryStage.show();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage=stage;
+
         Rectangle2D screen = Screen.getPrimary().getVisualBounds();
         final double minHeigth = screen.getHeight()/1.5;
         final double minWidth = screen.getWidth()/1.5;
 
-        stage.setOnShown(x ->{
-            stage.setMinHeight(minHeigth);
-            stage.setMinWidth(minWidth);
+        primaryStage.setOnShown(x ->{
+            primaryStage.setMinHeight(minHeigth);
+            primaryStage.setMinWidth(minWidth);
         });
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AccueilLabyrinth.fxml"));
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ModeLibre.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         
         stage.setScene(scene);
 
-        stage.setX(screen.getMinX());
-        stage.setY(screen.getMinY());
-        stage.setWidth(screen.getWidth());
-        stage.setHeight(screen.getHeight());
-        stage.setTitle("Labyrinthe");
-        stage.show();
+        primaryStage.setX(screen.getMinX());
+        primaryStage.setY(screen.getMinY());
+        primaryStage.setWidth(screen.getWidth());
+        primaryStage.setHeight(screen.getHeight());
+        primaryStage.setTitle("Labyrinthe");
 
-        primaryStage = stage;
+        primaryStage.show();
 
-        //À METTRE DANS UN BOUTON
-        this.gameMode=new FreeMode();
-        gameMode.setCurrentMaze(null);
-        goTo(new LabyrinthScene(null));
-        null.setControler(new LabyrinthControler(this));
-
-
-        //
-        
-        stage.show();
+        // goTo("AccueilLabyrinth.fxml");
     }
 
     public static Stage getPrimaryStage() {
@@ -73,15 +65,5 @@ public class HelloApplication extends Application {
 
     public static void goTo(Scene scene){
         primaryStage.setScene(scene);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        
-
-        LabyrinthScene labyScene = new LabyrinthScene(gameMode.getCurrentMaze());
-        labyScene.setControler(new LabyrinthControler(this));
-        gameMode.getCurrentMaze().add(labyScene);
-        this.gameMode.start();
     }
 }

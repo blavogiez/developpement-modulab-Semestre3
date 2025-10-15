@@ -1,5 +1,8 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.controller.LabyrinthControler;
+import fr.univlille.labyrinth.view.LabyrinthScene;
+
 public class FreeMode extends GameMode {
 
 
@@ -14,7 +17,7 @@ public class FreeMode extends GameMode {
 
         // Create the wanted maze
         createMaze(width, height, wallPercentage);
-
+        //null.setControler(new LabyrinthControler(this));
         // Enter into the main loop for as long as exit isn't chosen
 //        navigate();
     }

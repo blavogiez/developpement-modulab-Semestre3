@@ -1,19 +1,18 @@
 package fr.univlille.labyrinth.controller;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.HelloApplication;
-import fr.univlille.labyrinth.model.Maze;
+import fr.univlille.labyrinth.model.FreeMode;
 import fr.univlille.labyrinth.view.LabyrinthScene;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class ModeLibreController {
+    private FreeMode gameMode ;
+
     @FXML
     private Button bouttonValider;
 
@@ -25,14 +24,18 @@ public class ModeLibreController {
 
     @FXML
     private void goToModeLaby() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
-        HelloApplication.goTo(new LabyrinthScene(new Maze(5, 5, 50)));
+        gameMode = new FreeMode() ;
+        // HelloApplication.goTo("ModeLibre.fxml");
+        LabyrinthScene labyrinthScene = new LabyrinthScene(gameMode.getCurrentMaze()) ;
+    
+        labyrinthScene.setControler(new LabyrinthControler(gameMode));
+        HelloApplication.goTo(labyrinthScene);
+        gameMode.start();
     }
 
     @FXML
     private void goToAccueil() throws IOException {
         HelloApplication.goTo("AccueilLabyrinth.fxml");
-
     }
 
     @FXML
