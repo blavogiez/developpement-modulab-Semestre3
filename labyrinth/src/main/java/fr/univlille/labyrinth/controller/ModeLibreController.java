@@ -25,12 +25,16 @@ public class ModeLibreController {
     @FXML
     private void goToModeLaby() throws IOException {
         gameMode = new FreeMode() ;
+        gameMode.start();
+
+        System.out.println(gameMode.getCurrentMaze());
         // HelloApplication.goTo("ModeLibre.fxml");
         LabyrinthScene labyrinthScene = new LabyrinthScene(gameMode.getCurrentMaze()) ;
-    
+        gameMode.getCurrentMaze().add(labyrinthScene);
         labyrinthScene.setControler(new LabyrinthControler(gameMode));
+
         HelloApplication.goTo(labyrinthScene);
-        gameMode.start();
+        labyrinthScene.update(gameMode.getCurrentMaze());
     }
 
     @FXML

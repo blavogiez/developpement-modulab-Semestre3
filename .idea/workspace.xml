@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed497b18-d7a6-439d-bc2b-e0b9d9852479" name="Changes" comment="test" />
+    <list default="true" id="ed497b18-d7a6-439d-bc2b-e0b9d9852479" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ModeLibreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ModeLibreController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +48,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/infoetu/victor.bredelle.etu/S3.02/G2_SAE3.3/labyrinth/src/main/java/fr/univlille/labyrinth/model",
+    "last_opened_file_path": "/home/infoetu/victor.bredelle.etu/S3.02/G2_SAE3.3",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.09765625",
     "project.structure.side.proportion": "0.2",
@@ -62,7 +65,20 @@
       <command value="mvn javafx:run" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.HelloApplication">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.univlille.labyrinth.HelloApplication" />
+      <module name="labyrinth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.univlille.labyrinth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.univlille.labyrinth.Main" />
       <module name="labyrinth" />
@@ -78,6 +94,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
