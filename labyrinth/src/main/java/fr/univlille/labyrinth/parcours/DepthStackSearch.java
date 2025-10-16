@@ -21,13 +21,6 @@ public class DepthStackSearch {
         marked.add(start);
 
         while (!stack.isEmpty()) {
-            try {
-                Thread.sleep(10);
-            }
-            catch(InterruptedException e) {
-                System.out.println(e);
-            }
-
             Position current = stack.peek();
 
             if (current.equals(maze.getExitPosition())) {

@@ -1,14 +1,9 @@
 package fr.univlille.labyrinth.controller;
 
-
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -22,11 +17,16 @@ public class AccueilLabyrinthController  {
 
     @FXML
     private void goToModeLibre() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
+        Main.goTo("ModeLibre.fxml");
     }
 
     @FXML
     private void goToModeProgression() throws IOException {
-        HelloApplication.goTo("ModeLibre.fxml");
+        Main.goTo("ProgressionEntreNom.fxml");
+    }
+
+    @FXML
+    private void goToQuitter(){
+        Platform.exit();
     }
 }

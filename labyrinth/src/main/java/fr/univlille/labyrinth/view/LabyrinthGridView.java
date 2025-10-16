@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.HelloApplication;
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
@@ -12,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -21,29 +19,17 @@ import javafx.scene.text.FontWeight;
 
 
 /**
- * LabyrinthScene est la scène de Labyrinthe. Elle montre l'avancement au joueur. C'est une vue.
+ * LabyrinthGridView est la vue de grille du Labyrinthe. Elle montre l'avancement au joueur. C'est une vue.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
  * @since 0.0
  */
-public class LabyrinthScene implements Observer<Maze> {
+public class LabyrinthGridView implements Observer<Maze> {
 
     private static GridPane pane;
     protected static GridPane grid = new GridPane();
 
-    public static GridPane generateGrid(Maze maze){
-        grid = new GridPane();
-        NumberBinding db = Bindings.min( HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
-        grid.prefHeightProperty().bind(db);
-        grid.prefWidthProperty().bind(db);
-        grid.setAlignment(Pos.CENTER);
-
-        GridPane.setHgrow(grid, Priority.ALWAYS);
-        GridPane.setVgrow(grid, Priority.ALWAYS);
-
-        return grid;
-    }
     protected LabyrinthControler controler;
 
     /**
@@ -64,9 +50,8 @@ public class LabyrinthScene implements Observer<Maze> {
      *
      * @param maze l'observable que cette vue observe.
      */
-    public LabyrinthScene(Maze maze){
-        //super(pane);
-        pane = new GridPane();  // Initialize pane here!
+    public LabyrinthGridView(Maze maze){
+        pane = new GridPane();
         GridPane.setHgrow(pane, Priority.ALWAYS);
         GridPane.setVgrow(pane, Priority.ALWAYS);
 
@@ -74,24 +59,16 @@ public class LabyrinthScene implements Observer<Maze> {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setAlignment(Pos.CENTER);
-        pane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-//        widthProperty().addListener((obs, oldVal, newVal) -> {
-//            update(maze);
-//        });
-//
-//        heightProperty().addListener((obs, oldVal, newVal) -> {
-//            update(maze);
-//        });
-
-        GridPane.setHgrow(grid, Priority.ALWAYS);
-        GridPane.setVgrow(grid, Priority.ALWAYS);
+        // Taille fixe : le labyrinthe a toujours la meme taille, ce qui change c'est la taille des cases ! de ce fait on peut avoir un tableau en 200x10 sans probleme.
+        grid.setPrefSize(600, 600);
+        grid.setMaxSize(600, 600);
+        grid.setMinSize(600, 600);
+        grid.setAlignment(Pos.CENTER);
 
 
-
-
-
-        Label label = new Label(maze.getHeight()+" x " + maze.getWidth());
+        Label label = new Label(maze.getWidth()+" x " + maze.getHeight());
         label.setFont(Font.font("Lexend", FontWeight.BOLD,44));
         label.setUnderline(true);
 
@@ -115,14 +92,12 @@ public class LabyrinthScene implements Observer<Maze> {
     public void update(Maze maze) {
         grid.getChildren().clear();
         boolean[][] mazeGrid = maze.getGrid();
-        double length = Math.min(grid.getPrefHeight()/(double) mazeGrid.length, grid.getPrefWidth()/(double) mazeGrid[0].length);
 
         for (int l = 0; l < mazeGrid.length; l++){
             for (int c = 0; c < mazeGrid[0].length; c++) {
 
-                Rectangle rect = new Rectangle(length, length);
+                Rectangle rect = new Rectangle();
 
-                // Bind rectangle size to grid size for dynamic resizing
                 NumberBinding size = Bindings.min(
                         grid.widthProperty().divide(mazeGrid[0].length),
                         grid.heightProperty().divide(mazeGrid.length)
@@ -130,33 +105,31 @@ public class LabyrinthScene implements Observer<Maze> {
                 rect.widthProperty().bind(size);
                 rect.heightProperty().bind(size);
 
-                // Set colors based on position
                 if (maze.getPlayerPosition().getX() == l && maze.getPlayerPosition().getY() == c){
-                    rect.setFill(Paint.valueOf("#FF0000")); // Player in red
+                    rect.setFill(Paint.valueOf("#FF0000"));
                 } else if (maze.getExitPosition().equals(new Position(l, c))) {
-                    rect.setFill(Paint.valueOf("#00FF00")); // Exit in green
+                    rect.setFill(Paint.valueOf("#00FF00"));
                 } else if (mazeGrid[l][c]){
-                    rect.setFill(Paint.valueOf("#FFFFFF")); // Path in white
+                    rect.setFill(Paint.valueOf("#FFFFFF"));
                 } else {
-                    rect.setFill(Paint.valueOf("#000000")); // Wall in black
+                    rect.setFill(Paint.valueOf("#000000"));
                 }
 
-                grid.add(rect, c, l); // Note: JavaFX GridPane uses (col, row)
+                grid.add(rect, l, c);
             }
         }
 
-        // Check if player reached the exit
         if (maze.getPlayerPosition().equals(maze.getExitPosition())) {
             Label winLabel = new Label("Bravo !");
             winLabel.setFont(Font.font("Lexend", FontWeight.BOLD, 32));
             winLabel.setTextFill(Paint.valueOf("#00FF00"));
-            pane.add(winLabel, 1, 4); // Add below the grid
+            pane.add(winLabel, 1, 4);
             GridPane.setHalignment(winLabel, HPos.CENTER);
             controler.playerWin();
         }
     }
 
     public GridPane getCompletePane() {
-        return this.grid;
+        return this.pane;
     }
 }
