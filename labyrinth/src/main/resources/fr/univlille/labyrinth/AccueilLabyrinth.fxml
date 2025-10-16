@@ -20,7 +20,7 @@
                   <Insets bottom="35.0" left="150.0" right="150.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="bouttonQuitter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quitter" VBox.vgrow="ALWAYS">
+            <Button fx:id="bouttonQuitter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToQuitter" text="Quitter" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="150.0" right="150.0" />
                </VBox.margin>

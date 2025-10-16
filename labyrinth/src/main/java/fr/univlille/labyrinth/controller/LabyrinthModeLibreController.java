@@ -1,13 +1,17 @@
 package fr.univlille.labyrinth.controller;
 
+import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.* ;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+
+import java.io.IOException;
 
 // Controller for the FreeMode maze interface
 // FXML base that contains a GridPane (LabyrinthGridView) which observes the Maze
@@ -16,7 +20,8 @@ public class LabyrinthModeLibreController {
     @FXML
     private BorderPane pane1;
 
-    //private final GameMode gameMode = new GameMode();
+    @FXML
+    private Button bouttonRetour;
 
     private LabyrinthGridView labyrinth;
 
@@ -46,6 +51,11 @@ public class LabyrinthModeLibreController {
         else if (e.getCode().equals(KeyCode.Z)) labyrinth.getControler().movePlayer(Direction.UP);
         else if (e.getCode().equals(KeyCode.Q)) labyrinth.getControler().movePlayer(Direction.LEFT);
         else if (e.getCode().equals(KeyCode.D)) labyrinth.getControler().movePlayer(Direction.RIGHT);
+    }
+
+    @FXML
+    private void goToAccueil() throws IOException {
+        Main.goTo("AccueilLabyrinth.fxml");
     }
 
 }
