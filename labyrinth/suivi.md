@@ -37,7 +37,10 @@ Attendus pour le jalon 1, commit dépôt git taggé [V1] pour le vendredi 24 oct
 ### **Angèl** :
 
 ### **Baptiste** :
-- Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven)
+| Développement | Analyse | Algorithmie |
+|--------------|---------|-------------|
+| Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven) | | |
+| Génération des classes et méthodes vides de l'UML | | |
 
 ### **Romain** :
 Fiche descriptive du "Déplacer joueur"
@@ -58,10 +61,13 @@ Création des tests Maze et Position
 ### **Angèl** :
 
 ### **Baptiste** :
-- Code de Player et de sa progression (progression par défaut, calcul du score)
-- Code de PlayerDatabase (sauvegarde par sérialisation)
-- Test de PlayerDatabase (Test de sauvegarde, lecture, effacement...)
-- Start de FreeMode et ProgressionMode (Tour, choix challenge)
+
+| Développement | Analyse | Algorithmie |
+|--------------|---------|-------------|
+| Code de Player et de sa progression (progression initialisée par défaut, calcul du score) | Rapport d'analyse | |
+| Code de PlayerDatabase (sauvegarde par sérialisation) | | |
+| Tests : PlayerDatabaseTest (Test de sauvegarde, lecture, effacement...), PlayerTest, PositionTest | | |
+| Code start de FreeMode et ProgressionMode (Tour, choix challenge) | | |
 
 ### **Romain** :
 Création de test pour "PlayerDatabase"
@@ -84,6 +90,12 @@ Création de la classe "PlayerDatabase"
 ### **Angèl** :
 
 ### **Baptiste** :
+
+| Développement | Analyse | Algorithmie |
+|--------------|---------|-------------|
+| Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant | Rapport d'analyse | Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant |
+| Debug de LabyrinthModeLibre (Collecte des valeurs entrées pour la génération effective) et de son FXML | | |
+| Intégration des FXML / Controlleurs entre eux pour correspondre au prototype d'interface réalisé | | |
 
 ### **Romain** :
 
