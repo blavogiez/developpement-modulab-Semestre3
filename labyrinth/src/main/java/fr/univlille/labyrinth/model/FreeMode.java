@@ -21,9 +21,4 @@ public class FreeMode extends GameMode {
         // Enter into the main loop for as long as exit isn't chosen
 //        navigate();
     }
-
-    @Override
-    public void playerWin() {
-
-    }
 }

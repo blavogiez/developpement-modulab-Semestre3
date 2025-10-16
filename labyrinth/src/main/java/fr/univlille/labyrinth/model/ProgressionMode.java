@@ -85,11 +85,6 @@ public class ProgressionMode extends GameMode {
         return null ;
     }
 
-    @Override
-    public void playerWin() {
-
-    }
-
     public Player getPlayer() {
         return player;
     }
