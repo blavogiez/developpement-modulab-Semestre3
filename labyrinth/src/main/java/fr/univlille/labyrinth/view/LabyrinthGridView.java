@@ -45,10 +45,14 @@ public class LabyrinthGridView implements Observer<Maze> {
         pane.setAlignment(Pos.CENTER);
         pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        // Taille fixe : le labyrinthe a toujours la meme taille, ce qui change c'est la taille des cases ! de ce fait on peut avoir un tableau en 200x10 sans probleme.
-        grid.setPrefSize(600, 600);
-        grid.setMaxSize(600, 600);
-        grid.setMinSize(600, 600);
+        NumberBinding gridSize = Bindings.min(
+                Bindings.min(pane.widthProperty().subtract(40), pane.heightProperty().subtract(100)),
+                700.0
+        );
+        grid.prefWidthProperty().bind(gridSize);
+        grid.prefHeightProperty().bind(gridSize);
+        grid.setMaxSize(700, 700);
+        grid.setMinSize(0, 0);
         grid.setAlignment(Pos.CENTER);
 
 
