@@ -4,7 +4,7 @@ public class FreeMode extends GameMode {
 
     public static int mazeWidth = 20;
     public static int mazeHeight = 20;
-    public static int mazeWallPercentage = 80;
+    public static double mazeWallPercentage = 80;
 
     // In FreeMode, the player doesn't exist as nothing is saved, thus no name'll be asked
     @Override
@@ -13,7 +13,7 @@ public class FreeMode extends GameMode {
         // will be communicated by the controller for the future
         int width = mazeWidth ;
         int height = mazeHeight ;
-        int wallPercentage = mazeWallPercentage ;
+        double wallPercentage = mazeWallPercentage ;
 
         // Create the wanted maze
         createMaze(width, height, wallPercentage);

@@ -1,11 +1,8 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.controller.LabyrinthControler;
-import fr.univlille.labyrinth.model.Direction;
-import fr.univlille.labyrinth.model.Maze;
-import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.Position;
+import fr.univlille.labyrinth.model.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.HPos;
@@ -48,10 +45,19 @@ public class LabyrinthView extends Scene implements Observer<Maze> {
     /**
      * Cette méthode permet de générer cette scène
      *
-     * @param maze l'observable que cette vue observe.
+     * @param gamemode l'observable que cette vue observe.
      */
-    public LabyrinthView(Maze maze){
+    public LabyrinthView(GameMode gamemode){
         super(pane);
+        FreeMode.mazeHeight=11;
+        FreeMode.mazeWidth=11;
+        FreeMode.mazeWallPercentage=0.5;
+        gamemode.start();
+        Maze maze = gamemode.getCurrentMaze();
+
+        gamemode.getCurrentMaze().add(this);
+        setControler(new LabyrinthControler(gamemode));
+
         GridPane.setHgrow(pane, Priority.ALWAYS);
         GridPane.setVgrow(pane, Priority.ALWAYS);
 
@@ -59,10 +65,9 @@ public class LabyrinthView extends Scene implements Observer<Maze> {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setAlignment(Pos.CENTER);
-//        pane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         grid = new GridPane();
-        NumberBinding db = Bindings.min(HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
+        NumberBinding db = Bindings.min(Main.getPrimaryStage().heightProperty().divide(1.2), Main.getPrimaryStage().widthProperty().divide(1.2));
         grid.prefHeightProperty().bind(db);
         grid.prefWidthProperty().bind(db);
         grid.setAlignment(Pos.CENTER);
@@ -129,9 +134,8 @@ public class LabyrinthView extends Scene implements Observer<Maze> {
             }
         }
         if (maze.getPlayerPosition().equals(maze.getExitPosition())) {
-            TextField tf = new TextField();
-            tf.setText("Bravo !");
-            pane.getChildren().add(tf);
+            Label lb = new Label("Bravo !");
+            pane.getChildren().add(lb);
             controler.playerWin();
         }
 

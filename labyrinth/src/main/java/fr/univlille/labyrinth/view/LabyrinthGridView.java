@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
@@ -57,12 +57,12 @@ public class LabyrinthGridView implements Observer<Maze> {
         GridPane.setVgrow(grid, Priority.ALWAYS);
 
 
-        NumberBinding db = Bindings.min(HelloApplication.getPrimaryStage().heightProperty().divide(1.2), HelloApplication.getPrimaryStage().widthProperty().divide(1.2));
+        NumberBinding db = Bindings.min(Main.getPrimaryStage().heightProperty().divide(1.2), Main.getPrimaryStage().widthProperty().divide(1.2));
         grid.prefHeightProperty().bind(db);
         grid.prefWidthProperty().bind(db);
-*
+
         // Taille fixe : le labyrinthe a toujours la meme taille, ce qui change c'est la taille des cases ! de ce fait on peut avoir un tableau en 200x10 sans probleme.
-        grid.setPrefSize(600, 600);
+//        grid.setPrefSize(600, 600);
         grid.setMaxSize(600, 600);
         grid.setMinSize(600, 600);
 

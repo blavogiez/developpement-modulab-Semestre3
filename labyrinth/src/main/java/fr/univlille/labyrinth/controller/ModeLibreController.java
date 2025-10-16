@@ -4,6 +4,7 @@ import fr.univlille.labyrinth.Main;
 
 import fr.univlille.labyrinth.model.FreeMode;
 import fr.univlille.labyrinth.model.Maze;
+import fr.univlille.labyrinth.view.LabyrinthView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,6 +54,11 @@ public class ModeLibreController {
         }
         Main.goTo("LabyrinthModeLibre.fxml");
     }
+
+//    @FXML
+//    private void goToModeLaby() throws IOException {
+//        Main.goTo(new LabyrinthView(new FreeMode()));
+//    }
 
     @FXML
     private void goToAccueil() throws IOException {

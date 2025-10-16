@@ -17,6 +17,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
     }
 
+    public static void goTo(Scene scene) throws IOException {
+        primaryStage.setScene(scene);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;

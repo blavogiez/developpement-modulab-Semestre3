@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.HelloApplication;
+import fr.univlille.labyrinth.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,7 +49,7 @@ public class SceneManager {
 
     public void goTo(String name){
         try {
-            Stage stage = (Stage) HelloApplication.getPrimaryStage();
+            Stage stage = (Stage) Main.getPrimaryStage();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(name)));
             stage.setScene(new Scene(root));
             stage.show();
