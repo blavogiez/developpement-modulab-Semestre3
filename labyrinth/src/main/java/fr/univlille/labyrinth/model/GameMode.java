@@ -23,7 +23,7 @@ public abstract class GameMode {
      * @param height la hauteur du labyrinthe.
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
-    public void createMaze(int width, int height, int wallPercentage) {
+    public void createMaze(int width, int height, double wallPercentage) {
         this.currentMaze = new Maze(width,height,wallPercentage);
     }
 

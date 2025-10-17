@@ -89,25 +89,27 @@ public class ProgressionController {
         Main.goTo("LabyrinthModeProgression.fxml");
     }
 
+    // les défis de l'étape 3 utilisent une autre vue, donc encapsulée dans un autre controleur
     @FXML
     private void goToWorld3Challenge1() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 0;
-        Main.goTo("LabyrinthModeProgression.fxml");
+        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
+        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 0;
+        Main.goTo("LimitedLabyrinthModeProgression.fxml");
     }
+
 
     @FXML
     private void goToWorld3Challenge2() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 1;
-        Main.goTo("LabyrinthModeProgression.fxml");
+        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
+        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 1;
+        Main.goTo("LimitedLabyrinthModeProgression.fxml");
     }
 
     @FXML
     private void goToWorld3Challenge3() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 2;
-        Main.goTo("LabyrinthModeProgression.fxml");
+        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
+        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 2;
+        Main.goTo("LimitedLabyrinthModeProgression.fxml");
     }
 
     @FXML
