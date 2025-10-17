@@ -5,6 +5,7 @@ import fr.univlille.labyrinth.model.* ;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +22,9 @@ public class LabyrinthModeLibreController {
     @FXML
     private Button bouttonRetour;
 
+    @FXML
+    private Label mazeInfoLabel;
+
     private LabyrinthGridView labyrinth;
     private FreeMode gameMode;
 
@@ -28,6 +32,8 @@ public class LabyrinthModeLibreController {
     public void initialize() {
         gameMode = new FreeMode();
         gameMode.start();
+
+        mazeInfoLabel.setText("Dimensions : " + FreeMode.getWidth() + "*" + FreeMode.getHeight() + ", Pourcentage : " + FreeMode.getWallPercentage() + "%");
 
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);

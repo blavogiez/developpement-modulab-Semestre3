@@ -6,6 +6,18 @@ public class FreeMode extends GameMode {
     public static int mazeHeight = 20;
     public static int mazeWallPercentage = 80;
 
+    public static int getWidth() {
+        return mazeWidth;
+    }
+
+    public static int getHeight() {
+        return mazeHeight;
+    }
+
+    public static int getWallPercentage() {
+        return mazeWallPercentage;
+    }
+
     // In FreeMode, the player doesn't exist as nothing is saved, thus no name'll be asked
     @Override
     public void start() {
