@@ -5,16 +5,10 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 
 /**
@@ -35,18 +29,9 @@ public class LabyrinthGridView implements Observer<Maze> {
      * @param maze l'observable que cette vue observe.
      */
     public LabyrinthGridView(Maze maze){
-        pane = new GridPane();
-        GridPane.setHgrow(pane, Priority.ALWAYS);
-        GridPane.setVgrow(pane, Priority.ALWAYS);
-
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
-        pane.setAlignment(Pos.CENTER);
-        pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         NumberBinding gridSize = Bindings.min(
-                Bindings.min(pane.widthProperty().subtract(40), pane.heightProperty().subtract(100)),
+                Bindings.min(grid.widthProperty().subtract(40), grid.heightProperty().subtract(100)),
                 700.0
         );
         grid.prefWidthProperty().bind(gridSize);
@@ -54,19 +39,6 @@ public class LabyrinthGridView implements Observer<Maze> {
         grid.setMaxSize(700, 700);
         grid.setMinSize(0, 0);
         grid.setAlignment(Pos.CENTER);
-
-
-        Label label = new Label(maze.getWidth()+" x " + maze.getHeight());
-        label.setFont(Font.font("Lexend", FontWeight.BOLD,44));
-        label.setUnderline(true);
-
-        GridPane.setHalignment(label, HPos.CENTER);
-        GridPane.setValignment(label, VPos.CENTER);
-
-
-
-        pane.add(label,1,0);
-        pane.add(grid,0,1,2,3);
 
         update(maze);
     }
@@ -108,7 +80,7 @@ public class LabyrinthGridView implements Observer<Maze> {
         }
     }
 
-    public GridPane getCompletePane() {
-        return this.pane;
+    public GridPane getGrid() {
+        return this.grid;
     }
 }

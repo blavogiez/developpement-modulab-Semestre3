@@ -32,7 +32,7 @@ public class LabyrinthModeLibreController {
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
 
-        pane1.setCenter(labyrinth.getCompletePane());
+        pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());
     }

@@ -70,7 +70,7 @@
                            </VBox.margin>
                         </VBox>
                      </children></VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #C7C7C7;" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #C7C7C7;" HBox.hgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #d9d7d7; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
                            <children>
