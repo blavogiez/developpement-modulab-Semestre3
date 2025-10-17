@@ -17,11 +17,6 @@ public abstract class GameMode {
     public abstract void start();
 
     /**
-     * Cette méthode est appelé lorsque le joueur fini un labyrinthe
-     */
-    public abstract void playerWin();
-
-    /**
      * Cette méthode permet de générer un labyrinthe, afin de le stocker en paramètre.
      *
      * @param width la largeur du labyrinthe.
@@ -44,6 +39,10 @@ public abstract class GameMode {
                 currentMaze.movePlayer(direction);
             }
         }
+    }
+
+    public boolean isPlayerAtEnd() {
+        return currentMaze != null && currentMaze.getPlayerPosition().equals(currentMaze.getExitPosition());
     }
 
     public void setCurrentMaze(Maze currentMaze) {

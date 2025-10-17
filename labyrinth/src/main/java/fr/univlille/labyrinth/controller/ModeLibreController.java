@@ -28,6 +28,14 @@ public class ModeLibreController {
     @FXML
     private TextField wallPercentageField;
 
+    // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
+    @FXML
+    public void initialize() {
+        heightField.setText("" + FreeMode.mazeHeight);
+        widthField.setText("" + FreeMode.mazeWidth);
+        wallPercentageField.setText("" + FreeMode.mazeWallPercentage);
+    }
+
     @FXML
     private void goToModeLaby() throws IOException {
         try {

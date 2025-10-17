@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.controller.LabyrinthControler;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
@@ -30,21 +29,6 @@ public class LabyrinthGridView implements Observer<Maze> {
     private static GridPane pane;
     protected static GridPane grid = new GridPane();
 
-    protected LabyrinthControler controler;
-
-    /**
-     * Cette méthode permet d'accorder un controler à cette vue
-     *
-     * @param controler le controleur mis en place de type LabyrinthControler.
-     */
-    public void setControler(LabyrinthControler controler) {
-        this.controler = controler;
-    }
-
-    public LabyrinthControler getControler() {
-        return this.controler;
-    }
-
     /**
      * Cette méthode permet de générer cette scène
      *
@@ -61,10 +45,14 @@ public class LabyrinthGridView implements Observer<Maze> {
         pane.setAlignment(Pos.CENTER);
         pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        // Taille fixe : le labyrinthe a toujours la meme taille, ce qui change c'est la taille des cases ! de ce fait on peut avoir un tableau en 200x10 sans probleme.
-        grid.setPrefSize(600, 600);
-        grid.setMaxSize(600, 600);
-        grid.setMinSize(600, 600);
+        NumberBinding gridSize = Bindings.min(
+                Bindings.min(pane.widthProperty().subtract(40), pane.heightProperty().subtract(100)),
+                700.0
+        );
+        grid.prefWidthProperty().bind(gridSize);
+        grid.prefHeightProperty().bind(gridSize);
+        grid.setMaxSize(700, 700);
+        grid.setMinSize(0, 0);
         grid.setAlignment(Pos.CENTER);
 
 
@@ -117,15 +105,6 @@ public class LabyrinthGridView implements Observer<Maze> {
 
                 grid.add(rect, l, c);
             }
-        }
-
-        if (maze.getPlayerPosition().equals(maze.getExitPosition())) {
-            Label winLabel = new Label("Bravo !");
-            winLabel.setFont(Font.font("Lexend", FontWeight.BOLD, 32));
-            winLabel.setTextFill(Paint.valueOf("#00FF00"));
-            pane.add(winLabel, 1, 4);
-            GridPane.setHalignment(winLabel, HPos.CENTER);
-            controler.playerWin();
         }
     }
 
