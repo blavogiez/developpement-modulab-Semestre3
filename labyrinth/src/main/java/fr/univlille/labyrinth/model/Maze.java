@@ -69,11 +69,11 @@ public class Maze {
     public Maze(int width, int height, double wallPercentage) {
         this.observers=new ArrayList<>();
         this.grid = AlgoLabyNew.createMaze(width, height, wallPercentage);
-        this.width = width * 2 + 1;
-        this.height = height * 2 + 1;
+        this.width = this.grid.length;
+        this.height = this.grid[0].length;
         this.playerPosition = new Position(1, 1);
         this.entryPosition = new Position(1, 1);
-        this.exitPosition = new Position(this.width-2 , this.height-2);
+        this.exitPosition = new Position(this.width-2, this.height-2);
     }
 
     /**

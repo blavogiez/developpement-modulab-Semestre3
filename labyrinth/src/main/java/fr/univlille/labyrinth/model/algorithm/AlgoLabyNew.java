@@ -18,14 +18,16 @@ public class AlgoLabyNew {
 
 
     /**
-     * Cette méthode permet de générer un labyrinthe de taille width*2 et height*2
+     * Cette méthode permet de générer un labyrinthe de taille width et height
      *
      * @param width Permet de mettre la largeur du labyrinthe.
      * @param height Permet de mettre la hauteur du labyrinthe.
      * @param percentageOfWall Permet de mettre un pourcentage de mur (entre 0 et 0.5)
      */
     public static boolean[][] createMaze(int width, int height, double percentageOfWall){
-        maze=new boolean[width*2+1][height*2+1];
+        int w = (width % 2 == 0) ? width - 1 : width;
+        int h = (height % 2 == 0) ? height - 1 : height;
+        maze=new boolean[w][h];
         percentageWall=percentageOfWall+0.5;
 
         tracePath();
@@ -90,7 +92,7 @@ public class AlgoLabyNew {
     }
 
     private static boolean isWall(int x, int y){
-        if (x<1 || x> maze.length-1 || y<1 || y>maze[0].length-1) return false;
+        if (x<1 || x>= maze.length-1 || y<1 || y>= maze[0].length-1) return false;
         return !maze[x][y];
     }
     private static boolean isWall(Cell cell){
