@@ -31,6 +31,7 @@ public class LabyrinthModeProgressionController {
 
     private LabyrinthGridView labyrinth;
     private ProgressionMode gameMode;
+    private Chronometre chrono;
 
     @FXML
     public void initialize() {
@@ -48,6 +49,7 @@ public class LabyrinthModeProgressionController {
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());
+        chrono.start();
     }
 
     @FXML
@@ -60,6 +62,7 @@ public class LabyrinthModeProgressionController {
 
         if (gameMode.isPlayerAtEnd()) {
             //
+            chrono.stop();
         }
     }
 

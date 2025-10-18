@@ -23,6 +23,7 @@ public class LabyrinthModeLibreController {
 
     private LabyrinthGridView labyrinth;
     private FreeMode gameMode;
+    private Chronometre chrono;
 
     @FXML
     public void initialize() {
@@ -35,6 +36,7 @@ public class LabyrinthModeLibreController {
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());
+        chrono.start();
     }
 
     @FXML
@@ -46,6 +48,7 @@ public class LabyrinthModeLibreController {
         else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
 
         if (gameMode.isPlayerAtEnd()) {
+            chrono.stop();
             Main.goTo("LabyrinthModeLibre.fxml");
         }
     }
