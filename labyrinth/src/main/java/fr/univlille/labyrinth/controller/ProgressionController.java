@@ -1,8 +1,10 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.model.Challenge;
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;
+import fr.univlille.labyrinth.view.GameColors;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -12,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgressionController {
-    public static String sheet;
     @FXML
     private Text playerNameLabel;
     @FXML
     private Text scoreLabel;
-    public static Player currentPlayer;
+
     private List<List<Button>> worldButtons=new ArrayList<>();
+
     @FXML
     private Button bouttonWorld1Challenge1;
     @FXML
@@ -41,80 +43,17 @@ public class ProgressionController {
     @FXML
     public void initialize() {
         String playerName = ProgressionEntreNomController.playerName;
-        currentPlayer = PlayerDatabase.loadPlayer(playerName);
+        Player currentPlayer = PlayerDatabase.loadPlayer(playerName);
         if (currentPlayer == null) {
             currentPlayer = new Player(playerName);
             PlayerDatabase.savePlayer(currentPlayer);
         }
+        AppState.getInstance().setCurrentPlayer(currentPlayer);
         initList();
+        initBoutons();
         colorButtons();
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
-    }
-
-    @FXML
-    private void goToWorld1Challenge1() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 0;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 0;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld1Challenge2() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 0;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 1;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld1Challenge3() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 0;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 2;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld2Challenge1() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 1;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 0;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld2Challenge2() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 1;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 1;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld2Challenge3() throws IOException {
-        LabyrinthModeProgressionController.selectedWorldIndex = 1;
-        LabyrinthModeProgressionController.selectedChallengeIndex = 2;
-        Main.goTo("LabyrinthModeProgression.fxml");
-    }
-
-    // les défis de l'étape 3 utilisent une autre vue, donc encapsulée dans un autre controleur
-    @FXML
-    private void goToWorld3Challenge1() throws IOException {
-        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 0;
-        Main.goTo("LimitedLabyrinthModeProgression.fxml");
-    }
-
-
-    @FXML
-    private void goToWorld3Challenge2() throws IOException {
-        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 1;
-        Main.goTo("LimitedLabyrinthModeProgression.fxml");
-    }
-
-    @FXML
-    private void goToWorld3Challenge3() throws IOException {
-        LimitedLabyrinthModeProgressionController.selectedWorldIndex = 2;
-        LimitedLabyrinthModeProgressionController.selectedChallengeIndex = 2;
-        Main.goTo("LimitedLabyrinthModeProgression.fxml");
     }
 
     @FXML
@@ -123,14 +62,22 @@ public class ProgressionController {
     }
 
 
+    // colore en vert les boutons des défis complétés
     private void colorButtons() {
-        String[] colors = {"#1aff00", "#f9ff25", "#ff0000"};
-        int world = LabyrinthModeProgressionController.selectedWorldIndex;
-        int chall = LabyrinthModeProgressionController.selectedChallengeIndex;
-        if (world >= 0 && world < worldButtons.size() && chall >= 0 && chall < colors.length) {
-            Button btn = worldButtons.get(world).get(chall);
-            if (btn.getStyle() == null || btn.getStyle().isEmpty()) {
-                btn.setStyle("-fx-background-color: " + colors[chall] + ";");
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
+        for (int worldIndex = 0; worldIndex < worldButtons.size(); worldIndex++) {
+            List<Button> challengeButtons = worldButtons.get(worldIndex);
+            Challenge[] challenges = currentPlayer.getProgress().getStageProgress()[worldIndex].getChallenges();
+
+            for (int challengeIndex = 0; challengeIndex < challengeButtons.size(); challengeIndex++) {
+                Button button = challengeButtons.get(challengeIndex);
+                Challenge challenge = challenges[challengeIndex];
+
+                if (challenge.isCompleted()) {
+                    button.setStyle("-fx-background-color: " + GameColors.COMPLETED + ";");
+                } else {
+                    button.setStyle("");
+                }
             }
         }
     }
@@ -141,5 +88,55 @@ public class ProgressionController {
                 List.of(bouttonWorld2Challenge1, bouttonWorld2Challenge2, bouttonWorld2Challenge3),
                 List.of(bouttonWorld3Challenge1, bouttonWorld3Challenge2, bouttonWorld3Challenge3)
         );
+    }
+
+    private void initBoutons() {
+        // associer un index d'étape et de défi aux boutons
+        Object[][] challenges = {
+            {bouttonWorld1Challenge1, 0, 0, false},
+            {bouttonWorld1Challenge2, 0, 1, false},
+            {bouttonWorld1Challenge3, 0, 2, false},
+            {bouttonWorld2Challenge1, 1, 0, false},
+            {bouttonWorld2Challenge2, 1, 1, false},
+            {bouttonWorld2Challenge3, 1, 2, false},
+            {bouttonWorld3Challenge1, 2, 0, true},
+            {bouttonWorld3Challenge2, 2, 1, true},
+            {bouttonWorld3Challenge3, 2, 2, true}
+        };
+
+        // associer la fonction selon l'index d'étape et de défi associés
+        for (Object[] ch : challenges) {
+            Button btn = (Button) ch[0];
+            int worldIdx = (int) ch[1];
+            int challengeIdx = (int) ch[2];
+            boolean limited = (boolean) ch[3];
+            btn.setOnAction(e -> {
+                try {
+                    goToChallenge(worldIdx, challengeIdx, limited);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+    }
+
+
+    private void goToChallenge(int worldIndex, int challengeIndex, boolean limited) throws IOException {
+        AppState state = AppState.getInstance();
+        state.setSelectedWorldIndex(worldIndex);
+        state.setSelectedChallengeIndex(challengeIndex);
+
+        // calculer le challenge selectionné avant la navigation
+        Challenge selectedChallenge = state.getCurrentPlayer()
+            .getProgress()
+            .getStageProgress()[worldIndex]
+            .getChallenges()[challengeIndex];
+        state.setSelectedChallenge(selectedChallenge);
+
+        if (limited) {
+            Main.goTo("LimitedLabyrinthModeProgression.fxml");
+        } else {
+            Main.goTo("LabyrinthModeProgression.fxml");
+        }
     }
 }

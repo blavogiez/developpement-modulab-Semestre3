@@ -34,7 +34,21 @@ public class PlayerProgress implements Serializable {
         return new PlayerProgress(newStages);
     }
 
-    public void markChallengeCompleted(Challenge challenge) {
+    public void markChallengeCompleted(Challenge challenge, long time) {
+        // debug :
+        System.out.println(time + " " + challenge.getTimeCompleted());
+        // nouveau temps est uniquement sauvegardé s'il est inférieur à l'ancien temps
+        
+        // premiere completion ; aucun temps en mémoire donc on l'ignore
+        if(challenge.getTimeCompleted()<=0) {
+            challenge.setTimeCompleted(time);
+        }
+        // il y a un temps, donc on le compare
+        else if(time<challenge.getTimeCompleted()) {
+            challenge.setTimeCompleted(time);
+        }
+
+        // dans tous les cas, on le complète
         challenge.setCompleted(true);
     }
 

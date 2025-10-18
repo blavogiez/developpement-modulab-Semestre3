@@ -7,6 +7,7 @@ public class Challenge implements Serializable {
     private int width;
     private int height;
     private int wallPercentage;
+    private long timeCompleted;
     private boolean completed;
 
     public Challenge(String difficulty, int width, int height, int wallPercentage) {
@@ -35,6 +36,14 @@ public class Challenge implements Serializable {
 
     public int getWallPercentage() {
         return wallPercentage;
+    }
+
+    public long getTimeCompleted() {
+        return timeCompleted;
+    }
+
+    public void setTimeCompleted(long timeCompleted) {
+        this.timeCompleted = timeCompleted;
     }
 
     // calculate the score for the progress

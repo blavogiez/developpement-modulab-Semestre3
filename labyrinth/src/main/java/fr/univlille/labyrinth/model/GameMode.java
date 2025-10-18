@@ -52,6 +52,4 @@ public abstract class GameMode {
     public Maze getCurrentMaze() {
         return currentMaze;
     }
-
-
 }

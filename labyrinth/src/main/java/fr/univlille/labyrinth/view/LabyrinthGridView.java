@@ -3,6 +3,8 @@ package fr.univlille.labyrinth.view;
 import fr.univlille.labyrinth.model.Maze;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.Position;
+
+import static fr.univlille.labyrinth.view.GameColors.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Pos;
@@ -19,7 +21,7 @@ import javafx.scene.shape.Rectangle;
  * @since 0.0
  */
 public class LabyrinthGridView implements Observer<Maze> {
-    protected static GridPane grid = new GridPane();
+    protected GridPane grid = new GridPane();
 
     /**
      * Cette méthode permet de générer cette scène
@@ -64,13 +66,13 @@ public class LabyrinthGridView implements Observer<Maze> {
                 rect.heightProperty().bind(size);
 
                 if (maze.getPlayerPosition().getX() == l && maze.getPlayerPosition().getY() == c){
-                    rect.setFill(Paint.valueOf("#FF0000"));
+                    rect.setFill(Paint.valueOf(PLAYER));
                 } else if (maze.getExitPosition().equals(new Position(l, c))) {
-                    rect.setFill(Paint.valueOf("#00FF00"));
+                    rect.setFill(Paint.valueOf(EXIT));
                 } else if (mazeGrid[l][c]){
-                    rect.setFill(Paint.valueOf("#FFFFFF"));
+                    rect.setFill(Paint.valueOf(PATH));
                 } else {
-                    rect.setFill(Paint.valueOf("#000000"));
+                    rect.setFill(Paint.valueOf(WALL));
                 }
 
                 grid.add(rect, l, c);
@@ -78,7 +80,7 @@ public class LabyrinthGridView implements Observer<Maze> {
         }
     }
 
-    public static GridPane getGrid() {
+    public GridPane getGrid() {
         return grid;
     }
 }

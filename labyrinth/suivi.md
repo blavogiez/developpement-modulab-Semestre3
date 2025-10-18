@@ -95,9 +95,13 @@ Création de la classe "PlayerDatabase"
 
 | Développement | Analyse | Algorithmie |
 |--------------|---------|-------------|
-| Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant | Rapport d'analyse | Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant |
+| Implémentation de la vue limitée autour du joueur (comme dans les diapositives) pour l'étape 3 | Rapport d'analyse | Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant |
 | Debug de LabyrinthModeLibre (Collecte des valeurs entrées pour la génération effective) et de son FXML | | |
-| Intégration des FXML / Controlleurs entre eux pour correspondre au prototype d'interface réalisé | | |
+| Intégration des feuilles FXML / Controlleurs entre eux pour correspondre au prototype d'interface réalisé | | |
+| Utilisation du chronomètre de Romain pour en afficher un dans la vue du labyrinthe | | |
+| | | |
+
+En parallèle, j'ai remis en question et simplifié le code que j'ai produit, avec les bonnes pratiques, pour permettre une meilleure compréhension par les autres.
 
 ### **Romain** :
 - création du fxml pour un joueur déjà existant

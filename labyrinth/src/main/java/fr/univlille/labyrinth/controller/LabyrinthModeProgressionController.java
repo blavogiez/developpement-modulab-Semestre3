@@ -2,7 +2,9 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.utils.ChronoUtil;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,9 +15,6 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 public class LabyrinthModeProgressionController {
-
-    public static int selectedWorldIndex = 0;
-    public static int selectedChallengeIndex = 0;
 
     @FXML
     private BorderPane pane1;
@@ -29,20 +28,30 @@ public class LabyrinthModeProgressionController {
     @FXML
     private Label mazeInfoLabel;
 
-    private LabyrinthGridView labyrinth;
-    private ProgressionMode gameMode;
-    private Chronometre chrono;
-    public static Challenge selectedChallenge=ProgressionMode.defaultProgress.getStageProgress()[selectedWorldIndex].getChallenges()[selectedChallengeIndex];
+    @FXML
+    private Label chronoLabel;
 
+    private LabyrinthGridView labyrinth;
+
+    private ProgressionMode gameMode;
+
+    private Chronometre chrono;
+    private Timeline chronoTimeline;    
+    
     @FXML
     public void initialize() {
+        // récuperer les infos depuis appstate (deja calculées)
+        Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
+        int selectedWorldIndex = AppState.getInstance().getSelectedWorldIndex();
+        int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
 
         challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1));
         mazeInfoLabel.setText("Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() + ", Pourcentage : " + selectedChallenge.getWallPercentage() + "%");
 
         gameMode = new ProgressionMode();
-        gameMode.createMaze(selectedChallenge.getWidth(), selectedChallenge.getHeight(), selectedChallenge.getWallPercentage());
+        gameMode.createMaze(selectedChallenge);
 
+        // ajouter l'observeur
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
 
@@ -51,6 +60,7 @@ public class LabyrinthModeProgressionController {
         labyrinth.update(gameMode.getCurrentMaze());
         chrono=new Chronometre();
         chrono.start();
+        chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
     }
 
     @FXML
@@ -62,17 +72,22 @@ public class LabyrinthModeProgressionController {
         else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
 
         if (gameMode.isPlayerAtEnd()) {
-            ProgressionController.currentPlayer.getProgress().markChallengeCompleted(selectedChallenge  );
-            goToProgression();
             chrono.stop();
-            ProgressionController.currentPlayer.getProgress().markChallengeCompleted(selectedChallenge  );
+            if (chronoTimeline != null) chronoTimeline.stop();
+
+            Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
+            Player currentPlayer = AppState.getInstance().getCurrentPlayer();
+            currentPlayer.getProgress().markChallengeCompleted(selectedChallenge, chrono.getChrono());
+
+            PlayerDatabase.savePlayer(currentPlayer);
+
             goToProgression();
+
         }
     }
 
     @FXML
-    private void goToProgression() throws IOException {
+    protected void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
     }
-
 }

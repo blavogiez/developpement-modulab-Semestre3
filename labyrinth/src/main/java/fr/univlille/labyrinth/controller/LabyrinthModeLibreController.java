@@ -2,9 +2,12 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.* ;
+import fr.univlille.labyrinth.utils.ChronoUtil;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -21,9 +24,13 @@ public class LabyrinthModeLibreController {
     @FXML
     private Button bouttonRetour;
 
+    @FXML
+    private Label chronoLabel;
+
     private LabyrinthGridView labyrinth;
     private FreeMode gameMode;
     private Chronometre chrono;
+    private Timeline chronoTimeline;
 
     @FXML
     public void initialize() {
@@ -38,6 +45,7 @@ public class LabyrinthModeLibreController {
         labyrinth.update(gameMode.getCurrentMaze());
         chrono=new Chronometre();
         chrono.start();
+        chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
     }
 
     @FXML
@@ -50,6 +58,7 @@ public class LabyrinthModeLibreController {
 
         if (gameMode.isPlayerAtEnd()) {
             chrono.stop();
+            if (chronoTimeline != null) chronoTimeline.stop();
             Main.goTo("LabyrinthModeLibre.fxml");
         }
     }
