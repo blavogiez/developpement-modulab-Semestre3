@@ -98,6 +98,9 @@ Création de la classe "PlayerDatabase"
 | Intégration des FXML / Controlleurs entre eux pour correspondre au prototype d'interface réalisé | | |
 
 ### **Romain** :
+- création du fxml pour un joueur déjà existant
+- ajout du contrôleur du fxml pour un joueur déjà existant
+- création d'un chronomètre
 
 ### **Victor** :
 - Implémentation d'un nouvel algorithme utilisant l'algorithme de parcours en profondeur
