@@ -36,7 +36,6 @@ public class LabyrinthModeProgressionController {
 
     @FXML
     public void initialize() {
-        Challenge selectedChallenge = ProgressionMode.defaultProgress.getStageProgress()[selectedWorldIndex].getChallenges()[selectedChallengeIndex];
 
         challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1));
         mazeInfoLabel.setText("Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() + ", Pourcentage : " + selectedChallenge.getWallPercentage() + "%");
@@ -66,6 +65,8 @@ public class LabyrinthModeProgressionController {
             ProgressionController.currentPlayer.getProgress().markChallengeCompleted(selectedChallenge  );
             goToProgression();
             chrono.stop();
+            ProgressionController.currentPlayer.getProgress().markChallengeCompleted(selectedChallenge  );
+            goToProgression();
         }
     }
 

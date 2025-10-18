@@ -64,6 +64,8 @@ public class LimitedLabyrinthModeProgressionController {
         if (gameMode.isPlayerAtEnd()) {
             goToProgression();
             chrono.stop();
+
+            goToProgression();
         }
     }
 
