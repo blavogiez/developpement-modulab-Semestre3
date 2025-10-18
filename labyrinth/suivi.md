@@ -86,6 +86,8 @@ Création de la classe "PlayerDatabase"
 ### **Le groupe** :
 
 ### **Antonin** :
+- Création Fxml Progression
+- implémentation changement de la couleur du bouton si niveau fini
 
 ### **Angèl** :
 
