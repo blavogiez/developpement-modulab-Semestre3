@@ -49,6 +49,7 @@ public class LabyrinthModeProgressionController {
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());
+        chrono=new Chronometre();
         chrono.start();
     }
 
