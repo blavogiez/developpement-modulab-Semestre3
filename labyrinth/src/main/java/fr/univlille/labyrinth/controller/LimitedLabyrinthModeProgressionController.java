@@ -51,7 +51,7 @@ public class LimitedLabyrinthModeProgressionController {
     }
 
     @FXML
-    public void movement(KeyEvent e){
+    public void movement(KeyEvent e) throws IOException {
         System.out.println(e.getCode());
         if (e.getCode().equals(KeyCode.S)) gameMode.movePlayerPosition(Direction.DOWN);
         else if (e.getCode().equals(KeyCode.Z)) gameMode.movePlayerPosition(Direction.UP);
@@ -59,7 +59,8 @@ public class LimitedLabyrinthModeProgressionController {
         else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
 
         if (gameMode.isPlayerAtEnd()) {
-            //
+
+            goToProgression();
         }
     }
 

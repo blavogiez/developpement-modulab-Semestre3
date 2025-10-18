@@ -8,14 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProgressionController {
-
+    public static String sheet;
     @FXML
     private Text playerNameLabel;
     @FXML
     private Text scoreLabel;
-
+    public static Player currentPlayer;
+    private List<List<Button>> worldButtons=new ArrayList<>();
     @FXML
     private Button bouttonWorld1Challenge1;
     @FXML
@@ -38,11 +41,13 @@ public class ProgressionController {
     @FXML
     public void initialize() {
         String playerName = ProgressionEntreNomController.playerName;
-        Player currentPlayer = PlayerDatabase.loadPlayer(playerName);
+        currentPlayer = PlayerDatabase.loadPlayer(playerName);
         if (currentPlayer == null) {
             currentPlayer = new Player(playerName);
             PlayerDatabase.savePlayer(currentPlayer);
         }
+        initList();
+        colorButtons();
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
     }
@@ -115,5 +120,26 @@ public class ProgressionController {
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
+    }
+
+
+    private void colorButtons() {
+        String[] colors = {"#1aff00", "#f9ff25", "#ff0000"};
+        int world = LabyrinthModeProgressionController.selectedWorldIndex;
+        int chall = LabyrinthModeProgressionController.selectedChallengeIndex;
+        if (world >= 0 && world < worldButtons.size() && chall >= 0 && chall < colors.length) {
+            Button btn = worldButtons.get(world).get(chall);
+            if (btn.getStyle() == null || btn.getStyle().isEmpty()) {
+                btn.setStyle("-fx-background-color: " + colors[chall] + ";");
+            }
+        }
+    }
+
+    private void initList(){
+        worldButtons = List.of(
+                List.of(bouttonWorld1Challenge1, bouttonWorld1Challenge2, bouttonWorld1Challenge3),
+                List.of(bouttonWorld2Challenge1, bouttonWorld2Challenge2, bouttonWorld2Challenge3),
+                List.of(bouttonWorld3Challenge1, bouttonWorld3Challenge2, bouttonWorld3Challenge3)
+        );
     }
 }
