@@ -16,6 +16,7 @@ public class LimitedLabyrinthModeProgressionController {
 
     public static int selectedWorldIndex = 0;
     public static int selectedChallengeIndex = 0;
+    public Chronometre chrono;
 
     @FXML
     private BorderPane pane1;
@@ -48,6 +49,7 @@ public class LimitedLabyrinthModeProgressionController {
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         labyrinth.update(gameMode.getCurrentMaze());
+        chrono.start();
     }
 
     @FXML
@@ -60,6 +62,7 @@ public class LimitedLabyrinthModeProgressionController {
 
         if (gameMode.isPlayerAtEnd()) {
             //
+            chrono.stop();
         }
     }
 
