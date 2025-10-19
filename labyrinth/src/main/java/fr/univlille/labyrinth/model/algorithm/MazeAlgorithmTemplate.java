@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.algorithm;
 
 import fr.univlille.labyrinth.model.Position;
+import javafx.geometry.Pos;
 
 import java.util.Random;
 
@@ -20,6 +21,11 @@ public abstract class MazeAlgorithmTemplate {
 
     }
 
+    protected void markCell(Position position){
+        markCell(position.getX(),position.getY());
+
+    }
+
     protected void markPathBetweenCell(int x1, int y1, int x2, int y2){
         markCell(x1,y1);
         markCell(x2,y2);
@@ -28,6 +34,10 @@ public abstract class MazeAlgorithmTemplate {
 
     protected void markPathBetweenCell(CellAlgorithmBoolean cellAlgorithmBoolean1, CellAlgorithmBoolean cellAlgorithmBoolean2){
         markPathBetweenCell(cellAlgorithmBoolean1.x, cellAlgorithmBoolean1.y, cellAlgorithmBoolean2.x, cellAlgorithmBoolean2.y);
+    }
+
+    protected void markPathBetweenCell(Position pos1, Position pos2){
+        markPathBetweenCell(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
     }
 
     protected void removePercentageWall() {
@@ -46,9 +56,13 @@ public abstract class MazeAlgorithmTemplate {
         return isWall(cellAlgorithmBoolean.x, cellAlgorithmBoolean.y);
     }
 
+    protected boolean isWall(Position position){
+        return isWall(position.getX(), position.getY());
+    }
+
 
 
     public abstract Position getStart();
     public abstract Position getEnd();
-    public abstract boolean[][] createMaze(int width, int heigth, double percentageWall);
+    public abstract boolean[][] createMaze(int width, int heigth, double percentageWall, int pathLength);
 }

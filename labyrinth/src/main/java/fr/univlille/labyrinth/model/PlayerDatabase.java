@@ -4,7 +4,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Serialization static handler for the player (Object writing / reading)
+/**
+ * PlayerDatabase gère la serialisation du joueur. Elle permet de load/save une progression par un nom.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class PlayerDatabase {
     private static final String SAVE_FILE = "res/saves/players.dat";
 
@@ -17,18 +23,16 @@ public class PlayerDatabase {
         }
     }
 
+    /**
+     * Sauvegarde, ou remplace automatiquement une progression dans le dossier associé
+     *
+     * @param player progression sauvegardée.
+     */
     public static void savePlayer(Player player) {
         List<Player> players = loadAllPlayers();
 
         //search if player already exists ; replace it
-        boolean found = false;
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getName().equals(player.getName())) {
-                players.set(i, player);
-                found = true;
-                break;
-            }
-        }
+        boolean found = isFound(player, players);
 
         // Otherwise add it
         if (!found) {
@@ -43,6 +47,23 @@ public class PlayerDatabase {
         }
     }
 
+    private static boolean isFound(Player player, List<Player> players) {
+        boolean found = false;
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getName().equals(player.getName())) {
+                players.set(i, player);
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    /**
+     * Charge une partie grâce au nom du joueur
+     *
+     * @param name nom de la progression chargé.
+     */
     public static Player loadPlayer(String name) {
         List<Player> players = loadAllPlayers();
         for (Player player : players) {
@@ -53,6 +74,11 @@ public class PlayerDatabase {
         return null;
     }
 
+    /**
+     * Renvoie true si la progression existe dans le dossier externe.
+     *
+     * @param name nom de la progression recherché.
+     */
     public static boolean playerExists(String name) {
         List<Player> players = loadAllPlayers();
         for (Player player : players) {

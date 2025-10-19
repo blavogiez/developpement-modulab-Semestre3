@@ -1,0 +1,160 @@
+package fr.univlille.labyrinth.model.algorithm;
+
+import fr.univlille.labyrinth.model.Direction;
+import fr.univlille.labyrinth.model.Position;
+
+import java.util.*;
+
+
+/**
+ * Génère un labyrinthe en utilisant un parcours en largeur.
+ * Le point de fin est choisi parmi les cellules à distance minPath,
+ * garantissant un chemin d'une longueur minimale spécifiée dépendant de la taille du labyrinthe.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
+public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
+
+    private static MazeAlgorithmStandardLargeur instance;
+    private Position start, end;
+
+    /**
+     * Génère un labyrinthe selon un algorithme en largeur.
+     *
+     * @param width             largeur du labyrinthe
+     * @param height            hauteur du labyrinthe
+     * @param percentageOfWall  pourcentage de murs (entre 0 et 1)
+     * @param pathLength     longueur minimale du chemin entre début et fin
+     */
+    public boolean[][] createMaze(int width, int height, double percentageOfWall, int pathLength) {
+        maze = new boolean[width][height];
+        percentageWall = percentageOfWall;
+
+        start = new Position(1, 1);
+
+        Map<Position,Integer> distances = new HashMap<>();
+        distances.put(start,0);
+
+        Map<Position, Position> parentMap = tracePathLargeur(start, distances);
+
+        List<Position> farthest = getFarthestCells(pathLength, distances);
+
+
+        if (farthest.isEmpty()) {
+            throw new MazeSizeException("Une erreur à eu lieu lors de la génération du labyrinthe (pas de cellules à la longueur spécifié)");
+        } else {
+            end = farthest.get(new Random().nextInt(farthest.size()));
+        }
+
+        markFinalPath(parentMap, start, end);
+
+        removePercentageWall();
+
+        return maze;
+    }
+
+    public Position getStart() {
+        return start;
+    }
+
+    public Position getEnd() {
+        return end;
+    }
+
+    /**
+     * Marque toutes les cellules atteignables et garde les parents pour retracer plus tard.
+     */
+    private Map<Position, Position> tracePathLargeur(Position start, Map<Position,Integer> distances) {
+        Queue<Position> queue = new LinkedList<>();
+        Map<Position, Position> parent = new HashMap<>();
+
+        queue.add(start);
+        parent.put(start, null);
+        markCell(start);
+
+        while (!queue.isEmpty()) {
+            Position current = queue.poll();
+            List<Direction> directions = new ArrayList<>(Arrays.stream(Direction.values()).toList());
+            Collections.shuffle(directions);
+
+            checkAllDirections(distances, directions, current, parent, queue);
+        }
+        return parent;
+    }
+
+    private void checkAllDirections(Map<Position, Integer> distances, List<Direction> directions, Position current, Map<Position, Position> parent, Queue<Position> queue) {
+        for (int i = 0; i< directions.size(); i++) {
+            Direction dir = directions.get(i);
+            int nx = current.getX() + dir.getX();
+            int ny = current.getY() + dir.getY();
+            Position next = new Position(nx, ny);
+
+            if (isInside(nx, ny) && isWall(next)) {
+                markPathBetweenCell(current,next);
+                parent.put(next, current);
+                distances.put(next, distances.get(current) + 1);
+                queue.add(next);
+            }
+        }
+    }
+
+    /**
+     * Récupère les cellules éloignées du départ (= minPathLength)
+     */
+    private List<Position> getFarthestCells(int minPathLength, Map<Position, Integer> distances) {
+        List<Position> positions = new ArrayList<>();
+        for (Map.Entry<Position,Integer> entrys : distances.entrySet()){
+            if (entrys.getValue().equals(minPathLength)){
+                positions.add(entrys.getKey());
+            }
+        }
+
+        return positions;
+    }
+
+    private static List<Position> getFarthestInMap(int minPathLength, Map<Position, Integer> distance) {
+        List<Position> farthest = new ArrayList<>();
+        for (Map.Entry<Position, Integer> e : distance.entrySet()) {
+            if (e.getValue() >= minPathLength) {
+                farthest.add(e.getKey());
+            }
+        }
+        return farthest;
+    }
+
+
+
+    /**
+     * Retrace le chemin du end vers le start et ne garde que ces cellules comme "PATH".
+     */
+    private void markFinalPath(Map<Position, Position> parentMap, Position start, Position end) {
+        clearMaze();
+        Position current = end;
+        while (current != null) {
+            maze[current.getX()][current.getY()] = PATH;
+            current = parentMap.get(current);
+        }
+    }
+
+    /**
+     * Met toutes les cases à WALL
+     */
+    protected void clearMaze() {
+        for (int x = 0; x < maze.length; x++) {
+            for (int y = 0; y < maze[0].length; y++) {
+                maze[x][y] = WALL;
+            }
+        }
+    }
+
+    protected boolean isInside(int x, int y) {
+        return x > 0 && y > 0 && x < maze.length - 1 && y < maze[0].length - 1;
+    }
+
+    public static MazeAlgorithmStandardLargeur getInstance() {
+        if (instance == null) instance = new MazeAlgorithmStandardLargeur();
+        return instance;
+    }
+}

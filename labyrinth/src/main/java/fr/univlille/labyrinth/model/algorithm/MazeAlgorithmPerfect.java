@@ -12,7 +12,7 @@ import java.util.*;
  * @version 0.0
  * @since 0.0
  */
-public class MazeAlgorithmPerfect extends MazeAlgorithmTemplate {
+public class MazeAlgorithmPerfect extends MazeAlgorithmTemplateProfondeur {
 
 
     /**

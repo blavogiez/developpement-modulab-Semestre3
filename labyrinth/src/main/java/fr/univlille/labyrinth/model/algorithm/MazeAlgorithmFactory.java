@@ -4,7 +4,8 @@ public enum MazeAlgorithmFactory {
     PERFECT(MazeAlgorithmPerfect.getInstance()),
     PERFECTRANDOM(MazeAlgorithmPerfectRandom.getInstance()),
     STANDARD(MazeAlgorithmStandard.getInstance()),
-    STANDARDRANDOM(MazeAlgorithmStandardRandom.getInstance());
+    STANDARDRANDOM(MazeAlgorithmStandardRandom.getInstance()),
+    STANDARDLARGEUR(MazeAlgorithmStandardLargeur.getInstance());
 
     private MazeAlgorithmFactory(MazeAlgorithmTemplate maze){
         this.mazeAlgorithm=maze;

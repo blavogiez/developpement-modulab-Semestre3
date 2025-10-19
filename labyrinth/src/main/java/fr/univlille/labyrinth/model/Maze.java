@@ -68,12 +68,12 @@ public class Maze {
      */
     public Maze(int width, int height, double wallPercentage) {
         this.observers=new ArrayList<>();
-        this.grid = MazeAlgorithmFactory.STANDARDRANDOM.getAlgorithm().createMaze(width, height, wallPercentage);
+        this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage,10);
         this.width = this.grid.length;
         this.height = this.grid[0].length;
-        this.playerPosition = MazeAlgorithmFactory.STANDARDRANDOM.getAlgorithm().getStart();
-        this.entryPosition = MazeAlgorithmFactory.STANDARDRANDOM.getAlgorithm().getStart(); //inutile??
-        this.exitPosition = MazeAlgorithmFactory.STANDARDRANDOM.getAlgorithm().getEnd();
+        this.playerPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
+        this.entryPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart(); //inutile??
+        this.exitPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getEnd();
     }
 
     /**
