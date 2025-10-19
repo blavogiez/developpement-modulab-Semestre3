@@ -51,6 +51,7 @@ public class ProgressionController {
         AppState.getInstance().setCurrentPlayer(currentPlayer);
         initList();
         initBoutons();
+        initEtapesAccessibles();
         colorButtons();
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
@@ -117,6 +118,26 @@ public class ProgressionController {
                     ex.printStackTrace();
                 }
             });
+        }
+    }
+
+    // desactive les boutons des etapes 2 et 3 si le joueur n'a pas fait au moin un defi de l'etape precedente
+    private void initEtapesAccessibles() {
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
+        int highestStage = currentPlayer.getHighestStage();
+
+        // etape 2 accessible seulement si au moin un defi de l'etape 1 est complété (highestStage >= 1)
+        if (highestStage < 1) {
+            for (Button btn : worldButtons.get(1)) {
+                btn.setDisable(true);
+            }
+        }
+
+        // etape 3 accessible seulement si au moin un defi de l'etape 2 est complété (highestStage >= 2)
+        if (highestStage < 2) {
+            for (Button btn : worldButtons.get(2)) {
+                btn.setDisable(true);
+            }
         }
     }
 
