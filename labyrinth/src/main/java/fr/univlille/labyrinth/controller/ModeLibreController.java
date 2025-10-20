@@ -37,6 +37,9 @@ public class ModeLibreController {
         wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToModeLaby() throws IOException {
         try {
@@ -53,6 +56,9 @@ public class ModeLibreController {
         Main.goTo("LabyrinthModeLibre.fxml");
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");

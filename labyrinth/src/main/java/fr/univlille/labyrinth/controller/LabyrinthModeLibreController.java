@@ -48,6 +48,10 @@ public class LabyrinthModeLibreController {
         chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
     }
 
+    /** 
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
         if (e.getCode().equals(KeyCode.S) || e.getCode().equals(KeyCode.DOWN)) gameMode.movePlayerPosition(Direction.DOWN);
@@ -62,6 +66,9 @@ public class LabyrinthModeLibreController {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");

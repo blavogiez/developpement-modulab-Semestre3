@@ -15,6 +15,9 @@ public class ProgressionEntreNomController {
     @FXML
     private TextField nameField;
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgression() throws IOException {
         // Collecte de la saisie de l'utilisateur + traitement
@@ -29,6 +32,9 @@ public class ProgressionEntreNomController {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");

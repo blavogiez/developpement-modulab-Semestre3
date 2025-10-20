@@ -28,6 +28,9 @@ public class LocalPlayerView implements Observer<Maze> {
         update(maze);
     }
 
+    /** 
+     * @param maze
+     */
     // affiche une grille 3x3 autour du joueur
     @Override
     public void update(Maze maze) {
@@ -76,6 +79,9 @@ public class LocalPlayerView implements Observer<Maze> {
         }
     }
 
+    /** 
+     * @return GridPane
+     */
     public GridPane getGrid() {
         return grid;
     }

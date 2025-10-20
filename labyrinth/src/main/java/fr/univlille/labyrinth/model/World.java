@@ -12,10 +12,16 @@ public class World implements Serializable {
         this.challenges = new Challenge[3];
     }
 
+    /** 
+     * @return int
+     */
     public int getNumber() {
         return number;
     }
 
+    /** 
+     * @return boolean
+     */
     // stage is completed only if at least one of its challenges is completed (Document expectations)
     public boolean isCompleted() {
         for (Challenge chall: challenges) {
@@ -24,6 +30,9 @@ public class World implements Serializable {
         return false ;
     }
 
+    /** 
+     * @return Challenge[]
+     */
     public Challenge[] getChallenges() {
         return challenges;
     }

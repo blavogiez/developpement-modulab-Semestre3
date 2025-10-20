@@ -80,6 +80,9 @@ public class LabyrinthGridView implements Observer<Maze> {
         }
     }
 
+    /** 
+     * @return GridPane
+     */
     public GridPane getGrid() {
         return grid;
     }

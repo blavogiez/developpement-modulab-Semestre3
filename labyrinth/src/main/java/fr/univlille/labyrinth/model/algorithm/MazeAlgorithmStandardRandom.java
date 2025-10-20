@@ -38,6 +38,10 @@ public class MazeAlgorithmStandardRandom extends MazeAlgorithmStandard{
         return maze;
     }
 
+    /** 
+     * @param width
+     * @param height
+     */
     protected void generateRandomStartAndEnd(int width, int height) {
         positions[0] = new Position( random.nextInt(width /2 -1)*2+1, random.nextInt(height /2 -1)*2+1);
         do {
@@ -46,10 +50,16 @@ public class MazeAlgorithmStandardRandom extends MazeAlgorithmStandard{
 
     }
 
+    /** 
+     * @return Position
+     */
     public Position getStart(){
         return positions[0];
     }
 
+    /** 
+     * @return Position
+     */
     public Position getEnd(){
         return positions[1];
     }
@@ -73,6 +83,9 @@ public class MazeAlgorithmStandardRandom extends MazeAlgorithmStandard{
     }
     private static MazeAlgorithmStandardRandom instance;
 
+    /** 
+     * @return MazeAlgorithmStandardRandom
+     */
     public static MazeAlgorithmStandardRandom getInstance(){
         if (instance==null){
             instance=new MazeAlgorithmStandardRandom();

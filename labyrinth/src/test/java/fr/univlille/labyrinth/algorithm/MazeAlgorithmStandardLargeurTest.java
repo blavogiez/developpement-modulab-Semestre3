@@ -138,6 +138,12 @@ public class MazeAlgorithmStandardLargeurTest {
         }
     }
 
+    /** 
+     * @param maze
+     * @param start
+     * @param end
+     * @return Integer
+     */
     // (eventuellement bouger cette méthode dans parcours pour éviter)
     // methode helper pour calculer la distance BFS (Parcours en largeur !) reelle entre deux positions
     // retourne null si aucun chemin n'existe

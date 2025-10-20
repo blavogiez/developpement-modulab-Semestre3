@@ -81,6 +81,10 @@ public class LimitedLabyrinthModeProgressionController {
         chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
     }
 
+    /** 
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
         //System.out.println("" + e.getCode() + gameMode.getCurrentMaze().getPlayerPosition());
@@ -104,6 +108,9 @@ public class LimitedLabyrinthModeProgressionController {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");

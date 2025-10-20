@@ -13,29 +13,53 @@ public abstract class MazeAlgorithmTemplate {
 
 
 
+    /** 
+     * @param x
+     * @param y
+     */
     protected void markCell(int x, int y){
         maze[x][y]=PATH;
     }
+    /** 
+     * @param cellAlgorithmBoolean
+     */
     protected void markCell(CellAlgorithmBoolean cellAlgorithmBoolean){
         maze[cellAlgorithmBoolean.x][cellAlgorithmBoolean.y]=PATH;
 
     }
 
+    /** 
+     * @param position
+     */
     protected void markCell(Position position){
         markCell(position.getX(),position.getY());
 
     }
 
+    /** 
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     */
     protected void markPathBetweenCell(int x1, int y1, int x2, int y2){
         markCell(x1,y1);
         markCell(x2,y2);
         markCell((x1+x2)/2,(y1+y2)/2);
     }
 
+    /** 
+     * @param cellAlgorithmBoolean1
+     * @param cellAlgorithmBoolean2
+     */
     protected void markPathBetweenCell(CellAlgorithmBoolean cellAlgorithmBoolean1, CellAlgorithmBoolean cellAlgorithmBoolean2){
         markPathBetweenCell(cellAlgorithmBoolean1.x, cellAlgorithmBoolean1.y, cellAlgorithmBoolean2.x, cellAlgorithmBoolean2.y);
     }
 
+    /** 
+     * @param pos1
+     * @param pos2
+     */
     protected void markPathBetweenCell(Position pos1, Position pos2){
         markPathBetweenCell(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
     }
@@ -48,14 +72,27 @@ public abstract class MazeAlgorithmTemplate {
         }
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @return boolean
+     */
     protected boolean isWall(int x, int y){
         if (x<1 || x>= maze.length-1 || y<1 || y>= maze[0].length-1) return false;
         return !maze[x][y];
     }
+    /** 
+     * @param cellAlgorithmBoolean
+     * @return boolean
+     */
     protected boolean isWall(CellAlgorithmBoolean cellAlgorithmBoolean){
         return isWall(cellAlgorithmBoolean.x, cellAlgorithmBoolean.y);
     }
 
+    /** 
+     * @param position
+     * @return boolean
+     */
     protected boolean isWall(Position position){
         return isWall(position.getX(), position.getY());
     }

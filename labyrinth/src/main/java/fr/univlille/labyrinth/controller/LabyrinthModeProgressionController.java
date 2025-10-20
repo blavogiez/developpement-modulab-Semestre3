@@ -63,6 +63,10 @@ public class LabyrinthModeProgressionController {
         chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
     }
 
+    /** 
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
         System.out.println(e.getCode());
@@ -86,6 +90,9 @@ public class LabyrinthModeProgressionController {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     protected void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");

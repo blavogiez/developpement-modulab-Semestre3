@@ -16,6 +16,9 @@ public class PortailLabyrinthController {
     private Button bouttonParametres;
 
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToJouer() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
@@ -26,6 +29,9 @@ public class PortailLabyrinthController {
         Platform.exit();
     }
 
+    /** 
+     * @throws IOException
+     */
     // a faire (normal que ca marche pas)
     @FXML
     private void goToParametres() throws IOException {

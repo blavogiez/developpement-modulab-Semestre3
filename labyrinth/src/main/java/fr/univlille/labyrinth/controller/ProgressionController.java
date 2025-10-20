@@ -63,6 +63,9 @@ public class ProgressionController {
         scoreLabel.setText("Score : " + currentPlayer.getScore());
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
@@ -152,6 +155,12 @@ public class ProgressionController {
     }
 
 
+    /** 
+     * @param worldIndex
+     * @param challengeIndex
+     * @param limited
+     * @throws IOException
+     */
     private void goToChallenge(int worldIndex, int challengeIndex, boolean limited) throws IOException {
         AppState state = AppState.getInstance();
         state.setSelectedWorldIndex(worldIndex);
