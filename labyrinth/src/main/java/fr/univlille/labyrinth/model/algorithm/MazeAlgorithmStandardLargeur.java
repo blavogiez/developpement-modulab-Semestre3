@@ -32,7 +32,7 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         maze = new boolean[width][height];
         percentageWall = percentageOfWall;
 
-        start = new Position(1, 1);
+        start = new Position(1 + new Random().nextInt(width - 2), 1 + new Random().nextInt(height - 2));
 
         Map<Position,Integer> distances = new HashMap<>();
         distances.put(start,0);

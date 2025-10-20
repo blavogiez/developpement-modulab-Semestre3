@@ -42,13 +42,12 @@ public class MazeAlgorithmStandardLargeurTest {
 
     @Test
     public void testStartPosition() {
-        //le point de depart doit toujours etre en (1,1) selon l'implementation
-        assertEquals(1, start1.getX());
-        assertEquals(1, start1.getY());
-        assertEquals(1, start2.getX());
-        assertEquals(1, start2.getY());
-        assertEquals(1, start3.getX());
-        assertEquals(1, start3.getY());
+        assertTrue(start1.getX() > 0 && start1.getX() < maze1.length - 1);
+        assertTrue(start1.getY() > 0 && start1.getY() < maze1[0].length - 1);
+        assertTrue(start2.getX() > 0 && start2.getX() < maze2.length - 1);
+        assertTrue(start2.getY() > 0 && start2.getY() < maze2[0].length - 1);
+        assertTrue(start3.getX() > 0 && start3.getX() < maze3.length - 1);
+        assertTrue(start3.getY() > 0 && start3.getY() < maze3[0].length - 1);
     }
 
     @Test
@@ -61,7 +60,6 @@ public class MazeAlgorithmStandardLargeurTest {
 
     @Test
     public void testStartAndEndAreInsideBounds() {
-        //start et end doivent etre a l'interieur du labyrinthe (pas sur les bordures)
         assertTrue(start1.getX()>0 && start1.getX() < maze1.length-1);
         assertTrue(start1.getY()>0 && start1.getY() < maze1[0].length-1);
         assertTrue(end1.getX()>0 && end1.getX() < maze1.length-1);
@@ -71,6 +69,11 @@ public class MazeAlgorithmStandardLargeurTest {
         assertTrue(start2.getY() > 0 && start2.getY()<maze2[0].length - 1);
         assertTrue(end2.getX() > 0 && end2.getX()<maze2.length - 1);
         assertTrue(end2.getY() > 0 && end2.getY()<maze2[0].length - 1);
+
+        assertTrue(start3.getX() > 0 && start3.getX() < maze3.length - 1);
+        assertTrue(start3.getY() > 0 && start3.getY() < maze3[0].length - 1);
+        assertTrue(end3.getX() > 0 && end3.getX() < maze3.length - 1);
+        assertTrue(end3.getY() > 0 && end3.getY() < maze3[0].length - 1);
     }
 
     @Test
