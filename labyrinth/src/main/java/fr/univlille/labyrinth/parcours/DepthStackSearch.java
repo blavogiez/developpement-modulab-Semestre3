@@ -9,6 +9,10 @@ public class DepthStackSearch {
 
     private static Set<Position> marked;
 
+    /** 
+     * @param maze
+     * @return boolean
+     */
     // Algorithm from TP02 / Effidev
     public static boolean isExitPossible(Maze maze) {
         marked = new HashSet<>();
@@ -52,6 +56,11 @@ public class DepthStackSearch {
         return false;
     }
 
+    /** 
+     * @param pos
+     * @param maze
+     * @return Position[]
+     */
     private static Position[] getNeighbors(Position pos, Maze maze) {
         Position[] neighbors = new Position[4];
         neighbors[0] = new Position(pos.getX() + 1, pos.getY());
@@ -61,6 +70,11 @@ public class DepthStackSearch {
         return neighbors;
     }
 
+    /** 
+     * @param pos
+     * @param maze
+     * @return boolean
+     */
     private static boolean isValid(Position pos, Maze maze) {
         return pos.getX() >= 0 && pos.getX() < maze.getWidth() &&
                pos.getY() >= 0 && pos.getY() < maze.getHeight();

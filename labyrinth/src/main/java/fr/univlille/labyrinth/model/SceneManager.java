@@ -20,21 +20,34 @@ public class SceneManager {
         push(scene);
     }
 
+    /** 
+     * @param scene
+     * @return Scene
+     */
     public Scene push(Scene scene){
         this.stage.setScene(scene);
         return scenes.push(scene);
     }
 
+    /** 
+     * @return Stage
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /** 
+     * @return Scene
+     */
     public Scene pop(){
         Scene scene = this.scenes.pop();
         this.stage.setScene(scenes.peek());
         return scene;
     }
 
+    /** 
+     * @return Scene
+     */
     public Scene peek(){
         Scene scene = this.scenes.peek();
         this.stage.setScene(scene);

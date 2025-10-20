@@ -34,10 +34,16 @@ public class MazeAlgorithmStandard extends MazeAlgorithmTemplateProfondeur{
             return maze;
         }
 
+    /** 
+     * @return Position
+     */
     public Position getStart(){
         return new Position(1, 1);
     }
 
+    /** 
+     * @return Position
+     */
     public Position getEnd(){
         return new Position(maze.length-2, maze[0].length-2);
     }
@@ -61,19 +67,38 @@ public class MazeAlgorithmStandard extends MazeAlgorithmTemplateProfondeur{
 
         }
         
+        /** 
+         * @param x1
+         * @param y1
+         * @param x2
+         * @param y2
+         */
         protected  void unmarkPathBetweenCell(int x1, int y1, int x2, int y2){
             unmarkCell(x2,y2);
             unmarkCell((x1+x2)/2,(y1+y2)/2);
         }
 
+    /** 
+     * @param c1
+     * @param c2
+     */
     protected  void unmarkPathBetweenCell(CellAlgorithmBoolean c1, CellAlgorithmBoolean c2){
         unmarkPathBetweenCell(c1.x,c1.y,c2.x,c2.y);
     }
 
+    /** 
+     * @param x1
+     * @param y1
+     */
     private  void unmarkCell(int x1, int y1) {
         maze[x1][y1]=WALL;
     }
 
+    /** 
+     * @param cellAlgorithmBooleanStack
+     * @param visitedCellAlgorithmBoolean
+     * @return boolean
+     */
     protected  boolean findPath(Stack<CellAlgorithmBoolean> cellAlgorithmBooleanStack, Set<CellAlgorithmBoolean> visitedCellAlgorithmBoolean) {
             List<Direction> directions = new ArrayList<>(Arrays.stream(Direction.values()).toList());
             Collections.shuffle(directions);
@@ -91,6 +116,9 @@ public class MazeAlgorithmStandard extends MazeAlgorithmTemplateProfondeur{
 
     private static MazeAlgorithmStandard instance;
 
+    /** 
+     * @return MazeAlgorithmStandard
+     */
     public static MazeAlgorithmStandard getInstance(){
         if (instance==null){
             instance=new MazeAlgorithmStandard();

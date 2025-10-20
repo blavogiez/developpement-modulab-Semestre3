@@ -6,6 +6,12 @@ import java.util.*;
 
 public class BreadthFirstSearch {
 
+    /** 
+     * @param maze
+     * @param start
+     * @param end
+     * @return Integer
+     */
     // methode helper pour calculer la distance BFS (Parcours en largeur !) reelle entre deux positions
     // retourne null si aucun chemin n'existe
     public static Integer calculateDistance(boolean[][] maze, Position start, Position end) {

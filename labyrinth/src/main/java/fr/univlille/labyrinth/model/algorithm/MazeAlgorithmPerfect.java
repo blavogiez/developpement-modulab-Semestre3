@@ -35,10 +35,16 @@ public class MazeAlgorithmPerfect extends MazeAlgorithmTemplateProfondeur {
 
 
 
+    /** 
+     * @return Position
+     */
     public Position getStart(){
         return new Position(1, 1);
     }
 
+    /** 
+     * @return Position
+     */
     public Position getEnd(){
         return new Position(maze.length-2, maze[0].length-2);
     }
@@ -56,6 +62,10 @@ public class MazeAlgorithmPerfect extends MazeAlgorithmTemplateProfondeur {
 
     }
 
+    /** 
+     * @param cellAlgorithmBooleanStack
+     * @return boolean
+     */
     protected boolean findPath(Stack<CellAlgorithmBoolean> cellAlgorithmBooleanStack) {
         List<Direction> directions = new ArrayList<>(Arrays.stream(Direction.values()).toList());
         Collections.shuffle(directions);
@@ -73,6 +83,9 @@ public class MazeAlgorithmPerfect extends MazeAlgorithmTemplateProfondeur {
     private static MazeAlgorithmPerfect instance;
 
 
+    /** 
+     * @return MazeAlgorithmTemplate
+     */
     public static MazeAlgorithmTemplate getInstance() {
         if (instance==null){
             instance=new MazeAlgorithmPerfect();

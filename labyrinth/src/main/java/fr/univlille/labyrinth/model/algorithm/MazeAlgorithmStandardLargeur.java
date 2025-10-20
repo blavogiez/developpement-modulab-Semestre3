@@ -66,10 +66,16 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         return maze;
     }
 
+    /** 
+     * @return Position
+     */
     public Position getStart() {
         return start;
     }
 
+    /** 
+     * @return Position
+     */
     public Position getEnd() {
         return end;
     }
@@ -95,6 +101,13 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         return parent;
     }
 
+    /** 
+     * @param distances
+     * @param directions
+     * @param current
+     * @param parent
+     * @param queue
+     */
     private void checkAllDirections(Map<Position, Integer> distances, List<Direction> directions, Position current, Map<Position, Position> parent, Queue<Position> queue) {
         for (int i = 0; i< directions.size(); i++) {
             Direction dir = directions.get(i);
@@ -125,6 +138,11 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         return positions;
     }
 
+    /** 
+     * @param minPathLength
+     * @param distance
+     * @return List<Position>
+     */
     private static List<Position> getFarthestInMap(int minPathLength, Map<Position, Integer> distance) {
         List<Position> farthest = new ArrayList<>();
         for (Map.Entry<Position, Integer> e : distance.entrySet()) {
@@ -160,10 +178,18 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         }
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @return boolean
+     */
     protected boolean isInside(int x, int y) {
         return x > 0 && y > 0 && x < maze.length - 1 && y < maze[0].length - 1;
     }
 
+    /** 
+     * @return MazeAlgorithmStandardLargeur
+     */
     public static MazeAlgorithmStandardLargeur getInstance() {
         if (instance == null) instance = new MazeAlgorithmStandardLargeur();
         return instance;

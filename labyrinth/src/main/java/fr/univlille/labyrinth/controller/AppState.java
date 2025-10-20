@@ -18,6 +18,9 @@ public class AppState {
     // constructeur par défaut
     private AppState() {}
 
+    /** 
+     * @return AppState
+     */
     // Retourne l'instance unique du singleton
     public static AppState getInstance() {
         if (instance == null) {
@@ -34,34 +37,58 @@ public class AppState {
         selectedChallenge = null;
     }
 
+    /** 
+     * @return Player
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /** 
+     * @param currentPlayer
+     */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+    /** 
+     * @return int
+     */
     public int getSelectedWorldIndex() {
         return selectedWorldIndex;
     }
 
+    /** 
+     * @param selectedWorldIndex
+     */
     public void setSelectedWorldIndex(int selectedWorldIndex) {
         this.selectedWorldIndex = selectedWorldIndex;
     }
 
+    /** 
+     * @return int
+     */
     public int getSelectedChallengeIndex() {
         return selectedChallengeIndex;
     }
 
+    /** 
+     * @param selectedChallengeIndex
+     */
     public void setSelectedChallengeIndex(int selectedChallengeIndex) {
         this.selectedChallengeIndex = selectedChallengeIndex;
     }
 
+    /** 
+     * @return Challenge
+     */
     public Challenge getSelectedChallenge() {
         return selectedChallenge;
     }
 
+    /** 
+     * @param selectedChallenge
+     */
     public void setSelectedChallenge(Challenge selectedChallenge) {
         this.selectedChallenge = selectedChallenge;
     }

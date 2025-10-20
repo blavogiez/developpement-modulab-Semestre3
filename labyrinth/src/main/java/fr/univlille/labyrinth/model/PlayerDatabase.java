@@ -47,6 +47,11 @@ public class PlayerDatabase {
         }
     }
 
+    /** 
+     * @param player
+     * @param players
+     * @return boolean
+     */
     private static boolean isFound(Player player, List<Player> players) {
         boolean found = false;
         for (int i = 0; i < players.size(); i++) {
@@ -89,6 +94,9 @@ public class PlayerDatabase {
         return false;
     }
 
+    /** 
+     * @return List<Player>
+     */
     // Load all players from file
     public static List<Player> loadAllPlayers() {
         File file = new File(SAVE_FILE);

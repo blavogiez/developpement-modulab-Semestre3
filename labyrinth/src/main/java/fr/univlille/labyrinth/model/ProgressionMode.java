@@ -54,6 +54,9 @@ public class ProgressionMode extends GameMode {
     public void start() {
     }
 
+    /** 
+     * @param chosenChallenge
+     */
     public void createMaze(Challenge chosenChallenge) {
         int width = chosenChallenge.getWidth();
         int height = chosenChallenge.getHeight();
@@ -62,6 +65,9 @@ public class ProgressionMode extends GameMode {
         setCurrentMaze(new Maze(width, height, wallPercentage, minPathLength));
     }
 
+    /** 
+     * @return Player
+     */
     public Player getPlayer() {
         return player;
     }

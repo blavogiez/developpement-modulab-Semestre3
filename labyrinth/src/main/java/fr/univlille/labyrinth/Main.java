@@ -12,6 +12,10 @@ public class Main extends Application {
 
     private static Stage primaryStage;
 
+    /** 
+     * @param page
+     * @throws IOException
+     */
     public static void goTo(String page) throws IOException {
         double width = primaryStage.getScene().getWidth();
         double height = primaryStage.getScene().getHeight();
@@ -20,6 +24,10 @@ public class Main extends Application {
         primaryStage.getScene().getStylesheets().add(Main.class.getResource("styles.css").toExternalForm()); //TODO à modifier pour un theme sombre en plus
     }
 
+    /** 
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
@@ -31,10 +39,16 @@ public class Main extends Application {
         stage.show();
     }
 
+    /** 
+     * @return Stage
+     */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

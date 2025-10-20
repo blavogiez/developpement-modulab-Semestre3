@@ -24,6 +24,9 @@ public class Cell {
         this.cellType=cellType;
     }
 
+    /** 
+     * @return Rectangle
+     */
     public Rectangle generateRectangle(){
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(cellType.getPaint());
@@ -33,18 +36,30 @@ public class Cell {
         return null;
     }
 
+    /** 
+     * @param cellType
+     */
     public void setCellType(CellType cellType) {
         this.cellType = cellType;
     }
 
+    /** 
+     * @param token
+     */
     public void setToken(Token token) {
         this.token = token;
     }
 
+    /** 
+     * @return CellType
+     */
     public CellType getCellType() {
         return cellType;
     }
 
+    /** 
+     * @return Token
+     */
     public Token getToken() {
         return token;
     }

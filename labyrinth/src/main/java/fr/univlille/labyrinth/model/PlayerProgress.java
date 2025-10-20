@@ -10,6 +10,9 @@ public class PlayerProgress implements Serializable {
         this.stageProgress=stageProgress;
     }
 
+    /** 
+     * @return PlayerProgress
+     */
     // Copying a progress ; useful to use a progress without modifying its reference
     // Typical usecase is defaultProgress handed to a created player
     // if there were multiple players in the same session, defaultProgress would be a mess as they'd all have the same object reference
@@ -35,6 +38,10 @@ public class PlayerProgress implements Serializable {
         return new PlayerProgress(newStages);
     }
 
+    /** 
+     * @param challenge
+     * @param time
+     */
     public void markChallengeCompleted(Challenge challenge, long time) {
         // debug :
         System.out.println(time + " " + challenge.getTimeCompleted());
@@ -53,6 +60,9 @@ public class PlayerProgress implements Serializable {
         challenge.setCompleted(true);
     }
 
+    /** 
+     * @return int
+     */
     public int getHighestStage() {
         int max=0; // the first Stage
         for (World stage: stageProgress) {
@@ -63,6 +73,9 @@ public class PlayerProgress implements Serializable {
         return max;
     }
 
+    /** 
+     * @return World[]
+     */
     public World[] getStageProgress() {
         return stageProgress;
     }

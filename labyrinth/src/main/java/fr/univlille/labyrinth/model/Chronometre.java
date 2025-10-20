@@ -35,6 +35,7 @@ public class Chronometre{
 
     /**
      * Renvoie la différente entre début et fin, ou entre le début et maintenant si la fin n'a pas était spécifié
+     * @return long
      */
     public long getChrono(){
         if(!encours){
@@ -47,6 +48,8 @@ public class Chronometre{
 
     /**
      * Renvoie le résultat sous la forme d'un String dans le format chrono.
+     * @param format
+     * @return String
      */
     public String getChronoFormat(String format){
         long millis = getChrono();
@@ -58,6 +61,9 @@ public class Chronometre{
     };
     }
 
+    /** 
+     * @return String
+     */
     public String toString(){
         return "Temps écoulé"+ this.getChrono();
     }
