@@ -1,0 +1,68 @@
+package fr.univlille.labyrinth.controller;
+
+import fr.univlille.labyrinth.model.Challenge;
+import fr.univlille.labyrinth.model.Player;
+
+// singleton qui gere l'etat globale de l'application
+// developpé suite à la réalisation que les variables static dans les controlleurs étaient difficiles à transmettre entre chacun et peu sécurisées
+
+// évite donc l'utilisation de variables static à passer partout et rend l'app testable
+public class AppState {
+    private static AppState instance;
+
+    private Player currentPlayer;
+    private int selectedWorldIndex;
+    private int selectedChallengeIndex;
+    private Challenge selectedChallenge;
+
+    // constructeur par défaut
+    private AppState() {}
+
+    // Retourne l'instance unique du singleton
+    public static AppState getInstance() {
+        if (instance == null) {
+            instance = new AppState();
+        }
+        return instance;
+    }
+
+    // reset l'etat (utile pour les tests)
+    public void reset() {
+        currentPlayer = null;
+        selectedWorldIndex = 0;
+        selectedChallengeIndex = 0;
+        selectedChallenge = null;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public int getSelectedWorldIndex() {
+        return selectedWorldIndex;
+    }
+
+    public void setSelectedWorldIndex(int selectedWorldIndex) {
+        this.selectedWorldIndex = selectedWorldIndex;
+    }
+
+    public int getSelectedChallengeIndex() {
+        return selectedChallengeIndex;
+    }
+
+    public void setSelectedChallengeIndex(int selectedChallengeIndex) {
+        this.selectedChallengeIndex = selectedChallengeIndex;
+    }
+
+    public Challenge getSelectedChallenge() {
+        return selectedChallenge;
+    }
+
+    public void setSelectedChallenge(Challenge selectedChallenge) {
+        this.selectedChallenge = selectedChallenge;
+    }
+}

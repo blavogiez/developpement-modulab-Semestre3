@@ -17,28 +17,28 @@ public class MazeTest {
     @Test
     public void testGridInitialization() {
         assertNotNull(m1.getGrid());
-        assertEquals(10, m1.getGrid().length);
-        assertEquals(10, m1.getGrid()[0].length);
+        assertEquals(9, m1.getGrid().length);
+        assertEquals(9, m1.getGrid()[0].length);
         assertNotNull(m2.getGrid());
-        assertEquals(20, m2.getGrid().length);
-        assertEquals(20, m2.getGrid()[0].length);
+        assertEquals(19, m2.getGrid().length);
+        assertEquals(19, m2.getGrid()[0].length);
         assertNotNull(m3.getGrid());
-        assertEquals(30, m3.getGrid().length);
-        assertEquals(30, m3.getGrid()[0].length);
+        assertEquals(29, m3.getGrid().length);
+        assertEquals(29, m3.getGrid()[0].length);
     }
 
     @Test
     public void testWidth(){
-        assertEquals(21, m1.getWidth());
+        assertEquals(9, m1.getWidth());
         assertEquals(m1.getWidth(),m4.getWidth());
     }
     @Test
     public void testHeight(){
-        assertEquals(21, m1.getHeight());
-        assertEquals(41, m2.getHeight());
-        assertEquals(61, m3.getHeight());
+        assertEquals(9, m1.getHeight());
+        assertEquals(19, m2.getHeight());
+        assertEquals(29, m3.getHeight());
         assertEquals(m4.getHeight(),m1.getHeight());
-        
+
     }
 
     @Test
@@ -47,9 +47,9 @@ public class MazeTest {
         assertEquals(new Position(1,1),m2.getEntryPosition());
         assertEquals(new Position(1,1),m3.getEntryPosition());
         assertEquals(m1.getEntryPosition(),m4.getEntryPosition());
-        assertEquals(new Position(20,20),m1.getExitPosition());
-        assertEquals(new Position(40,40),m2.getExitPosition());
-        assertEquals(new Position(60,60),m3.getExitPosition());
+        assertEquals(new Position(7,7),m1.getExitPosition());
+        assertEquals(new Position(17,17),m2.getExitPosition());
+        assertEquals(new Position(27,27),m3.getExitPosition());
         assertEquals(m4.getExitPosition(),m1.getExitPosition());
     }
 

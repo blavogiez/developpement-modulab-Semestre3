@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.ProgressionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.ProgressionController">
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="813.0" BorderPane.alignment="CENTER">
          <children>
@@ -41,9 +41,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 1" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld1Challenge1" mnemonicParsing="false" onAction="#goToWorld1Challenge1" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
-                                    <Button fx:id="bouttonWorld1Challenge2" mnemonicParsing="false" onAction="#goToWorld1Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld1Challenge3" mnemonicParsing="false" onAction="#goToWorld1Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonWorld1Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonWorld1Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld1Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>
@@ -59,9 +59,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 2" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld2Challenge1" mnemonicParsing="false" onAction="#goToWorld2Challenge1" scaleX="2.0" scaleY="2.0" text="1" />
-                                    <Button fx:id="bouttonWorld2Challenge2" mnemonicParsing="false" onAction="#goToWorld2Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld2Challenge3" mnemonicParsing="false" onAction="#goToWorld2Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonWorld2Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" />
+                                    <Button fx:id="bouttonWorld2Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>
@@ -77,9 +77,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 3" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld3Challenge1" mnemonicParsing="false" onAction="#goToWorld3Challenge1" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
-                                    <Button fx:id="bouttonWorld3Challenge2" mnemonicParsing="false" onAction="#goToWorld3Challenge2" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld3Challenge3" mnemonicParsing="false" onAction="#goToWorld3Challenge3" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonWorld3Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonWorld3Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonWorld3Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>

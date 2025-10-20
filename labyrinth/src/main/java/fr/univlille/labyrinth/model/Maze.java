@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.model.algorithm.AlgoLabyNew;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +68,12 @@ public class Maze {
      */
     public Maze(int width, int height, double wallPercentage) {
         this.observers=new ArrayList<>();
-        this.grid = AlgoLabyNew.createMaze(width, height, wallPercentage);
-        this.width = width * 2 + 1;
-        this.height = height * 2 + 1;
-        this.playerPosition = new Position(1, 1);
-        this.entryPosition = new Position(1, 1);
-        this.exitPosition = new Position(this.width-2 , this.height-2);
+        this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage,10);
+        this.width = this.grid.length;
+        this.height = this.grid[0].length;
+        this.playerPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
+        this.entryPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart(); //inutile??
+        this.exitPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getEnd();
     }
 
     /**

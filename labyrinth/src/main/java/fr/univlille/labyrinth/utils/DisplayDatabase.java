@@ -14,9 +14,14 @@ public class DisplayDatabase {
             for (World stage : stages) {
                 System.out.println("  Stage " + stage.getNumber() + " (completed: " + stage.isCompleted() + ")");
                 for (Challenge challenge : stage.getChallenges()) {
+                    long time = challenge.getTimeCompleted();
+                    long seconds = time / 1000;
+                    long minutes = seconds / 60;
+                    long secs = seconds % 60;
+                    String timeStr = challenge.isCompleted() ? String.format(" time:%02d:%02d", minutes, secs) : "";
                     System.out.println("    Challenge: " + challenge.getDifficulty() +
                         " " + challenge.getWidth() + "x" + challenge.getHeight() +
-                        " walls:" + challenge.getWallPercentage() + "% completed:" + challenge.isCompleted());
+                        " walls:" + challenge.getWallPercentage() + "% completed:" + challenge.isCompleted() + timeStr);
                 }
             }
         }

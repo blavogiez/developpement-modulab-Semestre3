@@ -49,9 +49,9 @@ public class ModeLibreController {
             FreeMode.mazeWidth = 20;
         }
         try {
-            FreeMode.mazeWallPercentage = Integer.parseInt(wallPercentageField.getText());
+            FreeMode.mazeWallPercentage = Double.parseDouble(wallPercentageField.getText());
         } catch (NumberFormatException e) {
-            FreeMode.mazeWallPercentage = 80;
+            FreeMode.mazeWallPercentage = 0.0;
         }
         Main.goTo("LabyrinthModeLibre.fxml");
     }

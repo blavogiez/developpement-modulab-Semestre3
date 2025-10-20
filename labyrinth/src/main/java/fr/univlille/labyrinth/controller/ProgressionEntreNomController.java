@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class ProgressionEntreNomController {
+    // nom rentré par le joueur
+    // + valeur par défaut si rien n'est entré
     public static String playerName = "toto";
 
     @FXML
@@ -15,6 +17,7 @@ public class ProgressionEntreNomController {
 
     @FXML
     private void goToProgression() throws IOException {
+        // Collecte de la saisie de l'utilisateur + traitement
         String name = nameField.getText();
         if (name != null && !name.trim().isEmpty()) {
             playerName = name.trim();

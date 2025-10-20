@@ -20,7 +20,7 @@ import javafx.scene.shape.Rectangle;
  * @version 0.0
  * @since 0.0
  */
-public class LabyrinthGridView implements Observer<Maze> {
+public class LimitedLabyrinthGridView implements Observer<Maze> {
     protected GridPane grid = new GridPane();
 
     /**
@@ -28,16 +28,11 @@ public class LabyrinthGridView implements Observer<Maze> {
      *
      * @param maze l'observable que cette vue observe.
      */
-    public LabyrinthGridView(Maze maze){
-
-        NumberBinding gridSize = Bindings.min(
-                Bindings.min(grid.widthProperty().subtract(40), grid.heightProperty().subtract(100)),
-                700.0
-        );
-        grid.prefWidthProperty().bind(gridSize);
-        grid.prefHeightProperty().bind(gridSize);
+    public LimitedLabyrinthGridView(Maze maze){
+        // taille fixe pour éviter les bindings circulaires
+        grid.setPrefSize(500, 500);
         grid.setMaxSize(700, 700);
-        grid.setMinSize(0, 0);
+        grid.setMinSize(100, 100);
         grid.setAlignment(Pos.CENTER);
 
         update(maze);
@@ -48,6 +43,7 @@ public class LabyrinthGridView implements Observer<Maze> {
      *
      * @param maze l'observable que cette vue observe.
      */
+    // affiche le labyrinthe complet sans la position du joueur
     @Override
     public void update(Maze maze) {
         grid.getChildren().clear();
@@ -55,9 +51,7 @@ public class LabyrinthGridView implements Observer<Maze> {
 
         for (int l = 0; l < mazeGrid.length; l++){
             for (int c = 0; c < mazeGrid[0].length; c++) {
-
                 Rectangle rect = new Rectangle();
-
                 NumberBinding size = Bindings.min(
                         grid.widthProperty().divide(mazeGrid[0].length),
                         grid.heightProperty().divide(mazeGrid.length)
@@ -65,16 +59,13 @@ public class LabyrinthGridView implements Observer<Maze> {
                 rect.widthProperty().bind(size);
                 rect.heightProperty().bind(size);
 
-                if (maze.getPlayerPosition().getX() == l && maze.getPlayerPosition().getY() == c){
-                    rect.setFill(Paint.valueOf(PLAYER));
-                } else if (maze.getExitPosition().equals(new Position(l, c))) {
+                if (maze.getExitPosition().equals(new Position(l, c))) {
                     rect.setFill(Paint.valueOf(EXIT));
                 } else if (mazeGrid[l][c]){
                     rect.setFill(Paint.valueOf(PATH));
                 } else {
                     rect.setFill(Paint.valueOf(WALL));
                 }
-
                 grid.add(rect, l, c);
             }
         }

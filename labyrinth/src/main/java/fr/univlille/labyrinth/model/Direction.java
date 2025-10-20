@@ -1,5 +1,12 @@
 package fr.univlille.labyrinth.model;
 
+/**
+ * Représente les directions haut, bas, droite et gauche
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public enum Direction {
 
     UP(0,-1),

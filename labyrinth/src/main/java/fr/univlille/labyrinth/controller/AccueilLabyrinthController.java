@@ -26,7 +26,7 @@ public class AccueilLabyrinthController  {
     }
 
     @FXML
-    private void goToQuitter(){
-        Platform.exit();
+    private void goToQuitter() throws IOException {
+        Main.goTo("PortailLabyrinth.fxml");
     }
 }
