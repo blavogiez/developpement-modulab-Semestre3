@@ -7,6 +7,8 @@ import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.view.GameColors;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -39,6 +41,10 @@ public class ProgressionController {
     private Button bouttonWorld3Challenge2;
     @FXML
     private Button bouttonWorld3Challenge3;
+    @FXML
+    public Label textProgressBar;
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     public void initialize() {
@@ -65,22 +71,26 @@ public class ProgressionController {
 
     // colore en vert les boutons des défis complétés
     private void colorButtons() {
-        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
-        for (int worldIndex = 0; worldIndex < worldButtons.size(); worldIndex++) {
-            List<Button> challengeButtons = worldButtons.get(worldIndex);
-            Challenge[] challenges = currentPlayer.getProgress().getStageProgress()[worldIndex].getChallenges();
-
-            for (int challengeIndex = 0; challengeIndex < challengeButtons.size(); challengeIndex++) {
-                Button button = challengeButtons.get(challengeIndex);
-                Challenge challenge = challenges[challengeIndex];
-
+        double completedCount=0;
+        double totalChallenges=0;
+        Player currentPlayer=AppState.getInstance().getCurrentPlayer();
+        for (int worldIndex=0;worldIndex<worldButtons.size();worldIndex++) {
+            List<Button> challengeButtons=worldButtons.get(worldIndex);
+            Challenge[] challenges=currentPlayer.getProgress().getStageProgress()[worldIndex].getChallenges();
+            for (int challengeIndex=0;challengeIndex<challengeButtons.size();challengeIndex++) {
+                Button button=challengeButtons.get(challengeIndex);
+                Challenge challenge=challenges[challengeIndex];
+                totalChallenges++;
                 if (challenge.isCompleted()) {
-                    button.setStyle("-fx-background-color: " + GameColors.COMPLETED + ";");
+                    button.setStyle("-fx-background-color: "+GameColors.COMPLETED+";");
+                    completedCount++;
                 } else {
                     button.setStyle("");
                 }
             }
         }
+        progressBar.setProgress(completedCount/totalChallenges);
+        textProgressBar.setText(String.format("%.2f%%", completedCount/totalChallenges* 100));
     }
 
     private void initList(){
