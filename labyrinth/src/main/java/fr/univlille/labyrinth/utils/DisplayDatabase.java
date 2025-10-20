@@ -21,7 +21,7 @@ public class DisplayDatabase {
                     String timeStr = challenge.isCompleted() ? String.format(" time:%02d:%02d", minutes, secs) : "";
                     System.out.println("    Challenge: " + challenge.getDifficulty() +
                         " " + challenge.getWidth() + "x" + challenge.getHeight() +
-                        " walls:" + challenge.getWallPercentage() + "% completed:" + challenge.isCompleted() + timeStr);
+                        " walls:" + (int)(challenge.getWallPercentage() * 100) + "% completed:" + challenge.isCompleted() + timeStr);
                 }
             }
         }

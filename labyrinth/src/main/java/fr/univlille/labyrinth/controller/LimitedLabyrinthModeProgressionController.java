@@ -55,7 +55,7 @@ public class LimitedLabyrinthModeProgressionController {
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
 
         challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
-        mazeInfoLabel.setText("Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() + ", Pourcentage : " + selectedChallenge.getWallPercentage() + "%");
+        mazeInfoLabel.setText("Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() + ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%");
 
         gameMode = new ProgressionMode();
         gameMode.createMaze(selectedChallenge);

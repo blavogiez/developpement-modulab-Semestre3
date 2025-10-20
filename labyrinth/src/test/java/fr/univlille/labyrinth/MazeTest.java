@@ -5,7 +5,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+// Cette classe sert à tester que le labyrinthe s'initialise bien aux positions demandées !
+
+// On fait également un test sur le respect du pourcentage de mur, vérifiant que la moyenne de 10 labyrinthes générés tend vers le pourcentage de mur (différence absolue inférieure à 0.05)
 public class MazeTest {
+
     static Maze m1,m2,m3,m4;
     @BeforeAll
     public static void initialization(){
@@ -41,32 +45,5 @@ public class MazeTest {
 
     }
 
-    @Test
-    public void testEntryExit(){
-        assertEquals(new Position(1,1),m1.getEntryPosition());
-        assertEquals(new Position(1,1),m2.getEntryPosition());
-        assertEquals(new Position(1,1),m3.getEntryPosition());
-        assertEquals(m1.getEntryPosition(),m4.getEntryPosition());
-        assertEquals(new Position(7,7),m1.getExitPosition());
-        assertEquals(new Position(17,17),m2.getExitPosition());
-        assertEquals(new Position(27,27),m3.getExitPosition());
-        assertEquals(m4.getExitPosition(),m1.getExitPosition());
-    }
-
-    @Test
-    public void testEntryExitPosition() {
-        Position entryM3 = m3.getEntryPosition();
-        Position exitM3 = m3.getExitPosition();
-        assertTrue(entryM3.getX() >= 0 && entryM3.getX() < m3.getWidth());
-        assertTrue(entryM3.getY() >= 0 && entryM3.getY() < m3.getHeight());
-        assertTrue(exitM3.getX() >= 0 && exitM3.getX() < m3.getWidth());
-        assertTrue(exitM3.getY() >= 0 && exitM3.getY() < m3.getHeight());
-
-        Position entryM4 = m4.getEntryPosition();
-        Position exitM4 = m4.getExitPosition();
-        assertTrue(entryM4.getX() >= 0 && entryM4.getX() < m4.getWidth());
-        assertTrue(entryM4.getY() >= 0 && entryM4.getY() < m4.getHeight());
-        assertTrue(exitM4.getX() >= 0 && exitM4.getX() < m4.getWidth());
-        assertTrue(exitM4.getY() >= 0 && exitM4.getY() < m4.getHeight());
-    }
+    // Les tests d'entrée et de fin concernent la partie algorithm :)
 }
