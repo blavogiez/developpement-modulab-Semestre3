@@ -2,79 +2,173 @@ package fr.univlille.labyrinth.algorithm;
 
 import fr.univlille.labyrinth.model.Position;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmStandardLargeur;
+import fr.univlille.labyrinth.model.algorithm.MazeSizeException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MazeAlgorithmStandardLargeurTest {
+// Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
+// On verifie que le labyrinthe genere respecte la distance minimale entre start et end
+// et que l'algo fonctionne correctement dans differents cas!
 
-    @Test
-    void testCreateMazeWithMinimumDistance() {
-        // Given
-        MazeAlgorithmStandardLargeur algorithm = MazeAlgorithmStandardLargeur.getInstance();
-        int width = 11; // Utilisation d'une taille impaire pour s'assurer d'avoir des chemins clairs
-        int height = 11;
-        double percentageOfWall = 0.3;
-        int minimumPathLength = 8;
+public class MazeAlgorithmStandardLargeurTest {
 
-        // When
-        boolean[][] maze = algorithm.createMaze(width, height, percentageOfWall, minimumPathLength);
-        Position start = algorithm.getStart();
-        Position end = algorithm.getEnd();
+    static MazeAlgorithmStandardLargeur algo;
+    static boolean[][] maze1, maze2, maze3;
+    static Position start1, end1, start2, end2, start3, end3;
 
-        // Then
-        assertNotNull(maze);
-        assertNotNull(start);
-        assertNotNull(end);
-        
-        // Vérification que la distance entre le départ et l'arrivée est au moins égale à minimumPathLength
-        // La distance réelle est calculée comme la distance Manhattan dans ce contexte
-        int actualDistance = Math.abs(end.getX() - start.getX()) + Math.abs(end.getY() - start.getY());
-        
-        // On vérifie que la distance est au moins égale à la longueur de chemin spécifiée
-        assertTrue(actualDistance >= minimumPathLength, 
-            "La distance entre l'entrée et la sortie devrait être d'au moins " + minimumPathLength + 
-            ", mais est de " + actualDistance);
+    @BeforeAll
+    public static void initialization() {
+        algo = MazeAlgorithmStandardLargeur.getInstance();
+
+        //labyrinthe de taille moyenne avec distance minimale moderee
+        maze1 = algo.createMaze(15, 15, 0.3, 8);
+        start1 = algo.getStart();
+        end1 = algo.getEnd();
+
+        // Petit labyrinthe avec petite distance
+        maze2 = algo.createMaze(7, 7, 0.2, 3);
+        start2 = algo.getStart();
+        end2 = algo.getEnd();
+
+        //grand labyrinthe avec grande distance
+        maze3 = algo.createMaze(25, 25, 0.4, 15);
+        start3 = algo.getStart();
+        end3 = algo.getEnd();
     }
 
     @Test
-    void testCreateMazeWithSmallMinimumDistance() {
-        // Given
-        MazeAlgorithmStandardLargeur algorithm = MazeAlgorithmStandardLargeur.getInstance();
-        int width = 5;
-        int height = 5;
-        double percentageOfWall = 0.3;
-        int minimumPathLength = 3;
-
-        // When
-        boolean[][] maze = algorithm.createMaze(width, height, percentageOfWall, minimumPathLength);
-        Position start = algorithm.getStart();
-        Position end = algorithm.getEnd();
-
-        // Then
-        assertNotNull(maze);
-        assertNotNull(start);
-        assertNotNull(end);
+    public void testStartPosition() {
+        //le point de depart doit toujours etre en (1,1) selon l'implementation
+        assertEquals(1, start1.getX());
+        assertEquals(1, start1.getY());
+        assertEquals(1, start2.getX());
+        assertEquals(1, start2.getY());
+        assertEquals(1, start3.getX());
+        assertEquals(1, start3.getY());
     }
 
     @Test
-    void testCreateMazeWithLargeMinimumDistance() {
-        // Test avec une distance minimale grande par rapport à la taille du labyrinthe
-        MazeAlgorithmStandardLargeur algorithm = MazeAlgorithmStandardLargeur.getInstance();
-        int width = 11;
-        int height = 11;
-        double percentageOfWall = 0.1; // Peu de murs pour permettre un long chemin
-        int minimumPathLength = 8;
+    public void testStartAndEndAreDifferent() {
+        //Le point de depart et d'arrivee doivent etre differents
+        assertNotEquals(start1, end1);
+        assertNotEquals(start2, end2);
+        assertNotEquals(start3, end3);
+    }
 
-        // On s'attend à ce que le labyrinthe soit créé avec succès
-        assertDoesNotThrow(() -> {
-            boolean[][] maze = algorithm.createMaze(width, height, percentageOfWall, minimumPathLength);
-            Position start = algorithm.getStart();
-            Position end = algorithm.getEnd();
-            
-            assertNotNull(maze);
-            assertNotNull(start);
-            assertNotNull(end);
-        });
+    @Test
+    public void testStartAndEndAreInsideBounds() {
+        //start et end doivent etre a l'interieur du labyrinthe (pas sur les bordures)
+        assertTrue(start1.getX()>0 && start1.getX() < maze1.length-1);
+        assertTrue(start1.getY()>0 && start1.getY() < maze1[0].length-1);
+        assertTrue(end1.getX()>0 && end1.getX() < maze1.length-1);
+        assertTrue(end1.getY()>0 && end1.getY() < maze1[0].length-1);
+
+        assertTrue(start2.getX() > 0 && start2.getX()<maze2.length - 1);
+        assertTrue(start2.getY() > 0 && start2.getY()<maze2[0].length - 1);
+        assertTrue(end2.getX() > 0 && end2.getX()<maze2.length - 1);
+        assertTrue(end2.getY() > 0 && end2.getY()<maze2[0].length - 1);
+    }
+
+    @Test
+    public void testPathExists() {
+        // Il doit exister un chemin (PATH = true) entre start et end
+
+        //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
+        Integer distance1 = calculateBFSDistance(maze1, start1, end1);
+        assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
+
+        Integer distance2 = calculateBFSDistance(maze2, start2, end2);
+        assertNotNull(distance2, "Un chemin doit exister entre start et end dans maze2");
+
+        Integer distance3 = calculateBFSDistance(maze3, start3, end3);
+        assertNotNull(distance3, "Un chemin doit exister entre start et end dans maze3");
+    }
+
+    @Test
+    public void testMinimumPathLength() {
+        // la distance BFS reelle entre start et end doit etre >= pathLength demande
+        Integer distance1 = calculateBFSDistance(maze1, start1, end1);
+        assertNotNull(distance1);
+        assertTrue(distance1 >= 8, "Distance dans maze1 devrait être >= 8, mais est " + distance1);
+
+        Integer distance2 = calculateBFSDistance(maze2, start2, end2);
+        assertNotNull(distance2);
+        assertTrue(distance2>=3, "Distance dans maze2 devrait être >= 3, mais est " + distance2);
+
+        Integer distance3 = calculateBFSDistance(maze3, start3, end3);
+        assertNotNull(distance3);
+        assertTrue(distance3 >= 15, "Distance dans maze3 devrait être >= 15, mais est " + distance3);
+    }
+
+    @Test
+    public void testSingletonPattern() {
+        // getInstance() doit toujours retourner la meme instance
+        MazeAlgorithmStandardLargeur instance1 = MazeAlgorithmStandardLargeur.getInstance();
+        MazeAlgorithmStandardLargeur instance2 = MazeAlgorithmStandardLargeur.getInstance();
+        assertSame(instance1, instance2);
+        assertSame(algo, instance1);
+    }
+
+    @Test
+    public void testWithImpossiblePathLength() {
+        // quand la distance demandee est trop grande, l'algo doit soit trouver la distance max possible
+        // soit lancer une exception (selon l'implementation)
+        MazeAlgorithmStandardLargeur testAlgo = MazeAlgorithmStandardLargeur.getInstance();
+
+        // Pour un tres petit labyrinthe, une grande distance devrait soit fonctionner avec distance max
+        // soit lancer MazeSizeException
+        try {
+            boolean[][] maze = testAlgo.createMaze(5, 5, 0.1, 100);
+            Position start = testAlgo.getStart();
+            Position end = testAlgo.getEnd();
+
+            // si ca ne lance pas d'exception, verifier qu'un chemin existe quand meme
+            Integer distance = calculateBFSDistance(maze, start, end);
+            assertNotNull(distance, "Un chemin devrait exister même si pathLength est trop grand");
+        } catch (MazeSizeException e) {
+            // l'exception est acceptable dans ce cas
+            assertTrue(true);
+        }
+    }
+
+    // (eventuellement bouger cette méthode dans parcours pour éviter)
+    // methode helper pour calculer la distance BFS (Parcours en largeur !) reelle entre deux positions
+    // retourne null si aucun chemin n'existe
+    private Integer calculateBFSDistance(boolean[][] maze, Position start, Position end) {
+        Queue<Position> queue = new LinkedList<>();
+        Map<Position, Integer> distances = new HashMap<>();
+
+        queue.add(start);
+        distances.put(start, 0);
+
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+        while (!queue.isEmpty()) {
+            Position current = queue.poll();
+
+            // retour int quand on touche la fin!
+            if (current.equals(end)) {
+                return distances.get(current);
+            }
+
+            for (int[] dir : directions) {
+                int nx = current.getX() + dir[0];
+                int ny = current.getY() + dir[1];
+                Position next = new Position(nx, ny);
+
+                // verifier que la position est valide et est un chemin (PATH = true)
+                if (nx>=0 && nx<maze.length && ny>=0 && ny<maze[0].length
+                    && maze[nx][ny] && !distances.containsKey(next)) {
+                    distances.put(next, distances.get(current) + 1);
+                    queue.add(next);
+                }
+            }
+        }
+
+        return null; // aucun chemin trouve :(
     }
 }

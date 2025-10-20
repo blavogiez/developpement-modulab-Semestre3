@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
- * LabyrinthGridView est la vue de grille du Labyrinthe. Elle montre l'avancement au joueur. C'est une vue.
+ * LimitedLabyrinthGridView est la vue de grille du Labyrinthe sert à la vue locale au joueur comme demandée dans le sujet. C'est une vue ne montrant pas la position du joueur !
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0

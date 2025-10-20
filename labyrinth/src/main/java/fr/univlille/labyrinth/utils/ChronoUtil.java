@@ -7,6 +7,9 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+// Retourne une timeline JavaFX pour un chronomètre (Le temps bouge chaque seconde sur un label)
+
+// Se base sur l'utilitaire Chronomètre
 public class ChronoUtil {
     public static Timeline initChrono(Chronometre chrono, Label chronoLabel) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
