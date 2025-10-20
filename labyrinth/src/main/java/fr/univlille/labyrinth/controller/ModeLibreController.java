@@ -5,6 +5,7 @@ import fr.univlille.labyrinth.model.FreeMode;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -26,14 +27,14 @@ public class ModeLibreController {
     private TextField widthField;
 
     @FXML
-    private TextField wallPercentageField;
+    private Slider wallPercentageSlider;
 
     // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
-        wallPercentageField.setText("" + FreeMode.mazeWallPercentage);
+        wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
     }
 
     @FXML
@@ -48,11 +49,7 @@ public class ModeLibreController {
         } catch (NumberFormatException e) {
             FreeMode.mazeWidth = 20;
         }
-        try {
-            FreeMode.mazeWallPercentage = Double.parseDouble(wallPercentageField.getText());
-        } catch (NumberFormatException e) {
-            FreeMode.mazeWallPercentage = 0.0;
-        }
+        FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
         Main.goTo("LabyrinthModeLibre.fxml");
     }
 

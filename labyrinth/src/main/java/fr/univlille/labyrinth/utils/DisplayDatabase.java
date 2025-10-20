@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.utils;
 import fr.univlille.labyrinth.model.*;
 import java.util.List;
 
+// Petite classe utilitaire qui affiche l'état des joueurs, utile pour tester
 public class DisplayDatabase {
     public static void main(String[] args) {
         List<Player> players = PlayerDatabase.loadAllPlayers();
@@ -21,7 +22,7 @@ public class DisplayDatabase {
                     String timeStr = challenge.isCompleted() ? String.format(" time:%02d:%02d", minutes, secs) : "";
                     System.out.println("    Challenge: " + challenge.getDifficulty() +
                         " " + challenge.getWidth() + "x" + challenge.getHeight() +
-                        " walls:" + challenge.getWallPercentage() + "% completed:" + challenge.isCompleted() + timeStr);
+                        " walls:" + (int)(challenge.getWallPercentage() * 100) + "% completed:" + challenge.isCompleted() + timeStr);
                 }
             }
         }
