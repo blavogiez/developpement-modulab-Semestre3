@@ -1,5 +1,4 @@
-package fr.univlille.labyrinth;
-import fr.univlille.labyrinth.model.*;
+package fr.univlille.labyrinth.model;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

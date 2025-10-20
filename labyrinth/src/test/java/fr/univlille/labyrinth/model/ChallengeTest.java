@@ -1,6 +1,5 @@
-package fr.univlille.labyrinth;
+package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.model.Challenge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
