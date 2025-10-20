@@ -14,6 +14,7 @@ public class Challenge implements Serializable {
     private final int width;
     private final int height;
     private final int wallPercentage;
+    private final int distanceBetweenEntryAndExit;
     private long timeCompleted;
     private boolean completed;
 
@@ -24,12 +25,26 @@ public class Challenge implements Serializable {
      * @param width Largeur du labyrinthe associé au challenge.
      * @param height Hauteur du labyrinthe associé au challenge.
      * @param wallPercentage Pourcentage de mur associé au challenge.
+     * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
      */
-    public Challenge(String difficulty, int width, int height, int wallPercentage) {
+    public Challenge(String difficulty, int width, int height, int wallPercentage, int distanceBetweenEntryAndExit) {
         this.difficulty=difficulty;
         this.width=width;
         this.height=height;
         this.wallPercentage=wallPercentage;
+        this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
+    }
+    
+    /**
+     * Génère un challenge avec la distance minimale par défaut
+     *
+     * @param difficulty la difficulté du labyrinthe (indicateur visuel)
+     * @param width Largeur du labyrinthe associé au challenge.
+     * @param height Hauteur du labyrinthe associé au challenge.
+     * @param wallPercentage Pourcentage de mur associé au challenge.
+     */
+    public Challenge(String difficulty, int width, int height, int wallPercentage) {
+        this(difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
     }
 
     public void validate() {
@@ -50,6 +65,10 @@ public class Challenge implements Serializable {
 
     public int getWallPercentage() {
         return wallPercentage;
+    }
+
+    public int getDistanceBetweenEntryAndExit() {
+        return distanceBetweenEntryAndExit;
     }
 
     public long getTimeCompleted() {
