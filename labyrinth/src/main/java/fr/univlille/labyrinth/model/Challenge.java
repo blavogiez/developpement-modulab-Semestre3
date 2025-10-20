@@ -13,7 +13,8 @@ public class Challenge implements Serializable {
     private final String difficulty;
     private final int width;
     private final int height;
-    private final int wallPercentage;
+    private final double wallPercentage;
+    private final int distanceBetweenEntryAndExit;
     private long timeCompleted;
     private boolean completed;
 
@@ -23,13 +24,27 @@ public class Challenge implements Serializable {
      * @param difficulty la difficulté du labyrinthe (indicateur visuel)
      * @param width Largeur du labyrinthe associé au challenge.
      * @param height Hauteur du labyrinthe associé au challenge.
-     * @param wallPercentage Pourcentage de mur associé au challenge.
+     * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
+     * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
      */
-    public Challenge(String difficulty, int width, int height, int wallPercentage) {
+    public Challenge(String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
         this.difficulty=difficulty;
         this.width=width;
         this.height=height;
         this.wallPercentage=wallPercentage;
+        this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
+    }
+    
+    /**
+     * Génère un challenge avec la distance minimale par défaut
+     *
+     * @param difficulty la difficulté du labyrinthe (indicateur visuel)
+     * @param width Largeur du labyrinthe associé au challenge.
+     * @param height Hauteur du labyrinthe associé au challenge.
+     * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
+     */
+    public Challenge(String difficulty, int width, int height, double wallPercentage) {
+        this(difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
     }
 
     public void validate() {
@@ -48,8 +63,12 @@ public class Challenge implements Serializable {
         return height;
     }
 
-    public int getWallPercentage() {
+    public double getWallPercentage() {
         return wallPercentage;
+    }
+
+    public int getDistanceBetweenEntryAndExit() {
+        return distanceBetweenEntryAndExit;
     }
 
     public long getTimeCompleted() {
@@ -67,7 +86,7 @@ public class Challenge implements Serializable {
             return score ;
         }
         score+=width*height ;
-        score*= wallPercentage ;
+        score*= (int)(wallPercentage * 100); // Convertir le pourcentage en format entier pour le calcul
         return score ;
     }
 

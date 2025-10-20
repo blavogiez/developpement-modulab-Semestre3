@@ -32,7 +32,7 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         maze = new boolean[width][height];
         percentageWall = percentageOfWall;
 
-        start = new Position(1, 1);
+        start = new Position(1 + new Random().nextInt(width - 2), 1 + new Random().nextInt(height - 2));
 
         Map<Position,Integer> distances = new HashMap<>();
         distances.put(start,0);
@@ -41,12 +41,23 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
 
         List<Position> farthest = getFarthestCells(pathLength, distances);
 
-
+        // Si aucune cellule n'est trouvée à la distance spécifiée, on cherche les cellules
+        // les plus éloignées possibles
         if (farthest.isEmpty()) {
-            throw new MazeSizeException("Une erreur à eu lieu lors de la génération du labyrinthe (pas de cellules à la longueur spécifié)");
-        } else {
-            end = farthest.get(new Random().nextInt(farthest.size()));
+            // On recherche les cellules à la distance maximale possible
+            int maxDistance = distances.values().stream().mapToInt(Integer::intValue).max().orElse(0);
+            if (maxDistance > 0) {
+                // On réduit la distance minimale requise
+                farthest = getFarthestInMap(maxDistance, distances);
+            }
+            
+            // Si on ne trouve toujours aucune cellule appropriée, on sélectionne la plus éloignée possible
+            if (farthest.isEmpty()) {
+                throw new MazeSizeException("Une erreur à eu lieu lors de la génération du labyrinthe (pas de cellules à la longueur spécifiée)");
+            }
         }
+        
+        end = farthest.get(new Random().nextInt(farthest.size()));
 
         markFinalPath(parentMap, start, end);
 

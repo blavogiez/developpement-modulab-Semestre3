@@ -26,7 +26,8 @@ public class PlayerProgress implements Serializable {
                     original.getDifficulty(),
                     original.getWidth(),
                     original.getHeight(),
-                    original.getWallPercentage()
+                    original.getWallPercentage(),
+                    original.getDistanceBetweenEntryAndExit()
                 );
             }
             newStages[i] = newStage;

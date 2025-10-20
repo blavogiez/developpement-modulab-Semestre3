@@ -18,19 +18,19 @@ public class DepthStackSearchTest {
     @Test
     public void testIsExitPossible() {
         boolean result1 = DepthStackSearch.isExitPossible(m1);
-        assertTrue(result1 || !result1);
+        assertTrue(result1, "La sortie devrait etre accessible dans m1");
     }
 
     @Test
     public void testSmallMaze() {
         boolean result = DepthStackSearch.isExitPossible(m3);
-        assertTrue(result || !result);
+        assertTrue(result, "La sortie devrait etre accessible dans le petit labyrinthe");
     }
 
     @Test
     public void testMediumMaze() {
         boolean result = DepthStackSearch.isExitPossible(m2);
-        assertTrue(result || !result);
+        assertTrue(result, "La sortie devrait etre accessible dans le labyrinthe moyen");
     }
 
     @Test
@@ -38,8 +38,8 @@ public class DepthStackSearchTest {
         boolean r1 = DepthStackSearch.isExitPossible(m1);
         boolean r2 = DepthStackSearch.isExitPossible(m2);
         boolean r3 = DepthStackSearch.isExitPossible(m3);
-        assertTrue(r1 || !r1);
-        assertTrue(r2 || !r2);
-        assertTrue(r3 || !r3);
+        assertTrue(r1);
+        assertTrue(r2);
+        assertTrue(r3);
     }
 }

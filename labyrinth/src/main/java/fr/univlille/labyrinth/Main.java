@@ -17,6 +17,7 @@ public class Main extends Application {
         double height = primaryStage.getScene().getHeight();
         Parent root = FXMLLoader.load(Main.class.getResource(page));
         primaryStage.setScene(new Scene(root, width, height));
+        primaryStage.getScene().getStylesheets().add(Main.class.getResource("styles.css").toExternalForm()); //TODO à modifier pour un theme sombre en plus
     }
 
     @Override
@@ -24,6 +25,7 @@ public class Main extends Application {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PortailLabyrinth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Main.class.getResource("styles.css").toExternalForm());
         stage.setTitle("Labyrinth");
         stage.setScene(scene);
         stage.show();
