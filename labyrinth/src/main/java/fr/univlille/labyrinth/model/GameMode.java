@@ -11,6 +11,11 @@ public abstract class GameMode {
 
     private Maze currentMaze;
 
+    /** 
+     * @param width
+     * @param height
+     * @param wallPercentage
+     */
     /**
      * Cette méthode est appelé lorsque le GameMode est généré
      */
@@ -41,14 +46,23 @@ public abstract class GameMode {
         }
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isPlayerAtEnd() {
         return currentMaze != null && currentMaze.getPlayerPosition().equals(currentMaze.getExitPosition());
     }
 
+    /** 
+     * @param currentMaze
+     */
     public void setCurrentMaze(Maze currentMaze) {
         this.currentMaze = currentMaze;
     }
 
+    /** 
+     * @return Maze
+     */
     public Maze getCurrentMaze() {
         return currentMaze;
     }

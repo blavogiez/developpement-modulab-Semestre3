@@ -40,6 +40,10 @@ public class MazeAlgorithmPerfectRandom extends MazeAlgorithmPerfect {
             return maze;
         }
 
+    /** 
+     * @param width
+     * @param height
+     */
     protected void generateRandomStartAndEnd(int width, int height) {
         positions[0] = new Position( random.nextInt(width /2 -1)*2+1, random.nextInt(height /2 -1)*2+1);
         do {
@@ -48,10 +52,16 @@ public class MazeAlgorithmPerfectRandom extends MazeAlgorithmPerfect {
         
     }
     
+    /** 
+     * @return Position
+     */
     public Position getStart(){
             return positions[0];
     }
 
+    /** 
+     * @return Position
+     */
     public Position getEnd(){
         return positions[1];
     }
@@ -74,6 +84,9 @@ public class MazeAlgorithmPerfectRandom extends MazeAlgorithmPerfect {
         }
     private static MazeAlgorithmPerfectRandom instance;
 
+    /** 
+     * @return MazeAlgorithmPerfectRandom
+     */
     public static MazeAlgorithmPerfectRandom getInstance(){
         if (instance==null){
             instance=new MazeAlgorithmPerfectRandom();

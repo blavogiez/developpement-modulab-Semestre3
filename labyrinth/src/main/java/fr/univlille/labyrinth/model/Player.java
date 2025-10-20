@@ -36,18 +36,30 @@ public class Player implements Serializable {
         return score ;
     }
 
+    /** 
+     * @return int
+     */
     public int getHighestStage() {
         return getProgress().getHighestStage() ;
     }
 
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    /** 
+     * @return int
+     */
     public int getScore() {
         return this.calculateScore();
     }
 
+    /** 
+     * @return PlayerProgress
+     */
     public PlayerProgress getProgress() {
         return progress;
     }

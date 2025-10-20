@@ -41,6 +41,10 @@ public class CellAlgorithmBoolean {
         return new CellAlgorithmBoolean(this.x+x,this.y+y);
     }
 
+    /** 
+     * @param obj
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj==null) return false;
@@ -51,6 +55,9 @@ public class CellAlgorithmBoolean {
         return false;
     }
 
+    /** 
+     * @return int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

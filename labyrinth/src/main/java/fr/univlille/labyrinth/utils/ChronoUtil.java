@@ -11,6 +11,11 @@ import javafx.util.Duration;
 
 // Se base sur l'utilitaire Chronomètre
 public class ChronoUtil {
+    /** 
+     * @param chrono
+     * @param chronoLabel
+     * @return Timeline
+     */
     public static Timeline initChrono(Chronometre chrono, Label chronoLabel) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             long elapsed = chrono.getChrono() / 1000;

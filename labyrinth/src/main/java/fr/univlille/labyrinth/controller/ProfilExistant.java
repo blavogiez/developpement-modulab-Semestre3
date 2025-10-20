@@ -16,6 +16,9 @@ public class ProfilExistant {
     @FXML
     private Button bouttonRetour;
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToNewProgression() throws IOException {
         String playerName = ProgressionEntreNomController.playerName;
@@ -26,11 +29,17 @@ public class ProfilExistant {
 
 
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgressionEntreNom() throws IOException {
         Main.goTo("ProgressionEntreNom.fxml");

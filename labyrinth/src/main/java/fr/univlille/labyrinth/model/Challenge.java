@@ -51,34 +51,58 @@ public class Challenge implements Serializable {
         this.setCompleted(true);
     }
 
+    /** 
+     * @return String
+     */
     public String getDifficulty() {
         return difficulty;
     }
 
+    /** 
+     * @return int
+     */
     public int getWidth() {
         return width;
     }
 
+    /** 
+     * @return int
+     */
     public int getHeight() {
         return height;
     }
 
+    /** 
+     * @return double
+     */
     public double getWallPercentage() {
         return wallPercentage;
     }
 
+    /** 
+     * @return int
+     */
     public int getDistanceBetweenEntryAndExit() {
         return distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @return long
+     */
     public long getTimeCompleted() {
         return timeCompleted;
     }
 
+    /** 
+     * @param timeCompleted
+     */
     public void setTimeCompleted(long timeCompleted) {
         this.timeCompleted = timeCompleted;
     }
 
+    /** 
+     * @return int
+     */
     // calculate the score for the progress
     public int getScoreValue() {
         int score = 0 ;
@@ -90,10 +114,16 @@ public class Challenge implements Serializable {
         return score ;
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isCompleted() {
         return completed;
     }
 
+    /** 
+     * @param completed
+     */
     public void setCompleted(boolean completed) {
         this.completed = completed ;
     }
