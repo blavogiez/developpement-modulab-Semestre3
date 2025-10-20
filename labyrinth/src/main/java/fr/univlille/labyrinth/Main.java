@@ -24,6 +24,7 @@ public class Main extends Application {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PortailLabyrinth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setTitle("Labyrinth");
         stage.setScene(scene);
         stage.show();
