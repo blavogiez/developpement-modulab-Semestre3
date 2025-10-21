@@ -33,10 +33,10 @@ public class PlayerTest {
     // if correctly initialized, then there are existing challenges that return a score (even 0 as none is done)
 
     @Test
-    public void testGetHighestStage() {
-        assertTrue(p1.getHighestStage() >= 0);
-        assertTrue(p2.getHighestStage() >= 0);
-        assertTrue(p3.getHighestStage() >= 0);
+    public void testGetHighestLevel() {
+        assertTrue(p1.getHighestLevel() >= 0);
+        assertTrue(p2.getHighestLevel() >= 0);
+        assertTrue(p3.getHighestLevel() >= 0);
     }
 
     @Test

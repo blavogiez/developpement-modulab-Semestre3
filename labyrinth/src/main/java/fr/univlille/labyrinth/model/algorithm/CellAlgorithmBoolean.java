@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.model.Position;
 import java.util.Objects;
 
 /**
- * Cette classe agit comme un tableau de nombre entier, utilisé pour la génération de labyrinthe
+ * Cette classe agit comme un tableau de nombre entier, utilisé pour la génération de labyrinthe (util)
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0

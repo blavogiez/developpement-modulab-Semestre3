@@ -13,11 +13,11 @@ public class DisplayDatabase {
         for (Player player : players) {
             System.out.println("Player: " + player.getName());
             System.out.println("Score: " + player.getScore());
-            System.out.println("Highest Stage: " + player.getHighestStage());
-            World[] stages = player.getProgress().getStageProgress();
-            for (World stage : stages) {
-                System.out.println("  Stage " + stage.getNumber() + " (completed: " + stage.isCompleted() + ")");
-                for (Challenge challenge : stage.getChallenges()) {
+            System.out.println("Highest Level: " + player.getHighestLevel());
+            Level[] levels = player.getProgress().getLevelProgress();
+            for (Level level : levels) {
+                System.out.println("  Level " + level.getNumber() + " (completed: " + level.isCompleted() + ")");
+                for (Challenge challenge : level.getChallenges()) {
                     long time = challenge.getTimeCompleted();
                     long seconds = time / 1000;
                     long minutes = seconds / 60;

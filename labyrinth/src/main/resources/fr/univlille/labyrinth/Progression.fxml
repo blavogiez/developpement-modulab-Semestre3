@@ -49,9 +49,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 1" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld1Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
-                                    <Button fx:id="bouttonWorld1Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld1Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonLevel1Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonLevel1Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonLevel1Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>
@@ -67,9 +67,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 2" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld2Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
-                                    <Button fx:id="bouttonWorld2Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonLevel2Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonLevel2Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonLevel2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>
@@ -85,9 +85,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Étape 3" />
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Button fx:id="bouttonWorld3Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
-                                    <Button fx:id="bouttonWorld3Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
-                                    <Button fx:id="bouttonWorld3Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
+                                    <Button fx:id="bouttonLevel3Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="bouttonLevel3Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                                    <Button fx:id="bouttonLevel3Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                                  </children>
                               </VBox>
                            </children>

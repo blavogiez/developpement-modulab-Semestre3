@@ -21,26 +21,26 @@ public class ProgressionController {
     @FXML
     private Text scoreLabel;
 
-    private List<List<Button>> worldButtons=new ArrayList<>();
+    private List<List<Button>> levelButtons=new ArrayList<>();
 
     @FXML
-    private Button bouttonWorld1Challenge1;
+    private Button bouttonLevel1Challenge1;
     @FXML
-    private Button bouttonWorld1Challenge2;
+    private Button bouttonLevel1Challenge2;
     @FXML
-    private Button bouttonWorld1Challenge3;
+    private Button bouttonLevel1Challenge3;
     @FXML
-    private Button bouttonWorld2Challenge1;
+    private Button bouttonLevel2Challenge1;
     @FXML
-    private Button bouttonWorld2Challenge2;
+    private Button bouttonLevel2Challenge2;
     @FXML
-    private Button bouttonWorld2Challenge3;
+    private Button bouttonLevel2Challenge3;
     @FXML
-    private Button bouttonWorld3Challenge1;
+    private Button bouttonLevel3Challenge1;
     @FXML
-    private Button bouttonWorld3Challenge2;
+    private Button bouttonLevel3Challenge2;
     @FXML
-    private Button bouttonWorld3Challenge3;
+    private Button bouttonLevel3Challenge3;
     @FXML
     public Label textProgressBar;
     @FXML
@@ -77,9 +77,9 @@ public class ProgressionController {
         double completedCount=0;
         double totalChallenges=0;
         Player currentPlayer=AppState.getInstance().getCurrentPlayer();
-        for (int worldIndex=0;worldIndex<worldButtons.size();worldIndex++) {
-            List<Button> challengeButtons=worldButtons.get(worldIndex);
-            Challenge[] challenges=currentPlayer.getProgress().getStageProgress()[worldIndex].getChallenges();
+        for (int levelIndex=0;levelIndex<levelButtons.size();levelIndex++) {
+            List<Button> challengeButtons=levelButtons.get(levelIndex);
+            Challenge[] challenges=currentPlayer.getProgress().getLevelProgress()[levelIndex].getChallenges();
             for (int challengeIndex=0;challengeIndex<challengeButtons.size();challengeIndex++) {
                 Button button=challengeButtons.get(challengeIndex);
                 Challenge challenge=challenges[challengeIndex];
@@ -97,36 +97,34 @@ public class ProgressionController {
     }
 
     private void initList(){
-        worldButtons = List.of(
-                List.of(bouttonWorld1Challenge1, bouttonWorld1Challenge2, bouttonWorld1Challenge3),
-                List.of(bouttonWorld2Challenge1, bouttonWorld2Challenge2, bouttonWorld2Challenge3),
-                List.of(bouttonWorld3Challenge1, bouttonWorld3Challenge2, bouttonWorld3Challenge3)
+        levelButtons = List.of(
+                List.of(bouttonLevel1Challenge1, bouttonLevel1Challenge2, bouttonLevel1Challenge3),
+                List.of(bouttonLevel2Challenge1, bouttonLevel2Challenge2, bouttonLevel2Challenge3),
+                List.of(bouttonLevel3Challenge1, bouttonLevel3Challenge2, bouttonLevel3Challenge3)
         );
     }
 
     private void initBoutons() {
-        // associer un index d'étape et de défi aux boutons
         Object[][] challenges = {
-            {bouttonWorld1Challenge1, 0, 0, false},
-            {bouttonWorld1Challenge2, 0, 1, false},
-            {bouttonWorld1Challenge3, 0, 2, false},
-            {bouttonWorld2Challenge1, 1, 0, false},
-            {bouttonWorld2Challenge2, 1, 1, false},
-            {bouttonWorld2Challenge3, 1, 2, false},
-            {bouttonWorld3Challenge1, 2, 0, true},
-            {bouttonWorld3Challenge2, 2, 1, true},
-            {bouttonWorld3Challenge3, 2, 2, true}
+            {bouttonLevel1Challenge1, 0, 0, false},
+            {bouttonLevel1Challenge2, 0, 1, false},
+            {bouttonLevel1Challenge3, 0, 2, false},
+            {bouttonLevel2Challenge1, 1, 0, false},
+            {bouttonLevel2Challenge2, 1, 1, false},
+            {bouttonLevel2Challenge3, 1, 2, false},
+            {bouttonLevel3Challenge1, 2, 0, true},
+            {bouttonLevel3Challenge2, 2, 1, true},
+            {bouttonLevel3Challenge3, 2, 2, true}
         };
 
-        // associer la fonction selon l'index d'étape et de défi associés
         for (Object[] ch : challenges) {
             Button btn = (Button) ch[0];
-            int worldIdx = (int) ch[1];
+            int levelIdx = (int) ch[1];
             int challengeIdx = (int) ch[2];
             boolean limited = (boolean) ch[3];
             btn.setOnAction(e -> {
                 try {
-                    goToChallenge(worldIdx, challengeIdx, limited);
+                    goToChallenge(levelIdx, challengeIdx, limited);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -134,42 +132,38 @@ public class ProgressionController {
         }
     }
 
-    // desactive les boutons des etapes 2 et 3 si le joueur n'a pas fait au moin un defi de l'etape precedente
     private void initEtapesAccessibles() {
         Player currentPlayer = AppState.getInstance().getCurrentPlayer();
-        int highestStage = currentPlayer.getHighestStage();
+        int highestLevel = currentPlayer.getHighestLevel();
 
-        // etape 2 accessible seulement si au moin un defi de l'etape 1 est complété (highestStage >= 1)
-        if (highestStage < 1) {
-            for (Button btn : worldButtons.get(1)) {
+        if (highestLevel < 1) {
+            for (Button btn : levelButtons.get(1)) {
                 btn.setDisable(true);
             }
         }
 
-        // etape 3 accessible seulement si au moin un defi de l'etape 2 est complété (highestStage >= 2)
-        if (highestStage < 2) {
-            for (Button btn : worldButtons.get(2)) {
+        if (highestLevel < 2) {
+            for (Button btn : levelButtons.get(2)) {
                 btn.setDisable(true);
             }
         }
     }
 
 
-    /** 
-     * @param worldIndex
+    /**
+     * @param levelIndex
      * @param challengeIndex
      * @param limited
      * @throws IOException
      */
-    private void goToChallenge(int worldIndex, int challengeIndex, boolean limited) throws IOException {
+    private void goToChallenge(int levelIndex, int challengeIndex, boolean limited) throws IOException {
         AppState state = AppState.getInstance();
-        state.setSelectedWorldIndex(worldIndex);
+        state.setSelectedLevelIndex(levelIndex);
         state.setSelectedChallengeIndex(challengeIndex);
 
-        // calculer le challenge selectionné avant la navigation
         Challenge selectedChallenge = state.getCurrentPlayer()
             .getProgress()
-            .getStageProgress()[worldIndex]
+            .getLevelProgress()[levelIndex]
             .getChallenges()[challengeIndex];
         state.setSelectedChallenge(selectedChallenge);
 

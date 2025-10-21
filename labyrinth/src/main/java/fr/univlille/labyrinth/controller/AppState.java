@@ -11,7 +11,7 @@ public class AppState {
     private static AppState instance;
 
     private Player currentPlayer;
-    private int selectedWorldIndex;
+    private int selectedLevelIndex;
     private int selectedChallengeIndex;
     private Challenge selectedChallenge;
 
@@ -29,10 +29,9 @@ public class AppState {
         return instance;
     }
 
-    // reset l'etat (utile pour les tests)
     public void reset() {
         currentPlayer = null;
-        selectedWorldIndex = 0;
+        selectedLevelIndex = 0;
         selectedChallengeIndex = 0;
         selectedChallenge = null;
     }
@@ -51,18 +50,18 @@ public class AppState {
         this.currentPlayer = currentPlayer;
     }
 
-    /** 
+    /**
      * @return int
      */
-    public int getSelectedWorldIndex() {
-        return selectedWorldIndex;
+    public int getSelectedLevelIndex() {
+        return selectedLevelIndex;
     }
 
-    /** 
-     * @param selectedWorldIndex
+    /**
+     * @param selectedLevelIndex
      */
-    public void setSelectedWorldIndex(int selectedWorldIndex) {
-        this.selectedWorldIndex = selectedWorldIndex;
+    public void setSelectedLevelIndex(int selectedLevelIndex) {
+        this.selectedLevelIndex = selectedLevelIndex;
     }
 
     /** 

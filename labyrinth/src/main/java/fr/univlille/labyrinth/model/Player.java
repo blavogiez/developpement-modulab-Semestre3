@@ -28,19 +28,19 @@ public class Player implements Serializable {
      */
     public int calculateScore() {
         int score = 0 ;
-        for (World world : progress.getStageProgress()) {
-            for (Challenge chall : world.getChallenges()) {
+        for (Level level : progress.getLevelProgress()) {
+            for (Challenge chall : level.getChallenges()) {
                 score+=chall.getScoreValue();
             }
         }
         return score ;
     }
 
-    /** 
+    /**
      * @return int
      */
-    public int getHighestStage() {
-        return getProgress().getHighestStage() ;
+    public int getHighestLevel() {
+        return getProgress().getHighestLevel() ;
     }
 
     /** 

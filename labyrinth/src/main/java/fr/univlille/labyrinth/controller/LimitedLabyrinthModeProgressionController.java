@@ -48,15 +48,13 @@ public class LimitedLabyrinthModeProgressionController {
     private Chronometre chrono;
     private Timeline chronoTimeline;
 
-    // initialise les deux vues : labyrinthe complet sans joeur + vue local 3x3
     @FXML
     public void initialize() {
-        // récuperer les infos depuis appstate (deja calculées)
         Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
-        int selectedWorldIndex = AppState.getInstance().getSelectedWorldIndex();
+        int selectedLevelIndex = AppState.getInstance().getSelectedLevelIndex();
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
 
-        challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
+        challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
 
         String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;

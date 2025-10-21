@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PlayerProgress implements Serializable {
-    private World[] stageProgress;
+    private Level[] levelProgress;
 
-    public PlayerProgress(World[] stageProgress) {
-        this.stageProgress=stageProgress;
+    public PlayerProgress(Level[] levelProgress) {
+        this.levelProgress=levelProgress;
     }
 
     /** 
@@ -17,15 +17,15 @@ public class PlayerProgress implements Serializable {
     // Typical usecase is defaultProgress handed to a created player
     // if there were multiple players in the same session, defaultProgress would be a mess as they'd all have the same object reference
     public PlayerProgress copy() {
-        World[] newStages = new World[stageProgress.length];
-        for (int i = 0; i < stageProgress.length; i++) {
-            World originalStage = stageProgress[i];
-            World newStage = new World(originalStage.getNumber());
-            Challenge[] originalChallenges = originalStage.getChallenges();
+        Level[] newLevels = new Level[levelProgress.length];
+        for (int i = 0; i < levelProgress.length; i++) {
+            Level originalLevel = levelProgress[i];
+            Level newLevel = new Level(originalLevel.getNumber());
+            Challenge[] originalChallenges = originalLevel.getChallenges();
 
             for (int j = 0; j < originalChallenges.length; j++) {
                 Challenge original = originalChallenges[j];
-                newStage.getChallenges()[j] = new Challenge(
+                newLevel.getChallenges()[j] = new Challenge(
                     original.getDifficulty(),
                     original.getWidth(),
                     original.getHeight(),
@@ -33,9 +33,9 @@ public class PlayerProgress implements Serializable {
                     original.getDistanceBetweenEntryAndExit()
                 );
             }
-            newStages[i] = newStage;
+            newLevels[i] = newLevel;
         }
-        return new PlayerProgress(newStages);
+        return new PlayerProgress(newLevels);
     }
 
     /** 
@@ -63,20 +63,20 @@ public class PlayerProgress implements Serializable {
     /** 
      * @return int
      */
-    public int getHighestStage() {
-        int max=0; // the first Stage
-        for (World stage: stageProgress) {
-            if(stage.isCompleted()) {
-                max=stage.getNumber();
+    public int getHighestLevel() {
+        int max=0;
+        for (Level level: levelProgress) {
+            if(level.isCompleted()) {
+                max=level.getNumber();
             }
         }
         return max;
     }
 
-    /** 
-     * @return World[]
+    /**
+     * @return Level[]
      */
-    public World[] getStageProgress() {
-        return stageProgress;
+    public Level[] getLevelProgress() {
+        return levelProgress;
     }
 }
