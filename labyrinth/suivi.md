@@ -95,11 +95,13 @@ Création de la classe "PlayerDatabase"
 
 | Développement | Analyse | Algorithmie |
 |--------------|---------|-------------|
-| Implémentation de la vue limitée autour du joueur (comme dans les diapositives) pour l'étape 3 | Rapport d'analyse | Parcours en profondeur du labyrinthe (DepthStackSearch) avec test correspondant |
-| Debug de LabyrinthModeLibre (Collecte des valeurs entrées pour la génération effective) et de son FXML | | |
-| Intégration des feuilles FXML / Controlleurs entre eux pour correspondre au prototype d'interface réalisé | | |
-| Utilisation du chronomètre de Romain pour en afficher un dans la vue du labyrinthe | | |
-| | | |
+| Implémentation de la vue à visibilité restreinte autour du joueur (conformément aux spécifications des diapositives) pour la troisième étape | Rédaction du rapport d'analyse | Implémentation du parcours en profondeur/largeur du labyrinthe (Package parcours) pour les tests |
+| Collecte et validation des paramètres saisis par l'utilisateur pour la génération en mode libre | | |
+| Intégration des fichiers FXML et de leurs contrôleurs respectifs afin de respecter la maquette d'interface établie | | |
+| Intégration du composant chronomètre développé par Romain pour son affichage dans la vue du labyrinthe | | |
+| Implémentation de la suite de tests pour les algorithmes de génération / labyrinthe | | |
+
+(On peut noter qu'une approche TDD fut particulièrement pertinente pour le cas d'un labyrinthe)
 
 En parallèle, j'ai remis en question et simplifié le code que j'ai produit, avec les bonnes pratiques, pour permettre une meilleure compréhension par les autres.
 

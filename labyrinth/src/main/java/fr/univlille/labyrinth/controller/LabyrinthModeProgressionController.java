@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import fr.univlille.labyrinth.utils.ChronoUtil;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
@@ -45,11 +46,18 @@ public class LabyrinthModeProgressionController {
         int selectedWorldIndex = AppState.getInstance().getSelectedWorldIndex();
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
 
-        challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1));
-        mazeInfoLabel.setText("Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() + ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%");
+        challengeInfoLabel.setText("Étape " + (selectedWorldIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
+        
+        String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
+        info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
+        info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
+        // afficher la distance effective
+        mazeInfoLabel.setText(info);
 
         gameMode = new ProgressionMode();
         gameMode.createMaze(selectedChallenge);
+        info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
+        mazeInfoLabel.setText(info);
 
         // ajouter l'observeur
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
