@@ -11,5 +11,17 @@
     -fx-background-color: #FFDBD4;
 }
 
+.progress-bar {
+    -fx-background-color: #E0E0E0;
+}
 
+.progress-bar .track {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 10;
+}
 
+.progress-bar .bar {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+}

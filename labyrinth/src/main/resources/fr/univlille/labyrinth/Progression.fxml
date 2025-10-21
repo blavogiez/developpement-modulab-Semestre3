@@ -35,7 +35,7 @@
                   <VBox alignment="CENTER" prefHeight="24.0" prefWidth="813.0">
                      <children>
                         <Label fx:id="textProgressBar" text="0.0" wrapText="true" />
-                        <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="412.0" VBox.vgrow="ALWAYS" style="-fx-background-color:#C7C7C7 "/>
+                        <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="412.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
