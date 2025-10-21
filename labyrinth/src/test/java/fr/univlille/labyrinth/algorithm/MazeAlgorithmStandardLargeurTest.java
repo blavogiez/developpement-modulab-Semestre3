@@ -3,10 +3,9 @@ package fr.univlille.labyrinth.algorithm;
 import fr.univlille.labyrinth.model.Position;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.algorithm.MazeSizeException;
+import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,28 +80,28 @@ public class MazeAlgorithmStandardLargeurTest {
         // Il doit exister un chemin (PATH = true) entre start et end
 
         //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
-        Integer distance1 = calculateBFSDistance(maze1, start1, end1);
+        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
 
-        Integer distance2 = calculateBFSDistance(maze2, start2, end2);
+        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2, "Un chemin doit exister entre start et end dans maze2");
 
-        Integer distance3 = calculateBFSDistance(maze3, start3, end3);
+        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3, "Un chemin doit exister entre start et end dans maze3");
     }
 
     @Test
     public void testMinimumPathLength() {
         // la distance BFS reelle entre start et end doit etre >= pathLength demande
-        Integer distance1 = calculateBFSDistance(maze1, start1, end1);
+        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
         assertTrue(distance1 >= 8, "Distance dans maze1 devrait être >= 8, mais est " + distance1);
 
-        Integer distance2 = calculateBFSDistance(maze2, start2, end2);
+        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2);
         assertTrue(distance2>=3, "Distance dans maze2 devrait être >= 3, mais est " + distance2);
 
-        Integer distance3 = calculateBFSDistance(maze3, start3, end3);
+        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3);
         assertTrue(distance3 >= 15, "Distance dans maze3 devrait être >= 15, mais est " + distance3);
     }
@@ -130,54 +129,11 @@ public class MazeAlgorithmStandardLargeurTest {
             Position end = testAlgo.getEnd();
 
             // si ca ne lance pas d'exception, verifier qu'un chemin existe quand meme
-            Integer distance = calculateBFSDistance(maze, start, end);
+            Integer distance = BreadthFirstSearch.calculateDistance(maze, start, end);
             assertNotNull(distance, "Un chemin devrait exister même si pathLength est trop grand");
         } catch (MazeSizeException e) {
             // l'exception est acceptable dans ce cas
             assertTrue(true);
         }
-    }
-
-    /** 
-     * @param maze
-     * @param start
-     * @param end
-     * @return Integer
-     */
-    // (eventuellement bouger cette méthode dans parcours pour éviter)
-    // methode helper pour calculer la distance BFS (Parcours en largeur !) reelle entre deux positions
-    // retourne null si aucun chemin n'existe
-    private Integer calculateBFSDistance(boolean[][] maze, Position start, Position end) {
-        Queue<Position> queue = new LinkedList<>();
-        Map<Position, Integer> distances = new HashMap<>();
-
-        queue.add(start);
-        distances.put(start, 0);
-
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
-        while (!queue.isEmpty()) {
-            Position current = queue.poll();
-
-            // retour int quand on touche la fin!
-            if (current.equals(end)) {
-                return distances.get(current);
-            }
-
-            for (int[] dir : directions) {
-                int nx = current.getX() + dir[0];
-                int ny = current.getY() + dir[1];
-                Position next = new Position(nx, ny);
-
-                // verifier que la position est valide et est un chemin (PATH = true)
-                if (nx>=0 && nx<maze.length && ny>=0 && ny<maze[0].length
-                    && maze[nx][ny] && !distances.containsKey(next)) {
-                    distances.put(next, distances.get(current) + 1);
-                    queue.add(next);
-                }
-            }
-        }
-
-        return null; // aucun chemin trouve :(
     }
 }

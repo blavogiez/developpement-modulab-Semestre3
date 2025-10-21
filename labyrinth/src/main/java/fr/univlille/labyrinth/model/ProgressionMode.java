@@ -22,9 +22,9 @@ public class ProgressionMode extends GameMode {
 
         // first stage
         defaultWorlds[0] = new World(1);
-        Challenge firstStageFirstChall = new Challenge("Easy", 10, 10, 0.2, 6);
-        Challenge firstStageSecondChall = new Challenge("Easy", 15, 12, 0.25, 8);
-        Challenge firstStageThirdChall = new Challenge("Medium", 20, 15, 0.3, 10);
+        Challenge firstStageFirstChall = new Challenge("Easy", 10, 10, 0.2, 14);
+        Challenge firstStageSecondChall = new Challenge("Easy", 15, 12, 0.25, 18);
+        Challenge firstStageThirdChall = new Challenge("Medium", 20, 15, 0.3, 20);
         defaultWorlds[0].getChallenges()[0] = firstStageFirstChall;
         defaultWorlds[0].getChallenges()[1] = firstStageSecondChall;
         defaultWorlds[0].getChallenges()[2] = firstStageThirdChall;
@@ -42,7 +42,7 @@ public class ProgressionMode extends GameMode {
         defaultWorlds[2] = new World(3);
         Challenge thirdStageFirstChall = new Challenge("Hard", 40, 30, 0.5, 50);
         Challenge thirdStageSecondChall = new Challenge("Hard", 45, 35, 0.55, 60);
-        Challenge thirdStageThirdChall = new Challenge("Hard", 50, 40, 0.8, 75);
+        Challenge thirdStageThirdChall = new Challenge("Hard", 50, 40, 0.6, 70);
         defaultWorlds[2].getChallenges()[0] = thirdStageFirstChall;
         defaultWorlds[2].getChallenges()[1] = thirdStageSecondChall;
         defaultWorlds[2].getChallenges()[2] = thirdStageThirdChall;

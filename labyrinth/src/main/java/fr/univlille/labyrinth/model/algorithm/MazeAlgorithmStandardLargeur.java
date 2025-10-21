@@ -32,7 +32,14 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         maze = new boolean[width][height];
         percentageWall = percentageOfWall;
 
-        start = new Position(1 + new Random().nextInt(width - 2), 1 + new Random().nextInt(height - 2));
+        int startX, startY;
+        int maxPossibleDistance = (width - 2) + (height - 2);
+        do {
+            startX = 1 + new Random().nextInt(width - 2);
+            startY = 1 + new Random().nextInt(height - 2);
+        } while (pathLength <= maxPossibleDistance && Math.max(startX - 1, width - 1 - startX) + Math.max(startY - 1, height - 1 - startY) < pathLength + Math.max(2, pathLength / 10));
+
+        start = new Position(startX, startY);
 
         Map<Position,Integer> distances = new HashMap<>();
         distances.put(start,0);
