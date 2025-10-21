@@ -59,7 +59,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Text scaleX="3.0" scaleY="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progression" />
+            <Text styleClass="text" scaleX="3.0" scaleY="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progression" />
          </children>
       </HBox>
    </top>
