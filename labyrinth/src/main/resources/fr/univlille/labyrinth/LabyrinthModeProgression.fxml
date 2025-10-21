@@ -10,9 +10,9 @@
       <VBox alignment="TOP_RIGHT" prefHeight="92.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="bouttonRetour" mnemonicParsing="false" onAction="#goToProgression" text="Retour" />
-            <Label fx:id="challengeInfoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="600.0" text="Étape X, Défi Y" />
-            <Label fx:id="mazeInfoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Dimensions : x*y, Pourcentage : x%" />
-            <Label fx:id="chronoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="00:00" />
+            <Label styleClass="label" fx:id="challengeInfoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="600.0" text="Étape X, Défi Y" />
+            <Label styleClass="label" fx:id="mazeInfoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Dimensions : x*y, Pourcentage : x%" />
+            <Label styleClass="label" fx:id="chronoLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="00:00" />
          </children>
       </VBox>
    </top>

@@ -44,7 +44,6 @@ public class PortailLabyrinthController {
     /** 
      * @throws IOException
      */
-    // a faire (normal que ca marche pas)
     @FXML
     private void goToParametres() throws IOException {
         Main.goTo("Parametres.fxml");

@@ -13,7 +13,7 @@
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="813.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="scoreLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" />
+            <Text styleClass="label" fx:id="scoreLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : 0" />
          </children>
          <padding>
             <Insets right="20.0" top="10.0" />

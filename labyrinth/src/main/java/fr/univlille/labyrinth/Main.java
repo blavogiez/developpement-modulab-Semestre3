@@ -9,6 +9,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static boolean darkMode;
+
+    public static void setDarkMode(boolean darkMode) {
+        Main.darkMode = darkMode;
+    }
+
+    public static boolean getDarkMode(){
+        return darkMode;
+    }
 
     private static Stage primaryStage;
 
@@ -21,7 +30,8 @@ public class Main extends Application {
         double height = primaryStage.getScene().getHeight();
         Parent root = FXMLLoader.load(Main.class.getResource(page));
         primaryStage.setScene(new Scene(root, width, height));
-        primaryStage.getScene().getStylesheets().add(Main.class.getResource("styles.css").toExternalForm()); //TODO à modifier pour un theme sombre en plus
+        if (darkMode) primaryStage.getScene().getStylesheets().add(Main.class.getResource("dark.css").toExternalForm());
+        else primaryStage.getScene().getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
     }
 
     /** 
@@ -33,7 +43,7 @@ public class Main extends Application {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PortailLabyrinth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(Main.class.getResource("styles.css").toExternalForm());
+        scene.getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
         stage.setTitle("Labyrinth");
         stage.setScene(scene);
         stage.show();
