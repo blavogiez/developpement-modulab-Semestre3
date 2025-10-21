@@ -32,7 +32,26 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         maze = new boolean[width][height];
         percentageWall = percentageOfWall;
 
-        start = new Position(1 + new Random().nextInt(width - 2), 1 + new Random().nextInt(height - 2));
+        // Dimensions de la zone jouable (excluant les bordures)
+        int zoneJouableLargeur = width - 2;
+        int zoneJouableHauteur = height - 2;
+
+        // Centre du labyrinthe
+        int centreX = width / 2;
+        int centreY = height / 2;
+
+        // Rayon d'exclusion du centre basé sur pathLength
+        // Plus pathLength est grand, plus on doit éviter le centre pour pouvoir atteindre la distance
+        int rayonExclusion = Math.min(pathLength / 2, Math.min(zoneJouableLargeur, zoneJouableHauteur) / 3);
+
+        // Génération d'une position évitant la zone centrale problématique
+        int startX, startY;
+        do {
+            startX = 1 + new Random().nextInt(zoneJouableLargeur);
+            startY = 1 + new Random().nextInt(zoneJouableHauteur);
+        } while (Math.abs(startX - centreX) < rayonExclusion && Math.abs(startY - centreY) < rayonExclusion);
+
+        start = new Position(startX, startY);
 
         Map<Position,Integer> distances = new HashMap<>();
         distances.put(start,0);
