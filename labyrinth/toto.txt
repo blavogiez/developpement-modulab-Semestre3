@@ -1,0 +1,2 @@
+
+Prend tout ce qu'il y a dans "model" et fais un uml avec en omettant getter/setter. Appuie toi sur le style de reflexion3.puml ; tu feras un package "model" et un package "utils"
