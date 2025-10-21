@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.utils;
 
 /**
  * Modèle du chronomètre d'une partie. Mesure le temps entre l'utilisation des méthodes start/stop.
@@ -61,11 +61,10 @@ public class Chronometre{
     };
     }
 
-    /** 
+    /**
      * @return String
      */
     public String toString(){
         return "Temps écoulé"+ this.getChrono();
     }
 }
-

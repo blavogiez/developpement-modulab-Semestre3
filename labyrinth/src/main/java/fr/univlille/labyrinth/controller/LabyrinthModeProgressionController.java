@@ -3,7 +3,8 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.*;
 import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
-import fr.univlille.labyrinth.utils.ChronoUtil;
+import fr.univlille.labyrinth.utils.Chronometre;
+import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -67,7 +68,7 @@ public class LabyrinthModeProgressionController {
         labyrinth.update(gameMode.getCurrentMaze());
         chrono=new Chronometre();
         chrono.start();
-        chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
+        chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
     }
 
     /** 

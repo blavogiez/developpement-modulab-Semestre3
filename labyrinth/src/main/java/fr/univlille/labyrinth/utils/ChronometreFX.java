@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.utils;
 
-import fr.univlille.labyrinth.model.Chronometre;
+import fr.univlille.labyrinth.utils.Chronometre;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,8 +10,8 @@ import javafx.util.Duration;
 // Retourne une timeline JavaFX pour un chronomètre (Le temps bouge chaque seconde sur un label)
 
 // Se base sur l'utilitaire Chronomètre
-public class ChronoUtil {
-    /** 
+public class ChronometreFX {
+    /**
      * @param chrono
      * @param chronoLabel
      * @return Timeline

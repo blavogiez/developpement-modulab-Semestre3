@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.Challenge;
-import fr.univlille.labyrinth.model.Chronometre;
 import fr.univlille.labyrinth.model.Direction;
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.model.ProgressionMode;
-import fr.univlille.labyrinth.utils.ChronoUtil;
+import fr.univlille.labyrinth.utils.Chronometre;
+import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LimitedLabyrinthGridView;
 import fr.univlille.labyrinth.view.LocalPlayerView;
 
@@ -85,7 +85,7 @@ public class LimitedLabyrinthModeProgressionController {
 
         chrono = new Chronometre();
         chrono.start();
-        chronoTimeline = ChronoUtil.initChrono(chrono, chronoLabel);
+        chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
     }
 
     /** 

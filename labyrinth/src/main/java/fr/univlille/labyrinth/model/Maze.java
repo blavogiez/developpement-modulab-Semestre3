@@ -87,7 +87,7 @@ public class Maze {
      */
     public Maze(int width, int height, double wallPercentage) {
         //this(width, height, wallPercentage, 20);
-        this(width, height, wallPercentage, ((width-2) + (height -2))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
+        this(width, height, wallPercentage, ((width-3) + (height-3))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
     }
 
     /**
