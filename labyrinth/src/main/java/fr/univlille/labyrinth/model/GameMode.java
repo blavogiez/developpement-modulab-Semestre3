@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model;
 
 /**
- * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera intermédiaire entre Labyrinthe et Joueur.
+ * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
@@ -17,9 +17,6 @@ public abstract class GameMode {
      * @param wallPercentage
      */
     /**
-     * Cette méthode est appelé lorsque le GameMode est généré
-     */
-    public abstract void start();
 
     /**
      * Cette méthode permet de générer un labyrinthe, afin de le stocker en paramètre.
@@ -30,6 +27,11 @@ public abstract class GameMode {
      */
     public void createMaze(int width, int height, double wallPercentage) {
         this.currentMaze = new Maze(width,height,wallPercentage);
+    }
+
+    // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
+    public void createMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+        this.currentMaze = new Maze(width,height,wallPercentage,distanceBetweenEntryAndExit);
     }
 
     /**

@@ -69,24 +69,25 @@ public class Maze {
      */
     public Maze(int width, int height, double wallPercentage, int minPathLength) {
         this.observers=new ArrayList<>();
+        // Génération du labyrinthe
         this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);
         this.width = this.grid.length;
         this.height = this.grid[0].length;
         this.playerPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
-        this.entryPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart(); //inutile??
+        this.entryPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
         this.exitPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getEnd();
     }
     
     /**
-     * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale)
+     * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale). Cette méthode sera notamment appelée par le createMaze du mode libre
      *
      * @param width La largeur du labyrinthe
      * @param height La hauteur du labyrinthe
      * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
      */
     public Maze(int width, int height, double wallPercentage) {
-        this(width, height, wallPercentage, 20);
-        //this(width, height, wallPercentage, ((width-3) + (height -3))); // la distance minimale entre début et fin est la distance maximale en mode libre !
+        //this(width, height, wallPercentage, 20);
+        this(width, height, wallPercentage, ((width-2) + (height -2))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
     }
 
     /**

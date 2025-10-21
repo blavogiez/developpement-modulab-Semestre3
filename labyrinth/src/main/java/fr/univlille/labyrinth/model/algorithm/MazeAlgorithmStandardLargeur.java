@@ -33,11 +33,14 @@ public class MazeAlgorithmStandardLargeur extends MazeAlgorithmTemplate {
         percentageWall = percentageOfWall;
 
         int startX, startY;
-        int maxPossibleDistance = (width - 2) + (height - 2);
+        // Distance maximum possible d'un chemin dans nos labyrinthes!
+        int maxPossibleDistance = (width - 3) + (height - 3);
         do {
             startX = 1 + new Random().nextInt(width - 2);
             startY = 1 + new Random().nextInt(height - 2);
-        } while (pathLength <= maxPossibleDistance && Math.max(startX - 1, width - 1 - startX) + Math.max(startY - 1, height - 1 - startY) < pathLength + Math.max(2, pathLength / 10));
+            // Puis on vérifie dans le while que la case est placée de sorte à ce qu'il existe une cellule (donc une cellule potentielle de fin) vers laquelle il existe un chemin de longueur "pathLength"
+            // Sinon, on refait une génération
+        } while (pathLength <= maxPossibleDistance && Math.max(startX - 1, width -1 - startX) + Math.max(startY - 1, height-1 - startY) < pathLength + Math.max(2, pathLength / 10));
 
         start = new Position(startX, startY);
 

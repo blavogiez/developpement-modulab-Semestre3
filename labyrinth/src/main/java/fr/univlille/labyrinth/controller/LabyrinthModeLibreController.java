@@ -35,7 +35,7 @@ public class LabyrinthModeLibreController {
     @FXML
     public void initialize() {
         gameMode = new FreeMode();
-        gameMode.start();
+        gameMode.createMaze();
 
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);

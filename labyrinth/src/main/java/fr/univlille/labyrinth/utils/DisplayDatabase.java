@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.utils;
 import fr.univlille.labyrinth.model.*;
 import java.util.List;
 
-// Petite classe utilitaire qui affiche l'état des joueurs, utile pour tester
+// Petite classe utilitaire qui affiche l'état des joueurs, utile pour tester !
 public class DisplayDatabase {
     /** 
      * @param args
