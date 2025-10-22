@@ -54,9 +54,11 @@ public class Chronometre{
     public String getChronoFormat(String format){
         long millis = getChrono();
         long secondes = (millis / 1000) % 60;
+        long minutes = (millis / (1000 * 60)) % 60;
         return switch (format.toLowerCase()) {
         case "millis" -> millis + " ms";
         case "secondes" -> secondes + " s";
+        case "minutes" -> minutes;
         default -> secondes + " s";
     };
     }
