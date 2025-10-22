@@ -58,7 +58,7 @@ public class Chronometre{
         return switch (format.toLowerCase()) {
         case "millis" -> millis + " ms";
         case "secondes" -> secondes + " s";
-        case "minutes" -> minutes;
+        case "minutes" -> minutes + "min";
         default -> secondes + " s";
     };
     }
