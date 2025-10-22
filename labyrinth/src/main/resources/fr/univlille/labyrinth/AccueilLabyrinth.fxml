@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.AccueilLabyrinthController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.AccueilLabyrinthController">
    <center>
-      <VBox alignment="CENTER" prefHeight="272.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menuBoutons" alignment="CENTER" prefHeight="272.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bouttonModeLibre" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToModeLibre" text="Mode Libre" VBox.vgrow="ALWAYS">
+            <Button fx:id="bouttonModeLibre" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToModeLibre" text="Mode Libre" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="35.0" left="150.0" right="150.0" />
+                  <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="BouttonModeProgression" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToModeProgression" text="Mode Progression" VBox.vgrow="ALWAYS">
+            <Button fx:id="BouttonModeProgression" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToModeProgression" text="Mode Progression" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="35.0" left="150.0" right="150.0" />
+                  <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="bouttonQuitter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToQuitter" text="Retour" VBox.vgrow="ALWAYS">
+            <Button fx:id="bouttonQuitter" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToQuitter" text="Retour" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets left="150.0" right="150.0" />
+                  <Insets />
                </VBox.margin>
             </Button>
          </children>
