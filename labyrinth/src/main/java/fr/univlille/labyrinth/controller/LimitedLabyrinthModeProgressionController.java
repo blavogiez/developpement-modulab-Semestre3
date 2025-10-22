@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.model.Direction;
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.model.ProgressionMode;
+import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.utils.Chronometre;
 import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LimitedLabyrinthGridView;
@@ -25,7 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 // controlleur pour la vue limitée en deux parties : labyrinthe complet sans joueur + vue locale 3x3
-public class LimitedLabyrinthModeProgressionController {
+public class LimitedLabyrinthModeProgressionController implements VictoryObserver {
 
     @FXML
     private BorderPane pane1;
@@ -86,6 +87,9 @@ public class LimitedLabyrinthModeProgressionController {
         chrono = new Chronometre();
         chrono.start();
         chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
+
+        gameMode.setChronometre(chrono);
+        gameMode.addVictoryObserver(this);
     }
 
     /** 
@@ -94,28 +98,24 @@ public class LimitedLabyrinthModeProgressionController {
      */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        //System.out.println("" + e.getCode() + gameMode.getCurrentMaze().getPlayerPosition());
         if (e.getCode().equals(KeyCode.S)) gameMode.movePlayerPosition(Direction.DOWN);
         else if (e.getCode().equals(KeyCode.Z)) gameMode.movePlayerPosition(Direction.UP);
         else if (e.getCode().equals(KeyCode.Q)) gameMode.movePlayerPosition(Direction.LEFT);
         else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
+    }
 
-        // meme logique que le mode normal ! d'où l'avantage du MVC (réutilisation de code pour d'autres vues)
-        if (gameMode.isPlayerAtEnd()) {
-            chrono.stop();
-            if (chronoTimeline != null) chronoTimeline.stop();
-
-            Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
-            Player currentPlayer = AppState.getInstance().getCurrentPlayer();
-            currentPlayer.getProgress().markChallengeCompleted(selectedChallenge, chrono.getChrono());
-
-            PlayerDatabase.savePlayer(currentPlayer);
-
+    @Override
+    public void onVictory() {
+        chrono.stop();
+        if (chronoTimeline != null) chronoTimeline.stop();
+        try {
             goToProgression();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML

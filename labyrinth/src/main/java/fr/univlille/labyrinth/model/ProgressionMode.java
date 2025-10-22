@@ -1,10 +1,13 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.controller.AppState;
+import fr.univlille.labyrinth.utils.Chronometre;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 
 public class ProgressionMode extends GameMode {
     private Player player;
     public static PlayerProgress defaultProgress;
+    private Chronometre chrono;
 
     // execute at start to init default progress
     static {
@@ -28,10 +31,26 @@ public class ProgressionMode extends GameMode {
         createMaze(width, height, wallPercentage, minPathLength);
     }
 
-    /** 
+    /**
      * @return Player
      */
     public Player getPlayer() {
         return player;
+    }
+
+    public void setChronometre(Chronometre chrono) {
+        this.chrono = chrono;
+    }
+
+    @Override
+    protected void handleVictory() {
+        long completionTime = chrono != null ? chrono.getChrono() : 0;
+
+        Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
+        currentPlayer.getProgress().markChallengeCompleted(selectedChallenge, completionTime);
+        PlayerDatabase.savePlayer(currentPlayer);
+
+        notifyVictory();
     }
 }

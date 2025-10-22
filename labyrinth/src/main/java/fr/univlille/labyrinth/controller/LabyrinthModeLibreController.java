@@ -17,7 +17,7 @@ import java.io.IOException;
 
 // Controller for the FreeMode maze interface
 // FXML base that contains a GridPane (LabyrinthGridView) which observes the Maze
-public class LabyrinthModeLibreController {
+public class LabyrinthModeLibreController implements VictoryObserver {
 
     @FXML
     private BorderPane pane1;
@@ -47,6 +47,8 @@ public class LabyrinthModeLibreController {
         chrono=new Chronometre();
         chrono.start();
         chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
+
+        gameMode.addVictoryObserver(this);
     }
 
     /** 
@@ -59,15 +61,20 @@ public class LabyrinthModeLibreController {
         else if (e.getCode().equals(KeyCode.Z)|| e.getCode().equals(KeyCode.UP)) gameMode.movePlayerPosition(Direction.UP);
         else if (e.getCode().equals(KeyCode.Q)|| e.getCode().equals(KeyCode.RIGHT)) gameMode.movePlayerPosition(Direction.LEFT);
         else if (e.getCode().equals(KeyCode.D)|| e.getCode().equals(KeyCode.LEFT)) gameMode.movePlayerPosition(Direction.RIGHT);
+    }
 
-        if (gameMode.isPlayerAtEnd()) {
-            chrono.stop();
-            if (chronoTimeline != null) chronoTimeline.stop();
+    @Override
+    public void onVictory() {
+        chrono.stop();
+        if (chronoTimeline != null) chronoTimeline.stop();
+        try {
             Main.goTo("LabyrinthModeLibre.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
