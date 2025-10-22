@@ -60,7 +60,6 @@ public class LimitedLabyrinthModeProgressionController implements VictoryObserve
         String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
-        // afficher la distance effective
         mazeInfoLabel.setText(info);
 
         gameMode = new ProgressionMode();
@@ -68,21 +67,25 @@ public class LimitedLabyrinthModeProgressionController implements VictoryObserve
         info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
         mazeInfoLabel.setText(info);
 
-        // création des deux vues
         fullMazeView = new LimitedLabyrinthGridView(gameMode.getCurrentMaze());
         localView = new LocalPlayerView(gameMode.getCurrentMaze());
 
-        // ajout des observeurs
         gameMode.getCurrentMaze().add(fullMazeView);
         gameMode.getCurrentMaze().add(localView);
 
-        // organisation des deux vues cote a cote : limited à gauche, local à droite
         HBox viewContainer = new HBox(150);
         viewContainer.setAlignment(Pos.CENTER);
         viewContainer.getChildren().addAll(fullMazeView.getGrid(), localView.getGrid());
 
         pane1.setCenter(viewContainer);
         pane1.requestFocus();
+        pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            try {
+                movement(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         chrono = new Chronometre();
         chrono.start();
@@ -92,16 +95,20 @@ public class LimitedLabyrinthModeProgressionController implements VictoryObserve
         gameMode.addVictoryObserver(this);
     }
 
-    /** 
-     * @param e
-     * @throws IOException
-     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        if (e.getCode().equals(KeyCode.S)) gameMode.movePlayerPosition(Direction.DOWN);
-        else if (e.getCode().equals(KeyCode.Z)) gameMode.movePlayerPosition(Direction.UP);
-        else if (e.getCode().equals(KeyCode.Q)) gameMode.movePlayerPosition(Direction.LEFT);
-        else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
+        Direction direction = null;
+        KeyCode code = e.getCode();
+
+        if (code == KeyCode.S || code == KeyCode.DOWN) direction = Direction.DOWN;
+        else if (code == KeyCode.Z || code == KeyCode.UP) direction = Direction.UP;
+        else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
+        else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
+
+        if (direction != null) {
+            gameMode.movePlayerPosition(direction);
+            e.consume();
+        }
     }
 
     @Override
@@ -115,9 +122,6 @@ public class LimitedLabyrinthModeProgressionController implements VictoryObserve
         }
     }
 
-    /**
-     * @throws IOException
-     */
     @FXML
     private void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");

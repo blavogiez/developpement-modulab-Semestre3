@@ -51,7 +51,6 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
-        // afficher la distance effective
         mazeInfoLabel.setText(info);
 
         gameMode = new ProgressionMode();
@@ -59,12 +58,18 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
         mazeInfoLabel.setText(info);
 
-        // ajouter l'observeur
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
 
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
+        pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            try {
+                movement(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         labyrinth.update(gameMode.getCurrentMaze());
         chrono=new Chronometre();
         chrono.start();
@@ -74,17 +79,20 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         gameMode.addVictoryObserver(this);
     }
 
-    /** 
-     * @param e
-     * @throws IOException
-     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        System.out.println(e.getCode());
-        if (e.getCode().equals(KeyCode.S)) gameMode.movePlayerPosition(Direction.DOWN);
-        else if (e.getCode().equals(KeyCode.Z)) gameMode.movePlayerPosition(Direction.UP);
-        else if (e.getCode().equals(KeyCode.Q)) gameMode.movePlayerPosition(Direction.LEFT);
-        else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
+        Direction direction = null;
+        KeyCode code = e.getCode();
+
+        if (code == KeyCode.S || code == KeyCode.DOWN) direction = Direction.DOWN;
+        else if (code == KeyCode.Z || code == KeyCode.UP) direction = Direction.UP;
+        else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
+        else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
+
+        if (direction != null) {
+            gameMode.movePlayerPosition(direction);
+            e.consume();
+        }
     }
 
     @Override
@@ -98,9 +106,6 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         }
     }
 
-    /**
-     * @throws IOException
-     */
     @FXML
     protected void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
