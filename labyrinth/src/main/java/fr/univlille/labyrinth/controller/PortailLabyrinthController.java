@@ -27,8 +27,8 @@ public class PortailLabyrinthController {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerBouton(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerBouton(menuBoutons));
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menuBoutons));
     }
     @FXML
     private void goToJouer() throws IOException {

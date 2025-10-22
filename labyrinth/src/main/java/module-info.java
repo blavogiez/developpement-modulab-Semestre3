@@ -2,6 +2,7 @@ module fr.univlille.labyrinth {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+
     exports fr.univlille.labyrinth.view;
 
     opens fr.univlille.labyrinth to javafx.fxml, org.junit.platform.commons;

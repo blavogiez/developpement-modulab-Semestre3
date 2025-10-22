@@ -3,39 +3,36 @@ package fr.univlille.labyrinth.view;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 public class Redimension {
 
-    public static void redimensionnerBouton(Pane parent,double PourcentageLongueur,double PourcentageHauteur, double PourcentageMarge) {
-        double width = parent.getWidth();
-        double height = parent.getHeight();
+//    public static void redimensionnerBouton(Pane parent,double PourcentageLongueur,double PourcentageHauteur, double PourcentageMarge) {
+//        double width = parent.getWidth();
+//        double height = parent.getHeight();
+//
+//        ObservableList<Node> enfants = parent.getChildren();
+//        for (Node enfant : enfants) {
+//            if (enfant instanceof Button bouton) {
+//                bouton.setPrefWidth(width * PourcentageLongueur);
+//                bouton.setPrefHeight(height * PourcentageHauteur);
+//                bouton.setFont(new Font(height * 0.05));
+//
+//                Insets margin = new Insets(0, 0, height * PourcentageMarge, 0);
+//
+//                if (parent instanceof VBox) {
+//                    VBox.setMargin(bouton, margin);
+//                }else if (parent instanceof HBox) {
+//                    HBox.setMargin(bouton, margin);
+//                }
+//            }
+//        }
+//    }
 
-        ObservableList<Node> enfants = parent.getChildren();
-        for (Node enfant : enfants) {
-            if (enfant instanceof Button bouton) {
-                bouton.setPrefWidth(width * PourcentageLongueur);
-                bouton.setPrefHeight(height * PourcentageHauteur);
-                bouton.setFont(new Font(height * 0.05));
-
-                Insets margin = new Insets(0, 0, height * PourcentageMarge, 0);
-
-                if (parent instanceof VBox) {
-                    VBox.setMargin(bouton, margin);
-                } else if (parent instanceof HBox) {
-                    HBox.setMargin(bouton, margin);
-                } else if (parent instanceof GridPane) {
-                    GridPane.setMargin(bouton, margin);
-                } else if (parent instanceof FlowPane) {
-                    FlowPane.setMargin(bouton, margin);
-                }
-            }
-        }
-    }
-
-    public static void redimensionnerBouton(Pane parent) {
+    public static void redimensionnerVboxControles(VBox parent) {
         double width = parent.getWidth();
         double height = parent.getHeight();
 
@@ -45,18 +42,22 @@ public class Redimension {
                 bouton.setPrefWidth(width * 0.4);
                 bouton.setPrefHeight(height * 0.15);
                 bouton.setFont(new Font(height * 0.05));
+                VBox.setMargin(bouton, new Insets(0, 0, height * 0.10, 0));
 
-                Insets margin = new Insets(0, 0, height * 0.10, 0);
+            } else if (enfant instanceof Label label) {
+                label.setFont(new Font(height * 0.05));
+                VBox.setMargin(label, new Insets(0, 0, height * 0.05, 0));
 
-                if (parent instanceof VBox) {
-                    VBox.setMargin(bouton, margin);
-                } else if (parent instanceof HBox) {
-                    HBox.setMargin(bouton, margin);
-                } else if (parent instanceof GridPane) {
-                    GridPane.setMargin(bouton, margin);
-                } else if (parent instanceof FlowPane) {
-                    FlowPane.setMargin(bouton, margin);
-                }
+            } else if (enfant instanceof TextField textField) {
+                textField.setPrefWidth(width * 0.5);
+                textField.setPrefHeight(height * 0.1);
+                textField.setFont(new Font(height * 0.045));
+                VBox.setMargin(textField, new Insets(0, 0, height * 0.05, 0));
+
+            } else if (enfant instanceof Slider slider) {
+                slider.setPrefWidth(width * 0.5); // Slider plus large
+                slider.setPrefHeight(height * 0.1);
+                VBox.setMargin(slider, new Insets(0, 0, height * 0.05, 0));
             }
         }
     }
