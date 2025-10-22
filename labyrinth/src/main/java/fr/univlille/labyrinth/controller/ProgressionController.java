@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class ProgressionController {
         initBoutons();
         initEtapesAccessibles();
         colorButtons();
+        addTooltips();
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
     }
@@ -94,6 +97,41 @@ public class ProgressionController {
         }
         progressBar.setProgress(completedCount/totalChallenges);
         textProgressBar.setText(String.format("%.2f%%", completedCount/totalChallenges* 100));
+    }
+
+    // Ajoute des tooltips informatifs aux boutons de défis
+    private void addTooltips() {
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
+        for (int levelIndex = 0; levelIndex < levelButtons.size(); levelIndex++) {
+            List<Button> challengeButtons = levelButtons.get(levelIndex);
+            Challenge[] challenges = currentPlayer.getProgress().getLevelProgress()[levelIndex].getChallenges();
+            for (int challengeIndex = 0; challengeIndex < challengeButtons.size(); challengeIndex++) {
+                Button button = challengeButtons.get(challengeIndex);
+                Challenge challenge = challenges[challengeIndex];
+
+                // Construire le texte du tooltip
+                StringBuilder tooltipText = new StringBuilder();
+                tooltipText.append("Difficulte : ").append(challenge.getDifficulty()).append("\n");
+                tooltipText.append("Dimensions : ").append(challenge.getWidth())
+                          .append("x").append(challenge.getHeight()).append("\n");
+                tooltipText.append("Murs : ").append(String.format("%.0f%%", challenge.getWallPercentage() * 100)).append("\n");
+                tooltipText.append("Distance : ").append(challenge.getDistanceBetweenEntryAndExit());
+
+                // Ajouter le temps si le défi est complété
+                if (challenge.isCompleted() && challenge.getTimeCompleted() > 0) {
+                    double timeInSeconds = challenge.getTimeCompleted() / 1000.0;
+                    tooltipText.append("\nTemps : ").append(String.format("%.1fs", timeInSeconds));
+                }
+
+                // Créer et attacher le tooltip (fonctionne même sur boutons désactivés)
+                Tooltip tooltip = new Tooltip(tooltipText.toString());
+                tooltip.setShowDelay(Duration.millis(200));
+                tooltip.setShowDuration(Duration.seconds(30));
+                tooltip.setHideDelay(Duration.millis(200));
+                tooltip.setStyle("-fx-font-size: 12px; -fx-background-color: #333333; -fx-text-fill: white;");
+                Tooltip.install(button, tooltip); // Utilise install() au lieu de setTooltip()
+            }
+        }
     }
 
     private void initList(){
