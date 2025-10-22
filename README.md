@@ -27,8 +27,8 @@ Mr Delecroix :
 
 | Documents | Code |
 |-----------|------|
-| [Rapport qualité](rapports/qualite/main.pdf) | [Répertoire principal](labyrinth/src/main/java/fr/univlille) |
-| [Suivi](labyrinth/suivi.md) | [Répertoire de tests](labyrinth/src/test/fr/univlille) |
+| [Rapport qualité](rapports/qualite/main.pdf) | [Répertoire principal](labyrinth/src/main/java/fr/univlille/labyrinth) |
+| [Suivi](labyrinth/suivi.md) | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
 | [Issues](https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/boards) | |
 
 Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
