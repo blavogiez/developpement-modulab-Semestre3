@@ -18,9 +18,8 @@ public class ChronometreFX {
      */
     public static Timeline initChrono(Chronometre chrono, Label chronoLabel) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            long elapsed = chrono.getChrono() / 1000;
-            long minutes = elapsed / 60;
-            long seconds = elapsed % 60;
+            long minutes = chrono.convertisseurMillisVersFormat("minutes");
+            long seconds = chrono.convertisseurMillisVersFormat("secondes");
             chronoLabel.setText(String.format("%02d:%02d", minutes, seconds));
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
