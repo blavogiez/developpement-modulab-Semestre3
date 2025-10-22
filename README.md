@@ -1,10 +1,21 @@
+<div align="center">
+
 # SAÉ S3.02 - Labyrinthe
+
+![Java](https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=java)
+![JavaFX](https://img.shields.io/badge/JavaFX-17-blue?style=for-the-badge&logo=java)
+![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
+![License](https://img.shields.io/badge/License-Université%20de%20Lille-green?style=for-the-badge)
+
+**[Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Arborescence](#arborescence)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Présentation](#présentation)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
+
+</div>
 
 ## Membres de l'équipe
 Réalisé par :
-- **Bredelle Victor** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
-- **Marouze Antonin** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
-- **Harlaut Romain** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
+- **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
+- **Antonin Marouze** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
+- **Romain Harlaut** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
 - **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr@univ-lille.fr)   
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 
@@ -12,7 +23,13 @@ Réalisé par :
 
 Mme Boneva : [Rapport d'analyse](rapports/analyse/main.pdf)
 
-Mr Delecroix : [Rapport qualité](rapports/qualite/main.pdf) | [Suivi](labyrinth/suivi.md)
+Mr Delecroix :
+
+| Documents | Code |
+|-----------|------|
+| [Rapport qualité](rapports/qualite/main.pdf) | [Répertoire principal](labyrinth/src/main/java/fr/univlille) |
+| [Suivi](labyrinth/suivi.md) | [Répertoire de tests](labyrinth/src/test/fr/univlille) |
+| [Issues](https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/boards) | |
 
 Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
@@ -78,11 +95,24 @@ Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 ├── README.md
 └── rendus Analyse
     └── G2_SAE3.3-Diagramme_Classes_V1.png
+
+(update arborescence à chaque rendu taggé)
 ```
 
+## Diagramme de classe
+
+L'architecture de l'application se compose sous la forme suivante :
+
+[Diagramme UML](labyrinth/uml.png)
+
+*Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.*
+
+### Clarifications
+
+insérer explications..
 
 ## Présentation
-Le but de cette SAE est de créer une application de jeu de labyrinthe proposant différents modes de jeu.
+Le but de cette SAÉ est de créer une application de jeu de labyrinthe proposant différents modes de jeu.
 Le joueur doit rejoindre la sortie du labyrinthe, généré de manière aléatoire, tout en faisant face à diverses contraintes selon le mode choisi.
 
 L’application comporte deux modes de jeu principaux :
@@ -91,17 +121,26 @@ L’application comporte deux modes de jeu principaux :
 
     - le joueur peut choisir la taille du labyrinthe (largeur, hauteur) ainsi que le pourcentage de murs.
 
-
 2. **Mode progression** : 
 
-    - le joueur avance à travers plusieurs niveaux de difficulté croissante.
+    - Le joueur avance à travers plusieurs niveaux de difficulté croissante.
 
     - Chaque étape comporte trois défis : facile, moyen et difficile.
 
     - Certains niveaux imposent une restriction de vision (le joueur ne voit qu’autour de lui).
 
-    - D’autres incluent une limite de temps pour réussir le niveau.
-
 Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
 
 ## Démonstrations
+
+[Vue d'un labyrinthe](assets/vueLaby.png)
+
+[Vue limitée d'un labyrinthe](assets/vueLimiteeLaby.png)
+
+## Déploiement
+
+Dernière version **déployable** de l'application :
+
+[Archive exécutable](labyrinth/labyrinth.jar)
+
+instr exec...
