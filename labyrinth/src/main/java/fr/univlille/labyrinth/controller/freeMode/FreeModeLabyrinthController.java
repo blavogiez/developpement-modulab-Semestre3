@@ -7,6 +7,7 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.TimerFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
@@ -36,6 +37,9 @@ public class FreeModeLabyrinthController implements Observer<GameMode> {
     @FXML
     private Label chronoLabel;
 
+    @FXML
+    private Label mazeInfoLabel;
+
     private LabyrinthGridView labyrinth;
     private FreeMode gameMode;
     private Timer chrono;
@@ -48,6 +52,10 @@ public class FreeModeLabyrinthController implements Observer<GameMode> {
     public void initialize() {
         gameMode = new FreeMode();
         gameMode.createMaze();
+
+        String info = "Dimensions : " + FreeMode.mazeWidth + "*" + FreeMode.mazeHeight;
+        info += ", Pourcentage : " + (int)(FreeMode.mazeWallPercentage * 100) + "%";
+        mazeInfoLabel.setText(info);
 
         labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
