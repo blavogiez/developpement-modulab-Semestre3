@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-public class Redimension {
+public class ResizeUtil {
 
     public static void redimensionnerVboxControles(VBox parent) {
         redimensionnerVboxControles(parent, 0.4, 0.1,  0, 0, 0.05, 0);
@@ -18,7 +18,7 @@ public class Redimension {
         redimensionnerVboxControles(parent, pourcentWidth, pourcentWidth,  MarginT, MarginR, MarginB, MarginL);
     }
 
-    public static void redimensionnerVboxControles(VBox parent,double pourcentWidth, double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) { //Toutes les tailles en pourcentage pa rapport au contenant parent
+    public static void redimensionnerVboxControles(VBox parent,double pourcentWidth, double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) {
         double width = parent.getWidth();
         double height = parent.getHeight();
 
@@ -45,10 +45,12 @@ public class Redimension {
     }
 
     public static void redimensionnerPaneControl(Pane parent, Control cont,double width,double height, double MarginT, double MarginR, double MarginB, double MarginL){
-        cont.setPrefWidth(width);
-        cont.setPrefHeight(height);
         if(cont instanceof Button button){
+            button.setPrefWidth(width);
+            button.setPrefHeight(height);
             button.setFont(new Font(height * 0.50));
+        } else if(cont instanceof Label label){
+            label.setFont(new Font(height * 0.60));
         }
         if(parent instanceof VBox){
             VBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));

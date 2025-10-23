@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
@@ -9,7 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
-public class LimitedLabyrinthModeProgressionController extends AbstractLabyrinthProgressionController implements Observer<GameMode> {
+public class LimitedViewProgressionModeLabyrinthController extends AbstractProgressionModeLabyrinthController implements Observer<GameMode> {
 
     private LimitedLabyrinthGridView fullMazeView;
     private LocalPlayerView localView;

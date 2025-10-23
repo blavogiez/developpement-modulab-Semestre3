@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="fond" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.ProgressionController">
+<BorderPane fx:id="fond" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.LevelSelectionController">
    <top>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="110.0" prefWidth="814.0" BorderPane.alignment="CENTER">
          <children>
@@ -50,7 +50,7 @@
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Étape 1">
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
                   <Button fx:id="bouttonLevel1Challenge1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS">
@@ -72,7 +72,11 @@
             </VBox>
             <VBox fx:id="etape2" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
                <children>
-                  <Label text="Étape 2" />
+                  <Label text="Étape 2">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                   <Button fx:id="bouttonLevel2Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
                   <Button fx:id="bouttonLevel2Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
                   <Button fx:id="bouttonLevel2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
@@ -80,7 +84,11 @@
             </VBox>
             <VBox fx:id="etape3" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
                <children>
-                  <Label text="Étape 3" />
+                  <Label text="Étape 3">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                   <Button fx:id="bouttonLevel3Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" VBox.vgrow="ALWAYS" />
                   <Button fx:id="bouttonLevel3Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
                   <Button fx:id="bouttonLevel3Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />

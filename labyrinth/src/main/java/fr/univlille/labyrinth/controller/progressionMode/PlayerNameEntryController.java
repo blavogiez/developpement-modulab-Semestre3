@@ -1,7 +1,7 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ProgressionEntreNomController {
+public class PlayerNameEntryController {
     // nom rentré par le joueur
     // + valeur par défaut si rien n'est entré
     public static String playerName = "toto";
@@ -26,8 +26,8 @@ public class ProgressionEntreNomController {
      */
     @FXML
     public void initialize(){
-        menu.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menu));
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menu));
     }
     @FXML
     private void goToProgression() throws IOException {
@@ -37,9 +37,9 @@ public class ProgressionEntreNomController {
             playerName = name.trim();
         }
         if (PlayerDatabase.playerExists(playerName)) {
-            Main.goTo("ProfilExistant.fxml");
+            Main.goTo("progressionmode/ExistingProfile.fxml");
         } else {
-            Main.goTo("Progression.fxml");
+            Main.goTo("progressionmode/LevelSelection.fxml");
         }
     }
 
@@ -48,6 +48,6 @@ public class ProgressionEntreNomController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("GameModeSelection.fxml");
     }
 }

@@ -2,14 +2,14 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
 
-import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class AccueilLabyrinthController  {
+public class GameModeSelectionController  {
     @FXML
     private Button bouttonModeLibre;
     @FXML
@@ -26,13 +26,13 @@ public class AccueilLabyrinthController  {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
     }
 
     @FXML
     private void goToModeLibre() throws IOException {
-        Main.goTo("ModeLibre.fxml");
+        Main.goTo("freemode/FreeMode.fxml");
     }
 
     /** 
@@ -40,7 +40,7 @@ public class AccueilLabyrinthController  {
      */
     @FXML
     private void goToModeProgression() throws IOException {
-        Main.goTo("ProgressionEntreNom.fxml");
+        Main.goTo("progressionmode/PlayerNameEntry.fxml");
     }
 
     /** 
@@ -48,6 +48,6 @@ public class AccueilLabyrinthController  {
      */
     @FXML
     private void goToQuitter() throws IOException {
-        Main.goTo("PortailLabyrinth.fxml");
+        Main.goTo("HomeMenu.fxml");
     }
 }

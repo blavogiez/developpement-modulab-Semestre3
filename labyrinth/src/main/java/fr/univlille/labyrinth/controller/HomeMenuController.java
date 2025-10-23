@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class PortailLabyrinthController {
+public class HomeMenuController {
     @FXML
     private Button bouttonJouer;
     @FXML
@@ -27,12 +27,12 @@ public class PortailLabyrinthController {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
     }
     @FXML
     private void goToJouer() throws IOException {
-        Main.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("GameModeSelection.fxml");
     }
 
     @FXML
@@ -45,6 +45,6 @@ public class PortailLabyrinthController {
      */
     @FXML
     private void goToParametres() throws IOException {
-        Main.goTo("Parametres.fxml");
+        Main.goTo("Settings.fxml");
     }
 }

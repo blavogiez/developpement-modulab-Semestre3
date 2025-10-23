@@ -45,7 +45,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PortailLabyrinth.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomeMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
         stage.setTitle("Labyrinth");
