@@ -137,7 +137,7 @@ public class LevelSelectionController {
     }
 
     /**
-     * Associe les boutons aux tooltips
+     * Associe les boutons aux tooltips (Boite d'informations quand l'utilisateur survole (hover) un bouton)
      */
     private void addTooltips() {
         Player currentPlayer = AppState.getInstance().getCurrentPlayer();
@@ -186,7 +186,7 @@ public class LevelSelectionController {
      */
     private static StringBuilder getTooltipText(Challenge challenge) {
         StringBuilder tooltipText = new StringBuilder();
-        tooltipText.append("Difficulte : ").append(challenge.getDifficulty()).append("\n");
+        tooltipText.append("Difficulté : ").append(challenge.getDifficulty()).append("\n");
         tooltipText.append("Dimensions : ").append(challenge.getWidth())
                   .append("x").append(challenge.getHeight()).append("\n");
         tooltipText.append("Murs : ").append(String.format("%.0f%%", challenge.getWallPercentage() * 100)).append("\n");

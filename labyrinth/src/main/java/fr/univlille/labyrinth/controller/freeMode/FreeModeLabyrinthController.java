@@ -53,7 +53,7 @@ public class FreeModeLabyrinthController implements Observer<GameMode> {
         gameMode = new FreeMode();
         gameMode.createMaze();
 
-        String info = "Dimensions : " + FreeMode.mazeWidth + "*" + FreeMode.mazeHeight;
+        String info = "Dimensions : " + FreeMode.mazeWidth + "x" + FreeMode.mazeHeight;
         info += ", Pourcentage : " + (int)(FreeMode.mazeWallPercentage * 100) + "%";
         mazeInfoLabel.setText(info);
 

@@ -3,12 +3,14 @@ package fr.univlille.labyrinth.controller.freemode;
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -28,6 +30,9 @@ public class FreeModeController {
 
     @FXML
     private Label l;
+
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private TextField heightField;
@@ -57,18 +62,31 @@ public class FreeModeController {
      */
     @FXML
     private void goToModeLaby() throws IOException {
+        int width, height;
         try {
-            FreeMode.mazeHeight = Integer.parseInt(heightField.getText());
+            width = Integer.parseInt(widthField.getText());
+            height = Integer.parseInt(heightField.getText());
         } catch (NumberFormatException e) {
-            FreeMode.mazeHeight = 20;
+            showError();
+            return;
         }
-        try {
-            FreeMode.mazeWidth = Integer.parseInt(widthField.getText());
-        } catch (NumberFormatException e) {
-            FreeMode.mazeWidth = 20;
+
+        if (!((width >= 3 && height >= 4) || (width >= 4 && height >= 3))) {
+            showError();
+            return;
         }
+
+        FreeMode.mazeWidth = width;
+        FreeMode.mazeHeight = height;
         FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
         Main.goTo("freemode/FreeModeLabyrinth.fxml");
+    }
+
+    private void showError() {
+        errorLabel.setVisible(true);
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(e -> errorLabel.setVisible(false));
+        pause.play();
     }
 
     /**

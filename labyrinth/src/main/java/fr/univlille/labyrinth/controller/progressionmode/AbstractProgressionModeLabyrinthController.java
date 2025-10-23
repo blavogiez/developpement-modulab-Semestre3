@@ -62,7 +62,7 @@ public abstract class AbstractProgressionModeLabyrinthController implements Obse
 
         challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
 
-        String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
+        String info = "Dimensions : " + selectedChallenge.getWidth() + "x" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
         mazeInfoLabel.setText(info);

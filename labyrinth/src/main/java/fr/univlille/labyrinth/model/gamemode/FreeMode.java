@@ -4,7 +4,7 @@ import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Maze;
 
 /**
- * Freemode est une extension de GameMode pour le mode libre.
+ * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
