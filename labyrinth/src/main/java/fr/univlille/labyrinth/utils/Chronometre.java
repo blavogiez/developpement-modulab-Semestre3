@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.utils;
 
 /**
- * Modèle du chronomètre d'une partie. Permet de mesurer le temps entre un début et une fin.
+ * Classe utilitaire du chronomètre d'une partie. Permet de mesurer le temps entre un début et une fin.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
