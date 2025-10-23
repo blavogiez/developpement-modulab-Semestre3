@@ -14,8 +14,16 @@ public class ResizeUtil {
         redimensionnerVboxControles(parent, 0.4, 0.1,  0, 0, 0.05, 0);
     }
 
-    public static void redimensionnerVboxControles(VBox parent,double pourcentWidth, double MarginT, double MarginR, double MarginB, double MarginL) {
-        redimensionnerVboxControles(parent, pourcentWidth, pourcentWidth,  MarginT, MarginR, MarginB, MarginL);
+    public static void redimensionnerVboxControles(VBox parent,double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) {
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+
+        ObservableList<Node> enfants = parent.getChildren();
+        for (Node enfant : enfants) {
+            if (enfant instanceof Control cont) {
+                redimensionnerPaneControl(parent, cont, height*pourcentHeigth, height*pourcentHeigth,  height*MarginT, width*MarginR, height*MarginB, width*MarginL);
+            }
+        }
     }
 
     public static void redimensionnerVboxControles(VBox parent,double pourcentWidth, double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) {
