@@ -61,7 +61,16 @@ public class Redimension {
         HBox.setMargin(temp,new Insets(height*0.05, width*0.05, 0, width*0.05));
     }
 
-    public static void redimension(VBox parent){
-
+    public static void redimensionnerPaneControl(Pane parent, Control cont,double width,double height, double MarginT, double MarginR, double MarginB, double MarginL){
+        cont.setPrefWidth(width);
+        cont.setPrefHeight(height);
+        if(cont instanceof Button button){
+            button.setFont(new Font(height * 0.90));
+        }
+        if(parent instanceof VBox){
+            VBox.setMargin(cont, new Insets(0, 0, MarginB, 0));
+        } else if (parent instanceof HBox) {
+            HBox.setMargin(cont, new Insets(0, 0, MarginB, 0));
+        }
     }
 }
