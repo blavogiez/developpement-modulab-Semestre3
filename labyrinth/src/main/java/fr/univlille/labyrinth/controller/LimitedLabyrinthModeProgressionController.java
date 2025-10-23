@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.controller;
 
-<<<<<<< HEAD
 import java.io.IOException;
 
 import fr.univlille.labyrinth.Main;
