@@ -37,7 +37,7 @@ public class ProgressionEntreNomController {
             playerName = name.trim();
         }
         if (PlayerDatabase.playerExists(playerName)) {
-            Main.goTo("ProfilExistantController.fxml");
+            Main.goTo("ProfilExistant.fxml");
         } else {
             Main.goTo("Progression.fxml");
         }
