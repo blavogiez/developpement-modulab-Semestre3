@@ -7,12 +7,12 @@ package fr.univlille.labyrinth.utils;
  * @version 0.0
  * @since 0.0
  */
-public class Chronometre{
+public class Timer{
     private long debut=0;
     private long fin=0;
     private boolean encours=false;
 
-    public Chronometre(){}
+    public Timer(){}
 
     /**
      * Cette méthode permet de lancer le chronomètre.

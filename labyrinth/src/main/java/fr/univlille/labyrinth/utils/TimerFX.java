@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.utils;
 
-import fr.univlille.labyrinth.utils.Chronometre;
+import fr.univlille.labyrinth.utils.Timer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,14 +15,14 @@ import javafx.util.Duration;
  * @since 0.0
  */
 
-public class ChronometreFX {
+public class TimerFX {
     /**
      * Retourne une timeline JavaFX pour un chronomètre.
      * @param chrono
      * @param chronoLabel
      * @return Timeline
      */
-    public static Timeline initChrono(Chronometre chrono, Label chronoLabel) {
+    public static Timeline initChrono(Timer chrono, Label chronoLabel) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             long minutes = chrono.convertisseurMillisVersFormat("minutes");
             long seconds = chrono.convertisseurMillisVersFormat("secondes");

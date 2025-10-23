@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static fr.univlille.labyrinth.Main.getTheme;
 
-public class ParametreController {
+public class SettingsController {
 
     @FXML
     private ToggleButton toggleButton;
@@ -33,7 +33,7 @@ public class ParametreController {
 
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("PortailLabyrinth.fxml");
+        Main.goTo("HomeMenu.fxml");
     }
 
 

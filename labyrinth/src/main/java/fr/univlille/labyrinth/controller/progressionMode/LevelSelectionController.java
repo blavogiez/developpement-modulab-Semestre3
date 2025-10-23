@@ -1,11 +1,12 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.view.GameColors;
-import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgressionController {
+public class LevelSelectionController {
     @FXML
     private Text playerNameLabel;
     @FXML
@@ -65,7 +66,7 @@ public class ProgressionController {
 
     @FXML
     public void initialize() {
-        String playerName = ProgressionEntreNomController.playerName;
+        String playerName = PlayerNameEntryController.playerName;
         Player currentPlayer = PlayerDatabase.loadPlayer(playerName);
         if (currentPlayer == null) {
             currentPlayer = new Player(playerName);
@@ -89,7 +90,7 @@ public class ProgressionController {
 
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("GameModeSelection.fxml");
     }
 
 
@@ -224,20 +225,20 @@ public class ProgressionController {
         state.setSelectedChallenge(selectedChallenge);
 
         if (limited) {
-            Main.goTo("LimitedLabyrinthModeProgression.fxml");
+            Main.goTo("progressionmode/LimitedViewProgressionModeLabyrinth.fxml");
         } else {
-            Main.goTo("LabyrinthModeProgression.fxml");
+            Main.goTo("progressionmode/ProgressionModeLabyrinth.fxml");
         }
     }
 
     private void resize(){
-        menuEtape.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerPanePanes(menuEtape));
-        menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerPanePanes(menuEtape));
-        etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
-        etape1.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
-        etape2.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
-        etape2.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
-        etape3.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
-        etape3.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
+        etape1.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
+        etape1.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
+        etape2.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
+        etape2.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
+        etape3.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
+        etape3.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
     }
 }

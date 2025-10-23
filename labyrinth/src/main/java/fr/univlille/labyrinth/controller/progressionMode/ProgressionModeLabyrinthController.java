@@ -1,8 +1,9 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import java.io.IOException;
 
 import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
@@ -10,8 +11,8 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
-import fr.univlille.labyrinth.utils.Chronometre;
-import fr.univlille.labyrinth.utils.ChronometreFX;
+import fr.univlille.labyrinth.utils.Timer;
+import fr.univlille.labyrinth.utils.TimerFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
-abstract class AbstractLabyrinthProgressionController implements Observer<GameMode> {
+abstract class AbstractProgressionModeLabyrinthController implements Observer<GameMode> {
 
     @FXML
     protected BorderPane pane1;
@@ -40,7 +41,7 @@ abstract class AbstractLabyrinthProgressionController implements Observer<GameMo
     protected Label chronoLabel;
 
     protected ProgressionMode gameMode;
-    protected Chronometre chrono;
+    protected Timer chrono;
     protected Timeline chronoTimeline;
 
     protected abstract Node setupViews(ProgressionMode gameMode);
@@ -76,9 +77,9 @@ abstract class AbstractLabyrinthProgressionController implements Observer<GameMo
             }
         });
 
-        chrono = new Chronometre();
+        chrono = new Timer();
         chrono.start();
-        chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
+        chronoTimeline = TimerFX.initChrono(chrono, chronoLabel);
 
         gameMode.setChronometre(chrono);
         gameMode.addVictoryObserver(this);
@@ -113,11 +114,11 @@ abstract class AbstractLabyrinthProgressionController implements Observer<GameMo
 
     @FXML
     public void goToProgression() throws IOException {
-        Main.goTo("Progression.fxml");
+        Main.goTo("progressionmode/LevelSelection.fxml");
     }
 }
 
-public class LabyrinthModeProgressionController extends AbstractLabyrinthProgressionController {
+public class ProgressionModeLabyrinthController extends AbstractProgressionModeLabyrinthController {
 
     private LabyrinthGridView labyrinth;
 

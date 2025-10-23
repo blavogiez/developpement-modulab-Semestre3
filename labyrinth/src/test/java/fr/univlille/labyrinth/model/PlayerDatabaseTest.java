@@ -17,6 +17,9 @@ import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
 
+// test de la persistance des joueurs
+// met à l'épreuve toutes les situations possibles !
+// la persistance est très importante ; elle doit être parfaite. Du TDD est également appréciable ici !
 public class PlayerDatabaseTest {
     static Player player1, player2, player3;
     static String playerName1, playerName2, playerName3, nonExistentPlayerName;
@@ -113,6 +116,8 @@ public class PlayerDatabaseTest {
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
 
         assertNotNull(loadedPlayer);
+
+        // le challenge est bien sauvegardé si l'étape maximum est égale à 2 (défi de l'étape 2)
         assertEquals(2, loadedPlayer.getHighestLevel());
     }
 }

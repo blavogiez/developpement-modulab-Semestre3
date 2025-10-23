@@ -4,14 +4,14 @@ import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
-import fr.univlille.labyrinth.utils.Chronometre;
+import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 
 public class ProgressionMode extends GameMode {
     private Player player;
     private Challenge selectedChallenge ;
     public static PlayerProgress defaultProgress;
-    private Chronometre chrono;
+    private Timer chrono;
 
     public ProgressionMode(Player player, Challenge selectedChallenge) {
         this.player=player;
@@ -47,7 +47,7 @@ public class ProgressionMode extends GameMode {
         return player;
     }
 
-    public void setChronometre(Chronometre chrono) {
+    public void setChronometre(Timer chrono) {
         this.chrono = chrono;
     }
 
