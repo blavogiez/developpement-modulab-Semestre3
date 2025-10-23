@@ -43,6 +43,13 @@ public class LabyrinthModeLibreController implements VictoryObserver {
 
         pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
+        pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            try {
+                movement(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         labyrinth.update(gameMode.getCurrentMaze());
         chrono=new Chronometre();
         chrono.start();
@@ -51,16 +58,20 @@ public class LabyrinthModeLibreController implements VictoryObserver {
         gameMode.addVictoryObserver(this);
     }
 
-    /** 
-     * @param e
-     * @throws IOException
-     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        if (e.getCode().equals(KeyCode.S) || e.getCode().equals(KeyCode.DOWN)) gameMode.movePlayerPosition(Direction.DOWN);
-        else if (e.getCode().equals(KeyCode.Z)|| e.getCode().equals(KeyCode.UP)) gameMode.movePlayerPosition(Direction.UP);
-        else if (e.getCode().equals(KeyCode.Q)|| e.getCode().equals(KeyCode.RIGHT)) gameMode.movePlayerPosition(Direction.LEFT);
-        else if (e.getCode().equals(KeyCode.D)|| e.getCode().equals(KeyCode.LEFT)) gameMode.movePlayerPosition(Direction.RIGHT);
+        Direction direction = null;
+        KeyCode code = e.getCode();
+
+        if (code == KeyCode.S || code == KeyCode.DOWN) direction = Direction.DOWN;
+        else if (code == KeyCode.Z || code == KeyCode.UP) direction = Direction.UP;
+        else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
+        else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
+
+        if (direction != null) {
+            gameMode.movePlayerPosition(direction);
+            e.consume();
+        }
     }
 
     @Override

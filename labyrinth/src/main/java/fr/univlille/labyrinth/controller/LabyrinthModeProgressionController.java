@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -16,57 +17,61 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class LabyrinthModeProgressionController implements VictoryObserver {
+abstract class AbstractLabyrinthProgressionController implements VictoryObserver {
 
     @FXML
-    private BorderPane pane1;
+    protected BorderPane pane1;
 
     @FXML
-    private Button bouttonRetour;
+    protected Button bouttonRetour;
 
     @FXML
-    private Label challengeInfoLabel;
+    protected Label challengeInfoLabel;
 
     @FXML
-    private Label mazeInfoLabel;
+    protected Label mazeInfoLabel;
 
     @FXML
-    private Label chronoLabel;
+    protected Label chronoLabel;
 
-    private LabyrinthGridView labyrinth;
+    protected ProgressionMode gameMode;
+    protected Chronometre chrono;
+    protected Timeline chronoTimeline;
 
-    private ProgressionMode gameMode;
+    protected abstract Node setupViews(ProgressionMode gameMode);
+    protected abstract String getViewSuffix();
 
-    private Chronometre chrono;
-    private Timeline chronoTimeline;    
-    
     @FXML
     public void initialize() {
         Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
         int selectedLevelIndex = AppState.getInstance().getSelectedLevelIndex();
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
 
-        challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
-        
+        challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
+
         String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
-        // afficher la distance effective
         mazeInfoLabel.setText(info);
 
-        gameMode = new ProgressionMode();
+        gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
         gameMode.createMaze(selectedChallenge);
         info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
         mazeInfoLabel.setText(info);
 
-        // ajouter l'observeur
-        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
-        gameMode.getCurrentMaze().add(labyrinth);
+        pane1.setCenter(setupViews(gameMode));
 
-        pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
-        labyrinth.update(gameMode.getCurrentMaze());
-        chrono=new Chronometre();
+        pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            try {
+                movement(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        chrono = new Chronometre();
         chrono.start();
         chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
 
@@ -74,17 +79,20 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         gameMode.addVictoryObserver(this);
     }
 
-    /** 
-     * @param e
-     * @throws IOException
-     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        System.out.println(e.getCode());
-        if (e.getCode().equals(KeyCode.S)) gameMode.movePlayerPosition(Direction.DOWN);
-        else if (e.getCode().equals(KeyCode.Z)) gameMode.movePlayerPosition(Direction.UP);
-        else if (e.getCode().equals(KeyCode.Q)) gameMode.movePlayerPosition(Direction.LEFT);
-        else if (e.getCode().equals(KeyCode.D)) gameMode.movePlayerPosition(Direction.RIGHT);
+        Direction direction = null;
+        KeyCode code = e.getCode();
+
+        if (code == KeyCode.S || code == KeyCode.DOWN) direction = Direction.DOWN;
+        else if (code == KeyCode.Z || code == KeyCode.UP) direction = Direction.UP;
+        else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
+        else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
+
+        if (direction != null) {
+            gameMode.movePlayerPosition(direction);
+            e.consume();
+        }
     }
 
     @Override
@@ -98,11 +106,26 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         }
     }
 
-    /**
-     * @throws IOException
-     */
     @FXML
     protected void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
+    }
+}
+
+public class LabyrinthModeProgressionController extends AbstractLabyrinthProgressionController {
+
+    private LabyrinthGridView labyrinth;
+
+    @Override
+    protected Node setupViews(ProgressionMode gameMode) {
+        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
+        gameMode.getCurrentMaze().add(labyrinth);
+        labyrinth.update(gameMode.getCurrentMaze());
+        return labyrinth.getGrid();
+    }
+
+    @Override
+    protected String getViewSuffix() {
+        return "";
     }
 }
