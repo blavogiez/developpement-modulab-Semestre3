@@ -7,11 +7,17 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-// Retourne une timeline JavaFX pour un chronomètre (Le temps bouge chaque seconde sur un label)
+/**
+ * Classe utilitaire du FX du chronomètre.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 
-// Se base sur l'utilitaire Chronomètre
 public class ChronometreFX {
     /**
+     * Retourne une timeline JavaFX pour un chronomètre.
      * @param chrono
      * @param chronoLabel
      * @return Timeline
