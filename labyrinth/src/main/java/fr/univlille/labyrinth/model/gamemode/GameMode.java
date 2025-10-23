@@ -1,4 +1,9 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.gamemode;
+
+import fr.univlille.labyrinth.model.VictoryObserver;
+import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +51,7 @@ public abstract class GameMode {
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
             Position playerPosition = currentMaze.getPlayerPosition();
-            if ( !currentMaze.isWall(playerPosition.getX()+direction.x,playerPosition.getY()+direction.y)){
+            if ( !currentMaze.isWall(playerPosition.getX()+direction.getX(),playerPosition.getY()+direction.getY())){
                 currentMaze.movePlayer(direction);
                 if (isPlayerAtEnd()) {
                     handleVictory();

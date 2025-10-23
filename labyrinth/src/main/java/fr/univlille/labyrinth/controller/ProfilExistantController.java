@@ -1,14 +1,14 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.Player;
-import fr.univlille.labyrinth.model.PlayerDatabase;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class ProfilExistant {
+public class ProfilExistantController {
     @FXML
     private Button bouttonNouvellePartie;
     @FXML

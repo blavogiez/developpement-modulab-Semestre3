@@ -1,4 +1,6 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.save;
+
+import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 
 import java.io.Serializable;
 
@@ -20,7 +22,7 @@ public class Player implements Serializable {
      */
     public Player(String name) {
         this.name=name;
-        progress=ProgressionMode.defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
+        progress= ProgressionMode.defaultProgress.copy(); // copy to avoid modifying initial reference (would interfere to other players in the session)
     }
 
     /**

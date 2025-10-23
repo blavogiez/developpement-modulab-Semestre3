@@ -1,5 +1,6 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.maze;
 
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class Maze {
      * @param direction une direction parmi haut, bas, droite, gauche.
      */
     public void movePlayer(Direction direction){
-        playerPosition.addX(direction.x);
-        playerPosition.addY(direction.y);
+        playerPosition.addX(direction.getX());
+        playerPosition.addY(direction.getY());
         notifyObserver();
     }
 

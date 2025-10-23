@@ -1,11 +1,23 @@
 package fr.univlille.labyrinth.utils;
 
-import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Level;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+
 import java.util.List;
 
-// Petite classe utilitaire qui affiche l'état des joueurs, utile pour tester !
+/**
+ * Classe utilitaire qui affiche l'état des joueurs.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
+
 public class DisplayDatabase {
     /** 
+     * Permet d'afficher les données de chaque joueur.
      * @param args
      */
     public static void main(String[] args) {

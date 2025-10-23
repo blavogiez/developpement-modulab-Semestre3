@@ -7,6 +7,14 @@
     -fx-background-radius: 20;  /* Même valeur que border-radius */
 }
 
+.button:hover {
+    -fx-background-color: #EEEEEE;
+}
+
+.button:target {
+    -fx-background-color: #DDDDDD;
+}
+
 .root{
     -fx-background-color: #FFFFFF;
 }
@@ -32,4 +40,11 @@
     -fx-background-color: #4CAF50;
     -fx-background-radius: 10;
     -fx-background-insets: 0;
+}
+
+.etapes{
+    -fx-background-color: #A3A3A3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 5;
 }

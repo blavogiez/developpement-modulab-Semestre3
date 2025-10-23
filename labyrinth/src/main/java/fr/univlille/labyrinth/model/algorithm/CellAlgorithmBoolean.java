@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-import fr.univlille.labyrinth.model.Position;
+import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.Objects;
 

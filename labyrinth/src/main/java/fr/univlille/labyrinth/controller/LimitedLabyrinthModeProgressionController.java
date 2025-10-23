@@ -1,6 +1,16 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.model.ProgressionMode;
+import java.io.IOException;
+
+import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.VictoryObserver;
+import fr.univlille.labyrinth.utils.Chronometre;
+import fr.univlille.labyrinth.utils.ChronometreFX;
+
 import fr.univlille.labyrinth.view.LimitedLabyrinthGridView;
 import fr.univlille.labyrinth.view.LocalPlayerView;
 import javafx.geometry.Pos;

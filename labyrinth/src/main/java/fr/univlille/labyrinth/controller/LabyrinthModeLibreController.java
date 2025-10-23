@@ -2,6 +2,8 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.* ;
+import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.utils.Chronometre;
 import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;

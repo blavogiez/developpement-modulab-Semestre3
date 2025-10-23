@@ -9,4 +9,7 @@ module fr.univlille.labyrinth {
     opens fr.univlille.labyrinth.controller to javafx.fxml;
     exports fr.univlille.labyrinth;
     exports fr.univlille.labyrinth.model;
+    exports fr.univlille.labyrinth.model.maze;
+    exports fr.univlille.labyrinth.model.gamemode;
+    exports fr.univlille.labyrinth.model.save;
 }
