@@ -68,7 +68,7 @@ public abstract class GameMode {
     }
 
     /** 
-     * @param currentMaze
+     * @param currentMaze set Maze
      */
     public void setCurrentMaze(Maze currentMaze) {
         this.currentMaze = currentMaze;
