@@ -9,6 +9,13 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Controller du menu principal
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class PortailLabyrinthController {
     @FXML
     private Button bouttonJouer;
@@ -20,16 +27,20 @@ public class PortailLabyrinthController {
     private VBox menuBoutons;
 
 
-    /** 
-     * @throws IOException
-     */
 
+    /**
+     * Initialisation de la scène
+     */
     @FXML
     public void initialize()
     {
         menuBoutons.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menuBoutons));
         menuBoutons.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menuBoutons));
     }
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
     @FXML
     private void goToJouer() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
@@ -40,8 +51,8 @@ public class PortailLabyrinthController {
         Platform.exit();
     }
 
-    /** 
-     * @throws IOException
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToParametres() throws IOException {

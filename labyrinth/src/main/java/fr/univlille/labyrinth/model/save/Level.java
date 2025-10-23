@@ -2,9 +2,16 @@ package fr.univlille.labyrinth.model.save;
 
 import java.io.Serializable;
 
+/**
+ *  Level représente les différentes étapes.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class Level implements Serializable {
-    private int number;
-    private Challenge[] challenges;
+    private final int number;
+    private final Challenge[] challenges;
 
     public Level(int number) {
         this.number=number;
@@ -19,7 +26,7 @@ public class Level implements Serializable {
     }
 
     /**
-     * @return boolean
+     * @return boolean qui représente si UN seul challenge à était fait
      */
     public boolean isCompleted() {
         for (Challenge chall: challenges) {

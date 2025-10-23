@@ -14,11 +14,10 @@ public class ProgressionEntreNomController {
     private TextField nameField;
 
     /**
-     * @throws IOException
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToProgression() throws IOException {
-        // Collecte de la saisie de l'utilisateur + traitement
         String name = nameField.getText();
         if (name != null && !name.trim().isEmpty()) {
             playerName = name.trim();
@@ -31,7 +30,7 @@ public class ProgressionEntreNomController {
     }
 
     /**
-     * @throws IOException
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToAccueil() throws IOException {

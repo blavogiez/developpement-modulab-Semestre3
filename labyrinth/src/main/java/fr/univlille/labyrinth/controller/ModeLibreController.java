@@ -12,6 +12,13 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Controller du menu mode libre
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class ModeLibreController {
     @FXML
     private Button bouttonValider;
@@ -45,8 +52,8 @@ public class ModeLibreController {
 
     }
 
-    /** 
-     * @throws IOException
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToModeLaby() throws IOException {
@@ -64,8 +71,8 @@ public class ModeLibreController {
         Main.goTo("LabyrinthModeLibre.fxml");
     }
 
-    /** 
-     * @throws IOException
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToAccueil() throws IOException {

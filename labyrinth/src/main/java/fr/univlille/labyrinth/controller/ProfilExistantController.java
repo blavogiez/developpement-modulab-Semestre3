@@ -8,6 +8,14 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
+
+/**
+ * Controller du menu qui apparaît lorsqu'un profil existe déjà.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class ProfilExistantController {
     @FXML
     private Button bouttonNouvellePartie;
@@ -17,7 +25,7 @@ public class ProfilExistantController {
     private Button bouttonRetour;
 
     /**
-     * @throws IOException
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToNewProgression() throws IOException {
@@ -30,7 +38,7 @@ public class ProfilExistantController {
 
 
     /**
-     * @throws IOException
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToProgression() throws IOException {
@@ -38,7 +46,7 @@ public class ProfilExistantController {
     }
 
     /**
-     * @throws IOException
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToProgressionEntreNom() throws IOException {

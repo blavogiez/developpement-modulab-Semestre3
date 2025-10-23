@@ -3,10 +3,13 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 
-// singleton qui gere l'etat globale de l'application
-// developpé suite à la réalisation que les variables static dans les controlleurs étaient difficiles à transmettre entre chacun et peu sécurisées
-
-// évite donc l'utilisation de variables static à passer partout et rend l'app testable
+/**
+ * Un singleton permettant de récupérer les données du joueur dans le mode progression
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class AppState {
     private static AppState instance;
 
@@ -15,11 +18,10 @@ public class AppState {
     private int selectedChallengeIndex;
     private Challenge selectedChallenge;
 
-    // constructeur par défaut
     private AppState() {}
 
     /** 
-     * @return AppState
+     * @return retourne le singleton AppState, et en créer un s'il n'existait pas
      */
     // Retourne l'instance unique du singleton
     public static AppState getInstance() {

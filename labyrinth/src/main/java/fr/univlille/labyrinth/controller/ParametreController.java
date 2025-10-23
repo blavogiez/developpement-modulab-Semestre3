@@ -1,42 +1,35 @@
 package fr.univlille.labyrinth.controller;
 
-
 import fr.univlille.labyrinth.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 
 import java.io.IOException;
 
 import static fr.univlille.labyrinth.Main.getTheme;
 
+/**
+ * Controller des paramètres
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class ParametreController {
 
+    /**
+     * Change de thème si le button est cliqué.
+     */
     @FXML
-    private ToggleButton toggleButton;
-
-    @FXML
-    private Button quit;
-
-
-    @FXML
-    public void initialize(){
-
-
-    }
-
-    @FXML
-    private void toggleButton() throws IOException {
+    private void toggleButton(){
         Main.setDarkMode(!Main.getDarkMode());
         Main.getPrimaryStage().getScene().getStylesheets().set(0,Main.class.getResource(getTheme()).toExternalForm());
     }
 
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("PortailLabyrinth.fxml");
     }
-
-
-
-
 }

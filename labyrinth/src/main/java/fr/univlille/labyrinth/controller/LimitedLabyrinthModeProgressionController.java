@@ -1,15 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
-import java.io.IOException;
-
-import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
-import fr.univlille.labyrinth.model.VictoryObserver;
-import fr.univlille.labyrinth.utils.Chronometre;
-import fr.univlille.labyrinth.utils.ChronometreFX;
 
 import fr.univlille.labyrinth.view.LimitedLabyrinthGridView;
 import fr.univlille.labyrinth.view.LocalPlayerView;
@@ -17,6 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
+/**
+ * Controller du labyrinthe spécifiquement en mode progression sur les étapes 3.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class LimitedLabyrinthModeProgressionController extends AbstractLabyrinthProgressionController {
 
     private LimitedLabyrinthGridView fullMazeView;

@@ -20,6 +20,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Controller du menu progression
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class ProgressionController {
     @FXML
     private Text playerNameLabel;
@@ -63,6 +71,9 @@ public class ProgressionController {
     @FXML
     private VBox etape3;
 
+    /**
+     * Initialisation de la scène
+     */
     @FXML
     public void initialize() {
         String playerName = ProgressionEntreNomController.playerName;
@@ -83,28 +94,35 @@ public class ProgressionController {
         resize();
     }
 
-    /** 
-     * @throws IOException
-     */
 
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
     }
 
 
-    // colore en vert les boutons des défis complétés
+    /**
+     * Colorie les boutons en vert s'ils ont étaient effectué auparavant
+     */
     private void colorButtons() {
         double completedCount=0;
         double totalChallenges=0;
         Player currentPlayer=AppState.getInstance().getCurrentPlayer();
+
         for (int levelIndex=0;levelIndex<levelButtons.size();levelIndex++) {
+
             List<Button> challengeButtons=levelButtons.get(levelIndex);
             Challenge[] challenges=currentPlayer.getProgress().getLevelProgress()[levelIndex].getChallenges();
+
             for (int challengeIndex=0;challengeIndex<challengeButtons.size();challengeIndex++) {
+
                 Button button=challengeButtons.get(challengeIndex);
                 Challenge challenge=challenges[challengeIndex];
                 totalChallenges++;
+
                 if (challenge.isCompleted()) {
                     button.setStyle("-fx-background-color: "+GameColors.COMPLETED+";");
                     completedCount++;
@@ -117,39 +135,62 @@ public class ProgressionController {
         textProgressBar.setText(String.format("%.2f%%", completedCount/totalChallenges* 100));
     }
 
-    // Ajoute des tooltips informatifs aux boutons de défis
+    /**
+     * Associe les boutons aux tooltips
+     */
     private void addTooltips() {
         Player currentPlayer = AppState.getInstance().getCurrentPlayer();
         for (int levelIndex = 0; levelIndex < levelButtons.size(); levelIndex++) {
             List<Button> challengeButtons = levelButtons.get(levelIndex);
             Challenge[] challenges = currentPlayer.getProgress().getLevelProgress()[levelIndex].getChallenges();
+
             for (int challengeIndex = 0; challengeIndex < challengeButtons.size(); challengeIndex++) {
                 Button button = challengeButtons.get(challengeIndex);
                 Challenge challenge = challenges[challengeIndex];
 
-                // Construire le texte du tooltip
-                StringBuilder tooltipText = new StringBuilder();
-                tooltipText.append("Difficulte : ").append(challenge.getDifficulty()).append("\n");
-                tooltipText.append("Dimensions : ").append(challenge.getWidth())
-                          .append("x").append(challenge.getHeight()).append("\n");
-                tooltipText.append("Murs : ").append(String.format("%.0f%%", challenge.getWallPercentage() * 100)).append("\n");
-                tooltipText.append("Distance : ").append(challenge.getDistanceBetweenEntryAndExit());
 
-                // Ajouter le temps si le défi est complété
-                if (challenge.isCompleted() && challenge.getTimeCompleted() > 0) {
-                    double timeInSeconds = challenge.getTimeCompleted() / 1000.0;
-                    tooltipText.append("\nTemps : ").append(String.format("%.1fs", timeInSeconds));
-                }
+                StringBuilder tooltipText = getTooltipText(challenge);
 
-                // Créer et attacher le tooltip (fonctionne même sur boutons désactivés)
-                Tooltip tooltip = new Tooltip(tooltipText.toString());
-                tooltip.setShowDelay(Duration.millis(200));
-                tooltip.setShowDuration(Duration.seconds(30));
-                tooltip.setHideDelay(Duration.millis(200));
-                tooltip.setStyle("-fx-font-size: 12px; -fx-background-color: #333333; -fx-text-fill: white;");
-                Tooltip.install(button, tooltip); // Utilise install() au lieu de setTooltip()
+                addTextRecordTime(challenge, tooltipText);
+
+                addToolTypeOnButton(tooltipText, button);
             }
         }
+    }
+
+    /**
+     * Si le challenge à un record, l'ajoute dans le tooltip
+     */
+    private static void addTextRecordTime(Challenge challenge, StringBuilder tooltipText) {
+        if (challenge.isCompleted() && challenge.getTimeCompleted() > 0) {
+            double timeInSeconds = challenge.getTimeCompleted() / 1000.0;
+            tooltipText.append("\nTemps : ").append(String.format("%.1fs", timeInSeconds));
+        }
+    }
+
+    /**
+     * Associe le bouton et le tooltip
+     */
+    private static void addToolTypeOnButton(StringBuilder tooltipText, Button button) {
+        Tooltip tooltip = new Tooltip(tooltipText.toString());
+        tooltip.setShowDelay(Duration.millis(200));
+        tooltip.setShowDuration(Duration.seconds(30));
+        tooltip.setHideDelay(Duration.millis(200));
+        tooltip.setStyle("-fx-font-size: 12px; -fx-background-color: #333333; -fx-text-fill: white;");
+        Tooltip.install(button, tooltip); // Utilise install() au lieu de setTooltip()
+    }
+
+    /**
+     * Créer le texte, qui sera mis dans le futur tooltip
+     */
+    private static StringBuilder getTooltipText(Challenge challenge) {
+        StringBuilder tooltipText = new StringBuilder();
+        tooltipText.append("Difficulte : ").append(challenge.getDifficulty()).append("\n");
+        tooltipText.append("Dimensions : ").append(challenge.getWidth())
+                  .append("x").append(challenge.getHeight()).append("\n");
+        tooltipText.append("Murs : ").append(String.format("%.0f%%", challenge.getWallPercentage() * 100)).append("\n");
+        tooltipText.append("Distance : ").append(challenge.getDistanceBetweenEntryAndExit());
+        return tooltipText;
     }
 
     private void initList(){
@@ -207,10 +248,12 @@ public class ProgressionController {
 
 
     /**
-     * @param levelIndex
-     * @param challengeIndex
-     * @param limited
-     * @throws IOException
+     * Cette méthode récupère les informations d'un challenge, et change la scène du stage en fonction de ses paramètres.
+     *
+     * @param levelIndex numéro de l'étape.
+     * @param challengeIndex numéro du challenge.
+     * @param limited si true, renvoie un labyrinthe avec la vue limité
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     private void goToChallenge(int levelIndex, int challengeIndex, boolean limited) throws IOException {
         AppState state = AppState.getInstance();
@@ -230,7 +273,10 @@ public class ProgressionController {
         }
     }
 
-    private void resize(){
+    /**
+     * Cette méthode permet de rendre la scène responsive/dynamique
+     */
+ private void resize(){
         menuEtape.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerHboxVobxs(menuEtape));
         menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerHboxVobxs(menuEtape));
         etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1));
