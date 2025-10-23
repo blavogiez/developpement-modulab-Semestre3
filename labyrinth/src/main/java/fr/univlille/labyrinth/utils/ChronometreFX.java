@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 /**
- * FX du chronomètre.
+ * Classe utilitaire du FX du chronomètre.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
