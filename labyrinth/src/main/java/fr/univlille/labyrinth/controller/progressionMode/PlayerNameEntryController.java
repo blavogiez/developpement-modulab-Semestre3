@@ -30,10 +30,9 @@ public class PlayerNameEntryController {
 
     @FXML
     private void goToProgression() throws IOException {
-        String name = nameField.getText();
-        if (name != null && !name.trim().isEmpty()) {
-            playerName = name.trim();
-        }
+        String name = nameField.getText().trim();
+        if (name.isEmpty()) return;
+        playerName = name;
         if (PlayerDatabase.playerExists(playerName)) {
             Main.goTo("progressionMode/ExistingProfile.fxml");
         } else {

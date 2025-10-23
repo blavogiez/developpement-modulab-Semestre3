@@ -25,7 +25,9 @@ public class LimitedViewProgressionModeLabyrinthController extends AbstractProgr
         fullMazeView = new LimitedLabyrinthGridView(gameMode.getCurrentMaze());
         localView = new LocalPlayerView(gameMode.getCurrentMaze());
 
-        gameMode.getCurrentMaze().add(fullMazeView);
+        // pas besoin de la mettre en observeur car elle ne se fait qu'une fois (pas de pos du joueur affichée !)
+        fullMazeView.update(gameMode.getCurrentMaze());
+        //gameMode.getCurrentMaze().add(fullMazeView);
         gameMode.getCurrentMaze().add(localView);
 
         HBox viewContainer = new HBox(150);

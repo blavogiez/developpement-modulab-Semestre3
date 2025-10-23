@@ -71,11 +71,13 @@ public class FreeModeController {
             return;
         }
 
+        // valeurs interdites !
         if (!((width >= 3 && height >= 4) || (width >= 4 && height >= 3))) {
             showError();
             return;
         }
 
+        // les valeurs sont autorisées donc on les bouge dans FreeMode (pour pouvoir les reprendre après de façon fluide !)
         FreeMode.mazeWidth = width;
         FreeMode.mazeHeight = height;
         FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
@@ -83,6 +85,7 @@ public class FreeModeController {
     }
 
     private void showError() {
+        // montre le label d'erreur pendant 2 secondes
         errorLabel.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> errorLabel.setVisible(false));

@@ -69,8 +69,6 @@ public abstract class AbstractProgressionModeLabyrinthController implements Obse
 
         gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
         gameMode.createMaze(selectedChallenge);
-        info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
-        mazeInfoLabel.setText(info);
 
         pane1.setCenter(setupViews(gameMode));
 

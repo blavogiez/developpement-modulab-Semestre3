@@ -4,8 +4,8 @@
     -fx-border-color: #FFFFFF;
     -fx-border-width: 1;
     -fx-border-radius: 20;
-    -fx-background-radius: 20;  /* Même valeur que border-radius */
-
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 0, 2);
 }
 
 .button:hover {
@@ -36,7 +36,7 @@
 }
 
 .progress-bar .track {
-    -fx-background-color: #E0E0E0;
+    -fx-background-color: #333333;
     -fx-background-radius: 10;
 }
 
@@ -44,4 +44,13 @@
     -fx-background-color: #4CAF50;
     -fx-background-radius: 10;
     -fx-background-insets: 0;
+}
+
+.etapes{
+    -fx-background-color: #333333;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: #555555;
+    -fx-padding: 10;
 }

@@ -39,14 +39,14 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="48.0" prefWidth="814.0" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="RETOUR" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
          </children>
       </VBox>
    </bottom>
    <center>
       <HBox fx:id="menuEtape" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="etape1" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
+            <VBox fx:id="etape1" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes" spacing="20">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Étape 1">
                      <VBox.margin>
@@ -70,7 +70,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox fx:id="etape2" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
+            <VBox fx:id="etape2" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes" spacing="20">
                <children>
                   <Label text="Étape 2">
                      <VBox.margin>
@@ -82,7 +82,7 @@
                   <Button fx:id="bouttonLevel2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                </children>
             </VBox>
-            <VBox fx:id="etape3" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
+            <VBox fx:id="etape3" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes" spacing="20">
                <children>
                   <Label text="Étape 3">
                      <VBox.margin>

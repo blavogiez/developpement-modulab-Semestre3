@@ -7,7 +7,6 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.TimerFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
