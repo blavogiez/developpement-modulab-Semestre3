@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -30,11 +29,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ToggleButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleButton" prefHeight="33.0" prefWidth="120.0" text="Mode nuit" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <font>
-            <Font size="8.0" />
-         </font>
-      </ToggleButton>
+      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleButton" prefHeight="33.0" prefWidth="120.0" styleClass="toggle" text="Mode nuit" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="quit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToAccueil" prefHeight="33.0" prefWidth="169.0" text="Appliquer et Quitter" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

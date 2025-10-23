@@ -5,6 +5,15 @@
     -fx-border-width: 1;
     -fx-border-radius: 20;
     -fx-background-radius: 20;  /* Même valeur que border-radius */
+
+}
+
+.button:hover {
+    -fx-background-color: #333333;
+}
+
+.button:target {
+    -fx-background-color: #444444;
 }
 
 .label {
@@ -14,6 +23,8 @@
 .text {
     -fx-fill: white;
 }
+
+
 
 
 .root{

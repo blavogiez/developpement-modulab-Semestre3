@@ -7,6 +7,14 @@
     -fx-background-radius: 20;  /* Même valeur que border-radius */
 }
 
+.button:hover {
+    -fx-background-color: #EEEEEE;
+}
+
+.button:target {
+    -fx-background-color: #DDDDDD;
+}
+
 .root{
     -fx-background-color: #FFFFFF;
 }

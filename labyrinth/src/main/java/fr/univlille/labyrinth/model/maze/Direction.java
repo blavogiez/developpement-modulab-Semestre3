@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.maze;
 
 /**
  * Représente les directions haut, bas, droite et gauche

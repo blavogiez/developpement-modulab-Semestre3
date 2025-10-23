@@ -1,5 +1,8 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Level;
+import fr.univlille.labyrinth.model.save.PlayerProgress;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

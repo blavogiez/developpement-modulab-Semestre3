@@ -8,6 +8,8 @@ import javafx.scene.control.ToggleButton;
 
 import java.io.IOException;
 
+import static fr.univlille.labyrinth.Main.getTheme;
+
 public class ParametreController {
 
     @FXML
@@ -26,6 +28,7 @@ public class ParametreController {
     @FXML
     private void toggleButton() throws IOException {
         Main.setDarkMode(!Main.getDarkMode());
+        Main.getPrimaryStage().getScene().getStylesheets().set(0,Main.class.getResource(getTheme()).toExternalForm());
     }
 
     @FXML

@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.cellAlgorithm;
 
-import fr.univlille.labyrinth.model.Direction;
-import fr.univlille.labyrinth.model.Position;
+import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.model.maze.Position;
 import javafx.scene.shape.Rectangle;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.save;
 
 import java.io.Serializable;
 

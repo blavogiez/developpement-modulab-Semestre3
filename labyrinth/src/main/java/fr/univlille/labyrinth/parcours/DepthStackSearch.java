@@ -1,6 +1,8 @@
 package fr.univlille.labyrinth.parcours;
 
-import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.Position;
+
 import java.util.Stack;
 import java.util.HashSet;
 import java.util.Set;

@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-import fr.univlille.labyrinth.model.Position;
-import javafx.geometry.Pos;
+import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.Random;
 

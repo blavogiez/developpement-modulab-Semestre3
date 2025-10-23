@@ -1,6 +1,10 @@
 package fr.univlille.labyrinth.utils;
 
-import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Level;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+
 import java.util.List;
 
 // Petite classe utilitaire qui affiche l'état des joueurs, utile pour tester !

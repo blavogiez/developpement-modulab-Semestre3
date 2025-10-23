@@ -1,6 +1,9 @@
 package fr.univlille.labyrinth.utils;
 
-import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Level;
+import fr.univlille.labyrinth.model.save.PlayerProgress;
+
 import java.io.*;
 
 // Utilitaire pour charger la progression par défaut depuis un fichier CSV
