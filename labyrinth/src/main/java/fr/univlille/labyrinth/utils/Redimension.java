@@ -45,10 +45,12 @@ public class Redimension {
     }
 
     public static void redimensionnerPaneControl(Pane parent, Control cont,double width,double height, double MarginT, double MarginR, double MarginB, double MarginL){
-        cont.setPrefWidth(width);
-        cont.setPrefHeight(height);
         if(cont instanceof Button button){
+            button.setPrefWidth(width);
+            button.setPrefHeight(height);
             button.setFont(new Font(height * 0.50));
+        } else if(cont instanceof Label label){
+            label.setFont(new Font(height * 0.60));
         }
         if(parent instanceof VBox){
             VBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));

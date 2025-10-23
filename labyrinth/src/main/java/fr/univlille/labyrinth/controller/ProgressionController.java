@@ -235,5 +235,9 @@ public class ProgressionController {
         menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerPanePanes(menuEtape));
         etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
         etape1.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
+        etape2.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
+        etape2.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape2,0.09,0.1,0,0,0));
+        etape3.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
+        etape3.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape3,0.09,0.1,0,0,0));
     }
 }
