@@ -21,9 +21,8 @@ public class PlayerDatabaseTest {
         player3 = new Player(playerName3);
 
         // Test de la bonne sauvegarde des défis
-        PlayerProgress defaultProgress = ProgressionMode.defaultProgress;
         // Test d'un défi (étape 2, défi 2)
-        Challenge unDefi = defaultProgress.getLevelProgress()[1].getChallenges()[1];
+        Challenge unDefi = player1.getProgress().getLevelProgress()[1].getChallenges()[1];
         player1.getProgress().markChallengeCompleted(unDefi, 500);
     }
 
@@ -97,8 +96,11 @@ public class PlayerDatabaseTest {
 
     @Test
     public void testLoadPlayerAndChallenge() {
+        assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
+
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
 
-        assertEquals(player1.getHighestLevel(), 2);
+        assertNotNull(loadedPlayer);
+        assertEquals(2, loadedPlayer.getHighestLevel());
     }
 }
