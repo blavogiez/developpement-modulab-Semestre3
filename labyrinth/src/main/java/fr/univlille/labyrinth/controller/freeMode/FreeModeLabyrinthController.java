@@ -114,8 +114,8 @@ public class FreeModeLabyrinthController implements Observer<GameMode> {
      * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
-    private void goToAccueil() throws IOException {
-        Main.goTo("GameModeSelection.fxml");
+    private void goToRetour() throws IOException {
+        Main.goTo("freemode/FreeMode.fxml");
     }
 
 }

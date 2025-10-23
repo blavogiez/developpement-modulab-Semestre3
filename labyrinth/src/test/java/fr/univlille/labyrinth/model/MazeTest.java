@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.algorithm;
+package fr.univlille.labyrinth.model;
 
 import fr.univlille.labyrinth.model.maze.Maze;
 import org.junit.jupiter.api.BeforeAll;

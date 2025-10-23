@@ -29,7 +29,7 @@ import java.io.IOException;
  * @version 0.0
  * @since 0.0
  */
-abstract class AbstractProgressionModeLabyrinthController implements Observer<GameMode> {
+public abstract class AbstractProgressionModeLabyrinthController implements Observer<GameMode> {
 
     @FXML
     protected BorderPane pane1;

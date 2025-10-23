@@ -37,8 +37,11 @@ public class Main extends Application {
         page = "/fr/univlille/labyrinth/"+page;
         URL url = Main.class.getResource(page);
         Parent root = FXMLLoader.load(url);
-        primaryStage.setScene(new Scene(root, width, height));
-        primaryStage.getScene().getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
+        Scene scene = new Scene(root, width, height);
+        //appliquer le theme avant de la mettre (évite flash)
+        scene.getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
+        primaryStage.setScene(scene);
+        
     }
 
     /** 

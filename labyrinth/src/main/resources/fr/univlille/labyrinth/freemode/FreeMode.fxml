@@ -18,7 +18,7 @@
             
             <Slider fx:id="wallPercentageSlider" blockIncrement="0.05" majorTickUnit="0.2" max="1.0" maxHeight="-Infinity" maxWidth="-Infinity" min="0.0" showTickLabels="true" showTickMarks="true" value="0.0" />
             <Button fx:id="bouttonValider" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToModeLaby" text="Valider" />
-            <Button fx:id="bouttonQuitter" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="Quitter" />
+            <Button fx:id="bouttonQuitter" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
          </children>
       </VBox>
    </center>

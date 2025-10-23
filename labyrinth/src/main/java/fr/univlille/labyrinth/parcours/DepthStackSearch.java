@@ -7,6 +7,7 @@ import java.util.Stack;
 import java.util.HashSet;
 import java.util.Set;
 
+// Algorithme tiré du TP02 de dev efficace ; utile pour les tests et sera demandé en dev efficace.
 public class DepthStackSearch {
 
     private static Set<Position> marked;
@@ -30,7 +31,7 @@ public class DepthStackSearch {
             Position current = stack.peek();
 
             if (current.equals(maze.getExitPosition())) {
-                System.out.println("Exit found !!!");
+                ///System.out.println("Exit found !!!");
                 return true;
             }
 
@@ -54,7 +55,7 @@ public class DepthStackSearch {
             }
         }
 
-        System.out.println("No path from entry to exit");
+        ///System.out.println("No path from entry to exit");
         return false;
     }
 
