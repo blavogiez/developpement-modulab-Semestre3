@@ -1,5 +1,9 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.gamemode;
 
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+import fr.univlille.labyrinth.model.save.PlayerProgress;
 import fr.univlille.labyrinth.utils.Chronometre;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 

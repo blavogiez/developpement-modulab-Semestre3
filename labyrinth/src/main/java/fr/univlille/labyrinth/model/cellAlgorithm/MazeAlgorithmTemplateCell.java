@@ -1,6 +1,6 @@
 //package fr.univlille.labyrinth.model.cellAlgorithm;
 //
-//import fr.univlille.labyrinth.model.Position;
+//import fr.univlille.labyrinth.model.maze.Position;
 //import fr.univlille.labyrinth.model.algorithm.CellAlgorithmBoolean;
 //
 //import java.util.Random;

@@ -19,6 +19,11 @@ public class Main extends Application {
         return darkMode;
     }
 
+    public static String getTheme(){
+        if (darkMode) return "dark.css";
+        return "light.css";
+    }
+
     private static Stage primaryStage;
 
     /** 
@@ -30,8 +35,7 @@ public class Main extends Application {
         double height = primaryStage.getScene().getHeight();
         Parent root = FXMLLoader.load(Main.class.getResource(page));
         primaryStage.setScene(new Scene(root, width, height));
-        String theme = darkMode ? "dark.css" : "light.css" ;
-        primaryStage.getScene().getStylesheets().add(Main.class.getResource(theme).toExternalForm());
+        primaryStage.getScene().getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
     }
 
     /** 

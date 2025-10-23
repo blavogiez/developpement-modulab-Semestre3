@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.algorithm;
 
-import fr.univlille.labyrinth.model.Position;
+import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.algorithm.MazeSizeException;
 import fr.univlille.labyrinth.parcours.BreadthFirstSearch;

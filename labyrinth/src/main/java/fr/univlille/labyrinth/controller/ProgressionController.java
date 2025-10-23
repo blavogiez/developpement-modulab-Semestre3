@@ -1,9 +1,9 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.Challenge;
-import fr.univlille.labyrinth.model.Player;
-import fr.univlille.labyrinth.model.PlayerDatabase;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.view.GameColors;
 import fr.univlille.labyrinth.utils.Redimension;
 import javafx.fxml.FXML;

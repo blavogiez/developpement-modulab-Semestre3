@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.FreeMode;
 import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

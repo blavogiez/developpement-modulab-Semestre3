@@ -1,7 +1,12 @@
 package fr.univlille.labyrinth.controller;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.* ;
+import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
+import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.utils.Chronometre;
 import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
@@ -13,11 +18,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-
 // Controller for the FreeMode maze interface
 // FXML base that contains a GridPane (LabyrinthGridView) which observes the Maze
-public class LabyrinthModeLibreController implements VictoryObserver {
+public class LabyrinthModeLibreController implements Observer<GameMode> {
 
     @FXML
     private BorderPane pane1;
@@ -75,7 +78,7 @@ public class LabyrinthModeLibreController implements VictoryObserver {
     }
 
     @Override
-    public void onVictory() {
+    public void update(GameMode gameMode) {
         chrono.stop();
         if (chronoTimeline != null) chronoTimeline.stop();
         try {

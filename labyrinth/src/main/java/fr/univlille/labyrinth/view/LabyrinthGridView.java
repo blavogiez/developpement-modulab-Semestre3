@@ -1,8 +1,8 @@
 package fr.univlille.labyrinth.view;
 
-import fr.univlille.labyrinth.model.Maze;
+import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.Position;
+import fr.univlille.labyrinth.model.maze.Position;
 
 import static fr.univlille.labyrinth.view.GameColors.*;
 import javafx.beans.binding.Bindings;

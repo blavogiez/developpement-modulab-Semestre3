@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.maze;
 
 import java.util.Objects;
 

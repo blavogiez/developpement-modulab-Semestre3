@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.model.Challenge;
-import fr.univlille.labyrinth.model.Player;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Player;
 
 // singleton qui gere l'etat globale de l'application
 // developpé suite à la réalisation que les variables static dans les controlleurs étaient difficiles à transmettre entre chacun et peu sécurisées

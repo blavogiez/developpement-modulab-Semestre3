@@ -3,6 +3,8 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.utils.Redimension;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
