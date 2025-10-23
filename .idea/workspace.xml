@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed497b18-d7a6-439d-bc2b-e0b9d9852479" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Chronometre.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.09765625",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -99,6 +98,7 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn javafx:run" />
+      <command value="mvn test" />
     </option>
   </component>
   <component name="RunManager">

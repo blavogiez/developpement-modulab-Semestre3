@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.utils;
 
 /**
- * Modèle du chronomètre d'une partie. Mesure le temps entre l'utilisation des méthodes start/stop.
+ * Modèle du chronomètre d'une partie. Permet de mesurer le temps entre un début et une fin.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
@@ -15,7 +15,7 @@ public class Chronometre{
     public Chronometre(){}
 
     /**
-     * Cette méthode permet de garder en mémoire dans le paramètre début le moment de l'exécution de celle-ci.
+     * Cette méthode permet de lancer le chronomètre.
      */
     public void start(){
         if (!encours){
@@ -24,7 +24,7 @@ public class Chronometre{
         }
     }
     /**
-     * Cette méthode permet de garder en mémoire dans le paramètre fin le moment de l'exécution de celle-ci.
+     * Cette méthode permet d'arrêter le chronomètre.
      */
     public void stop(){
         if (encours){
@@ -34,7 +34,8 @@ public class Chronometre{
     }
 
     /**
-     * Renvoie la différente entre début et fin, ou entre le début et maintenant si la fin n'a pas était spécifié
+     * Permet de récupérer le chronomètre soit si le chronomètre est arrêter on récupère le temps entre le start et le stop
+     * Ou si le chronomètre est en cours on récupère le temps en le start et maintenant.
      * @return long
      */
     public long getChrono(){
@@ -47,7 +48,7 @@ public class Chronometre{
     }
 
     /**
-     * Renvoie le résultat sous la forme d'un String dans le format chrono.
+     * Permet de récupérer un String sous un format spécifier.
      * @param format
      * @return String
      */
@@ -63,6 +64,12 @@ public class Chronometre{
     };
     }
 
+    /**
+     * Permet de récupérer le chronomètre sous un format spécifier.
+     * @param format
+     * @return long
+     */
+
     public long convertisseurMillisVersFormat(String format){
         long millis = getChrono();
         long secondes = (millis / 1000) % 60;
@@ -76,6 +83,7 @@ public class Chronometre{
     }
 
     /**
+     * Permet de récupérer le chronomètre sous forme de String.
      * @return String
      */
     public String toString(){
