@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class ProfilExistant {
+public class ProfilExistantController {
     @FXML
     private Button bouttonNouvellePartie;
     @FXML

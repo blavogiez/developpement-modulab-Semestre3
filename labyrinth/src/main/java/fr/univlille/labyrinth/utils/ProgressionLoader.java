@@ -6,7 +6,14 @@ import fr.univlille.labyrinth.model.save.PlayerProgress;
 
 import java.io.*;
 
-// Utilitaire pour charger la progression par défaut depuis un fichier CSV
+/**
+ * Classe utilitaire pour charger la progression.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
+
 public class ProgressionLoader {
     private static final String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
 

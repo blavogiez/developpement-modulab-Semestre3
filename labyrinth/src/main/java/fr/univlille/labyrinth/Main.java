@@ -36,7 +36,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.class.getResource(page));
         primaryStage.setScene(new Scene(root, width, height));
         primaryStage.getScene().getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
-
     }
 
     /** 

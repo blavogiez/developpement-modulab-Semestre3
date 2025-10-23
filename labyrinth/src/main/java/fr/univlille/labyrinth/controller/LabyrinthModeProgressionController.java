@@ -12,6 +12,7 @@ import fr.univlille.labyrinth.utils.ChronometreFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -20,30 +21,30 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class LabyrinthModeProgressionController implements VictoryObserver {
+abstract class AbstractLabyrinthProgressionController implements VictoryObserver {
 
     @FXML
-    private BorderPane pane1;
+    protected BorderPane pane1;
 
     @FXML
-    private Button bouttonRetour;
+    protected Button bouttonRetour;
 
     @FXML
-    private Label challengeInfoLabel;
+    protected Label challengeInfoLabel;
 
     @FXML
-    private Label mazeInfoLabel;
+    protected Label mazeInfoLabel;
 
     @FXML
-    private Label chronoLabel;
+    protected Label chronoLabel;
 
-    private LabyrinthGridView labyrinth;
+    protected ProgressionMode gameMode;
+    protected Chronometre chrono;
+    protected Timeline chronoTimeline;
 
-    private ProgressionMode gameMode;
+    protected abstract Node setupViews(ProgressionMode gameMode);
+    protected abstract String getViewSuffix();
 
-    private Chronometre chrono;
-    private Timeline chronoTimeline;    
-    
     @FXML
     public void initialize() {
         Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
@@ -51,8 +52,8 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
         Player currentPlayer = AppState.getInstance().getCurrentPlayer();
 
-        challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
-        
+        challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
+
         String info = "Dimensions : " + selectedChallenge.getWidth() + "*" + selectedChallenge.getHeight() ;
         info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
@@ -63,10 +64,8 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
         mazeInfoLabel.setText(info);
 
-        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
-        gameMode.getCurrentMaze().add(labyrinth);
+        pane1.setCenter(setupViews(gameMode));
 
-        pane1.setCenter(labyrinth.getGrid());
         pane1.requestFocus();
         pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             try {
@@ -75,8 +74,8 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
                 ex.printStackTrace();
             }
         });
-        labyrinth.update(gameMode.getCurrentMaze());
-        chrono=new Chronometre();
+
+        chrono = new Chronometre();
         chrono.start();
         chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
 
@@ -114,5 +113,23 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
     @FXML
     protected void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
+    }
+}
+
+public class LabyrinthModeProgressionController extends AbstractLabyrinthProgressionController {
+
+    private LabyrinthGridView labyrinth;
+
+    @Override
+    protected Node setupViews(ProgressionMode gameMode) {
+        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
+        gameMode.getCurrentMaze().add(labyrinth);
+        labyrinth.update(gameMode.getCurrentMaze());
+        return labyrinth.getGrid();
+    }
+
+    @Override
+    protected String getViewSuffix() {
+        return "";
     }
 }
