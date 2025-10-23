@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.utils.Redimension;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 
