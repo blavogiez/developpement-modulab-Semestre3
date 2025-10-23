@@ -112,7 +112,7 @@ abstract class AbstractLabyrinthProgressionController implements Observer<GameMo
     }
 
     @FXML
-    protected void goToProgression() throws IOException {
+    public void goToProgression() throws IOException {
         Main.goTo("Progression.fxml");
     }
 }
