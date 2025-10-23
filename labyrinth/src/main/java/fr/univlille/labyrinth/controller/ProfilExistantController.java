@@ -16,7 +16,7 @@ public class ProfilExistantController {
     @FXML
     private Button bouttonRetour;
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
@@ -29,7 +29,7 @@ public class ProfilExistantController {
 
 
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
@@ -37,7 +37,7 @@ public class ProfilExistantController {
         Main.goTo("Progression.fxml");
     }
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
