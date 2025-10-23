@@ -131,6 +131,76 @@ L’application comporte deux modes de jeu principaux :
 
 Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
 
+## Lancer le projet
+### Prérequis
+
+Pour exécuter le projet, vous aurez besoin de :
+
+- **Java 17** installé
+  ```bash
+  java -version
+
+* **Maven** installé
+
+  ```bash
+  mvn -v
+ 
+* installé **JavaFX 17** sur votre machine :
+
+  ```bash
+  sudo apt install openjfx
+  ```
+
+  > JavaFX sera installé dans `/usr/share/openjfx/lib`.
+
+## Compilation du projet
+
+Depuis la racine du projet, compilez et packagez l’application :
+```bash
+cd labyrinth
+mvn clean package
+```
+
+Le JAR exécutable sera généré dans :
+
+```
+target/labyrinth-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+## Exécution du projet
+
+Il existe plusieurs façons de lancer le jeu Labyrinth :
+
+### Avec Maven
+
+```bash
+cd labyrinth
+mvn javafx:run
+```
+
+> Attention cette méthode utilise Maven pour gérer JavaFX automatiquement.
+
+---
+
+### Avec le script `run.sh` (Linux/Mac)
+
+Si JavaFX n’est pas encore installé, faites :
+
+```bash
+sudo apt install openjfx
+```
+
+Ensuite, lancez le script :
+
+```bash
+cd labyrinth
+./run.sh
+```
+
+> Le script configure automatiquement le chemin vers JavaFX et démarre le jeu.
+
+---
+
 ## Démonstrations
 
 [Vue d'un labyrinthe](assets/vueLaby.png)
