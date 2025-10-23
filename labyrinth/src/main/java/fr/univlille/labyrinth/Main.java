@@ -30,8 +30,8 @@ public class Main extends Application {
         double height = primaryStage.getScene().getHeight();
         Parent root = FXMLLoader.load(Main.class.getResource(page));
         primaryStage.setScene(new Scene(root, width, height));
-        if (darkMode) primaryStage.getScene().getStylesheets().add(Main.class.getResource("dark.css").toExternalForm());
-        else primaryStage.getScene().getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
+        String theme = darkMode ? "dark.css" : "light.css" ;
+        primaryStage.getScene().getStylesheets().add(Main.class.getResource(theme).toExternalForm());
     }
 
     /** 
