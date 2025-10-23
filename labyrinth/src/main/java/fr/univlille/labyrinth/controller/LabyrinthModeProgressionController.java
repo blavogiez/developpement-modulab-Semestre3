@@ -45,6 +45,7 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         Challenge selectedChallenge = AppState.getInstance().getSelectedChallenge();
         int selectedLevelIndex = AppState.getInstance().getSelectedLevelIndex();
         int selectedChallengeIndex = AppState.getInstance().getSelectedChallengeIndex();
+        Player currentPlayer = AppState.getInstance().getCurrentPlayer();
 
         challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + ", vue limitée");
         
@@ -53,7 +54,7 @@ public class LabyrinthModeProgressionController implements VictoryObserver {
         info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
         mazeInfoLabel.setText(info);
 
-        gameMode = new ProgressionMode();
+        gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
         gameMode.createMaze(selectedChallenge);
         info += " (effective : " + BreadthFirstSearch.calculateDistance(gameMode.getCurrentMaze().getGrid(), gameMode.getCurrentMaze().getEntryPosition(), gameMode.getCurrentMaze().getExitPosition()) + ")" ;
         mazeInfoLabel.setText(info);
