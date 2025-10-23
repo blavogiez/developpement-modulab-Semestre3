@@ -40,17 +40,28 @@ public class Redimension {
         }
     }
 
-    public static void redimensionnerHboxVobxs(HBox parent){
+    public static void redimensionnerHboxVobxs(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
 
         ObservableList<Node> enfants = parent.getChildren();
         int nbEtapes = enfants.size();
+        VBox temp = null;
         for (Node enfant : enfants) {
-            VBox temp = (VBox) enfant;
+            temp = (VBox)enfant;
+
+            HBox.setMargin(temp,new Insets(height*0.05, 0, 0, width*0.05));
+
+
             temp.setMaxSize(Double.MAX_VALUE,height);
             temp.setPrefSize(width/nbEtapes,height);
             HBox.setHgrow(temp, Priority.ALWAYS);
         }
+
+        HBox.setMargin(temp,new Insets(height*0.05, width*0.05, 0, width*0.05));
+    }
+
+    public static void redimension(VBox parent){
+
     }
 }
