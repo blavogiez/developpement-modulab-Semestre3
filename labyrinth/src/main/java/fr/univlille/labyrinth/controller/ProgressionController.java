@@ -5,10 +5,13 @@ import fr.univlille.labyrinth.model.Challenge;
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.view.GameColors;
+import fr.univlille.labyrinth.view.Redimension;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -19,7 +22,7 @@ public class ProgressionController {
     @FXML
     private Text playerNameLabel;
     @FXML
-    private Text scoreLabel;
+    private Label scoreLabel;
 
     private List<List<Button>> levelButtons=new ArrayList<>();
 
@@ -47,6 +50,18 @@ public class ProgressionController {
     private ProgressBar progressBar;
 
     @FXML
+    private HBox menuEtape;
+
+    @FXML
+    private VBox etape1;
+
+    @FXML
+    private VBox etape2;
+
+    @FXML
+    private VBox etape3;
+
+    @FXML
     public void initialize() {
         String playerName = ProgressionEntreNomController.playerName;
         Player currentPlayer = PlayerDatabase.loadPlayer(playerName);
@@ -61,11 +76,14 @@ public class ProgressionController {
         colorButtons();
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
+
+        resize();
     }
 
     /** 
      * @throws IOException
      */
+
     @FXML
     private void goToAccueil() throws IOException {
         Main.goTo("AccueilLabyrinth.fxml");
@@ -172,5 +190,12 @@ public class ProgressionController {
         } else {
             Main.goTo("LabyrinthModeProgression.fxml");
         }
+    }
+
+    private void resize(){
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerHboxVobxs(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerHboxVobxs(menuEtape));
+        etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1));
+        etape1.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape1));
     }
 }

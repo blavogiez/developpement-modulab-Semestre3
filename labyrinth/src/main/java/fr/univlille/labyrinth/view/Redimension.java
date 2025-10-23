@@ -10,28 +10,6 @@ import javafx.scene.text.Font;
 
 public class Redimension {
 
-//    public static void redimensionnerBouton(Pane parent,double PourcentageLongueur,double PourcentageHauteur, double PourcentageMarge) {
-//        double width = parent.getWidth();
-//        double height = parent.getHeight();
-//
-//        ObservableList<Node> enfants = parent.getChildren();
-//        for (Node enfant : enfants) {
-//            if (enfant instanceof Button bouton) {
-//                bouton.setPrefWidth(width * PourcentageLongueur);
-//                bouton.setPrefHeight(height * PourcentageHauteur);
-//                bouton.setFont(new Font(height * 0.05));
-//
-//                Insets margin = new Insets(0, 0, height * PourcentageMarge, 0);
-//
-//                if (parent instanceof VBox) {
-//                    VBox.setMargin(bouton, margin);
-//                }else if (parent instanceof HBox) {
-//                    HBox.setMargin(bouton, margin);
-//                }
-//            }
-//        }
-//    }
-
     public static void redimensionnerVboxControles(VBox parent) {
         double width = parent.getWidth();
         double height = parent.getHeight();
@@ -59,6 +37,20 @@ public class Redimension {
                 slider.setPrefHeight(height * 0.1);
                 VBox.setMargin(slider, new Insets(0, 0, height * 0.05, 0));
             }
+        }
+    }
+
+    public static void redimensionnerHboxVobxs(HBox parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+
+        ObservableList<Node> enfants = parent.getChildren();
+        int nbEtapes = enfants.size();
+        for (Node enfant : enfants) {
+            VBox temp = (VBox) enfant;
+            temp.setMaxSize(Double.MAX_VALUE,height);
+            temp.setPrefSize(width/nbEtapes,height);
+            HBox.setHgrow(temp, Priority.ALWAYS);
         }
     }
 }
