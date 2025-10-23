@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class GameMode {
 
     private Maze currentMaze;
-    private List<VictoryObserver> victoryObservers = new ArrayList<>();
+    private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
      * @param width
@@ -76,13 +76,13 @@ public abstract class GameMode {
         return currentMaze;
     }
 
-    public void addVictoryObserver(VictoryObserver observer) {
+    public void addVictoryObserver(Observer<GameMode> observer) {
         victoryObservers.add(observer);
     }
 
     protected void notifyVictory() {
-        for (VictoryObserver observer : victoryObservers) {
-            observer.onVictory();
+        for (Observer<GameMode> observer : victoryObservers) {
+            observer.update(this);
         }
     }
 

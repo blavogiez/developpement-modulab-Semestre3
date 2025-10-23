@@ -17,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-abstract class AbstractLabyrinthProgressionController implements VictoryObserver {
+abstract class AbstractLabyrinthProgressionController implements Observer<GameMode> {
 
     @FXML
     protected BorderPane pane1;
@@ -96,7 +96,7 @@ abstract class AbstractLabyrinthProgressionController implements VictoryObserver
     }
 
     @Override
-    public void onVictory() {
+    public void update(GameMode gameMode) {
         chrono.stop();
         if (chronoTimeline != null) chronoTimeline.stop();
         try {
