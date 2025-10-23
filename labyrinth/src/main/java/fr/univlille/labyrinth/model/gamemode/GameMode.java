@@ -1,12 +1,12 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.VictoryObserver;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.

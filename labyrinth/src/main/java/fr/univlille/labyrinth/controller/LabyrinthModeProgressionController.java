@@ -1,7 +1,10 @@
 package fr.univlille.labyrinth.controller;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.*;
+import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.save.Challenge;
@@ -18,8 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-
-import java.io.IOException;
 
 abstract class AbstractLabyrinthProgressionController implements Observer<GameMode> {
 

@@ -1,11 +1,21 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.model.save.Player;
-import fr.univlille.labyrinth.model.save.PlayerDatabase;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+import fr.univlille.labyrinth.model.save.PlayerProgress;
 
 public class PlayerDatabaseTest {
     static Player player1, player2, player3;
