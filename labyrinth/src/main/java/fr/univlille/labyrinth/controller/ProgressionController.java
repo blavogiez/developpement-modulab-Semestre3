@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.model.Challenge;
 import fr.univlille.labyrinth.model.Player;
 import fr.univlille.labyrinth.model.PlayerDatabase;
 import fr.univlille.labyrinth.view.GameColors;
-import fr.univlille.labyrinth.view.Redimension;
+import fr.univlille.labyrinth.utils.Redimension;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -231,9 +231,9 @@ public class ProgressionController {
     }
 
     private void resize(){
-        menuEtape.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerHboxVobxs(menuEtape));
-        menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerHboxVobxs(menuEtape));
-        etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1));
-        etape1.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape1));
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerPanePanes(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerPanePanes(menuEtape));
+        etape1.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
+        etape1.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(etape1,0.09,0.1,0,0,0));
     }
 }

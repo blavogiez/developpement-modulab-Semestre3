@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.view.Redimension;
+import fr.univlille.labyrinth.utils.Redimension;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
