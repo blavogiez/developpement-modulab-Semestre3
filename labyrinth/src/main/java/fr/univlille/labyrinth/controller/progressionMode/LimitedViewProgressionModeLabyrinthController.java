@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 
@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
  * @version 0.0
  * @since 0.0
  */
-public class LimitedLabyrinthModeProgressionController extends AbstractLabyrinthProgressionController {
+public class LimitedViewProgressionModeLabyrinthController extends AbstractProgressionModeLabyrinthController {
 
     private LimitedLabyrinthGridView fullMazeView;
     private LocalPlayerView localView;

@@ -1,12 +1,12 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.VictoryObserver;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class GameMode {
 
     private Maze currentMaze;
-    private List<VictoryObserver> victoryObservers = new ArrayList<>();
+    private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
      * @param width
@@ -68,7 +68,7 @@ public abstract class GameMode {
     }
 
     /** 
-     * @param currentMaze
+     * @param currentMaze set Maze
      */
     public void setCurrentMaze(Maze currentMaze) {
         this.currentMaze = currentMaze;
@@ -81,13 +81,13 @@ public abstract class GameMode {
         return currentMaze;
     }
 
-    public void addVictoryObserver(VictoryObserver observer) {
+    public void addVictoryObserver(Observer<GameMode> observer) {
         victoryObservers.add(observer);
     }
 
     protected void notifyVictory() {
-        for (VictoryObserver observer : victoryObservers) {
-            observer.onVictory();
+        for (Observer<GameMode> observer : victoryObservers) {
+            observer.update(this);
         }
     }
 

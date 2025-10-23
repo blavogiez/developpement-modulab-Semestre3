@@ -1,8 +1,8 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.freemode;
 
 import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
-import fr.univlille.labyrinth.view.Redimension;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +19,7 @@ import java.io.IOException;
  * @version 0.0
  * @since 0.0
  */
-public class ModeLibreController {
+public class FreeModeController {
     @FXML
     private Button bouttonValider;
 
@@ -47,8 +47,8 @@ public class ModeLibreController {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
         wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
-        menu.widthProperty().addListener((o, oldW, newW) -> Redimension.redimensionnerVboxControles(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> Redimension.redimensionnerVboxControles(menu));
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menu));
 
     }
 
@@ -68,7 +68,7 @@ public class ModeLibreController {
             FreeMode.mazeWidth = 20;
         }
         FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
-        Main.goTo("LabyrinthModeLibre.fxml");
+        Main.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     /**
@@ -76,6 +76,6 @@ public class ModeLibreController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("GameModeSelection.fxml");
     }
 }

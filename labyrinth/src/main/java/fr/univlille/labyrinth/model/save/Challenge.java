@@ -47,6 +47,9 @@ public class Challenge implements Serializable {
         this(difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
     }
 
+    /**
+     * valide challenge
+     */
     public void validate() {
         this.setCompleted(true);
     }
@@ -93,8 +96,9 @@ public class Challenge implements Serializable {
         return timeCompleted;
     }
 
-    /** 
-     * @param timeCompleted
+    /**
+     *
+     * @param timeCompleted set time completed
      */
     public void setTimeCompleted(long timeCompleted) {
         this.timeCompleted = timeCompleted;
@@ -122,7 +126,7 @@ public class Challenge implements Serializable {
     }
 
     /** 
-     * @param completed
+     * @param completed set challenge
      */
     public void setCompleted(boolean completed) {
         this.completed = completed ;

@@ -1,12 +1,25 @@
 package fr.univlille.labyrinth.model;
 
-import fr.univlille.labyrinth.model.save.Player;
-import fr.univlille.labyrinth.model.save.PlayerDatabase;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
+import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.Player;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+import fr.univlille.labyrinth.model.save.PlayerProgress;
+
+// test de la persistance des joueurs
+// met à l'épreuve toutes les situations possibles !
+// la persistance est très importante ; elle doit être parfaite. Du TDD est également appréciable ici !
 public class PlayerDatabaseTest {
     static Player player1, player2, player3;
     static String playerName1, playerName2, playerName3, nonExistentPlayerName;
@@ -23,9 +36,8 @@ public class PlayerDatabaseTest {
         player3 = new Player(playerName3);
 
         // Test de la bonne sauvegarde des défis
-        PlayerProgress defaultProgress = ProgressionMode.defaultProgress;
         // Test d'un défi (étape 2, défi 2)
-        Challenge unDefi = defaultProgress.getLevelProgress()[1].getChallenges()[1];
+        Challenge unDefi = player1.getProgress().getLevelProgress()[1].getChallenges()[1];
         player1.getProgress().markChallengeCompleted(unDefi, 500);
     }
 
@@ -99,8 +111,13 @@ public class PlayerDatabaseTest {
 
     @Test
     public void testLoadPlayerAndChallenge() {
+        assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
+
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
 
-        assertEquals(player1.getHighestLevel(), 2);
+        assertNotNull(loadedPlayer);
+
+        // le challenge est bien sauvegardé si l'étape maximum est égale à 2 (défi de l'étape 2)
+        assertEquals(2, loadedPlayer.getHighestLevel());
     }
 }

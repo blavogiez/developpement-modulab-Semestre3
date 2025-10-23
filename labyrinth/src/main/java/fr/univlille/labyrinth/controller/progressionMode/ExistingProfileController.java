@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.Main;
 import fr.univlille.labyrinth.model.save.Player;
@@ -16,7 +16,8 @@ import java.io.IOException;
  * @version 0.0
  * @since 0.0
  */
-public class ProfilExistantController {
+public class ExistingProfileController {
+
     @FXML
     private Button bouttonNouvellePartie;
     @FXML
@@ -29,10 +30,10 @@ public class ProfilExistantController {
      */
     @FXML
     private void goToNewProgression() throws IOException {
-        String playerName = ProgressionEntreNomController.playerName;
+        String playerName = PlayerNameEntryController.playerName;
         Player newPlayer = new Player(playerName);
         PlayerDatabase.savePlayer(newPlayer);
-        Main.goTo("Progression.fxml");
+        Main.goTo("progressionmode/LevelSelection.fxml");
     }
 
 
@@ -42,7 +43,7 @@ public class ProfilExistantController {
      */
     @FXML
     private void goToProgression() throws IOException {
-        Main.goTo("Progression.fxml");
+        Main.goTo("progressionMode/LevelSelection.fxml");
     }
 
     /**
@@ -50,6 +51,6 @@ public class ProfilExistantController {
      */
     @FXML
     private void goToProgressionEntreNom() throws IOException {
-        Main.goTo("ProgressionEntreNom.fxml");
+        Main.goTo("progressionMode/PlayerNameEntry.fxml");
     }
 }

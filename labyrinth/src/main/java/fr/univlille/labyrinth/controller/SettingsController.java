@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import static fr.univlille.labyrinth.Main.getTheme;
 
+
 /**
  * Controller des paramètres
  *
@@ -14,7 +15,8 @@ import static fr.univlille.labyrinth.Main.getTheme;
  * @version 0.0
  * @since 0.0
  */
-public class ParametreController {
+public class SettingsController {
+
 
     /**
      * Change de thème si le button est cliqué.
@@ -30,6 +32,6 @@ public class ParametreController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("PortailLabyrinth.fxml");
+        Main.goTo("HomeMenu.fxml");
     }
 }

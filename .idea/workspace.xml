@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ed497b18-d7a6-439d-bc2b-e0b9d9852479" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Chronometre.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Chronometre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/AccueilLabyrinthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/AccueilLabyrinthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ModeLibreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/ModeLibreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/PortailLabyrinthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/controller/PortailLabyrinthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/view/Redimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/fr/univlille/labyrinth/view/Redimension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth/src/main/resources/fr/univlille/labyrinth/ModeLibre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth/src/main/resources/fr/univlille/labyrinth/ModeLibre.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +55,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
         <option name="workOffline" value="true" />
       </MavenGeneralSettings>
     </option>
@@ -73,7 +79,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "develop-romain",
+    "git-widget-placeholder": "develop-ang",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/BUTS3/S3.02",
@@ -82,7 +88,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.09765625",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -98,7 +104,6 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn javafx:run" />
-      <command value="mvn test" />
     </option>
   </component>
   <component name="RunManager">

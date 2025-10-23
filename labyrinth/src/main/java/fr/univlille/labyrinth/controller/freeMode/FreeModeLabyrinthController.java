@@ -1,11 +1,14 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.controller.freemode;
+
+import java.io.IOException;
 
 import fr.univlille.labyrinth.Main;
-import fr.univlille.labyrinth.model.* ;
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.utils.Chronometre;
-import fr.univlille.labyrinth.utils.ChronometreFX;
+import fr.univlille.labyrinth.utils.Timer;
+import fr.univlille.labyrinth.utils.TimerFX;
 import fr.univlille.labyrinth.view.LabyrinthGridView;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -15,8 +18,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-
 //ça serait bien que les controller étende au moins un controller qui possèdent les méthodes en commun...
 /**
  * Controller des labyrinthes spécifiquement du mode libre
@@ -25,8 +26,7 @@ import java.io.IOException;
  * @version 0.0
  * @since 0.0
  */
-public class LabyrinthModeLibreController implements VictoryObserver {
-
+public class FreeModeLabyrinthController implements Observer<GameMode> {
     @FXML
     private BorderPane pane1;
 
@@ -38,7 +38,7 @@ public class LabyrinthModeLibreController implements VictoryObserver {
 
     private LabyrinthGridView labyrinth;
     private FreeMode gameMode;
-    private Chronometre chrono;
+    private Timer chrono;
     private Timeline chronoTimeline;
 
     /**
@@ -62,9 +62,9 @@ public class LabyrinthModeLibreController implements VictoryObserver {
             }
         });
         labyrinth.update(gameMode.getCurrentMaze());
-        chrono=new Chronometre();
+        chrono=new Timer();
         chrono.start();
-        chronoTimeline = ChronometreFX.initChrono(chrono, chronoLabel);
+        chronoTimeline = TimerFX.initChrono(chrono, chronoLabel);
 
         gameMode.addVictoryObserver(this);
     }
@@ -92,11 +92,11 @@ public class LabyrinthModeLibreController implements VictoryObserver {
      * Exécuté lorsque le joueur arrive sur la case d'arrivée.
      */
     @Override
-    public void onVictory() {
+    public void update(GameMode gameMode) {
         chrono.stop();
         if (chronoTimeline != null) chronoTimeline.stop();
         try {
-            Main.goTo("LabyrinthModeLibre.fxml");
+            Main.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class LabyrinthModeLibreController implements VictoryObserver {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("AccueilLabyrinth.fxml");
+        Main.goTo("GameModeSelection.fxml");
     }
 
 }
