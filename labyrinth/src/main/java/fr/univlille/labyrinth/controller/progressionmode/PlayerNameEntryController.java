@@ -34,9 +34,9 @@ public class PlayerNameEntryController {
         if (name.isEmpty()) return;
         playerName = name;
         if (PlayerDatabase.playerExists(playerName)) {
-            Main.goTo("progressionMode/ExistingProfile.fxml");
+            Main.goTo("progressionmode/ExistingProfile.fxml");
         } else {
-            Main.goTo("progressionMode/LevelSelection.fxml");
+            Main.goTo("progressionmode/LevelSelection.fxml");
         }
     }
 

@@ -43,7 +43,7 @@ public class ExistingProfileController {
      */
     @FXML
     private void goToProgression() throws IOException {
-        Main.goTo("progressionMode/LevelSelection.fxml");
+        Main.goTo("progressionmode/LevelSelection.fxml");
     }
 
     /**
@@ -51,6 +51,6 @@ public class ExistingProfileController {
      */
     @FXML
     private void goToProgressionEntreNom() throws IOException {
-        Main.goTo("progressionMode/PlayerNameEntry.fxml");
+        Main.goTo("progressionmode/PlayerNameEntry.fxml");
     }
 }

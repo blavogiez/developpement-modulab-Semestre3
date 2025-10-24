@@ -60,15 +60,15 @@ public class FXMLTest {
     @Test
     public void testPlayerNameEntryFxmlExistsWithCapitalM() {
         // Utilisé par: ExistingProfileController.goToProgressionEntreNom()
-        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionMode/PlayerNameEntry.fxml");
-        assertNotNull(resource, "Le fichier progressionMode/PlayerNameEntry.fxml devrait exister");
+        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionmode/PlayerNameEntry.fxml");
+        assertNotNull(resource, "Le fichier progressionmode/PlayerNameEntry.fxml devrait exister");
     }
 
     @Test
     public void testExistingProfileFxmlExists() {
         // Utilisé par: PlayerNameEntryController.goToProgression() (si joueur existe)
-        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionMode/ExistingProfile.fxml");
-        assertNotNull(resource, "Le fichier progressionMode/ExistingProfile.fxml devrait exister");
+        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionmode/ExistingProfile.fxml");
+        assertNotNull(resource, "Le fichier progressionmode/ExistingProfile.fxml devrait exister");
     }
 
     @Test
@@ -82,21 +82,21 @@ public class FXMLTest {
     public void testLevelSelectionFxmlExistsWithCapitalM() {
         // Utilisé par: PlayerNameEntryController.goToProgression() (si joueur n'existe pas)
         // ExistingProfileController.goToProgression()
-        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionMode/LevelSelection.fxml");
-        assertNotNull(resource, "Le fichier progressionMode/LevelSelection.fxml devrait exister");
+        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionmode/LevelSelection.fxml");
+        assertNotNull(resource, "Le fichier progressionmode/LevelSelection.fxml devrait exister");
     }
 
     @Test
     public void testProgressionModeLabyrinthFxmlExists() {
         // Utilisé par: LevelSelectionController.goToChallenge() (mode normal)
-        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionMode/ProgressionModeLabyrinth.fxml");
-        assertNotNull(resource, "Le fichier progressionMode/ProgressionModeLabyrinth.fxml devrait exister");
+        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionmode/ProgressionModeLabyrinth.fxml");
+        assertNotNull(resource, "Le fichier progressionmode/ProgressionModeLabyrinth.fxml devrait exister");
     }
 
     @Test
     public void testLimitedViewProgressionModeLabyrinthFxmlExists() {
         // Utilisé par: LevelSelectionController.goToChallenge() (mode vue limitée)
-        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionMode/LimitedViewProgressionModeLabyrinth.fxml");
-        assertNotNull(resource, "Le fichier progressionMode/LimitedViewProgressionModeLabyrinth.fxml devrait exister");
+        URL resource = Main.class.getResource("/fr/univlille/labyrinth/progressionmode/LimitedViewProgressionModeLabyrinth.fxml");
+        assertNotNull(resource, "Le fichier progressionmode/LimitedViewProgressionModeLabyrinth.fxml devrait exister");
     }
 }

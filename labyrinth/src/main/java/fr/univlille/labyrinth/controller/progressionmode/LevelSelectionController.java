@@ -268,9 +268,9 @@ public class LevelSelectionController {
         state.setSelectedChallenge(selectedChallenge);
 
         if (limited) {
-            Main.goTo("progressionMode/LimitedViewProgressionModeLabyrinth.fxml");
+            Main.goTo("progressionmode/LimitedViewProgressionModeLabyrinth.fxml");
         } else {
-            Main.goTo("progressionMode/ProgressionModeLabyrinth.fxml");
+            Main.goTo("progressionmode/ProgressionModeLabyrinth.fxml");
         }
     }
 
