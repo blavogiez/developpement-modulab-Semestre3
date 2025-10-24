@@ -184,7 +184,7 @@ mvn javafx:run
 
 ---
 
-### Avec le script `run.sh` (Linux/Mac)
+### Avec le script `run.sh`
 
 Si JavaFX n’est pas encore installé, faites :
 
@@ -210,10 +210,6 @@ cd labyrinth
 [Vue limitée d'un labyrinthe](assets/vueLimiteeLaby.png)
 
 [Affichage de la progression](assets/progression.png)
-
-## Déploiement
-
-Il suffit de se déplacer dans `labyrinth` et d'exécuter `mvn javafx:run` ou le script `./run.sh`.
 
 ## Documentation
 
