@@ -128,5 +128,7 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 ### **Baptiste** :
 
 ### **Romain** :
+J'ai fait de la javadoc
+Modification du chronomètre
 
 ### **Victor** :
