@@ -94,6 +94,8 @@ Création de la classe "PlayerDatabase"
 - Création Fxml Progression
 - implémentation changement de la couleur du bouton si niveau fini
 
+>Probléme branche 'develop-anto' commit du 15 non publié sur master car conflict donc fichier copier/coller > master
+
 ### **Angèl** :
 - Integration LabyGridView en FXML
 - Page responsive avec des GridPane pour les pages FXML
