@@ -133,7 +133,7 @@ mvn javafx:run
 
 ---
 
-### Avec le script `run.sh`
+### Avec les scripts `compile.sh` && `run.sh`
 
 Si JavaFX n’est pas encore installé, faites :
 
@@ -141,15 +141,18 @@ Si JavaFX n’est pas encore installé, faites :
 sudo apt install openjfx
 ```
 
-Ensuite, lancez le script :
-
+Tout d’abord, placez-vous dans le répertoire labyrinth puis compilez le projet avec la commande suivante (en veillant à bien avoir les dépendances requises) :
 ```bash
 cd labyrinth
+./compile.sh
+```
+
+Ensuite, exécutez avec :
+```bash
 ./run.sh
 ```
 
-> Le script configure automatiquement le chemin vers JavaFX et démarre le jeu.
-
+>Vérifiez que vous avez bien les droits sur les fichiers. Le script configure automatiquement le chemin vers JavaFX.
 ---
 
 ## Démonstrations
