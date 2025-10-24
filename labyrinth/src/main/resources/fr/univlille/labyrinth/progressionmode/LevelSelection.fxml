@@ -70,7 +70,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox fx:id="etape2" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
+            <VBox fx:id="etape2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
                <children>
                   <Label text="Étape 2">
                      <VBox.margin>
@@ -82,7 +82,7 @@
                   <Button fx:id="bouttonLevel2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
                </children>
             </VBox>
-            <VBox fx:id="etape3" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
+            <VBox fx:id="etape3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Étape 3">
                      <VBox.margin>
