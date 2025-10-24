@@ -131,6 +131,12 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 
 ### **Antonin** :
 
+- ReadMe
+- Création du `run.sh` et création du fichier jar avec maven
+- Un peut de Java Doc
+- Ajout de Progress Bar
+- Ajout de test
+
 ### **Angèl** :
 - Pages FXML Responsives avec la class ResizeUtil
 - Modifications de pages, fix de bugs visuelles
@@ -138,6 +144,8 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 ### **Baptiste** :
 
 ### **Romain** :
+J'ai fait de la javadoc
+Modification du chronomètre
 
 ### **Victor** :
 
