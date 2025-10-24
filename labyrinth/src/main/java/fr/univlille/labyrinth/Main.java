@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Main extends Application {
-    private static boolean darkMode;
+    private static boolean darkMode = true;
 
     public static void setDarkMode(boolean darkMode) {
         Main.darkMode = darkMode;
@@ -53,8 +53,9 @@ public class Main extends Application {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomeMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
+        scene.getStylesheets().add(Main.class.getResource("dark.css").toExternalForm());
         stage.setTitle("Labyrinth");
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }

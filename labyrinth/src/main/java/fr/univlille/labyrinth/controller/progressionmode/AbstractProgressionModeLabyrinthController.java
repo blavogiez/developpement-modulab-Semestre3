@@ -8,7 +8,6 @@ import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
-import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.TimerFX;
 import javafx.animation.Timeline;
