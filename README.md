@@ -63,13 +63,13 @@ L'architecture de l'application se compose sous la forme suivante, en deux diagr
 
 **Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.**
 
-#### Clarifications
+### Clarifications
 
-##### ProgressionLoader
+#### ProgressionLoader
 
 La progression par défaut `defaultProgress` est chargée en lisant un fichier CSV (classe utilitaire `ProgressionLoader`) contenant les informations nécessaires. Puis, elle est passée à chaque nouveau joueur, par *deep copy* afin de ne pas modifier la référence initiale.
 
-##### Algorithme
+#### Algorithme
 
 La factory `MazeAlgorithmFactory` permet de changer d'algorithme rapidement en ne changeant qu'une seule ligne dans l'appel.
 Un appel typique est (dans Maze) `this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);`
@@ -82,9 +82,9 @@ Un appel typique est (dans Maze) `this.grid = MazeAlgorithmFactory.STANDARDLARGE
 
 L'algorithme n'étant pas lié à la vue ni au controlleur, mais uniquement au modèle, il n'est pas mentionné dans ce deuxième diagramme afin de ne pas surcharger l'image.
 
-#### Clarifications
+### Clarifications
 
-##### Contrôleurs
+#### Contrôleurs
 
 Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code n'étant pas couverts à ce niveau de granularité. 
 
