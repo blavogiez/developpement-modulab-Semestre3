@@ -1,5 +1,6 @@
-Attendus pour le jalon 1, commit dépôt git taggé [V1] pour le vendredi 24 octobre 23h :
-▶ un document suivi.md dans lequel est indiqué pour chaque semaine ce qui a été réalisé par chacun des membres depuis le début du projet.
+# Organisation
+
+Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démonstration (petite phrase, ou screen) à chaque commit
 
 # Membres de l'équipe
 
@@ -108,6 +109,7 @@ Création de la classe "PlayerDatabase"
 | Intégration des fichiers FXML et de leurs contrôleurs respectifs afin de respecter la maquette d'interface établie | | |
 | Intégration du composant chronomètre développé par Romain pour son affichage dans la vue du labyrinthe | | |
 | Implémentation de la suite de tests pour les algorithmes de génération / labyrinthe | | |
+| Implémentation du singleton AppState pour simplifier les traitements | | |
 
 (On peut noter qu'une approche TDD fut particulièrement pertinente pour le cas d'un labyrinthe)
 
@@ -142,6 +144,21 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 - Modifications de pages, fix de bugs visuelles
 
 ### **Baptiste** :
+
+*Fin de la section Analyse.*
+
+| Développement| Algorithmie |
+|--------------|-------------|
+|Implémentation d'une fonctionnalité de "tooltip" quand on survole un bouton, affichant ses informations|Test de la distance entrée/sortie correcte et debug du placement adéquat de la case de départ|
+|Contrôle de saisie du mode libre (Avertissement de 2 secondes si erreur)|
+|Contrôle de saisie du mode progression (saisie des noms vérifiée)||
+|Couverture de tests pour les controlleurs / la distance entrée/sortie ||
+|Amélioration de la qualité de code ||
+|Script bash pour créer la javadoc et la placer dans `doc` ||
+|Création des UML à différentes granularités et explication dans README ||
+
+La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est très faible et je fais tout pour la réduire au maximum, en l'assurant pas la non-régression des tests.
+
 
 ### **Romain** :
 J'ai fait de la javadoc
