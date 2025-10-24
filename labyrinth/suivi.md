@@ -35,6 +35,7 @@ Attendus pour le jalon 1, commit dépôt git taggé [V1] pour le vendredi 24 oct
 ### **Antonin** :
 
 ### **Angèl** :
+- Maquette Figma
 
 ### **Baptiste** :
 | Développement | Analyse | Algorithmie |
@@ -59,6 +60,9 @@ Fiche descriptive du "Déplacer joueur"
 Création des tests Maze et Position
 
 ### **Angèl** :
+- Création de pages FXML et leurs controlleurs
+- Naviguation entre les pages
+- Pages FXML presque responsive avec les outils de sceneBuilder
 
 ### **Baptiste** :
 
@@ -90,6 +94,10 @@ Création de la classe "PlayerDatabase"
 - implémentation changement de la couleur du bouton si niveau fini
 
 ### **Angèl** :
+- Integration LabyGridView en FXML
+- Page responsive avec des GridPane pour les pages FXML
+- Créations de pages FXML et leurs controlleurs
+- Modifications de pages, fix de bugs visuelles
 
 ### **Baptiste** :
 
@@ -124,6 +132,8 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 ### **Antonin** :
 
 ### **Angèl** :
+- Pages FXML Responsives avec la class ResizeUtil
+- Modifications de pages, fix de bugs visuelles
 
 ### **Baptiste** :
 
