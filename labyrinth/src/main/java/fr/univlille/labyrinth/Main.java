@@ -55,6 +55,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Main.class.getResource("light.css").toExternalForm());
         stage.setTitle("Labyrinth");
+        stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
     }
