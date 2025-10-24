@@ -123,6 +123,12 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 
 ### **Antonin** :
 
+- ReadMe
+- Création du `run.sh` et création du fichier jar avec maven
+- Un peut de Java Doc
+- Ajout de Progress Bar
+- Ajout de test
+
 ### **Angèl** :
 
 ### **Baptiste** :
