@@ -4,7 +4,7 @@
 
 # Executer la commande maven pour generer la javadoc en utilisant le wrapper
 # on ignore les erreurs de Javadoc car le code a des erreurs de documentation
-./mvnw javadoc:javadoc -Dmaven.javadoc.failOnError=false
+mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false
 
 # Creer le repertoire doc s'il n'existe pas
 mkdir -p ./doc

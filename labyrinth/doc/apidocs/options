@@ -1,21 +1,21 @@
 --class-path
-'C:/Users/lab/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14.jar'
+'/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14.jar:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14.jar:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14.jar:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14.jar'
 --module-path
-'C:/Users/lab/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14-win.jar;C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/classes;C:/Users/lab/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14-win.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14-win.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14-win.jar'
+'/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14-linux.jar:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14-linux.jar:/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre 1/SAÉ/saedev/labyrinth/target/classes:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14-linux.jar:/tmp/baptiste.lavogiez.etu/maven/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14-linux.jar'
 --patch-module
-fr.univlille.labyrinth='C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/src/main/java'
+fr.univlille.labyrinth='/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre 1/SAÉ/saedev/labyrinth/src/main/java'
 -encoding
 'UTF-8'
 -protected
 --module-source-path
-'C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs/src'
+'/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs/src'
 -author
 -bottom
 'Copyright &#169; 2025. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs'
+'/home/infoetu/baptiste.lavogiez.etu/BUT2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs'
 -docencoding
 'UTF-8'
 -doctitle

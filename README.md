@@ -7,9 +7,29 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
 ![License](https://img.shields.io/badge/License-Université%20de%20Lille-green?style=for-the-badge)
 
-**[Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Arborescence](#arborescence)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Présentation](#présentation)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
+**[Présentation](#présentation)** • [Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Arborescence](#arborescence)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
 
 </div>
+
+## Présentation
+Le but de cette SAÉ est de créer une application de jeu de labyrinthe proposant différents modes de jeu.
+Le joueur doit rejoindre la sortie du labyrinthe, généré de manière aléatoire, tout en faisant face à diverses contraintes selon le mode choisi.
+
+L’application comporte deux modes de jeu principaux :
+
+1. **Mode libre** : 
+
+    - le joueur peut choisir la taille du labyrinthe (largeur, hauteur) ainsi que le pourcentage de murs.
+
+2. **Mode progression** : 
+
+    - Le joueur avance à travers plusieurs niveaux de difficulté croissante.
+
+    - Chaque étape comporte trois défis : facile, moyen et difficile.
+
+    - Certains niveaux imposent une restriction de vision (le joueur ne voit qu’autour de lui).
+
+Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
 
 ## Membres de l'équipe
 Réalisé par :
@@ -33,105 +53,46 @@ Mr Delecroix :
 
 Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
-## Arborescence
-```
-.
-├── analyse
-│   ├── documents
-│   │   └── plan.md
-│   └── fiches_desc
-│       ├── AfficherProgression.md
-│       ├── ChargerProfil.md
-│       ├── DeplacerJoueur.md
-│       └── LancerModeProgression.md
-├── attentes
-│   ├── Algo.md
-│   ├── Presentation_SAE_Labyrinthes.pdf
-│   ├── Qdev.md
-│   ├── Sujet.md
-│   └── Sujet SAE S3 Labyrinthe.pdf
-├── labyrinth
-│   ├── mvnw
-│   ├── mvnw.cmd
-│   ├── pom.xml
-│   ├── reflexion3.puml
-│   ├── res
-│   │   └── saves
-│   │       └── players.dat
-│   ├── src
-│   │   ├── main
-│   │   │   ├── java
-│   │   │   │   ├── fr
-│   │   │   │   │   └── univlille
-│   │   │   │   │       └── labyrinth
-│   │   │   │   │           ├── controller
-│   │   │   │   │           │   └── Contient tous les controllers de l’application
-│   │   │   │   │           ├── Main.java
-│   │   │   │   │           ├── model
-│   │   │   │   │           │   └── Contient les models de l’application
-│   │   │   │   │           ├── parcours
-│   │   │   │   │           │   └── Contient le programme permettant de parcourir le labyrinthe
-│   │   │   │   │           ├── utils
-│   │   │   │   │           │   └── Contient les fichiers displayDataBase et chronoUtil
-│   │   │   │   │           └── view
-│   │   │   │   │               └── Contient toutes les vues de l’application
-│   │   │   │   └── module-info.java
-│   │   │   └── resources
-│   │   │       └── Contient les ressources nécessaires au fonctionnement de l’application, dont les fichiers FXML
-│   │   └── test
-│   │       └── Contient tout les tests
-│   ├── suivi.md
-│   └── target
-│       └── Contient les fichiers compiler
-├── rapports
-│   ├── algo
-│   │   └── Rapport Algo
-│   ├── analyse
-│   │   ├── Rapport Analyse
-│   │   └── Sujet SAE S3 Labyrinthe.pdf
-│   ├── qualite
-│   │   └── Rapport Qualité
-│   └── template
-├── README.md
-└── rendus Analyse
-    └── G2_SAE3.3-Diagramme_Classes_V1.png
-
-(update arborescence à chaque rendu taggé)
-```
-
 ## Diagramme de classe
 
-L'architecture de l'application se compose sous la forme suivante :
+L'architecture de l'application se compose sous la forme suivante, en deux diagrammes à granularité différente :
 
-[Diagramme UML 1](assets/uml_model_algorithm.png)
+### Modèle | Algorithme 
 
-[Diagramme UML 2](assets/uml_model_view_controller.png)
+[Diagramme du modèle | algorithm](assets/uml_model_algorithm.png)
 
-*Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.*
+**Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.**
 
-### Clarifications
+#### Clarifications
 
-insérer explications..
+##### ProgressionLoader
 
-## Présentation
-Le but de cette SAÉ est de créer une application de jeu de labyrinthe proposant différents modes de jeu.
-Le joueur doit rejoindre la sortie du labyrinthe, généré de manière aléatoire, tout en faisant face à diverses contraintes selon le mode choisi.
+La progression par défaut `defaultProgress` est chargée en lisant un fichier CSV (classe utilitaire `ProgressionLoader`) contenant les informations nécessaires. Puis, elle est passée à chaque nouveau joueur, par *deep copy* afin de ne pas modifier la référence initiale.
 
-L’application comporte deux modes de jeu principaux :
+##### Algorithme
 
-1. **Mode libre** : 
+La factory `MazeAlgorithmFactory` permet de changer d'algorithme rapidement en ne changeant qu'une seule ligne dans l'appel.
+Un appel typique est (dans Maze) `this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);`
 
-    - le joueur peut choisir la taille du labyrinthe (largeur, hauteur) ainsi que le pourcentage de murs.
+**Pour ce jalon 1, seul l'algorithme *Standard Largeur* est utilisé. Les autres ne sont pas demandés et ne seront donc pas couverts par les tests, ayant uniquement été réalisés pour se familiariser avec les futurs algorithmes du jalon 2 (efficacité, implémentation...). Cependant, le jalon 2 permettra d'utiliser ces différents algorithmes.**
 
-2. **Mode progression** : 
+### Modèle | Vue | Controlleur
 
-    - Le joueur avance à travers plusieurs niveaux de difficulté croissante.
+[Diagramme du modèle | vue | controlleur](assets/uml_model_view_controller.png)
 
-    - Chaque étape comporte trois défis : facile, moyen et difficile.
+L'algorithme n'étant pas lié à la vue ni au controlleur, mais uniquement au modèle, il n'est pas mentionné dans ce deuxième diagramme afin de ne pas surcharger l'image.
 
-    - Certains niveaux imposent une restriction de vision (le joueur ne voit qu’autour de lui).
+#### Clarifications
 
-Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
+##### Contrôleurs
+
+Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code n'étant pas couverts à ce niveau de granularité. 
+
+Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue, tout en ne faisant aucune logique métier.
+
+La logique de victoire se déroule dans le modèle, qui en avertit les contrôleurs (étant ses `victoryObserver`). Toute la logique de sauvegarde est réalisée par le modèle.
+
+**Le modèle est strictement indépendant de la vue et du contrôleur.**
 
 ## Lancer le projet
 ### Prérequis
@@ -141,11 +102,13 @@ Pour exécuter le projet, vous aurez besoin de :
 - **Java 17** installé
   ```bash
   java -version
+  ```
 
 * **Maven** installé
 
   ```bash
   mvn -v
+  ```
  
 * installé **JavaFX 17** sur votre machine :
 
@@ -154,20 +117,6 @@ Pour exécuter le projet, vous aurez besoin de :
   ```
 
   > JavaFX sera installé dans `/usr/share/openjfx/lib`.
-
-## Compilation du projet
-
-Depuis la racine du projet, compilez et packagez l’application :
-```bash
-cd labyrinth
-mvn clean package
-```
-
-Le JAR exécutable sera généré dans :
-
-```
-target/labyrinth-1.0-SNAPSHOT-jar-with-dependencies.jar
-```
 
 ## Exécution du projet
 
@@ -213,6 +162,4 @@ cd labyrinth
 
 ## Documentation
 
-Consultable dans `labyrinth/docs` et générable avec le script `./generate_javadoc.sh`.
-
-instr exec...
+Consultable dans `labyrinth/doc` et générable avec le script `./generate_javadoc.sh`.
