@@ -234,11 +234,11 @@ public class LevelSelectionController {
     private void resize(){
         menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
         menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
-        etape1.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape1,0.08,0,0,0.15,0));
-        etape1.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape1,0.08,0,0,0.15,0));
-        etape2.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape2,0.08,0,0,0.15,0));
-        etape2.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape2,0.08,0,0,0.15,0));
-        etape3.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape3,0.08,0,0,0.15,0));
-        etape3.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape3,0.08,0,0,0.15,0));
+        etape1.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape1,0.08,0,0,0.1,0));
+        etape1.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape1,0.08,0,0,0.1,0));
+        etape2.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape2,0.08,0,0,0.1,0));
+        etape2.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape2,0.08,0,0,0.1,0));
+        etape3.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape3,0.08,0,0,0.1,0));
+        etape3.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape3,0.08,0,0,0.1,0));
     }
 }
