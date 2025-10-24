@@ -111,7 +111,7 @@ Création de la classe "PlayerDatabase"
 | Intégration des fichiers FXML et de leurs contrôleurs respectifs afin de respecter la maquette d'interface établie | | |
 | Intégration du composant chronomètre développé par Romain pour son affichage dans la vue du labyrinthe | | |
 | Implémentation de la suite de tests pour les algorithmes de génération / labyrinthe | | |
-| Implémentation du singleton AppState pour simplifier les traitements | | |
+| Implémentation du singleton AppState pour simplifier les traitements (attributs du joueur accessibles aux controlleurs plutot que du static) | | |
 
 (On peut noter qu'une approche TDD fut particulièrement pertinente pour le cas d'un labyrinthe)
 
@@ -155,16 +155,18 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 |Contrôle de saisie du mode libre (Avertissement de 2 secondes si erreur)|
 |Contrôle de saisie du mode progression (saisie des noms vérifiée)||
 |Couverture de tests pour les controlleurs / la distance entrée/sortie ||
-|Amélioration de la qualité de code ||
+|Amélioration de la qualité de code globale du projet (petits refactor, faire respecter la logique métier...)||
 |Script bash pour créer la javadoc et la placer dans `doc` ||
 |Création des UML à différentes granularités et explication dans README ||
+|Ajout d'une suite de tests complète pour ProgressionMode afin de garantir une couverture maximale avant le rendu ||
+|Renommage de tous les fichiers en anglais avec des noms explicites et restructuration des packages selon les conventions Java ||
 
-La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est très faible et je fais tout pour la réduire au maximum, en l'assurant pas la non-régression des tests.
+La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est très faible. Je fais tout pour la réduire au maximum, en l'assurant par la non-régression des tests.
 
 
 ### **Romain** :
-J'ai fait de la javadoc
-Modification du chronomètre
+- J'ai fait de la javadoc
+- Modification du chronomètre
 
 ### **Victor** :
 

@@ -7,7 +7,7 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
 ![License](https://img.shields.io/badge/License-Université%20de%20Lille-green?style=for-the-badge)
 
-**[Présentation](#présentation)** • [Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Arborescence](#arborescence)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
+**[Présentation](#présentation)** • **[Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
 
 </div>
 
@@ -65,11 +65,11 @@ L'architecture de l'application se compose sous la forme suivante, en deux diagr
 
 ### Clarifications
 
-#### ProgressionLoader
+**ProgressionLoader :**
 
 La progression par défaut `defaultProgress` est chargée en lisant un fichier CSV (classe utilitaire `ProgressionLoader`) contenant les informations nécessaires. Puis, elle est passée à chaque nouveau joueur, par *deep copy* afin de ne pas modifier la référence initiale.
 
-#### Algorithme
+**Algorithme :**
 
 La factory `MazeAlgorithmFactory` permet de changer d'algorithme rapidement en ne changeant qu'une seule ligne dans l'appel.
 Un appel typique est (dans Maze) `this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);`
@@ -86,9 +86,11 @@ L'algorithme n'étant pas lié à la vue ni au controlleur, mais uniquement au m
 
 #### Contrôleurs
 
-Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code n'étant pas couverts à ce niveau de granularité. 
+Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code. Ce code n'est pas couvert à ce niveau de granularité. 
 
-Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue, tout en ne faisant aucune logique métier.
+Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue.
+
+Les contrôleurs ne font aucune logique métier. Ils servent uniquement à la liason (Pattern MVN strict).
 
 La logique de victoire se déroule dans le modèle, qui en avertit les contrôleurs (étant ses `victoryObserver`). Toute la logique de sauvegarde est réalisée par le modèle.
 
