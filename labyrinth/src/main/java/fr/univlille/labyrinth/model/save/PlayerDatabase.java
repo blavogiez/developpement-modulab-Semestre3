@@ -43,14 +43,16 @@ public class PlayerDatabase {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
             oos.writeObject(players);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
+
         }
     }
 
-    /** 
-     * @param player
-     * @param players
-     * @return boolean
+    /**
+     * Cette méthode permet de savoir si le joueur existe dans la base de donnée
+     * @param player joueur recherché
+     * @param players liste des joueurs présents dans la base de donnée
+     * @return true si le joueur est bien dans la base de donnée
      */
     private static boolean isFound(Player player, List<Player> players) {
         boolean found = false;
@@ -94,10 +96,10 @@ public class PlayerDatabase {
         return false;
     }
 
-    /** 
-     * @return List<Player>
+    /**
+     * Cette méthode renvoie la liste de tous les joueurs présents dans la base de donnée
+     * @return List<Player> la liste des joueurs de la base des données
      */
-    // Load all players from file
     public static List<Player> loadAllPlayers() {
         File file = new File(SAVE_FILE);
         if (!file.exists()) {
@@ -107,12 +109,14 @@ public class PlayerDatabase {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
             return (List<Player>) ois.readObject();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ArrayList<>();
         }
     }
 
-    // clearing database (only for tests)
+    /**
+     * Cette méthode supprime les données dans la base de donnée
+     */
     public static void clear() {
         try {
             File file = new File(SAVE_FILE);
@@ -120,7 +124,7 @@ public class PlayerDatabase {
                 file.delete();
             }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
     }
 }

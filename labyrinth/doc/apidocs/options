@@ -1,0 +1,26 @@
+--class-path
+'C:/Users/lab/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14.jar'
+--module-path
+'C:/Users/lab/.m2/repository/org/openjfx/javafx-controls/17.0.14/javafx-controls-17.0.14-win.jar;C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/classes;C:/Users/lab/.m2/repository/org/openjfx/javafx-base/17.0.14/javafx-base-17.0.14-win.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-fxml/17.0.14/javafx-fxml-17.0.14-win.jar;C:/Users/lab/.m2/repository/org/openjfx/javafx-graphics/17.0.14/javafx-graphics-17.0.14-win.jar'
+--patch-module
+fr.univlille.labyrinth='C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/src/main/java'
+-encoding
+'UTF-8'
+-protected
+--module-source-path
+'C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/lab/Documents/BUT2/but2/Semestre 1/SAÉ/saedev/labyrinth/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'labyrinth 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'labyrinth 1.0-SNAPSHOT API'

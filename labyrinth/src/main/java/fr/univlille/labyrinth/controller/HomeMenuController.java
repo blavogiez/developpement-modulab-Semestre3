@@ -9,7 +9,15 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Controller du menu principal
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class HomeMenuController {
+
     @FXML
     private Button bouttonJouer;
     @FXML
@@ -20,16 +28,20 @@ public class HomeMenuController {
     private VBox menuBoutons;
 
 
-    /** 
-     * @throws IOException
-     */
 
+    /**
+     * Initialisation de la scène
+     */
     @FXML
     public void initialize()
     {
         menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
         menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
     }
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
     @FXML
     private void goToJouer() throws IOException {
         Main.goTo("GameModeSelection.fxml");
@@ -40,8 +52,8 @@ public class HomeMenuController {
         Platform.exit();
     }
 
-    /** 
-     * @throws IOException
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
     private void goToParametres() throws IOException {

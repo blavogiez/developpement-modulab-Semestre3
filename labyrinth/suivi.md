@@ -78,8 +78,8 @@ Création de la classe "PlayerDatabase"
 - Création du controleur de la scène Labyrinthe
 - Première Importation du premier algorithme → impossibilité de modifier le pourcentage de mur
 - Modification de GameMode (Déplacer joueurs)
-- Ajout de la classe SceneManager (Pile des scenes)
-- Début d'implémentation de Main en tant que singleton (afin d'accéder aux SceneManager depuis tous les channels sans utiliser de méthode statique, car ce n'est pas très optimisé, mais vu que ça rend la chose bien plus compliquée a utilisé pour les tests, ça sera sûrement retransformé en statique)
+- Ajout de la classe SceneManager (Pile des scenes) -> inutilisé/obsolète
+- Début d'implémentation de Main en tant que singleton (afin d'accéder aux SceneManager depuis tous les channels sans utiliser de méthode statique, car ce n'est pas très optimisé, mais vu que ça rend la chose bien plus compliquée a utilisé pour les tests, ça sera sûrement retransformé en statique) -> Main remplacé par HelloApplication pour être renommé Main
 
 ## **Semaine du 13/10 au 20/10**
 
@@ -115,7 +115,7 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 - Modification de Scene pour détecter les touches directionnelles au clavier
 - Ajout d'une méthode activé et envoyé à GameMode lorsqu'un joueur termine un labyrinthe
 - Ajout des Javadocs et suppressions des warnings de GameMode, Maze, LabyrinthScene, AlgoLabyNew et LabyrinthControler
-- Rendre LabyrinthScene dynamique (:D, j'ai pété mon crâne)
+- Rendre LabyrinthScene dynamique (:D, j'ai pété mon crâne) -> complètement modifié
 
 ## **Semaine du 20/10 au 24/10**
 
@@ -130,3 +130,8 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 ### **Romain** :
 
 ### **Victor** :
+
+- Ajout des différents algorithmes
+- Ajout du paramètre facultatif mode nuit
+- modification légère du CSS
+- Ajout de Javadoc

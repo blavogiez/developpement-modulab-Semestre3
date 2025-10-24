@@ -1,0 +1,50 @@
+package fr.univlille.labyrinth.controller.progressionmode;
+
+import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.model.save.PlayerDatabase;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+
+public class PlayerNameEntryController {
+    public static String playerName = "toto";
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private VBox menu;
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
+    @FXML
+    public void initialize(){
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menu));
+    }
+
+    @FXML
+    private void goToProgression() throws IOException {
+        String name = nameField.getText().trim();
+        if (name.isEmpty()) return;
+        playerName = name;
+        if (PlayerDatabase.playerExists(playerName)) {
+            Main.goTo("progressionmode/ExistingProfile.fxml");
+        } else {
+            Main.goTo("progressionmode/LevelSelection.fxml");
+        }
+    }
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
+    @FXML
+    private void goToAccueil() throws IOException {
+        Main.goTo("GameModeSelection.fxml");
+    }
+}

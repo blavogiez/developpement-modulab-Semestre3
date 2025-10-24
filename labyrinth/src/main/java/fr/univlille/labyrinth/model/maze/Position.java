@@ -12,49 +12,37 @@ public class Position {
     }
 
     /** 
-     * @return int
+     * @return coordonnée x
      */
     public int getX() {
         return this.x;
     }
 
     /** 
-     * @return int
+     * @return coordonnée y
      */
     public int getY() {
         return this.y;
     }
 
-    /** 
-     * @param newX
-     */
     public void setX(int newX) {
         if(newX>=0) this.x=newX;
     }
 
-    /** 
-     * @param newY
-     */
     public void setY(int newY) {
         if(newY>=0) this.y=newY;
     }
 
-    /** 
-     * @param x
-     */
     public void addX(int x){
         this.x+=x;
     }
 
-    /** 
-     * @param y
-     */
     public void addY(int y){
         this.y+=y;
     }
 
-    /** 
-     * @param o
+    /**
+     * @param o objet comparé
      * @return boolean
      */
     @Override
@@ -66,7 +54,7 @@ public class Position {
     }
 
     /** 
-     * @return int
+     * @return le hashcode de l'objet
      */
     @Override
     public int hashCode() {

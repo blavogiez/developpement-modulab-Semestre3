@@ -103,7 +103,9 @@ Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
 L'architecture de l'application se compose sous la forme suivante :
 
-[Diagramme UML](labyrinth/uml.png)
+[Diagramme UML 1](assets/uml_model_algorithm.png)
+
+[Diagramme UML 2](assets/uml_model_view_controller.png)
 
 *Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.*
 
@@ -207,10 +209,14 @@ cd labyrinth
 
 [Vue limitée d'un labyrinthe](assets/vueLimiteeLaby.png)
 
+[Affichage de la progression](assets/progression.png)
+
 ## Déploiement
 
-Dernière version **déployable** de l'application :
+Il suffit de se déplacer dans `labyrinth` et d'exécuter `mvn javafx:run` ou le script `./run.sh`.
 
-[Archive exécutable](labyrinth/labyrinth.jar)
+## Documentation
+
+Consultable dans `labyrinth/docs` et générable avec le script `./generate_javadoc.sh`.
 
 instr exec...

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="fond" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.LevelSelectionController">
+   <top>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="110.0" prefWidth="814.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Score : 0" textAlignment="RIGHT" />
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="192.0" text="Progression">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Étapes de" />
+                  <Text fx:id="playerNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Nom" />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="814.0">
+               <children>
+                  <Label fx:id="textProgressBar" text="0.0" wrapText="true" />
+                  <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="412.0" VBox.vgrow="ALWAYS" />
+                  <VBox prefHeight="20.0" prefWidth="814.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="48.0" prefWidth="814.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <HBox fx:id="menuEtape" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="etape1" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="etapes">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Étape 1">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="bouttonLevel1Challenge1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="bouttonLevel1Challenge2" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="bouttonLevel1Challenge3" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox fx:id="etape2" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
+               <children>
+                  <Label text="Étape 2">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="bouttonLevel2Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" />
+                  <Button fx:id="bouttonLevel2Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                  <Button fx:id="bouttonLevel2Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
+               </children>
+            </VBox>
+            <VBox fx:id="etape3" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="etapes">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" text="Étape 3">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="bouttonLevel3Challenge1" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="1" />
+                  <Button fx:id="bouttonLevel3Challenge2" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="2" />
+                  <Button fx:id="bouttonLevel3Challenge3" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="3" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

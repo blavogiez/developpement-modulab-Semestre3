@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Main extends Application {
     private static boolean darkMode;
@@ -33,9 +34,14 @@ public class Main extends Application {
     public static void goTo(String page) throws IOException {
         double width = primaryStage.getScene().getWidth();
         double height = primaryStage.getScene().getHeight();
-        Parent root = FXMLLoader.load(Main.class.getResource(page));
-        primaryStage.setScene(new Scene(root, width, height));
-        primaryStage.getScene().getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
+        page = "/fr/univlille/labyrinth/"+page;
+        URL url = Main.class.getResource(page);
+        Parent root = FXMLLoader.load(url);
+        Scene scene = new Scene(root, width, height);
+        //appliquer le theme avant de la mettre (évite flash)
+        scene.getStylesheets().add(Main.class.getResource(getTheme()).toExternalForm());
+        primaryStage.setScene(scene);
+        
     }
 
     /** 
