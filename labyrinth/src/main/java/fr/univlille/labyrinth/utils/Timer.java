@@ -87,6 +87,6 @@ public class Timer{
      * @return String
      */
     public String toString(){
-        return "Temps écoulé"+ this.getChrono();
+        return "Temps écoulé : "+ this.getChrono();
     }
 }
