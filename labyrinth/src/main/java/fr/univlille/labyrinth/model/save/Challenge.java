@@ -2,6 +2,8 @@ package fr.univlille.labyrinth.model.save;
 
 import java.io.Serializable;
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+
 /**
  * Modèle des différents challenges du mode de progression.
  *
@@ -15,6 +17,7 @@ public class Challenge implements Serializable {
     private final int height;
     private final double wallPercentage;
     private final int distanceBetweenEntryAndExit;
+    private final MazeAlgorithmFactory algorithm ;
     private long timeCompleted;
     private boolean completed;
 
@@ -27,7 +30,8 @@ public class Challenge implements Serializable {
      * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
      * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
      */
-    public Challenge(String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+    public Challenge(MazeAlgorithmFactory algorithm, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+        this.algorithm=algorithm;
         this.difficulty=difficulty;
         this.width=width;
         this.height=height;
@@ -43,8 +47,8 @@ public class Challenge implements Serializable {
      * @param height Hauteur du labyrinthe associé au challenge.
      * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
      */
-    public Challenge(String difficulty, int width, int height, double wallPercentage) {
-        this(difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
+    public Challenge(MazeAlgorithmFactory algorithm, String difficulty, int width, int height, double wallPercentage) {
+        this(algorithm, difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
     }
 
     /**
@@ -66,6 +70,13 @@ public class Challenge implements Serializable {
      */
     public int getWidth() {
         return width;
+    }
+
+    /** 
+     * @return algorithm
+     */
+    public MazeAlgorithmFactory getAlgorithm() {
+        return algorithm;
     }
 
     /** 

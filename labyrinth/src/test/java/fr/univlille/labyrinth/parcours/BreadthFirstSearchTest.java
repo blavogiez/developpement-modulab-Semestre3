@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.parcours;
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Maze;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,9 @@ public class BreadthFirstSearchTest {
 
     @BeforeAll
     public static void initialization() {
-        m1 = new Maze(10, 10, 0.2);
-        m2 = new Maze(20, 20, 0.3);
-        m3 = new Maze(5, 5, 0.1);
+        m1 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,10, 10, 0.2);
+        m2 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,20, 20, 0.3);
+        m3 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,5, 5, 0.1);
     }
 
     @Test

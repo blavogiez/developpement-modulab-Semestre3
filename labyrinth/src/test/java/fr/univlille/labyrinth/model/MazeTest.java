@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Maze;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,9 @@ public class MazeTest {
     static Maze m1,m2,m3,m4;
     @BeforeAll
     public static void initialization(){
-        m1 = new Maze(10, 10, 0.5);
-        m2 = new Maze(20, 20, 0.3);
-        m3 = new Maze(30, 30, 0.5);
+        m1 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,10, 10, 0.5);
+        m2 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,20, 20, 0.3);
+        m3 = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,30, 30, 0.5);
         m4=m1;
     }
     @Test
@@ -54,7 +55,7 @@ public class MazeTest {
         int totalWalls = 0;
         int totalCells = 0;
         for(int i=0;i<100;i++){
-            Maze m = new Maze(20,20,0.4);
+            Maze m = new Maze(MazeAlgorithmFactory.STANDARDLARGEUR,20,20,0.4);
             int walls = 0;
             for(int x=1;x<m.getWidth() - 1 ; x++){
                 for(int y=1;y<m.getHeight() - 1 ; y++){

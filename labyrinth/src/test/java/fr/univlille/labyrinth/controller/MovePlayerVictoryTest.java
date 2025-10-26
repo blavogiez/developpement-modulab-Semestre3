@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
@@ -40,7 +41,7 @@ public class MovePlayerVictoryTest {
     public void testMovePlayerToExitTriggersVictory() {
         // Créer un petit labyrinthe 5x5 avec très peu de murs
         FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(5, 5, 0.0);
+        gameMode.createMaze(MazeAlgorithmFactory.STANDARDLARGEUR,5, 5, 0.0);
 
         // Créer un observateur de victoire
         VictoryObserver observer = new VictoryObserver();
@@ -79,7 +80,7 @@ public class MovePlayerVictoryTest {
     public void testMultipleObserversAreNotified() {
         // Teste que plusieurs observateurs sont notifiés en cas de victoire
         FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(5, 5, 0.0);
+        gameMode.createMaze(MazeAlgorithmFactory.STANDARDLARGEUR,5, 5, 0.0);
 
         VictoryObserver observer1 = new VictoryObserver();
         VictoryObserver observer2 = new VictoryObserver();

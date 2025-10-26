@@ -11,8 +11,6 @@ public enum MazeAlgorithmFactory {
         this.mazeAlgorithm=maze;
     }
 
-
-
     private MazeAlgorithmTemplate mazeAlgorithm;
 
     public MazeAlgorithmTemplate getAlgorithm(){

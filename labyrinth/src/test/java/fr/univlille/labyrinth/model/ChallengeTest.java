@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model;
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class ChallengeTest {
 
     @BeforeEach
     void init() {
-        challenge = new Challenge("Facile", 10, 8, 30);
+        challenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, "Facile", 10, 8, 30);
     }
 
     @Test
@@ -56,11 +57,11 @@ class ChallengeTest {
 
     @Test
     void testScoreValueChangesWithParameters() {
-        Challenge smallChallenge = new Challenge("Moyen", 5, 5, 0.2);
+        Challenge smallChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, "Moyen", 5, 5, 0.2);
         smallChallenge.setCompleted(true);
         assertEquals(5 * 5 * 20, smallChallenge.getScoreValue(), "Le score devrait dépendre des dimensions et du pourcentage de murs");
 
-        Challenge largeChallenge = new Challenge("Difficile", 15, 15, 0.5);
+        Challenge largeChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, "Difficile", 15, 15, 0.5);
         largeChallenge.setCompleted(true);
         assertEquals(15 * 15 * 50, largeChallenge.getScoreValue(), "Un grand labyrinthe devrait rapporter plus de points");
     }

@@ -16,4 +16,5 @@ module fr.univlille.labyrinth {
     exports fr.univlille.labyrinth.model.maze;
     exports fr.univlille.labyrinth.model.gamemode;
     exports fr.univlille.labyrinth.model.save;
+    exports fr.univlille.labyrinth.model.algorithm;
 }

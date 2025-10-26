@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.utils;
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -42,21 +43,23 @@ public class ProgressionLoader {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length != 7) {
+                if (parts.length != 8) {
                     continue; // Ignorer les lignes invalides
                 }
 
                 // Parser les données du challenge
-                int levelNumber = Integer.parseInt(parts[0]);
-                int challengeIndex = Integer.parseInt(parts[1]);
-                String difficulty = parts[2];
-                int width = Integer.parseInt(parts[3]);
-                int height = Integer.parseInt(parts[4]);
-                double wallPercentage = Double.parseDouble(parts[5]);
-                int distanceBetweenEntryAndExit = Integer.parseInt(parts[6]);
+                MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.valueOf(parts[0]);
+                int levelNumber = Integer.parseInt(parts[1]);
+                int challengeIndex = Integer.parseInt(parts[2]);
+                String difficulty = parts[3];
+                int width = Integer.parseInt(parts[4]);
+                int height = Integer.parseInt(parts[5]);
+                double wallPercentage = Double.parseDouble(parts[6]);
+                int distanceBetweenEntryAndExit = Integer.parseInt(parts[7]);
 
                 // Créer le challenge et le placer dans le bon niveau
                 Challenge challenge = new Challenge(
+                    algorithm,
                     difficulty,
                     width,
                     height,

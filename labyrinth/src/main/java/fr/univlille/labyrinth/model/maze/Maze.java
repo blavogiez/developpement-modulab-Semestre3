@@ -63,20 +63,21 @@ public class Maze {
     /**
      * Cette méthode permet de générer un labyrinthe
      *
+     * @param algorithm L'algorithme choisi dans la Factory
      * @param width La largeur du labyrinthe
      * @param height La hauteur du labyrinthe
      * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
      * @param minPathLength La longueur minimale de chemin entre l'entrée et la sortie
      */
-    public Maze(int width, int height, double wallPercentage, int minPathLength) {
+    public Maze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int minPathLength) {
         this.observers=new ArrayList<>();
         // Génération du labyrinthe
-        this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);
+        this.grid = algorithm.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);
         this.width = this.grid.length;
         this.height = this.grid[0].length;
-        this.playerPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
-        this.entryPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getStart();
-        this.exitPosition = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().getEnd();
+        this.playerPosition = algorithm.getAlgorithm().getStart();
+        this.entryPosition = algorithm.getAlgorithm().getStart();
+        this.exitPosition = algorithm.getAlgorithm().getEnd();
     }
     
     /**
@@ -86,9 +87,9 @@ public class Maze {
      * @param height La hauteur du labyrinthe
      * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
      */
-    public Maze(int width, int height, double wallPercentage) {
+    public Maze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
         //this(width, height, wallPercentage, 20);
-        this(width, height, wallPercentage, ((width-3) + (height-3))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
+        this(algorithm, width, height, wallPercentage, ((width-3) + (height-3))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
     }
 
     /**

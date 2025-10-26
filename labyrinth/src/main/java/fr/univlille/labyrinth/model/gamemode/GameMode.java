@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -34,13 +35,13 @@ public abstract class GameMode {
      * @param height la hauteur du labyrinthe.
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
-    public void createMaze(int width, int height, double wallPercentage) {
-        this.currentMaze = new Maze(width,height,wallPercentage);
+    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
+        this.currentMaze = new Maze(algorithm, width,height,wallPercentage);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
-    public void createMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
-        this.currentMaze = new Maze(width,height,wallPercentage,distanceBetweenEntryAndExit);
+    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+        this.currentMaze = new Maze(algorithm, width,height,wallPercentage,distanceBetweenEntryAndExit);
     }
 
     /**
