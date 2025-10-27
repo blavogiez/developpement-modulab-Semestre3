@@ -1,5 +1,8 @@
 package fr.univlille.labyrinth.utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
@@ -16,27 +19,7 @@ import fr.univlille.labyrinth.model.maze.Maze;
  */
 public class Benchmark {
     public static void main(String[] args) {
-        //Benchmark.visualBench(10, 500, 5);
-        //Benchmark.csvBench(10, 500, 5);
-        //Benchmark.csvBench(MazeAlgorithmFactory)
-    }
-
-    public static void visualBench(int taille, int fin) {
-        Benchmark.visualBench(taille, fin, 1);
-    }
-
-    public static void visualBench(int taille, int fin, int ecart) {
-        if((fin<0 || fin < taille) || taille < 2) throw new MazeSizeException("Fin supérieure à la taille");
-
-        while (taille<fin){
-            taille+=ecart;
-            Timer timer = new Timer() ;
-            timer.start();
-            new Maze(MazeAlgorithmFactory.STANDARDLARGEUR, taille,taille*2,0.5);
-            timer.stop();
-            System.out.print("Labyrinthe de taille " + taille + "*" + taille*2 + ", ");
-            System.out.println(timer);
-        }
+        Benchmark.csvBench(10, 500, 5);
     }   
 
     /**
@@ -52,16 +35,31 @@ public class Benchmark {
      * Enregistre les données mesurées dans un fichier au nom de l'algorithme.
      */
     public static void csvBench(MazeAlgorithmFactory algo, int taille, int fin, int ecart) {
-        if((fin<0 || fin < taille) || taille < 2) throw new MazeSizeException("Fin supérieure à la taille");
+        if((fin<0 || fin < taille) || taille < 2) throw new MazeSizeException("Fin supérieure à la taille ou taille impossible");
+        if(ecart<=0) throw new IndexOutOfBoundsException("Ecart nul ou décroissant, boucle infinie");
 
-        while (taille<fin){
-            taille+=ecart;
-            Timer timer = new Timer() ;
-            timer.start();
-            new Maze(algo, taille,taille*2,0.5);
-            timer.stop();
-            
-            // ecrire valeurs csv (plus tard)...
+        File dir = new File("res/benchmarks");
+        dir.mkdir();
+        String filename = "res/benchmarks/"+algo.name()+"_TAILLE_"+taille+"_A_"+fin+"_ECART_"+ecart+".csv";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write("taille,temps(ms)\n");
+
+            while (taille < fin) {
+                taille += ecart;
+                Timer timer = new Timer();
+                timer.start();
+                new Maze(algo, taille, taille*2, 0.5);
+                timer.stop();
+
+                long temps = timer.getChrono();
+                writer.write(taille + "," + temps + "\n");
+                System.out.println("Algorithme: " + algo.name() + ", Taille: " + taille + ", Temps: " + temps + " ms");
+            }
+
+            System.out.println("Fichier créé: " + filename);
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'écriture du fichier: " + e.getMessage());
         }
     }
 }
