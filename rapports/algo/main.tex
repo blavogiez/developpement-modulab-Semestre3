@@ -1,29 +1,172 @@
 \documentclass{butexFR}
+\usepackage{tabularray}
 
-%-------------------- Informations ----------------------
+
 \titre{Développement efficace}
-\UE{SAÉ S3.03 - Labyrinthe}
-\sujet{Algorithmie}
-\enseignant{Everaere Patricia}
-\eleves{Bredelle Victor \\ Marouze Antonin \\ Harlaut Romain \\ Zheng Angèl \\ Lavogiez Baptiste}
+\UE{Algorithmie}
+\sujet{SAÉ 3.02 - Labyrinthe}
+\enseignant{Mme Everaere}
+\eleves{Victor Bredelle \\ Antonin Marouze \\ Romain Harlaut \\ Angèl Zheng \\ Baptiste Lavogiez}
 
-%-------------------- Début du document -----------------
+
 \begin{document}
 
 \fairepagedegarde
 \fairemarges
 \tabledematieres
 
-%======================= Contenu ========================
 \section{Introduction}
 
-\section{⟨Section title⟩}
+Ce rapport présente l'analyse UML du projet \textbf{SAÉ S3.02 - Labyrinthe}, un jeu avec deux modes (libre et progression) :
 
-\section{⟨Section title⟩}
+\begin{enumerate}
+    \item Diagrammes de cas d'utilisation
+    \item Fiches descriptives
+    \item Prototype d'interface
+    \item Diagramme de classe
+\end{enumerate}
+
+\section{Investissement dans le projet}
+\textbf{Groupe G3.3}
+
+\begin{itemize}
+    \item Victor Bredelle
+    \item Antonin Marouze
+    \item Romain Harlaut
+    \item Angèl Zheng
+    \item Baptiste Lavogiez 
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tblr}{
+  colspec = {ccccccc},
+  hlines, vlines,
+  row{1} = {bg=red!20},
+  column{1}= {bg=red!60}
+}
+Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
+Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Data 2.5⟩ & 100\% \\
+\end{tblr}
+\caption{Répartition de l'investissement}
+\label{tab:repartition}
+\end{table}
+
+\tsec{Victor}
+
+Rédaction de trois fiches descriptives avec Baptiste : Charger profil, Afficher progression, Lancer mode progression.
+
+\tsec{Antonin}
+
+Réalisation de la maquette \textit{Figma} avec Angèl et Romain.
+
+\tsec{Romain}
+
+Réalisation de la fiche descriptive "Déplacer joueur" et aide à la maquette \textit{Figma}.
+
+\tsec{Angèl}
+
+Réalisation de la maquette \textit{Figma} avec Antonin et Romain.
+
+\tsec{Baptiste}
+
+Rédaction de trois fiches descriptives avec Victor et rédaction du rapport.
+
+\tsecnonum{Le groupe}
+
+\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
+
+\section{Structures de données pour les labyrinthes}
+
+\subsection{Labyrinthes aléatoires}
+
+\subsection{Labyrinthes parfaits}
+
+\section{Algorithmes de génération}
+
+\subsection{Labyrinthes aléatoires}
+
+\subsubsection{Algorithme utilisé}
+
+\subsubsection{Pseudo-code}
+
+\begin{codeboxlang}{pseudocode}
+toto titi
+tant que toto
+	faire tata
+\end{codeboxlang}
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\subsection{Labyrinthes parfaits}
+
+\subsubsection{Algorithme utilisé}
+
+\subsubsection{Pseudo-code}
+
+\begin{codeboxlang}{pseudocode}
+toto titi
+tant que toto
+	faire tata
+\end{codeboxlang}
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\section{Efficacité}
+
+\subsection{Méthode}
+
+\subsubsection{Test de performance}
+
+\tsec{Classe "Benchmark"}
+\begin{codeboxlang}{java}
+// Fichier: HelloWorld.java
+public class HelloWorld {
+/**
+* Le point d'entrée du programme.
+*/
+	public static void main(String[] args) {
+	System.out.println("Hello, World from Java!"); 
+	}
+}
+\end{codeboxlang}
+
+\subsubsection{Modélisation}
+
+\tsec{Script "Modélisation"}
+\begin{codeboxlang}{python}
+# Simple script pour saluer le monde
+def say_hello(name):
+"""
+Cette fonction affiche un message de salutation.
+"""
+print(f"Hello, {name}!")
+
+if __name__ == "__main__":
+say_hello("World")
+\end{codeboxlang}
+
+\subsection{Labyrinthes aléatoires}
+
+\subsubsection{Test de performance}
+
+\subsubsection{Visualisation}
+
+\subsection{Labyrinthes parfaits}
+
+\subsubsection{Test de performance}
+
+\subsubsection{Visualisation}
+
+\subsection{Conclusion}
+
+\section{Complément et Bilan}
 
 \section{Conclusion}
-
-\merci
 
 \end{document}
 

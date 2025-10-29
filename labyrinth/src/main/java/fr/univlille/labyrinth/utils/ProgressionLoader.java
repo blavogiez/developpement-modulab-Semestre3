@@ -1,11 +1,15 @@
 package fr.univlille.labyrinth.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
-
-import java.io.*;
+import fr.univlille.labyrinth.model.save.ViewType;
 
 /**
  * Classe utilitaire pour charger la progression.
@@ -29,37 +33,49 @@ public class ProgressionLoader {
             throw new RuntimeException("Le fichier de progression par défaut n'existe pas: " + DEFAULT_PROGRESSION_FILE);
         }
 
-        // Créer les 3 niveaux
-        Level[] levels = new Level[3];
-        levels[0] = new Level(1);
-        levels[1] = new Level(2);
-        levels[2] = new Level(3);
-
+        int maxLevel = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            // Ignorer la ligne d'en-tête
             reader.readLine();
-
-            // Lire chaque ligne du CSV
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length != 8) {
-                    continue; // Ignorer les lignes invalides
+                if (parts.length == 9) {
+                    int levelNumber = Integer.parseInt(parts[2]);
+                    if (levelNumber > maxLevel) maxLevel = levelNumber;
                 }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Erreur lors de la détection des niveaux: " + e.getMessage(), e);
+        }
 
-                // Parser les données du challenge
+        Level[] levels = new Level[maxLevel];
+        for (int i = 0; i < maxLevel; i++) {
+            levels[i] = new Level(i + 1);
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = line.split(",");
+                if (parts.length != 9) continue;
+
                 MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.valueOf(parts[0]);
-                int levelNumber = Integer.parseInt(parts[1]);
-                int challengeIndex = Integer.parseInt(parts[2]);
-                String difficulty = parts[3];
-                int width = Integer.parseInt(parts[4]);
-                int height = Integer.parseInt(parts[5]);
-                double wallPercentage = Double.parseDouble(parts[6]);
-                int distanceBetweenEntryAndExit = Integer.parseInt(parts[7]);
+                ViewType viewType = ViewType.valueOf(parts[1]);
+                int levelNumber = Integer.parseInt(parts[2]);
+                int challengeIndex = Integer.parseInt(parts[3]);
+                String difficulty = parts[4];
+                int width = Integer.parseInt(parts[5]);
+                int height = Integer.parseInt(parts[6]);
+                double wallPercentage = Double.parseDouble(parts[7]);
+                int distanceBetweenEntryAndExit = Integer.parseInt(parts[8]);
 
-                // Créer le challenge et le placer dans le bon niveau
                 Challenge challenge = new Challenge(
                     algorithm,
+                    viewType,
                     difficulty,
                     width,
                     height,

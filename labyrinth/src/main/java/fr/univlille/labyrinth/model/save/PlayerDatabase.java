@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * PlayerDatabase gère la serialisation du joueur. Elle permet de load/save une progression par un nom.
+ * PlayerDatabase gère la persistance des données. Elle permet de load/save une progression par un nom.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
@@ -14,7 +14,6 @@ import java.util.List;
 public class PlayerDatabase {
     private static final String SAVE_FILE = "res/saves/players.dat";
 
-    // Create saves directory if it doesn't exist
     static {
         File file = new File(SAVE_FILE);
         File directory = file.getParentFile();
@@ -30,16 +29,13 @@ public class PlayerDatabase {
      */
     public static void savePlayer(Player player) {
         List<Player> players = loadAllPlayers();
-
-        //search if player already exists ; replace it
-        boolean found = isFound(player, players);
-
-        // Otherwise add it
+        boolean found = playerExists(player);
         if (!found) {
             players.add(player);
+        } else {
+            updatePlayer(player, players);
         }
 
-        //save the complete list
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
             oos.writeObject(players);
         } catch (Exception e) {
@@ -49,21 +45,21 @@ public class PlayerDatabase {
     }
 
     /**
-     * Cette méthode permet de savoir si le joueur existe dans la base de donnée
-     * @param player joueur recherché
-     * @param players liste des joueurs présents dans la base de donnée
-     * @return true si le joueur est bien dans la base de donnée
+     * Met à jour le joueur dans la base de données
+     *
+     * @param player objet du joueur
+     * @param player liste des joueurs
      */
-    private static boolean isFound(Player player, List<Player> players) {
+
+    public static void updatePlayer(Player player, List<Player> players) {
         boolean found = false;
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getName().equals(player.getName())) {
                 players.set(i, player);
-                found = true;
-                break;
+                return ;
             }
         }
-        return found;
+
     }
 
     /**
@@ -82,7 +78,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Renvoie true si la progression existe dans le dossier externe.
+     * Renvoie true si la progression du joueur au nom existe dans le dossier externe.
      *
      * @param name nom de la progression recherché.
      */
@@ -94,6 +90,15 @@ public class PlayerDatabase {
             }
         }
         return false;
+    }
+
+    /**
+     * Surcharge ; renvoie true si le joueur existe dans le dossier externe en vérifiant son nom.
+     *
+     * @param name nom de la progression recherché.
+     */
+    public static boolean playerExists(Player player) {
+        return playerExists(player.getName());
     }
 
     /**
@@ -115,7 +120,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Cette méthode supprime les données dans la base de donnée
+     * Cette méthode supprime les données dans la base de donnée (pour tests uniquement !)
      */
     public static void clear() {
         try {

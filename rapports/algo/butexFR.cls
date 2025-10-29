@@ -60,7 +60,7 @@
 }
 
 % Palette de couleurs professionnelles plus sérieuses
-\definecolor{primary}{HTML}{8B1538}        % Bordeaux profond
+\definecolor{primary}{HTML}{263238}%{8B1538}        % Bordeaux profond
 \definecolor{secondary}{HTML}{263238}      % Bordeaux pour subsections
 \definecolor{accent}{HTML}{3A5998}         % Bleu modéré
 \definecolor{success}{HTML}{2E7D32}        % Vert foncé professionnel
@@ -100,6 +100,8 @@
 \definecolor{rframe}{HTML}{5B87C7}
 \definecolor{matlabbg}{HTML}{F8F9FA}
 \definecolor{matlabframe}{HTML}{7A1E3D}
+\definecolor{pseudocodebg}{HTML}{F8F9FA}
+\definecolor{pseudocodeframe}{HTML}{ED8B00}
 
 % Configuration des liens (style professionnel)
 \hypersetup{
@@ -635,6 +637,17 @@
 	commentstyle=\color{darkgray}\itshape,
 	stringstyle=\color{success},
 	identifierstyle=\color{textcolor},
+	numberstyle=\tiny\color{darkgray}
+}
+%langage vide
+\lstdefinelanguage{pseudocode}{}
+
+% Style pour le pseudo-code
+\lstdefinestyle{pseudocodestyle}{
+	style=basestyle,
+	backgroundcolor=\color{pseudocodebg},
+	basicstyle=\ttfamily\small\color{textcolor},
+	commentstyle=\color{darkgray}\itshape,
 	numberstyle=\tiny\color{darkgray}
 }
 

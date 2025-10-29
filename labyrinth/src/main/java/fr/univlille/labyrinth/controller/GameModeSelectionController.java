@@ -1,13 +1,11 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.App;
 
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -42,7 +40,7 @@ public class GameModeSelectionController  {
      */
     @FXML
     private void goToModeLibre() throws IOException {
-        Main.goTo("freemode/FreeMode.fxml");
+        App.goTo("freemode/FreeMode.fxml");
     }
 
     /** 
@@ -50,7 +48,7 @@ public class GameModeSelectionController  {
      */
     @FXML
     private void goToModeProgression() throws IOException {
-        Main.goTo("progressionmode/PlayerNameEntry.fxml");
+        App.goTo("progressionmode/PlayerNameEntry.fxml");
     }
 
     /** 
@@ -58,6 +56,6 @@ public class GameModeSelectionController  {
      */
     @FXML
     private void goToQuitter() throws IOException {
-        Main.goTo("HomeMenu.fxml");
+        App.goTo("HomeMenu.fxml");
     }
 }

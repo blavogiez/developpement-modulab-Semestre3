@@ -61,4 +61,11 @@ public class ProgressionMode extends GameMode {
 
         notifyVictory();
     }
+
+    public String toString() {
+        String info = "Dimensions : " + selectedChallenge.getWidth() + "x" + selectedChallenge.getHeight() ;
+        info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
+        info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
+        return info ;
+    }
 }

@@ -1,14 +1,18 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.controller.freemode.FreeModeLabyrinthController;
-import fr.univlille.labyrinth.controller.progressionmode.AbstractProgressionModeLabyrinthController;
-import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import fr.univlille.labyrinth.controller.freemode.FreeModeLabyrinthController;
+import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrinthController;
+import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
 
 // Cette classe teste les contrôleurs liés à la victoire du joueur
 // On vérifie que les contrôleurs implémentent correctement Observer et possèdent la méthode update
@@ -23,10 +27,10 @@ public class VictoryControllerTest {
     }
 
     @Test
-    public void testAbstractProgressionModeLabyrinthControllerImplementsObserver() {
-        // Vérifie que AbstractProgressionModeLabyrinthController implémente Observer<GameMode>
-        assertTrue(Observer.class.isAssignableFrom(AbstractProgressionModeLabyrinthController.class),
-                "AbstractProgressionModeLabyrinthController doit implémenter Observer");
+    public void testProgressionModeLabyrinthControllerImplementsObserver() {
+        // Vérifie que ProgressionModeLabyrinthController implémente Observer<GameMode>
+        assertTrue(Observer.class.isAssignableFrom(ProgressionModeLabyrinthController.class),
+                "ProgressionModeLabyrinthController doit implémenter Observer");
     }
 
     @Test
@@ -43,15 +47,15 @@ public class VictoryControllerTest {
     }
 
     @Test
-    public void testAbstractProgressionModeLabyrinthControllerHasUpdateMethod() {
-        // Vérifie que AbstractProgressionModeLabyrinthController possède la méthode update(GameMode)
+    public void testProgressionModeLabyrinthControllerHasUpdateMethod() {
+        // Vérifie que ProgressionModeLabyrinthController possède la méthode update(GameMode)
         try {
-            Method updateMethod = AbstractProgressionModeLabyrinthController.class.getMethod("update", GameMode.class);
+            Method updateMethod = ProgressionModeLabyrinthController.class.getMethod("update", GameMode.class);
             assertNotNull(updateMethod, "La méthode update(GameMode) doit exister");
             assertEquals(void.class, updateMethod.getReturnType(),
                     "La méthode update doit retourner void");
         } catch (NoSuchMethodException e) {
-            fail("La méthode update(GameMode) devrait exister dans AbstractProgressionModeLabyrinthController");
+            fail("La méthode update(GameMode) devrait exister dans ProgressionModeLabyrinthController");
         }
     }
 
@@ -68,14 +72,14 @@ public class VictoryControllerTest {
     }
 
     @Test
-    public void testAbstractProgressionModeLabyrinthControllerHasMovementMethod() {
-        // Vérifie que AbstractProgressionModeLabyrinthController possède une méthode movement pour gérer les déplacements
+    public void testProgressionModeLabyrinthControllerHasMovementMethod() {
+        // Vérifie que ProgressionModeLabyrinthController possède une méthode movement pour gérer les déplacements
         try {
-            Method movementMethod = AbstractProgressionModeLabyrinthController.class.getMethod("movement",
+            Method movementMethod = ProgressionModeLabyrinthController.class.getMethod("movement",
                     javafx.scene.input.KeyEvent.class);
             assertNotNull(movementMethod, "La méthode movement devrait exister");
         } catch (NoSuchMethodException e) {
-            fail("La méthode movement(KeyEvent) devrait exister dans AbstractProgressionModeLabyrinthController");
+            fail("La méthode movement(KeyEvent) devrait exister dans ProgressionModeLabyrinthController");
         }
     }
 }

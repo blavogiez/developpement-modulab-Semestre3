@@ -26,6 +26,7 @@ public class PlayerProgress implements Serializable {
                 Challenge original = originalChallenges[j];
                 newLevel.getChallenges()[j] = new Challenge(
                     original.getAlgorithm(),
+                    original.getViewType(),
                     original.getDifficulty(),
                     original.getWidth(),
                     original.getHeight(),

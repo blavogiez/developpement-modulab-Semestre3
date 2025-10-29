@@ -1,13 +1,11 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.App;
+import fr.univlille.labyrinth.app.SceneNavigator;
+import fr.univlille.labyrinth.app.ThemeManager;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
-
-import static fr.univlille.labyrinth.Main.getTheme;
-
-
 /**
  * Controller des paramètres
  *
@@ -23,8 +21,8 @@ public class SettingsController {
      */
     @FXML
     private void toggleButton(){
-        Main.setDarkMode(!Main.getDarkMode());
-        Main.getPrimaryStage().getScene().getStylesheets().set(0,Main.class.getResource(getTheme()).toExternalForm());
+        ThemeManager.setDarkMode(!ThemeManager.isDarkMode());
+        SceneNavigator.getPrimaryStage().getScene().getStylesheets().set(0, App.class.getResource(ThemeManager.getThemeCss()).toExternalForm());
     }
 
     /**
@@ -32,6 +30,6 @@ public class SettingsController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("HomeMenu.fxml");
+        App.goTo("HomeMenu.fxml");
     }
 }

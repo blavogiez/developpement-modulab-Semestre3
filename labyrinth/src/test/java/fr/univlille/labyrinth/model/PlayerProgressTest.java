@@ -4,6 +4,8 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
+import fr.univlille.labyrinth.model.save.ViewType;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +21,7 @@ class PlayerProgressTest {
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new Level(i + 1);
             for (int j = 0; j < 3; j++) {
-                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, "Diff" + j, 10, 10, 20);
+                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL, "Diff" + j, 10, 10, 20);
             }
         }
         progress = new PlayerProgress(levels);

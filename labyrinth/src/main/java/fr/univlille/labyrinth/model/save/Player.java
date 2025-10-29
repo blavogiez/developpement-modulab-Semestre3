@@ -45,6 +45,15 @@ public class Player implements Serializable {
         return getProgress().getHighestLevel() ;
     }
 
+    /**
+     * Détermine si l'étape d'index levelIdx est accessible selon le niveau atteint (demande du sujet)
+     * @param levelIdx 
+     * @return true
+     */
+    public boolean isLevelLocked(int levelIdx) {
+        return getHighestLevel() < levelIdx;
+    }
+
     /** 
      * @return String
      */

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="pane1" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#movement" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.LimitedViewProgressionModeLabyrinthController">
+<BorderPane fx:id="pane1" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#movement" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype.LocalViewProgressionModeLabyrinthController">
    <padding>
       <Insets left="100.0" right="100.0" />
    </padding>

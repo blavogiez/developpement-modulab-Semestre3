@@ -20,4 +20,11 @@ public class FreeMode extends GameMode {
     public void createMaze() {
         createMaze(algorithm, mazeWidth, mazeHeight, mazeWallPercentage);
     }
+
+    public String toString() {
+        String info = "Labyrinthe d'algorithme " + algorithm.name() + " ; \n" ;
+        info+= "Dimensions : " + FreeMode.mazeWidth + "x" + FreeMode.mazeHeight;
+        info += ", Pourcentage : " + (int)(FreeMode.mazeWallPercentage * 100) + "%";
+        return info ;
+    }
 }

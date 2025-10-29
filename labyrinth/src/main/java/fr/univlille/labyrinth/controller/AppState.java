@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 

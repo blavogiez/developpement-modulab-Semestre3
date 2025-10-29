@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
-import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -44,7 +44,7 @@ public class HomeMenuController {
      */
     @FXML
     private void goToJouer() throws IOException {
-        Main.goTo("GameModeSelection.fxml");
+        App.goTo("GameModeSelection.fxml");
     }
 
     @FXML
@@ -57,6 +57,6 @@ public class HomeMenuController {
      */
     @FXML
     private void goToParametres() throws IOException {
-        Main.goTo("Settings.fxml");
+        App.goTo("Settings.fxml");
     }
 }

@@ -18,6 +18,7 @@ public class Challenge implements Serializable {
     private final double wallPercentage;
     private final int distanceBetweenEntryAndExit;
     private final MazeAlgorithmFactory algorithm ;
+    private final ViewType viewType ;
     private long timeCompleted;
     private boolean completed;
 
@@ -30,8 +31,9 @@ public class Challenge implements Serializable {
      * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
      * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
      */
-    public Challenge(MazeAlgorithmFactory algorithm, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
         this.algorithm=algorithm;
+        this.viewType=viewType;
         this.difficulty=difficulty;
         this.width=width;
         this.height=height;
@@ -47,8 +49,8 @@ public class Challenge implements Serializable {
      * @param height Hauteur du labyrinthe associé au challenge.
      * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
      */
-    public Challenge(MazeAlgorithmFactory algorithm, String difficulty, int width, int height, double wallPercentage) {
-        this(algorithm, difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
+    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
     }
 
     /**
@@ -100,6 +102,14 @@ public class Challenge implements Serializable {
         return distanceBetweenEntryAndExit;
     }
 
+
+    /** 
+     * @return int
+     */
+    public ViewType getViewType() {
+        return this.viewType;
+    }
+
     /** 
      * @return long
      */
@@ -141,5 +151,24 @@ public class Challenge implements Serializable {
      */
     public void setCompleted(boolean completed) {
         this.completed = completed ;
+    }
+
+    /*
+     * @return String
+     */
+    public String toString() {
+        StringBuilder text = new StringBuilder();
+        text.append("Type de labyrinthe : ").append(this.getAlgorithm().name()).append("\n");
+        text.append("Type de vue : ").append(this.getViewType().name()).append("\n");
+        text.append("Difficulté : ").append(this.getDifficulty()).append("\n");
+        text.append("Dimensions : ").append(this.getWidth()).append("x").append(this.getHeight()).append("\n");
+        text.append("Murs : ").append(String.format("%.0f%%", this.getWallPercentage() * 100)).append("\n");
+        text.append("Distance : ").append(this.getDistanceBetweenEntryAndExit());
+
+        if (this.isCompleted() && this.getTimeCompleted() > 0) {
+            double timeInSeconds = this.getTimeCompleted() / 1000.0;
+            text.append("\nTemps : ").append(String.format("%.1fs", timeInSeconds));
+        }
+        return text.toString() ;
     }
 }

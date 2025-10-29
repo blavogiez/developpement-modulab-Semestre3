@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.controller.progressionmode;
 
-import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 
@@ -34,9 +34,9 @@ public class PlayerNameEntryController {
         if (name.isEmpty()) return;
         playerName = name;
         if (PlayerDatabase.playerExists(playerName)) {
-            Main.goTo("progressionmode/ExistingProfile.fxml");
+            App.goTo("progressionmode/ExistingProfile.fxml");
         } else {
-            Main.goTo("progressionmode/LevelSelection.fxml");
+            App.goTo("progressionmode/LevelSelection.fxml");
         }
     }
 
@@ -45,6 +45,6 @@ public class PlayerNameEntryController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("GameModeSelection.fxml");
+        App.goTo("GameModeSelection.fxml");
     }
 }

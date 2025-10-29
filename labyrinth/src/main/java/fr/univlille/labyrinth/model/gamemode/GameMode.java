@@ -10,7 +10,7 @@ import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 /**
- * GameMode est la classe qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
+ * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0

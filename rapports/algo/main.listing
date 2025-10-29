@@ -1,0 +1,9 @@
+# Simple script pour saluer le monde
+def say_hello(name):
+"""
+Cette fonction affiche un message de salutation.
+"""
+print(f"Hello, {name}!")
+
+if __name__ == "__main__":
+say_hello("World")

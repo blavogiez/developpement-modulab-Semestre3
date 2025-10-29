@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.controller.freemode;
 
-import fr.univlille.labyrinth.Main;
+import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import javafx.animation.PauseTransition;
@@ -81,7 +81,7 @@ public class FreeModeController {
         FreeMode.mazeWidth = width;
         FreeMode.mazeHeight = height;
         FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
-        Main.goTo("freemode/FreeModeLabyrinth.fxml");
+        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     private void showError() {
@@ -97,6 +97,6 @@ public class FreeModeController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        Main.goTo("GameModeSelection.fxml");
+        App.goTo("GameModeSelection.fxml");
     }
 }
