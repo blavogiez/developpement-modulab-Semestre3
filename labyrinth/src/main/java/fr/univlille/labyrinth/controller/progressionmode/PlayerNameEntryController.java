@@ -24,8 +24,8 @@ public class PlayerNameEntryController {
      */
     @FXML
     public void initialize(){
-        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menu));
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
     }
 
     @FXML

@@ -10,52 +10,10 @@ import javafx.scene.text.Font;
 
 public class ResizeUtil {
 
-    public static void redimensionnerVboxControles(VBox parent) {
-        redimensionnerVboxControles(parent, 0.4, 0.1,  0, 0, 0.05, 0);
-    }
-
-    public static void redimensionnerVboxControles(VBox parent,double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) {
-        double width = parent.getWidth();
-        double height = parent.getHeight();
-
-        ObservableList<Node> enfants = parent.getChildren();
-        for (Node enfant : enfants) {
-            if (enfant instanceof Control cont) {
-                redimensionnerPaneControl(parent, cont, height*pourcentHeigth, height*pourcentHeigth,  height*MarginT, width*MarginR, height*MarginB, width*MarginL);
-            }
-        }
-    }
-
-    public static void redimensionnerVboxControles(VBox parent,double pourcentWidth, double pourcentHeigth, double MarginT, double MarginR, double MarginB, double MarginL) {
-        double width = parent.getWidth();
-        double height = parent.getHeight();
-
-        ObservableList<Node> enfants = parent.getChildren();
-        for (Node enfant : enfants) {
-            if (enfant instanceof Control cont) {
-                redimensionnerPaneControl(parent, cont, width*pourcentWidth, height*pourcentHeigth,  height*MarginT, width*MarginR, height*MarginB, width*MarginL);
-            }
-        }
-    }
-
-    public static void redimensionnerPanePanes(Pane parent){
-        double width = parent.getWidth();
-        double height = parent.getHeight();
-
-        ObservableList<Node> enfants = parent.getChildren();
-        int nbEtapes = enfants.size();
-        Pane temp = null;
-        for (Node enfant : enfants) {
-            temp = (Pane)enfant;
-            redimensionnerPanePane( parent, temp,width/nbEtapes,height, height*0.05, 0, 0, width*0.05);
-        }
-        redimensionnerPanePane( parent, temp,width/nbEtapes,height, height*0.05, width*0.05, 0, width*0.05);
-    }
-
-    public static void redimensionnerPaneControl(Pane parent, Control cont,double width,double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+        cont.setMinWidth(width);
+        cont.setPrefWidth(width);
         if(cont instanceof Button button){
-            button.setPrefWidth(width);
-            button.setPrefHeight(height);
             button.setFont(new Font(height * 0.50));
         } else if(cont instanceof Label label){
             label.setFont(new Font(height * 0.60));
@@ -67,7 +25,26 @@ public class ResizeUtil {
         }
     }
 
-    public static void redimensionnerPanePane(Pane parent, Pane pane,double width,double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizeControlsInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        boolean isHBox = parent instanceof HBox;
+                
+        ObservableList<Node> childs = parent.getChildren();
+        int nbchilds = childs.size();
+        Control temp = null;
+        for (Node child : childs) {
+            temp = (Control)child;
+            if(isHBox){
+                resizeControlInPane( parent, temp,(width/nbchilds)*0.40,height*0.50, 0, 0, 0, (width/nbchilds)*0.05);
+            }else{
+                resizeControlInPane( parent, temp,width*0.50,(height/nbchilds)*0.40, 0, 0, (height/nbchilds)*0.15, 0);
+            }
+
+        }
+    }
+
+    public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         pane.setPrefWidth(width);
         pane.setPrefHeight(height);
 
@@ -76,5 +53,19 @@ public class ResizeUtil {
         } else if (parent instanceof HBox) {
             HBox.setMargin(pane, new Insets(MarginT, MarginR, MarginB, MarginL));
         }
+    }
+
+    public static void resizePanesInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+
+        ObservableList<Node> childs = parent.getChildren();
+        int nbEtapes = childs.size();
+        Pane temp = null;
+        for (Node child : childs) {
+            temp = (Pane)child;
+            resizePaneInPane( parent, (Pane)child,width/nbEtapes,height, height*0.05, 0, 0, width*0.05);
+        }
+        resizePaneInPane( parent, temp,width/nbEtapes,height, height*0.05, width*0.05, 0, width*0.05);
     }
 }

@@ -31,8 +31,8 @@ public class GameModeSelectionController  {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menuBoutons));
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menuBoutons));
     }
 
     /**

@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -186,12 +187,12 @@ public class LevelSelectionController {
     }
 
     private void resize(){
-        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
-        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerPanePanes(menuEtape));
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menuEtape));
 
         for (VBox etape : etapeVBoxes) {
-            etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(etape,0.08,0,0,0.14,0));
-            etape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(etape,0.08,0,0,0.14,0));
+            etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( etape));
+            etape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( etape));
         }
     }
 }

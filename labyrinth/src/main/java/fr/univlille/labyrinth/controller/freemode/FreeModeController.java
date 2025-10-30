@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -46,14 +47,15 @@ public class FreeModeController {
     @FXML
     private VBox menu;
 
+    @FXML
+    private HBox line1;
+
     // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
         wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
-        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.redimensionnerVboxControles(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.redimensionnerVboxControles(menu));
 
     }
 
@@ -98,5 +100,12 @@ public class FreeModeController {
     @FXML
     private void goToAccueil() throws IOException {
         App.goTo("GameModeSelection.fxml");
+    }
+
+    private void resize(){
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
+        line1.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(line1));
+        line1.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(line1));
     }
 }
