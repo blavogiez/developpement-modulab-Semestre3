@@ -9,31 +9,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="473.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.freemode.FreeModeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="473.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.freemode.FreeModeController">
     <center>
-        <VBox fx:id="menu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10" BorderPane.alignment="CENTER">
+        <VBox fx:id="menu" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" spacing="10" BorderPane.alignment="CENTER">
             <children>
                 <HBox fx:id="Line1" alignment="CENTER" spacing="10">
                     <children>
                         <Label text="Largeur :" />
-                        <TextField fx:id="widthField" maxHeight="-USE_PREF_SIZE" maxWidth="-USE_PREF_SIZE" />
+                        <TextField fx:id="widthField" maxHeight="-1.0" maxWidth="-1.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
                     <children>
                         <Label text="Hauteur :" />
-                        <TextField fx:id="heightField" maxHeight="-USE_PREF_SIZE" maxWidth="-USE_PREF_SIZE" />
+                        <TextField fx:id="heightField" maxHeight="-1.0" maxWidth="-1.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
                     <children>
                         <Label text="Pourcentage de murs :" />
-                        <Slider fx:id="wallPercentageSlider" blockIncrement="0.05" majorTickUnit="0.2" max="1.0" maxHeight="-USE_PREF_SIZE" maxWidth="-USE_PREF_SIZE" min="0.0" showTickLabels="true" showTickMarks="true" value="0.0" />
+                        <Slider fx:id="wallPercentageSlider" blockIncrement="0.05" majorTickUnit="0.2" max="1.0" maxHeight="-1.0" maxWidth="-1.0" min="0.0" showTickLabels="true" showTickMarks="true" value="0.0" />
                     </children>
                 </HBox>
                 <Label fx:id="errorLabel" style="-fx-text-fill: red;" text="Dimensions invalides : min 3x4 ou 4x3" visible="false" />
-                <Button fx:id="bouttonValider" maxHeight="-USE_PREF_SIZE" maxWidth="-USE_PREF_SIZE" mnemonicParsing="false" onAction="#goToModeLaby" text="Valider" />
-                <Button fx:id="bouttonQuitter" maxHeight="-USE_PREF_SIZE" maxWidth="-USE_PREF_SIZE" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
+                <Button fx:id="bouttonValider" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#goToModeLaby" text="Valider" />
+                <Button fx:id="bouttonQuitter" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
             </children>
         </VBox>
     </center>

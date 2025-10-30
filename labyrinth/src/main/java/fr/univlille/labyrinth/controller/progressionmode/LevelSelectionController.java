@@ -87,33 +87,15 @@ public class LevelSelectionController {
         etapeVBox.setAlignment(javafx.geometry.Pos.CENTER);
         etapeVBox.getStyleClass().add("etapes");
 
-        if (levelIndex == 0) {
-            etapeVBox.setMaxWidth(Double.MAX_VALUE);
-            javafx.scene.layout.HBox.setHgrow(etapeVBox, javafx.scene.layout.Priority.ALWAYS);
-        } else {
-            etapeVBox.setMaxHeight(-1);
-            etapeVBox.setMaxWidth(-1);
-            etapeVBox.setPrefHeight(ETAPE_PREF_HEIGHT);
-            etapeVBox.setPrefWidth(ETAPE_PREF_WIDTH);
-        }
-
         Label etapeLabel = new Label("Étape " + (levelIndex + 1));
-        etapeLabel.setMaxHeight(-1);
-        etapeLabel.setMaxWidth(-1);
-        VBox.setMargin(etapeLabel, new Insets(10.0, 0, 10.0, 0));
+        etapeLabel.setAlignment(javafx.geometry.Pos.CENTER);
         etapeVBox.getChildren().add(etapeLabel);
 
         return etapeVBox;
     }
 
     private Button createChallengeButton(int challengeIndex) {
-        Button btn = new Button(String.valueOf(challengeIndex + 1));
-        btn.setMaxHeight(-1);
-        btn.setMaxWidth(-1);
-        btn.setMnemonicParsing(false);
-        btn.setScaleX(BUTTON_SCALE);
-        btn.setScaleY(BUTTON_SCALE);
-        return btn;
+        return new Button(String.valueOf(challengeIndex + 1));
     }
 
     @FXML
@@ -191,8 +173,8 @@ public class LevelSelectionController {
         menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menuEtape));
 
         for (VBox etape : etapeVBoxes) {
-            etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( etape));
-            etape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( etape));
+            etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeEtapeControlsInPane( etape));
+            etape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeEtapeControlsInPane( etape));
         }
     }
 }

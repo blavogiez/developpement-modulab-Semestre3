@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -13,8 +14,14 @@ public class ResizeUtil {
     public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         cont.setMinWidth(width);
         cont.setPrefWidth(width);
+        cont.setMaxWidth(width);
+        cont.setMinHeight(height);
+        cont.setPrefHeight(height);
+        cont.setMaxHeight(height);
+
         if(cont instanceof Button button){
             button.setFont(new Font(height * 0.50));
+            button.setPadding(new Insets(0, 0, 0, 0));
         } else if(cont instanceof Label label){
             label.setFont(new Font(height * 0.60));
         }
@@ -25,28 +32,45 @@ public class ResizeUtil {
         }
     }
 
+    public static void resizeControlsInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+        ObservableList<Node> childs = parent.getChildren();
+        for (Node child : childs) {
+            resizeControlInPane( parent, (Control)child,width,height, height*MarginT, MarginR, MarginB, MarginL);
+        }
+    }
+
     public static void resizeControlsInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
-                
-        ObservableList<Node> childs = parent.getChildren();
-        int nbchilds = childs.size();
-        Control temp = null;
-        for (Node child : childs) {
-            temp = (Control)child;
-            if(isHBox){
-                resizeControlInPane( parent, temp,(width/nbchilds)*0.40,height*0.50, 0, 0, 0, (width/nbchilds)*0.05);
-            }else{
-                resizeControlInPane( parent, temp,width*0.50,(height/nbchilds)*0.40, 0, 0, (height/nbchilds)*0.15, 0);
-            }
 
+        ObservableList<Node> childs = parent.getChildren();
+        int nbChilds = childs.size();
+        if(isHBox){
+            resizeControlsInPane( parent,(width/nbChilds)*0.40,height*0.50, 0, 0, 0, (width/nbChilds)*0.05);
+        }else{
+            resizeControlsInPane( parent,width*0.50,(height/nbChilds)*0.40, 0, 0, (height/nbChilds)*0.15, 0);
         }
+    }
+
+    public static void resizeEtapeControlsInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        boolean isHBox = parent instanceof HBox;
+
+        ObservableList<Node> childs = parent.getChildren();
+        int nbChilds = childs.size();
+        double boutonSize = Double.min(width*0.70,(height/nbChilds)*0.70);
+        resizeControlsInPane( parent,boutonSize,boutonSize, 0, 0, (height/nbChilds)*0.2, 0);
     }
 
     public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         pane.setPrefWidth(width);
         pane.setPrefHeight(height);
+        pane.setMaxWidth(width);
+        pane.setMinHeight(height);
+        pane.setPrefHeight(height);
+        pane.setMaxHeight(height);
 
         if(parent instanceof VBox){
             VBox.setMargin(pane, new Insets(MarginT, MarginR, MarginB, MarginL));
@@ -60,12 +84,13 @@ public class ResizeUtil {
         double height = parent.getHeight();
 
         ObservableList<Node> childs = parent.getChildren();
-        int nbEtapes = childs.size();
+        int nbChilds = childs.size();
         Pane temp = null;
         for (Node child : childs) {
             temp = (Pane)child;
-            resizePaneInPane( parent, (Pane)child,width/nbEtapes,height, height*0.05, 0, 0, width*0.05);
+            resizePaneInPane( parent, temp,(width/nbChilds)*0.80,height*0.95, 0, 0, 0, (width/nbChilds)*0.15);
         }
-        resizePaneInPane( parent, temp,width/nbEtapes,height, height*0.05, width*0.05, 0, width*0.05);
     }
+
+
 }
