@@ -56,6 +56,7 @@ public class FreeModeController {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
         wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
+        resize();
 
     }
 
@@ -103,9 +104,7 @@ public class FreeModeController {
     }
 
     private void resize(){
-        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
-        line1.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(line1));
-        line1.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(line1));
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menu));
     }
 }

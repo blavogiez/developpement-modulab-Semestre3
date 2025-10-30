@@ -169,8 +169,8 @@ public class LevelSelectionController {
     }
 
     private void resize(){
-        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menuEtape));
-        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menuEtape));
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeEtapeInPane(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeEtapeInPane(menuEtape));
 
         for (VBox etape : etapeVBoxes) {
             etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeEtapeControlsInPane( etape));

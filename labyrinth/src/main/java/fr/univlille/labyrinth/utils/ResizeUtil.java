@@ -65,8 +65,8 @@ public class ResizeUtil {
     }
 
     public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+        pane.setMinWidth(width);
         pane.setPrefWidth(width);
-        pane.setPrefHeight(height);
         pane.setMaxWidth(width);
         pane.setMinHeight(height);
         pane.setPrefHeight(height);
@@ -79,18 +79,34 @@ public class ResizeUtil {
         }
     }
 
+    public static void resizePanesInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+        ObservableList<Node> childs = parent.getChildren();
+        for (Node child : childs) {
+            resizePaneInPane( parent, (Pane) child,width,height, height*MarginT, MarginR, MarginB, MarginL);
+        }
+    }
+
     public static void resizePanesInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        boolean isHBox = parent instanceof HBox;
+
+        ObservableList<Node> childs = parent.getChildren();
+        int nbChilds = childs.size();
+        if(isHBox){
+            resizePanesInPane( parent,(width/nbChilds)*0.90,height, 0, 0, 0, 0);
+        }else{
+            resizePanesInPane( parent,width,(height/nbChilds)*0.90, 0, 0, 0, 0);
+        }
+    }
+
+    public static void resizeEtapeInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
 
         ObservableList<Node> childs = parent.getChildren();
         int nbChilds = childs.size();
-        Pane temp = null;
-        for (Node child : childs) {
-            temp = (Pane)child;
-            resizePaneInPane( parent, temp,(width/nbChilds)*0.80,height*0.95, 0, 0, 0, (width/nbChilds)*0.15);
-        }
+        resizePanesInPane( parent,(width/nbChilds)*0.80,height*0.95, 0, 0, 0, (width/nbChilds)*0.15);
     }
-
 
 }
