@@ -4,6 +4,7 @@ module fr.univlille.labyrinth {
     requires java.desktop;
     requires javafx.graphics;
     requires javafx.base;
+    requires jdk.compiler;
 
     exports fr.univlille.labyrinth.view;
 

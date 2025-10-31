@@ -40,7 +40,7 @@ public class GameModeSelectionController  {
      */
     @FXML
     private void goToModeLibre() throws IOException {
-        App.goTo("freemode/FreeMode.fxml");
+        App.goTo("freemode/FreeModeAlgorithmSelection.fxml");
     }
 
     /** 
