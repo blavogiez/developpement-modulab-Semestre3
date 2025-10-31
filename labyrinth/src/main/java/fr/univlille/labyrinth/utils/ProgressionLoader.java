@@ -10,6 +10,7 @@ import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
 import fr.univlille.labyrinth.model.save.ViewType;
+import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
 
 /**
  * Classe utilitaire pour charger la progression.
@@ -40,8 +41,8 @@ public class ProgressionLoader {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length == 9) {
-                    int levelNumber = Integer.parseInt(parts[2]);
+                if (parts.length == 10) {
+                    int levelNumber = Integer.parseInt(parts[3]);
                     if (levelNumber > maxLevel) maxLevel = levelNumber;
                 }
             }
@@ -61,17 +62,18 @@ public class ProgressionLoader {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length != 9) continue;
+                if (parts.length != 10) continue;
 
-                MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.valueOf(parts[0]);
-                ViewType viewType = ViewType.valueOf(parts[1]);
-                int levelNumber = Integer.parseInt(parts[2]);
-                int challengeIndex = Integer.parseInt(parts[3]);
-                String difficulty = parts[4];
-                int width = Integer.parseInt(parts[5]);
-                int height = Integer.parseInt(parts[6]);
-                double wallPercentage = Double.parseDouble(parts[7]);
-                int distanceBetweenEntryAndExit = Integer.parseInt(parts[8]);
+                ScoreCalculatorFactory scoreFactory = ScoreCalculatorFactory.valueOf(parts[0]);
+                MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.valueOf(parts[1]);
+                ViewType viewType = ViewType.valueOf(parts[2]);
+                int levelNumber = Integer.parseInt(parts[3]);
+                int challengeIndex = Integer.parseInt(parts[4]);
+                String difficulty = parts[5];
+                int width = Integer.parseInt(parts[6]);
+                int height = Integer.parseInt(parts[7]);
+                double wallPercentage = Double.parseDouble(parts[8]);
+                int distanceBetweenEntryAndExit = Integer.parseInt(parts[9]);
 
                 Challenge challenge = new Challenge(
                     algorithm,
@@ -80,7 +82,8 @@ public class ProgressionLoader {
                     width,
                     height,
                     wallPercentage,
-                    distanceBetweenEntryAndExit
+                    distanceBetweenEntryAndExit,
+                    scoreFactory.create()
                 );
                 levels[levelNumber - 1].getChallenges()[challengeIndex] = challenge;
             }

@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.ViewType;
+import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class ChallengeTest {
 
     @BeforeEach
     void init() {
-        challenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Facile", 10, 8, 30);
+        challenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Facile", 10, 8, 30, new StandardScoreCalculator());
     }
 
     @Test
@@ -60,11 +61,11 @@ class ChallengeTest {
 
     @Test
     void testScoreValueChangesWithParameters() {
-        Challenge smallChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Moyen", 5, 5, 0.2);
+        Challenge smallChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Moyen", 5, 5, 0.2, new StandardScoreCalculator());
         smallChallenge.setCompleted(true);
         assertEquals(5 * 5 * 20, smallChallenge.getScoreValue(), "Le score devrait dépendre des dimensions et du pourcentage de murs");
 
-        Challenge largeChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Difficile", 15, 15, 0.5);
+        Challenge largeChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Difficile", 15, 15, 0.5, new StandardScoreCalculator());
         largeChallenge.setCompleted(true);
         assertEquals(15 * 15 * 50, largeChallenge.getScoreValue(), "Un grand labyrinthe devrait rapporter plus de points");
     }

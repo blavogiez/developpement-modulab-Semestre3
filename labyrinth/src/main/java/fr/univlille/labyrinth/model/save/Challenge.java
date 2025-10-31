@@ -1,8 +1,11 @@
 package fr.univlille.labyrinth.model.save;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.save.score.ScoreCalculator;
+import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
 /**
  * Modèle des différents challenges du mode de progression.
@@ -21,17 +24,22 @@ public class Challenge implements Serializable {
     private final ViewType viewType ;
     private long timeCompleted;
     private boolean completed;
+    private ScoreCalculator scoreCalculator;
 
     /**
-     * Génère un challenge
+     * Génère un challenge avec injection de la stratégie de calcul de score
+     * Permet l'inversion de dépendance pour faciliter les tests et l'extensibilité
      *
+     * @param algorithm Algorithme de génération du labyrinthe
+     * @param viewType Type de vue du challenge
      * @param difficulty la difficulté du labyrinthe (indicateur visuel)
      * @param width Largeur du labyrinthe associé au challenge.
      * @param height Hauteur du labyrinthe associé au challenge.
      * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
      * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
+     * @param scoreCalculator Stratégie de calcul de score à utiliser
      */
-    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
         this.algorithm=algorithm;
         this.viewType=viewType;
         this.difficulty=difficulty;
@@ -39,18 +47,28 @@ public class Challenge implements Serializable {
         this.height=height;
         this.wallPercentage=wallPercentage;
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
+        this.scoreCalculator = scoreCalculator;
     }
-    
+
     /**
      * Génère un challenge avec la distance minimale par défaut
-     *
-     * @param difficulty la difficulté du labyrinthe (indicateur visuel)
-     * @param width Largeur du labyrinthe associé au challenge.
-     * @param height Hauteur du labyrinthe associé au challenge.
-     * @param wallPercentage Pourcentage de mur associé au challenge (entre 0 et 1).
+     */
+    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, scoreCalculator);
+    }
+
+    /**
+     * Génère un challenge avec la stratégie de scoring par défaut
+     */
+    public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, new StandardScoreCalculator());
+    }
+
+    /**
+     * Génère un challenge avec la stratégie de scoring et la distance minimale par défaut
      */
     public Challenge(MazeAlgorithmFactory algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10); // 10 est la valeur par défaut actuelle
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10);
     }
 
     /**
@@ -125,18 +143,30 @@ public class Challenge implements Serializable {
         this.timeCompleted = timeCompleted;
     }
 
-    /** 
+    /**
+     * Récupère la stratégie de calcul de score actuelle.
+     *
+     * @return ScoreCalculator la stratégie utilisée
+     */
+    public ScoreCalculator getScoreCalculator() {
+        return scoreCalculator;
+    }
+
+    /**
+     * Définit la stratégie de calcul de score
+     * Permet de changer dynamiquement le mode de calcul (standard, speedrun, expert...)
+     *
+     * @param scoreCalculator la stratégie à utiliser
+     */
+    public void setScoreCalculator(ScoreCalculator scoreCalculator) {
+        this.scoreCalculator = scoreCalculator;
+    }
+
+    /**
      * @return int
      */
-    // calculate the score for the progress
     public int getScoreValue() {
-        int score = 0 ;
-        if(!completed){
-            return score ;
-        }
-        score+=width*height ;
-        score*= (int)(wallPercentage * 100); // Convertir le pourcentage en format entier pour le calcul
-        return score ;
+        return scoreCalculator.calculateScore(this);
     }
 
     /** 
@@ -153,12 +183,16 @@ public class Challenge implements Serializable {
         this.completed = completed ;
     }
 
-    /*
-     * @return String
+    /**
+     * Formate un challenge en chaîne de caractères lisible
+     *
+     * @param challenge le challenge à formater
+     * @return String représentation textuelle du challenge
      */
     public String toString() {
         StringBuilder text = new StringBuilder();
         text.append("Type de labyrinthe : ").append(this.getAlgorithm().name()).append("\n");
+        text.append("Mode de score : ").append(this.getScoreCalculator().name()).append("\n");
         text.append("Type de vue : ").append(this.getViewType().name()).append("\n");
         text.append("Difficulté : ").append(this.getDifficulty()).append("\n");
         text.append("Dimensions : ").append(this.getWidth()).append("x").append(this.getHeight()).append("\n");
@@ -169,6 +203,13 @@ public class Challenge implements Serializable {
             double timeInSeconds = this.getTimeCompleted() / 1000.0;
             text.append("\nTemps : ").append(String.format("%.1fs", timeInSeconds));
         }
-        return text.toString() ;
+        return text.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Challenge challenge = (Challenge) o;
+        return getWidth() == challenge.getWidth() && getHeight() == challenge.getHeight() && Double.compare(getWallPercentage(), challenge.getWallPercentage()) == 0 && getDistanceBetweenEntryAndExit() == challenge.getDistanceBetweenEntryAndExit() && Objects.equals(getDifficulty(), challenge.getDifficulty()) && getAlgorithm() == challenge.getAlgorithm() && getViewType() == challenge.getViewType() && Objects.equals(getScoreCalculator(), challenge.getScoreCalculator());
     }
 }

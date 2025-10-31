@@ -42,6 +42,9 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
      */
     @FXML
     public void initialize() {
+        chrono = new Timer();
+        chrono.start();
+        chronoTimeline = TimerFX.initChrono(chrono, chronoLabel);
         initializeGameMode();
         
         mazeInfoLabel.setText(gameMode.toString());
@@ -55,9 +58,6 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
             }
         });
 
-        chrono = new Timer();
-        chrono.start();
-        chronoTimeline = TimerFX.initChrono(chrono, chronoLabel);
         gameMode.addVictoryObserver(this);
     }
 
