@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.save;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,18 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.save.Player;
-import fr.univlille.labyrinth.model.save.PlayerDatabase;
-
-// test de la persistance des joueurs
-// met à l'épreuve toutes les situations possibles !
-// la persistance est très importante ; elle doit être parfaite. Du TDD est également appréciable ici !
-public class PlayerDatabaseTest {
+class PlayerDatabaseTest {
     static Player player1, player2, player3;
     static String playerName1, playerName2, playerName3, nonExistentPlayerName;
 
@@ -33,15 +28,12 @@ public class PlayerDatabaseTest {
         player2 = new Player(playerName2);
         player3 = new Player(playerName3);
 
-        // Test de la bonne sauvegarde des défis
-        // Test d'un défi (étape 2, défi 2)
         Challenge unDefi = player1.getProgress().getLevelProgress()[1].getChallenges()[1];
         player1.getProgress().markChallengeCompleted(unDefi, 500);
     }
 
     @BeforeEach
     public void setUp() {
-        // cleaning database before every test
         PlayerDatabase.clear();
     }
 
@@ -115,7 +107,21 @@ public class PlayerDatabaseTest {
 
         assertNotNull(loadedPlayer);
 
-        // le challenge est bien sauvegardé si l'étape maximum est égale à 2 (défi de l'étape 2)
         assertEquals(2, loadedPlayer.getHighestLevel());
+    }
+
+    // test si le joueur est mis à jour par son nom après une autre session de jeu théorique
+    @Test
+    public void testUpdatePlayer() {
+        PlayerDatabase.savePlayer(player1);
+
+        Player autreSessionDuPlayer1 = new Player("TestPlayer1");
+        Challenge unDefi = autreSessionDuPlayer1.getProgress().getLevelProgress()[0].getChallenges()[1];
+        autreSessionDuPlayer1.getProgress().markChallengeCompleted(unDefi, 1000);
+
+        PlayerDatabase.savePlayer(autreSessionDuPlayer1);
+
+        List<Player> charges = PlayerDatabase.loadAllPlayers();
+        assertEquals(1, charges.size());
     }
 }

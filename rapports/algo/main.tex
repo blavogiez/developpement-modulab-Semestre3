@@ -10,164 +10,249 @@
 
 
 \begin{document}
+	
+	\fairepagedegarde
+	\fairemarges
+	\tabledematieres
+	
+	\section{Introduction}
+	
+	Ce rapport présente la partie algorithmique du projet \textbf{SAÉ S3.02 - Labyrinthe}, une application avec génération de divers labyrinthes.
+	
+	\begin{enumerate}
+		\item Diagrammes de cas d'utilisation
+		\item Fiches descriptives
+		\item Prototype d'interface
+		\item Diagramme de classe
+	\end{enumerate}
+	
+	\section{Investissement dans le projet}
+	\textbf{Groupe G3.3}
+	
+	\begin{itemize}
+		\item Victor Bredelle
+		\item Antonin Marouze
+		\item Romain Harlaut
+		\item Angèl Zheng
+		\item Baptiste Lavogiez 
+	\end{itemize}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tblr}{
+				colspec = {ccccccc},
+				hlines, vlines,
+				row{1} = {bg=red!20},
+				column{1}= {bg=red!60}
+			}
+			Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
+			Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Data 2.5⟩ & 100\% \\
+		\end{tblr}
+		\caption{Répartition de l'investissement}
+		\label{tab:repartition}
+	\end{table}
+	
+	\tsec{Victor}
+	
+	Rédaction de trois fiches descriptives avec Baptiste : Charger profil, Afficher progression, Lancer mode progression.
+	
+	\tsec{Antonin}
+	
+	Réalisation de la maquette \textit{Figma} avec Angèl et Romain.
+	
+	\tsec{Romain}
+	
+	Réalisation de la fiche descriptive "Déplacer joueur" et aide à la maquette \textit{Figma}.
+	
+	\tsec{Angèl}
+	
+	Réalisation de la maquette \textit{Figma} avec Antonin et Romain.
+	
+	\tsec{Baptiste}
+	
+	Rédaction de trois fiches descriptives avec Victor et rédaction du rapport.
+	
+	\tsecnonum{Le groupe}
+	
+	\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
+	
+	\section{Structures de données pour les labyrinthes}
+	
+	\subsection{Labyrinthes aléatoires}
+	
+	\subsection{Labyrinthes parfaits}
+	
+	\section{Algorithmes de génération}
+	
+	\subsection{Labyrinthes aléatoires}
+	
+	\subsubsection{Algorithme utilisé}
+	
+	\subsubsection{Pseudo-code}
+	
+	\begin{codeboxlang}{pseudocode}
+		toto titi
+		tant que toto
+		faire tata
+	\end{codeboxlang}
+	
+	\subsubsection{Structures de données utilisées}
+	
+	\subsubsection{Pertinence}
+	
+	\subsection{Labyrinthes parfaits}
+	
+	\subsubsection{Algorithme utilisé}
+	
+	\subsubsection{Pseudo-code}
+	
+	\begin{codeboxlang}{pseudocode}
+		toto titi
+		tant que toto
+		faire tata
+	\end{codeboxlang}
+	
+	\subsubsection{Structures de données utilisées}
+	
+	\subsubsection{Pertinence}
+	
+	\section{Efficacité}
+	
+	\subsection{Méthode}
+	
+	La présente sous-section expose notre méthodologie de manière théorique, divisée en deux parties distinctes.
+	
+	\begin{enumerate}
+		\item Test de performance
+		\item Modélisation
+	\end{enumerate}
+	
+	\subsubsection{Test de performance}
+	
+	On note :
+	\begin{itemize}
+		\item \( a \) : l'algorithme du labyrinthe,
+		\item \( n \) : la taille initiale du labyrinthe,
+		\item \( e \) : l'écart entre deux tests successifs,
+		\item \( f \) : la taille maximale (fin du test).
+	\end{itemize}
+	
+	\[
+	\forall n > 2, \, n \in \mathbb{N}, \forall e \in \mathbb{N} :
+	\]
+	
+	\begin{codeboxlang}{pseudocode}
+créer un fichier csv de nom "a_n_e_f"
+tant que n < f :
+	t1 = mesurer le temps actuel
+	générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n)
+	t2 = mesurer le temps actuel
+	écrire sur la ligne actuelle (n, t2 - t1)
+	n = n + e
+	passer à la ligne suivante
+	\end{codeboxlang}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Taille (n)} & \textbf{Temps de génération (ms)} \\
+			\hline
+			10  & 12   \\
+			15  & 18   \\
+			20  & 25   \\
+			25  & 30   \\
+			30  & 38   \\
+			35  & 45   \\
+			\vdots & \vdots \\
+			495 & 1200 \\
+			500 & 1250 \\
+			\hline
+		\end{tabular}
+		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
+		\label{tab:output_example}
+	\end{table}
+	
+	\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Benchmark.java?ref_type=heads}{Implémentation Java}
+	
+	\subsubsection{Modélisation}
+	
+	Ces fichiers requièrent alors une analyse par un script concis en \textit{matplotlib}.
+	
+	\begin{codeboxlang}{python}
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+from PIL import Image
+from io import BytesIO
 
-\fairepagedegarde
-\fairemarges
-\tabledematieres
+d = "res/benchmarks"
+files = [f for f in os.listdir(d) if f.endswith(".csv")]
+for i,f in enumerate(files): print(i,f)
+i = int(input("Choix: "))
 
-\section{Introduction}
+df = pd.read_csv(os.path.join(d, files[i]))
 
-Ce rapport présente l'analyse UML du projet \textbf{SAÉ S3.02 - Labyrinthe}, un jeu avec deux modes (libre et progression) :
+plt.plot(df["taille"], df["temps(ms)"])
+plt.xlabel("taille")
+plt.ylabel("temps (ms)")
+plt.title(files[i])
+plt.tight_layout()
 
-\begin{enumerate}
-    \item Diagrammes de cas d'utilisation
-    \item Fiches descriptives
-    \item Prototype d'interface
-    \item Diagramme de classe
-\end{enumerate}
+buf = BytesIO()
+plt.savefig(buf, format="png")
+plt.show()
+plt.close()
 
-\section{Investissement dans le projet}
-\textbf{Groupe G3.3}
-
-\begin{itemize}
-    \item Victor Bredelle
-    \item Antonin Marouze
-    \item Romain Harlaut
-    \item Angèl Zheng
-    \item Baptiste Lavogiez 
-\end{itemize}
-
-\begin{table}[h]
-\centering
-\begin{tblr}{
-  colspec = {ccccccc},
-  hlines, vlines,
-  row{1} = {bg=red!20},
-  column{1}= {bg=red!60}
-}
-Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
-Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Data 2.5⟩ & 100\% \\
-\end{tblr}
-\caption{Répartition de l'investissement}
-\label{tab:repartition}
-\end{table}
-
-\tsec{Victor}
-
-Rédaction de trois fiches descriptives avec Baptiste : Charger profil, Afficher progression, Lancer mode progression.
-
-\tsec{Antonin}
-
-Réalisation de la maquette \textit{Figma} avec Angèl et Romain.
-
-\tsec{Romain}
-
-Réalisation de la fiche descriptive "Déplacer joueur" et aide à la maquette \textit{Figma}.
-
-\tsec{Angèl}
-
-Réalisation de la maquette \textit{Figma} avec Antonin et Romain.
-
-\tsec{Baptiste}
-
-Rédaction de trois fiches descriptives avec Victor et rédaction du rapport.
-
-\tsecnonum{Le groupe}
-
-\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
-
-\section{Structures de données pour les labyrinthes}
-
-\subsection{Labyrinthes aléatoires}
-
-\subsection{Labyrinthes parfaits}
-
-\section{Algorithmes de génération}
-
-\subsection{Labyrinthes aléatoires}
-
-\subsubsection{Algorithme utilisé}
-
-\subsubsection{Pseudo-code}
-
-\begin{codeboxlang}{pseudocode}
-toto titi
-tant que toto
-	faire tata
-\end{codeboxlang}
-
-\subsubsection{Structures de données utilisées}
-
-\subsubsection{Pertinence}
-
-\subsection{Labyrinthes parfaits}
-
-\subsubsection{Algorithme utilisé}
-
-\subsubsection{Pseudo-code}
-
-\begin{codeboxlang}{pseudocode}
-toto titi
-tant que toto
-	faire tata
-\end{codeboxlang}
-
-\subsubsection{Structures de données utilisées}
-
-\subsubsection{Pertinence}
-
-\section{Efficacité}
-
-\subsection{Méthode}
-
-\subsubsection{Test de performance}
-
-\tsec{Classe "Benchmark"}
-\begin{codeboxlang}{java}
-// Fichier: HelloWorld.java
-public class HelloWorld {
-/**
-* Le point d'entrée du programme.
-*/
-	public static void main(String[] args) {
-	System.out.println("Hello, World from Java!"); 
-	}
-}
-\end{codeboxlang}
-
-\subsubsection{Modélisation}
-
-\tsec{Script "Modélisation"}
-\begin{codeboxlang}{python}
-# Simple script pour saluer le monde
-def say_hello(name):
-"""
-Cette fonction affiche un message de salutation.
-"""
-print(f"Hello, {name}!")
-
-if __name__ == "__main__":
-say_hello("World")
-\end{codeboxlang}
-
-\subsection{Labyrinthes aléatoires}
-
-\subsubsection{Test de performance}
-
-\subsubsection{Visualisation}
-
-\subsection{Labyrinthes parfaits}
-
-\subsubsection{Test de performance}
-
-\subsubsection{Visualisation}
-
-\subsection{Conclusion}
-
-\section{Complément et Bilan}
-
-\section{Conclusion}
-
+buf.seek(0)
+img = Image.open(buf)
+os.makedirs(d+"/modelisations", exist_ok=True)
+img.save(os.path.join(d+"/modelisations", files[i].replace(".csv", ".png")))
+	\end{codeboxlang}
+	
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/efficacité/méthode/modélisation/fig_1.png}
+		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
+		\label{fig:efficacité_méthode_1}
+	\end{figure}
+	
+	\newpage
+	
+	\subsection{Résultats}
+	
+	\subsubsection{Labyrinthes aléatoires}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Taille (n)} & \textbf{Temps de génération (ms)} \\
+			\hline
+			10  & 12   \\
+			15  & 18   \\
+			20  & 25   \\
+			25  & 30   \\
+			30  & 38   \\
+			35  & 45   \\
+			\vdots & \vdots \\
+			495 & 1200 \\
+			500 & 1250 \\
+			\hline
+		\end{tabular}
+		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
+		\label{tab:output_example}
+	\end{table}
+	
+	\subsubsection{Labyrinthes parfaits}
+	
+	\subsection{Conclusion}
+	
+	\section{Complément et Bilan}
+	
+	\section{Conclusion}
+	
 \end{document}
 
 

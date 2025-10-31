@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.save;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
@@ -46,7 +46,7 @@ class ChallengeTest {
     }
 
     @Test
-    void testGetScoreValue_NotCompleted_ReturnsZero() {
+    void testGetScoreValueNotCompletedReturnsZero() {
         assertEquals(0, challenge.getScoreValue(), "Le score devrait être 0 si le challenge n'est pas complété");
     }
     
