@@ -22,7 +22,7 @@ public class SettingsController {
     @FXML
     private void toggleButton(){
         ThemeManager.setDarkMode(!ThemeManager.isDarkMode());
-        SceneNavigator.getPrimaryStage().getScene().getStylesheets().set(0, App.class.getResource(ThemeManager.getThemeCss()).toExternalForm());
+        ThemeManager.updateTheme(SceneNavigator.getPrimaryStage().getScene());
     }
 
     /**

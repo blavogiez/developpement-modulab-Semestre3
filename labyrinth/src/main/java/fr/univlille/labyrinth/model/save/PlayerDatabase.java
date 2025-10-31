@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.save;
 
-import java.io.*;
-import java.util.ArrayList;
+import fr.univlille.labyrinth.model.save.database.PlayerStorage;
+
 import java.util.List;
 
 /**
@@ -12,15 +12,6 @@ import java.util.List;
  * @since 0.0
  */
 public class PlayerDatabase {
-    private static final String SAVE_FILE = "res/saves/players.dat";
-
-    static {
-        File file = new File(SAVE_FILE);
-        File directory = file.getParentFile();
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-    }
 
     /**
      * Sauvegarde, ou remplace automatiquement une progression dans le dossier associé
@@ -36,12 +27,7 @@ public class PlayerDatabase {
             updatePlayer(player, players);
         }
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
-            oos.writeObject(players);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
-        }
+        PlayerStorage.writeAll(players);
     }
 
     /**
@@ -52,14 +38,12 @@ public class PlayerDatabase {
      */
 
     public static void updatePlayer(Player player, List<Player> players) {
-        boolean found = false;
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getName().equals(player.getName())) {
                 players.set(i, player);
                 return ;
             }
         }
-
     }
 
     /**
@@ -106,30 +90,13 @@ public class PlayerDatabase {
      * @return List<Player> la liste des joueurs de la base des données
      */
     public static List<Player> loadAllPlayers() {
-        File file = new File(SAVE_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
-            return (List<Player>) ois.readObject();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ArrayList<>();
-        }
+        return PlayerStorage.readAll();
     }
 
     /**
      * Cette méthode supprime les données dans la base de donnée (pour tests uniquement !)
      */
     public static void clear() {
-        try {
-            File file = new File(SAVE_FILE);
-            if (file.exists()) {
-                file.delete();
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        PlayerStorage.deleteFile();
     }
 }

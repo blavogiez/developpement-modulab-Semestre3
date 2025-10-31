@@ -36,20 +36,20 @@ public class SceneNavigator {
         if (primaryStage == null) {
             throw new IllegalStateException("Primary stage absent");
         }
-        
+
         double width = primaryStage.getScene().getWidth();
         double height = primaryStage.getScene().getHeight();
         page = "/fr/univlille/labyrinth/" + page;
         URL url = SceneNavigator.class.getResource(page);
-        
+
         if (url == null) {
             throw new IOException("fichier FXML absent : " + page);
         }
-        
+
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root, width, height);
-        
-        scene.getStylesheets().add(App.class.getResource(ThemeManager.getThemeCss()).toExternalForm());
+
+        ThemeManager.applyTheme(scene);
         primaryStage.setScene(scene);
     }
 }

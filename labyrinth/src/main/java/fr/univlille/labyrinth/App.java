@@ -38,7 +38,7 @@ public class App extends Application {
         SceneNavigator.setPrimaryStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("HomeMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(App.class.getResource(ThemeManager.getThemeCss()).toExternalForm());
+        ThemeManager.applyTheme(scene);
         stage.setTitle("Labyrinth");
         stage.setMaximized(true);
         stage.setScene(scene);
