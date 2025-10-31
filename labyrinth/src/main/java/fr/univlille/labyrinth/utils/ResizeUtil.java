@@ -23,7 +23,11 @@ public class ResizeUtil {
             button.setFont(new Font(height * 0.50));
             button.setPadding(new Insets(0, 0, 0, 0));
         } else if(cont instanceof Label label){
-            label.setFont(new Font(height * 0.60));
+            if(label.getText().length() * height * 0.60 < width){
+                label.setFont(new Font(height*0.60));
+            }else{
+                label.setFont(new Font(width/label.getText().length()));
+            }
         } else if(cont instanceof TextField textField){
             textField.setFont(new Font(height * 0.60));
         }
