@@ -4,12 +4,15 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -106,5 +109,12 @@ public class FreeModeController {
     private void resize(){
         menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menu));
         menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menu));
+
+        for (Node ligne : menu.getChildren()) {
+            if(ligne instanceof Pane pane){
+                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( pane));
+                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( pane));
+            }
+        }
     }
 }

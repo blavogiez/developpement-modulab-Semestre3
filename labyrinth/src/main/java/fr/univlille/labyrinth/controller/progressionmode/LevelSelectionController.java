@@ -14,8 +14,10 @@ import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.view.GameColors;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -169,12 +171,32 @@ public class LevelSelectionController {
     }
 
     private void resize(){
-        menuEtape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeEtapeInPane(menuEtape));
-        menuEtape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeEtapeInPane(menuEtape));
+        menuEtape.widthProperty().addListener((o, oldW, newW) -> resizeEtapePanesInPane(menuEtape));
+        menuEtape.heightProperty().addListener((o, oldH, newH) -> resizeEtapePanesInPane(menuEtape));
 
         for (VBox etape : etapeVBoxes) {
-            etape.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeEtapeControlsInPane( etape));
-            etape.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeEtapeControlsInPane( etape));
+            etape.widthProperty().addListener((o, oldW, newW) -> resizeEtapeControlsInPane( etape));
+            etape.heightProperty().addListener((o, oldH, newH) -> resizeEtapeControlsInPane( etape));
         }
+    }
+
+    public static void resizeEtapeControlsInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        boolean isHBox = parent instanceof HBox;
+
+        ObservableList<Node> childs = parent.getChildren();
+        int nbChilds = childs.size();
+        double boutonSize = Double.min(width*0.70,(height/nbChilds)*0.70);
+        ResizeUtil.resizeControlsInPane( parent,boutonSize,boutonSize, 0, 0, (height/nbChilds)*0.2, 0);
+    }
+
+    public static void resizeEtapePanesInPane(Pane parent){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+
+        ObservableList<Node> childs = parent.getChildren();
+        int nbChilds = childs.size();
+        ResizeUtil.resizePanesInPane( parent,(width/nbChilds)*0.80,height*0.95, 0, 0, 0, (width/nbChilds)*0.15);
     }
 }

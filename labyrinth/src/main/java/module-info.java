@@ -3,6 +3,7 @@ module fr.univlille.labyrinth {
     requires javafx.fxml;
     requires java.desktop;
     requires javafx.graphics;
+    requires javafx.base;
 
     exports fr.univlille.labyrinth.view;
 
