@@ -95,4 +95,11 @@ public abstract class GameMode {
     protected void handleVictory() {
         notifyVictory();
     }
+
+    /* Les dimensions demandées sont-elles possibles ?
+     * @return boolean
+     */
+    public static boolean areDimensionsCorrect(int width, int height) {
+        return width >= 3 && height >= 4 || width >= 4 && height >= 3 ;
+    }
 }

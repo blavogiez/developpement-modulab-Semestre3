@@ -3,14 +3,13 @@ package fr.univlille.labyrinth.controller.freemode;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -26,16 +25,10 @@ import java.io.IOException;
  */
 public class FreeModeController {
     @FXML
-    private Button bouttonValider;
+    private Label labelDistance;
 
     @FXML
-    private Button bouttonQuitter;
-
-    @FXML
-    private Label labelSlider;
-
-    @FXML
-    private Label l;
+    private Label labelWallSlider;
 
     @FXML
     private Label errorLabel;
@@ -47,20 +40,22 @@ public class FreeModeController {
     private TextField widthField;
 
     @FXML
+    private TextField distanceField;
+
+    @FXML
     private Slider wallPercentageSlider;
 
     @FXML
     private VBox menu;
-
-    @FXML
-    private HBox line1;
 
     // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
-        changeSlider();
+        distanceField.setText("" + FreeMode.distanceBetweenEntryAndExit);
+        wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
+        hideUselessFields();
         resize();
     }
 
@@ -69,30 +64,32 @@ public class FreeModeController {
      */
     @FXML
     private void goToModeLaby() throws IOException {
-        int width, height;
+        int width, height, distance ;
         try {
             width = Integer.parseInt(widthField.getText());
             height = Integer.parseInt(heightField.getText());
+            distance = Integer.parseInt(distanceField.getText());
         } catch (NumberFormatException e) {
             showError();
             return;
         }
 
-        // valeurs interdites !
-        if (!((width >= 3 && height >= 4) || (width >= 4 && height >= 3))) {
+        if (!GameMode.areDimensionsCorrect(width, height)) {
             showError();
             return;
         }
 
-        // les valeurs sont autorisées donc on les bouge dans FreeMode (pour pouvoir les reprendre après de façon fluide !)
         FreeMode.mazeWidth = width;
         FreeMode.mazeHeight = height;
         FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
+
+        int maxPossibleDistance = FreeMode.getMaxDistanceBetweenEntryAndExit() ;
+        FreeMode.distanceBetweenEntryAndExit = distance > maxPossibleDistance ? maxPossibleDistance : distance ;
+
         App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     private void showError() {
-        // montre le label d'erreur pendant 2 secondes
         errorLabel.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> errorLabel.setVisible(false));
@@ -103,7 +100,7 @@ public class FreeModeController {
      * @throws IOException Renvoie une IOException si la scène est inaccessible.
      */
     @FXML
-    private void goToAccueil() throws IOException {
+    private void goToRetour() throws IOException {
         App.goTo("freemode/FreeModeAlgorithmSelection.fxml");
     }
 
@@ -119,14 +116,13 @@ public class FreeModeController {
         }
     }
 
-    private void changeSlider(){
-        if(FreeMode.algorithm.isPerfect()){
-            labelSlider.setVisible(false);
+    private void hideUselessFields(){
+        if(FreeMode.algorithm.isPerfect()){      
+            labelWallSlider.setVisible(false);  
             wallPercentageSlider.setVisible(false);
-            wallPercentageSlider.setValue(1);
         }else {
-            labelSlider.setText("Choisissez le pourcentage de mur :");
-            wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
+            labelDistance.setVisible(false);
+            distanceField.setVisible(false);
         }
     }
 }

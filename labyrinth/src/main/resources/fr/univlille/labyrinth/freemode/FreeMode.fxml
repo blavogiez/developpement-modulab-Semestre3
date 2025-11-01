@@ -22,7 +22,13 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="10">
                     <children>
-                        <Label fx:id="labelSlider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Pourcentage de murs :" />
+                        <Label fx:id="labelDistance" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Distance entrée | sortie :" />
+                        <TextField fx:id="distanceField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10">
+                    <children>
+                        <Label fx:id="labelWallSlider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Pourcentage de murs :" />
                         <Slider fx:id="wallPercentageSlider" blockIncrement="0.05" majorTickUnit="0.2" max="1.0" maxHeight="-Infinity" maxWidth="-Infinity" min="0.0" minHeight="-Infinity" minWidth="-Infinity" showTickLabels="true" showTickMarks="true" value="0.0" />
                     </children>
                 </HBox>
@@ -33,12 +39,12 @@
                 </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                        <Button fx:id="bouttonValider" mnemonicParsing="false" onAction="#goToModeLaby" prefWidth="100" text="Valider" />
+                        <Button fx:id="boutonValider" mnemonicParsing="false" onAction="#goToModeLaby" prefWidth="100" text="Valider" />
                </children>
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                        <Button fx:id="bouttonQuitter" mnemonicParsing="false" onAction="#goToAccueil" prefWidth="100" text="Retour" />
+                        <Button fx:id="boutonRetour" mnemonicParsing="false" onAction="#goToRetour" prefWidth="100" text="Retour" />
                </children>
             </VBox>
             </children>
@@ -47,7 +53,7 @@
     <top>
         <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="l" alignment="CENTER" text="Mode Libre">
+                <Label fx:id="descr" alignment="CENTER" text="Mode Libre">
                     <font>
                         <Font size="30.0" />
                     </font>

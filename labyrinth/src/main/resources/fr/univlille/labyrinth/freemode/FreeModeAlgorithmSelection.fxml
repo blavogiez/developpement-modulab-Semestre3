@@ -30,7 +30,7 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="bouttonQuitter" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToRetour" text="Quitter" VBox.vgrow="ALWAYS">
+            <Button fx:id="boutonRetour" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToRetour" text="Retour" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
