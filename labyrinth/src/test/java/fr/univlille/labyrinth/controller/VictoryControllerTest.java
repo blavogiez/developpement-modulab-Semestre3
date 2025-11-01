@@ -14,28 +14,24 @@ import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrint
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 
-// Cette classe teste les contrôleurs liés à la victoire du joueur
-// On vérifie que les contrôleurs implémentent correctement Observer et possèdent la méthode update
+// on vérifie que les contrôleurs implémentent correctement Observer et possèdent la méthode update
 
 public class VictoryControllerTest {
 
     @Test
     public void testFreeModeLabyrinthControllerImplementsObserver() {
-        // Vérifie que FreeModeLabyrinthController implémente Observer<GameMode>
         assertTrue(Observer.class.isAssignableFrom(FreeModeLabyrinthController.class),
                 "FreeModeLabyrinthController doit implémenter Observer");
     }
 
     @Test
     public void testProgressionModeLabyrinthControllerImplementsObserver() {
-        // Vérifie que ProgressionModeLabyrinthController implémente Observer<GameMode>
         assertTrue(Observer.class.isAssignableFrom(ProgressionModeLabyrinthController.class),
                 "ProgressionModeLabyrinthController doit implémenter Observer");
     }
 
     @Test
     public void testFreeModeLabyrinthControllerHasUpdateMethod() {
-        // Vérifie que FreeModeLabyrinthController possède la méthode update(GameMode)
         try {
             Method updateMethod = FreeModeLabyrinthController.class.getMethod("update", GameMode.class);
             assertNotNull(updateMethod, "La méthode update(GameMode) doit exister");
@@ -48,7 +44,6 @@ public class VictoryControllerTest {
 
     @Test
     public void testProgressionModeLabyrinthControllerHasUpdateMethod() {
-        // Vérifie que ProgressionModeLabyrinthController possède la méthode update(GameMode)
         try {
             Method updateMethod = ProgressionModeLabyrinthController.class.getMethod("update", GameMode.class);
             assertNotNull(updateMethod, "La méthode update(GameMode) doit exister");
@@ -61,7 +56,6 @@ public class VictoryControllerTest {
 
     @Test
     public void testFreeModeLabyrinthControllerHasMovementMethod() {
-        // Vérifie que FreeModeLabyrinthController possède une méthode movement pour gérer les déplacements
         try {
             Method movementMethod = FreeModeLabyrinthController.class.getMethod("movement",
                     javafx.scene.input.KeyEvent.class);
@@ -73,7 +67,6 @@ public class VictoryControllerTest {
 
     @Test
     public void testProgressionModeLabyrinthControllerHasMovementMethod() {
-        // Vérifie que ProgressionModeLabyrinthController possède une méthode movement pour gérer les déplacements
         try {
             Method movementMethod = ProgressionModeLabyrinthController.class.getMethod("movement",
                     javafx.scene.input.KeyEvent.class);

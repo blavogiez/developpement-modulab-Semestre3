@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.algorithm;
+package fr.univlille.labyrinth.model.algorithm;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Player;
 import org.junit.jupiter.api.BeforeAll;

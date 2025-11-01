@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model;
+package fr.univlille.labyrinth.model.save;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
@@ -22,7 +22,7 @@ class PlayerProgressTest {
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new Level(i + 1);
             for (int j = 0; j < 3; j++) {
-                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL, "Diff" + j, 10, 10, 20, new StandardScoreCalculator());
+                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL, "trèèèès difficile" + j, 10, 10, 20, new StandardScoreCalculator());
             }
         }
         progress = new PlayerProgress(levels);
@@ -59,7 +59,7 @@ class PlayerProgressTest {
     }
 
     @Test
-    void testMarkChallengeCompleted_FirstTimeSetsTime() {
+    void testMarkChallengeCompletedFirstTimeSetsTime() {
         Challenge challenge = levels[0].getChallenges()[0];
         progress.markChallengeCompleted(challenge, 1500L);
         assertTrue(challenge.isCompleted());
@@ -67,7 +67,7 @@ class PlayerProgressTest {
     }
 
     @Test
-    void testMarkChallengeCompleted_SecondTimeKeepsBetterTime() {
+    void testMarkChallengeCompletedSecondTimeKeepsBetterTime() {
         Challenge challenge = levels[0].getChallenges()[0];
         progress.markChallengeCompleted(challenge, 2000L);
         assertEquals(2000L, challenge.getTimeCompleted());
@@ -78,18 +78,18 @@ class PlayerProgressTest {
     }
 
     @Test
-    void testGetHighestLevel_NoLevelCompleted_ReturnsZero() {
+    void testGetHighestLevelNoLevelCompletedReturnsZero() {
         assertEquals(0, progress.getHighestLevel());
     }
 
     @Test
-    void testGetHighestLevel_OneLevelCompleted() {
+    void testGetHighestLevelOneLevelCompleted() {
         levels[0].getChallenges()[1].setCompleted(true);
         assertEquals(1, progress.getHighestLevel());
     }
 
     @Test
-    void testGetHighestLevel_MultipleLevelsCompleted() {
+    void testGetHighestLevelMultipleLevelsCompleted() {
         levels[0].getChallenges()[1].setCompleted(true);
         levels[1].getChallenges()[2].setCompleted(true);
         assertEquals(2, progress.getHighestLevel());
