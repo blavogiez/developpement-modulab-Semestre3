@@ -90,7 +90,6 @@ public class MazeAlgorithmPerfectRandom extends MazeAlgorithmPerfect {
     public static MazeAlgorithmPerfectRandom getInstance(){
         if (instance==null){
             instance=new MazeAlgorithmPerfectRandom();
-
         }
         return instance;
     }

@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.gamemode;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 
 /**
  * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).
@@ -24,7 +25,9 @@ public class FreeMode extends GameMode {
     public String toString() {
         String info = "Labyrinthe d'algorithme " + algorithm.name() + " ; \n" ;
         info+= "Dimensions : " + FreeMode.mazeWidth + "x" + FreeMode.mazeHeight;
-        info += ", Pourcentage : " + (int)(FreeMode.mazeWallPercentage * 100) + "%";
+        if (algorithm.isPerfect()) {
+            info+= ", Distance : "+BreadthFirstSearch.calculateDistance(getCurrentMaze().getGrid(),algorithm.getAlgorithm().getStart(), algorithm.getAlgorithm().getEnd());
+        }else{info += ", Pourcentage : " + (int) (FreeMode.mazeWallPercentage * 100) + "%";}
         return info ;
     }
 }

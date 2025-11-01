@@ -24,7 +24,7 @@
    <center>
       <VBox fx:id="menuBoutons" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="freeModeComboBox" prefWidth="150.0" promptText="Type Labyrinthe" visibleRowCount="5" VBox.vgrow="ALWAYS" />
+            <ComboBox fx:id="freeModeComboBox" prefWidth="150.0" promptText="Type Labyrinthe" VBox.vgrow="ALWAYS" />
             <Button fx:id="bouttonJouer" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToJouer" text="Jouer" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />

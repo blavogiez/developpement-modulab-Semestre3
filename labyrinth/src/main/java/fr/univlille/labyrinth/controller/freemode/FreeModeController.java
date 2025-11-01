@@ -60,7 +60,6 @@ public class FreeModeController {
     public void initialize() {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
-        wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
         changeSlider();
         resize();
     }
@@ -122,9 +121,12 @@ public class FreeModeController {
 
     private void changeSlider(){
         if(FreeMode.algorithm.isPerfect()){
-            labelSlider.setText("Choisissez la distance entre le départ et la sortie :");
+            labelSlider.setVisible(false);
+            wallPercentageSlider.setVisible(false);
+            wallPercentageSlider.setValue(1);
         }else {
             labelSlider.setText("Choisissez le pourcentage de mur :");
+            wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
         }
     }
 }
