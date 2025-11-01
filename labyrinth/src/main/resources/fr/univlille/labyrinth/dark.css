@@ -44,8 +44,8 @@
 }
 
 .combo-box-popup .list-cell {
-    -fx-background-color: #1e1e1e;  /* fond normal */
-    -fx-text-fill: white;           /* texte visible */
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
 }
 
 

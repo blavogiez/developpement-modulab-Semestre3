@@ -16,4 +16,8 @@ public enum MazeAlgorithmFactory {
     public MazeAlgorithmTemplate getAlgorithm(){
         return mazeAlgorithm;
     }
+
+    public boolean isPerfect(){
+        return this == PERFECT || this == PERFECTRANDOM;
+    }
 }

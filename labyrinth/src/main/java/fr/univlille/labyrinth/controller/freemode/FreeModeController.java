@@ -4,7 +4,6 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import javafx.animation.PauseTransition;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -33,6 +32,9 @@ public class FreeModeController {
     private Button bouttonQuitter;
 
     @FXML
+    private Label labelSlider;
+
+    @FXML
     private Label l;
 
     @FXML
@@ -59,8 +61,8 @@ public class FreeModeController {
         heightField.setText("" + FreeMode.mazeHeight);
         widthField.setText("" + FreeMode.mazeWidth);
         wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
+        changeSlider();
         resize();
-
     }
 
     /**
@@ -103,7 +105,7 @@ public class FreeModeController {
      */
     @FXML
     private void goToAccueil() throws IOException {
-        App.goTo("GameModeSelection.fxml");
+        App.goTo("freemode/FreeModeAlgorithmSelection.fxml");
     }
 
     private void resize(){
@@ -115,6 +117,14 @@ public class FreeModeController {
                 pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( pane));
                 pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( pane));
             }
+        }
+    }
+
+    private void changeSlider(){
+        if(FreeMode.algorithm.isPerfect()){
+            labelSlider.setText("Choisissez la distance entre le départ et la sortie :");
+        }else {
+            labelSlider.setText("Choisissez le pourcentage de mur :");
         }
     }
 }
