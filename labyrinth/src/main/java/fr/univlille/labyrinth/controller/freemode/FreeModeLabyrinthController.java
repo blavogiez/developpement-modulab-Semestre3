@@ -5,7 +5,7 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
-import fr.univlille.labyrinth.view.LabyrinthGridView;
+import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -20,17 +20,17 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @FXML
     private Button bouttonRetour;
 
-    private LabyrinthGridView labyrinth;
+    private NormalLabyrinthCanvasView labyrinth;
 
     @Override
     protected void initializeGameMode() {
         gameMode = new FreeMode();
         gameMode.createMaze();
 
-        labyrinth = new LabyrinthGridView(gameMode.getCurrentMaze());
+        labyrinth = new NormalLabyrinthCanvasView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
 
-        pane1.setCenter(labyrinth.getGrid());
+        pane1.setCenter(labyrinth.getView());
         labyrinth.update(gameMode.getCurrentMaze());
     }
 

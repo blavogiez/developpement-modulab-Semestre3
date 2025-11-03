@@ -1,20 +1,21 @@
 package fr.univlille.labyrinth.controller.freemode;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.App;
-import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.io.IOException;
 
 /**
  * Controller du menu mode libre
@@ -47,6 +48,12 @@ public class FreeModeController {
 
     @FXML
     private VBox menu;
+
+    @FXML
+    private HBox distanceBox ;
+
+    @FXML
+    private HBox wallBox ;
 
     // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
@@ -118,11 +125,9 @@ public class FreeModeController {
 
     private void hideUselessFields(){
         if(FreeMode.algorithm.isPerfect()){      
-            labelWallSlider.setVisible(false);  
-            wallPercentageSlider.setVisible(false);
+            menu.getChildren().remove(wallBox);
         }else {
-            labelDistance.setVisible(false);
-            distanceField.setVisible(false);
+            menu.getChildren().remove(distanceBox);
         }
     }
 }

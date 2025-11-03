@@ -52,6 +52,7 @@ public class Player implements Serializable {
      */
     public boolean isLevelLocked(int levelIdx) {
         return getHighestLevel() < levelIdx;
+        //return false ; // debug
     }
 
     /** 

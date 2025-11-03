@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.view;
 
+// Transformer en enum compatible avec canvas pour éviter Magic colors
+
 public class GameColors {
     public static final String PLAYER = "#FF0000";
     public static final String EXIT = "#00FF00";
