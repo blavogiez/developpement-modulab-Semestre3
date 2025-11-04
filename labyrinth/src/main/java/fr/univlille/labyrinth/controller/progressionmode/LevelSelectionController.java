@@ -170,6 +170,9 @@ public class LevelSelectionController {
         App.goTo(ViewTypeFactory.getCorrespondingPage(viewType));
     }
 
+    public void goToPlayerRanking() throws IOException {
+        App.goTo("progressionmode/PlayerRanking.fxml");
+    }
     private void resize(){
         menuEtape.widthProperty().addListener((o, oldW, newW) -> resizeEtapePanesInPane(menuEtape));
         menuEtape.heightProperty().addListener((o, oldH, newH) -> resizeEtapePanesInPane(menuEtape));
