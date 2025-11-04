@@ -36,14 +36,7 @@ public class FreeModeAlgorithmSelectionController {
     }
 
     private void resize(){
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menuBoutons));
-        menuBoutons.heightProperty().addListener((o,oldH,newH) -> ResizeUtil.resizePanesInPane(menuBoutons));
-
-        for (Node ligne : menuBoutons.getChildren()) {
-            if(ligne instanceof Pane pane){
-                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( pane));
-                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( pane));
-            }
-        }
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menuBoutons));
+        menuBoutons.heightProperty().addListener((o,oldH,newH) -> ResizeUtil.resizeControlsInPane(menuBoutons));
     }
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="fond" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.LevelSelectionController">
+<BorderPane fx:id="fond" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="10.0" minWidth="10.0" prefHeight="495.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univlille.labyrinth.controller.progressionmode.LevelSelectionController">
    <top>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="110.0" prefWidth="814.0" BorderPane.alignment="CENTER">
          <children>
@@ -36,11 +36,12 @@
       </VBox>
    </top>
    <bottom>
-      <VBox alignment="CENTER" prefHeight="48.0" prefWidth="814.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToAccueil" text="Retour" />
+            <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#goToPlayerRanking" text="Classement" />
          </children>
-      </VBox>
+      </HBox>
    </bottom>
    <center>
       <HBox fx:id="menuEtape" alignment="CENTER" BorderPane.alignment="CENTER" />

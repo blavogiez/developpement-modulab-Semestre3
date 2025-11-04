@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @version 0.0
  * @since 0.0
  */
-public class Player implements Serializable {
+public class Player implements Serializable , Comparable<Player>{
     private final String name;
     private PlayerProgress progress;
 
@@ -51,8 +51,8 @@ public class Player implements Serializable {
      * @return true
      */
     public boolean isLevelLocked(int levelIdx) {
-        //return getHighestLevel() < levelIdx;
-        return false ; // debug
+        return getHighestLevel() < levelIdx;
+        //return false ; // debug
     }
 
     /** 
@@ -75,4 +75,15 @@ public class Player implements Serializable {
     public PlayerProgress getProgress() {
         return progress;
     }
+
+    public int compareTo(Player other) {
+        return Integer.compare(other.getScore(),this.calculateScore());
+    }
+
+    @Override
+    public String toString() {
+        return "name=" + name + "score =" + getScore() ;
+    }
+
+    
 }

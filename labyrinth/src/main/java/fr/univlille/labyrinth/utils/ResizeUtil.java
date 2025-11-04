@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+import java.util.List;
+
 public class ResizeUtil {
 
     public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
@@ -30,6 +32,8 @@ public class ResizeUtil {
             }
         } else if(cont instanceof TextField textField){
             textField.setFont(new Font(height * 0.60));
+        }else if(cont instanceof ComboBox combo) {
+            combo.setStyle("-fx-font-size: " + (height * 0.50) + "px;");
         }
         if(parent instanceof VBox){
             VBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));
