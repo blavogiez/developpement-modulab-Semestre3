@@ -47,8 +47,8 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
             return;
         }
 
-        int lignes = maze.getWidth();
-        int colonnes = maze.getHeight();
+        int lignes = maze.getHeight();
+        int colonnes = maze.getWidth();
 
         calculerDimensions(lignes, colonnes);
 
@@ -84,37 +84,45 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         
         boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
         boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
-        
-        for (int ligne = 0; ligne < lignes; ligne++) {
-            double y1 = offsetY + ligne * tailleCellule;
-            double y2 = y1 + tailleCellule;
-            
-            gc.strokeLine(offsetX, y1, offsetX, y2);
-            
-            for (int colonne = 0; colonne < colonnes - 1; colonne++) {
-                if (mursVerticaux[colonne][ligne]) {
-                    double x = offsetX + (colonne + 1) * tailleCellule;
-                    gc.strokeLine(x, y1, x, y2);
-                }
-            }
-            
-            gc.strokeLine(offsetX + colonnes * tailleCellule, y1, offsetX + colonnes * tailleCellule, y2);
-        }
-        
+
+        drawVerticalsWall(gc, lignes, colonnes, mursVerticaux);
+
+        drawHorizontalsWall(gc, lignes, colonnes, mursHorizontaux);
+    }
+
+    private void drawVerticalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursHorizontaux) {
         for (int colonne = 0; colonne < colonnes; colonne++) {
             double x1 = offsetX + colonne * tailleCellule;
             double x2 = x1 + tailleCellule;
-            
+
             gc.strokeLine(x1, offsetY, x2, offsetY);
-            
+
             for (int ligne = 0; ligne < lignes - 1; ligne++) {
                 if (mursHorizontaux[ligne][colonne]) {
                     double y = offsetY + (ligne + 1) * tailleCellule;
                     gc.strokeLine(x1, y, x2, y);
                 }
             }
-            
+
             gc.strokeLine(x1, offsetY + lignes * tailleCellule, x2, offsetY + lignes * tailleCellule);
+        }
+    }
+
+    private void drawHorizontalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursVerticaux) {
+        for (int ligne = 0; ligne < lignes; ligne++) {
+            double y1 = offsetY + ligne * tailleCellule;
+            double y2 = y1 + tailleCellule;
+
+            gc.strokeLine(offsetX, y1, offsetX, y2);
+
+            for (int colonne = 0; colonne < colonnes - 1; colonne++) {
+                if (mursVerticaux[colonne][ligne]) {
+                    double x = offsetX + (colonne + 1) * tailleCellule;
+                    gc.strokeLine(x, y1, x, y2);
+                }
+            }
+
+            gc.strokeLine(offsetX + colonnes * tailleCellule, y1, offsetX + colonnes * tailleCellule, y2);
         }
     }
 
