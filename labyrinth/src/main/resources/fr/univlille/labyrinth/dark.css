@@ -68,7 +68,7 @@
     -fx-background-insets: 0;
 }
 
-.list-view {
+.table-view {
     -fx-background-color: #222222;
     -fx-background-radius: 10px;
     -fx-background-insets: 0;
@@ -76,15 +76,27 @@
     -fx-border-radius: 10px;
  }
 
- .list-cell:hover {
+ .table-cell:hover {
      -fx-background-color: #333333;
  }
 
- .list-cell {
+ .table-cell {
      -fx-background-color: #333333;
-     -fx-border-radius:#FFFFFF;
      -fx-text-fill: #FFFFFF;
  }
+
+
+.table-column-header {
+    -fx-background-color: #222222;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 10px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #222222;
+}
 
 
 .etapes{
