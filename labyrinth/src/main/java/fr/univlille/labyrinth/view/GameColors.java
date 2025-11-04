@@ -21,4 +21,8 @@ public enum GameColors {
     public Color getColor() {
         return Color.web(colorCode);
     }
+
+    public String getColorCode(){
+        return this.colorCode;
+    }
 }

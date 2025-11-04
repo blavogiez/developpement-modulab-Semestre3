@@ -131,7 +131,7 @@ public class LevelSelectionController {
                 });
 
                 if (challenge.isCompleted()) {
-                    btn.setStyle("-fx-background-color: " + GameColors.COMPLETED + ";");
+                    btn.setStyle("-fx-background-color: " + GameColors.COMPLETED.getColorCode() + ";");
                     completedCount++;
                 } else {
                     btn.setStyle("");
