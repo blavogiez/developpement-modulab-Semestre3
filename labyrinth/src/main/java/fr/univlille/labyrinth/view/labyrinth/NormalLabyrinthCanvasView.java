@@ -14,20 +14,6 @@ public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void genererLabyrintheTest() {
-        mursVerticaux = new boolean[MAZE_SIZE][MAZE_SIZE];
-        mursHorizontaux = new boolean[MAZE_SIZE][MAZE_SIZE];
-        Random random = new Random();
-
-        for (int i = 0; i < MAZE_SIZE; i++) {
-            for (int j = 0; j < MAZE_SIZE; j++) {
-                mursVerticaux[i][j] = random.nextBoolean();
-                mursHorizontaux[i][j] = random.nextBoolean();
-            }
-        }
-    }
-
-    @Override
     protected void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
         dessinerEntree(gc, maze);
         dessinerSortie(gc, maze);

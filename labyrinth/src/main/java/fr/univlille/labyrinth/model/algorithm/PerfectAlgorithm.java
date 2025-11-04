@@ -62,7 +62,10 @@ public class PerfectAlgorithm {
         while (!directions.isEmpty()){
             Direction direction = directions.remove(directions.size()-1);
             Position next = peek.add(direction.getX(),direction.getY());
-            if (positionCorrecte(next.getX(),next.getY()) && !visite[next.getX()][next.getY()] ) return next;
+            if (positionCorrecte(next.getX(),next.getY(),visite))
+                if(!visite[next.getX()][next.getY()])
+                    return next;
+
         }
         return null;
 
@@ -95,6 +98,10 @@ public class PerfectAlgorithm {
 
     public static boolean positionCorrecte(int ligne, int colonne) {
         return ligne >= 0 && ligne < hauteur && colonne >= 0 && colonne < largeur;
+    }
+
+    public static boolean positionCorrecte(int ligne, int colonne, boolean[][] tab) {
+        return ligne>=0 && ligne < tab.length && colonne >=0 && colonne < tab[0].length;
     }
 
     public static boolean adjacent(int ligne, int colonne, int ligne1, int colonne1) {

@@ -9,26 +9,11 @@ import fr.univlille.labyrinth.view.GameColors;
 
 public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
-    private static final int MAZE_SIZE = 50;
     private static final int VIEW_RADIUS = 2;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
 
     public LocalLabyrinthCanvasView(Maze maze) {
         super(maze);
-    }
-
-    @Override
-    protected void genererLabyrintheTest() {
-        mursVerticaux = new boolean[MAZE_SIZE][MAZE_SIZE];
-        mursHorizontaux = new boolean[MAZE_SIZE][MAZE_SIZE];
-        Random random = new Random();
-
-        for (int i = 0; i < MAZE_SIZE; i++) {
-            for (int j = 0; j < MAZE_SIZE; j++) {
-                mursVerticaux[i][j] = random.nextBoolean();
-                mursHorizontaux[i][j] = random.nextBoolean();
-            }
-        }
     }
 
     @Override
@@ -60,6 +45,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
         gc.strokeRect(offsetX, offsetY, VIEW_SIZE * tailleCellule, VIEW_SIZE * tailleCellule);
 
+        boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
+        boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
+
         Position player = currentMaze.getPlayerPosition();
         int playerX = player.getX();
         int playerY = player.getY();
@@ -69,7 +57,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                 int globalI = i + playerX - VIEW_RADIUS;
                 int globalJ = j + playerY - VIEW_RADIUS;
 
-                if (globalI < 0 || globalI >= MAZE_SIZE || globalJ < 0 || globalJ >= MAZE_SIZE) {
+                if (globalI < 0 || globalI >= currentMaze.getWidth() || globalJ < 0 || globalJ >= currentMaze.getHeight()) {
                     continue;
                 }
 

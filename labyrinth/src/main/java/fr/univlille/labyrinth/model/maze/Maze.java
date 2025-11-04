@@ -154,5 +154,11 @@ public class Maze {
         return exitPosition;
     }
 
+    public boolean[][] getMurHorizontaux() {
+        return murHorizontaux;
+    }
 
+    public boolean[][] getMurVerticaux() {
+        return murVerticaux;
+    }
 }
