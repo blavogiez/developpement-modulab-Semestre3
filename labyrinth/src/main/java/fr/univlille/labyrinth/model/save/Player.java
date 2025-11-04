@@ -51,8 +51,8 @@ public class Player implements Serializable , Comparable<Player>{
      * @return true
      */
     public boolean isLevelLocked(int levelIdx) {
-        return getHighestLevel() < levelIdx;
-        //return false ; // debug
+        //return getHighestLevel() < levelIdx;
+        return false ; // debug
     }
 
     /** 
@@ -82,7 +82,7 @@ public class Player implements Serializable , Comparable<Player>{
 
     @Override
     public String toString() {
-        return "name=" + name + "score =" + getScore() ;
+        return name + " avec un score de : " + getScore() ;
     }
 
     

@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model.algorithm;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class PerfectAlgorithm {
     private static Cell[][] mazeCells;
 
     // Construit un labyrinthe parfait avec largeur colonnes et hauteur ligne
-    public static Maze createMaze(int largeur, int hauteur) {
+    public static Maze createMaze(int largeur, int hauteur, int distanceBetweenEntryAndExit) {
         PerfectAlgorithm.largeur = largeur;
         PerfectAlgorithm.hauteur = hauteur;
         murVerticaux = new boolean[largeur - 1][hauteur];
@@ -20,7 +21,16 @@ public class PerfectAlgorithm {
         allAreTrue(murHorizontaux);
         allAreTrue(murVerticaux);
         algoProfondeur();
-        return new Maze(largeur, hauteur, murHorizontaux, murVerticaux, mazeCells);
+
+        Random random = new Random();
+        Position entryPosition = new Position(random.nextInt(largeur), random.nextInt(hauteur));
+
+        Maze tempMaze = new Maze(largeur, hauteur, murHorizontaux, murVerticaux, mazeCells, new Position(0, 0), new Position(1, 1));
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(tempMaze, entryPosition, distanceBetweenEntryAndExit);
+
+        Position exitPosition = candidates.get(random.nextInt(candidates.size()));
+
+        return new Maze(largeur, hauteur, murHorizontaux, murVerticaux, mazeCells, entryPosition, exitPosition);
     }
 
     private static void algoProfondeur() {

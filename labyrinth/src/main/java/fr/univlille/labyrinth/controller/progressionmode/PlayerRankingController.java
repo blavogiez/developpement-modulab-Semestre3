@@ -10,7 +10,7 @@ import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
-public class PlayerRankingControlleur {
+public class PlayerRankingController {
 
     private List<Player> ranking= PlayerDatabase.loadAllPlayers();
 

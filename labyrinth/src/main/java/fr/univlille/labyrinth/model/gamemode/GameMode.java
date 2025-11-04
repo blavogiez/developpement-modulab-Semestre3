@@ -37,12 +37,13 @@ public abstract class GameMode {
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
-        this.currentMaze = PerfectAlgorithm.createMaze(width, height);
+        int maxDistance = (height - 3) + (width - 3);
+        this.currentMaze = PerfectAlgorithm.createMaze(width, height, maxDistance);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
-        this.currentMaze = PerfectAlgorithm.createMaze(width, height);
+        this.currentMaze = PerfectAlgorithm.createMaze(width, height, distanceBetweenEntryAndExit);
     }
 
     /**

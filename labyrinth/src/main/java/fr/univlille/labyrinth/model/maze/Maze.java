@@ -84,16 +84,16 @@ public class Maze {
     private final boolean[][] murVerticaux;
     private final boolean[][] murHorizontaux;
 
-    public Maze(int width, int height, boolean[][] murVerticaux, boolean[][] murHorizontaux, Cell[][] mazeCells) {
+    public Maze(int width, int height, boolean[][] murVerticaux, boolean[][] murHorizontaux, Cell[][] mazeCells, Position entryPosition, Position exitPosition) {
         this.observers=new ArrayList<>();
         this.width = width;
         this.height = height;
         this.grid = mazeCells;
         this.murVerticaux = murVerticaux;
         this.murHorizontaux = murHorizontaux;
-        this.entryPosition = new Position(0, 0);
-        this.playerPosition = new Position(0, 0);
-        this.exitPosition = new Position(1, 1);
+        this.entryPosition = entryPosition;
+        this.playerPosition = entryPosition;
+        this.exitPosition = exitPosition;
 
     }
     

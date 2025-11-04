@@ -7,8 +7,6 @@ import java.util.Random;
 
 // à test plus en détail
 public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
-
-    private static final int MAZE_SIZE = 50;
     private static final int EXPLORATION_RADIUS = 5;
 
     private boolean[][] cellulesExplorees;
@@ -27,8 +25,8 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     private void marquerCellulesExplorees(Maze maze) {
-        for (int i = 0; i < maze.getWidth(); i++) {
-            for (int j = 0; j < maze.getHeight(); j++) {
+        for (int i = 0; i < maze.getHeight(); i++) {
+            for (int j = 0; j < maze.getWidth(); j++) {
                 if (estDansRayon(i, j, maze, EXPLORATION_RADIUS)) {
                     cellulesExplorees[i][j] = true;
                 }
@@ -39,8 +37,8 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     private void dessinerZonesNonExplorees(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
         gc.setFill(Color.BLACK);
 
-        for (int i = 0; i < lignes; i++) {
-            for (int j = 0; j < colonnes; j++) {
+        for (int i = 0; i < colonnes; i++) {
+            for (int j = 0; j < lignes; j++) {
                 if (!shouldRenderCell(i, j, maze)) {
                     double x = offsetX + j * tailleCellule;
                     double y = offsetY + i * tailleCellule;
