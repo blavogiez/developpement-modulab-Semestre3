@@ -14,13 +14,6 @@ public class DFSAlgoMaze {
         this.maze = maze;
     }
 
-//    public List<int[]> search(int[] coo1, int[] coo2){
-//        Stack<int[]> chemin =
-//        if(){
-//
-//        }
-//    }
-
     public List<int[]> voisins(int ligne, int colonne, boolean[][] visite){
         List<int[]> res = new ArrayList<>();
         if(ligne > 0 && !visite[ligne-1][colonne]){
