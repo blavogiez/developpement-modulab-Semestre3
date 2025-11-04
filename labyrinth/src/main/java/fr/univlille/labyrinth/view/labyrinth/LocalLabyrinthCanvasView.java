@@ -46,7 +46,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        gc.setFill(Color.web(GameColors.PATH));
+        gc.setFill(GameColors.PATH.getColor());
         gc.fillRect(offsetX, offsetY, VIEW_SIZE * tailleCellule, VIEW_SIZE * tailleCellule);
 
         dessinerMurs(gc, VIEW_SIZE, VIEW_SIZE);
@@ -55,7 +55,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerMurs(GraphicsContext gc, int lignes, int colonnes) {
-        gc.setStroke(Color.web(GameColors.WALL));
+        gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(epaisseurMur);
 
         gc.strokeRect(offsetX, offsetY, VIEW_SIZE * tailleCellule, VIEW_SIZE * tailleCellule);
@@ -103,7 +103,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, Color.web(GameColors.PLAYER));
+        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
     }
 
     @Override

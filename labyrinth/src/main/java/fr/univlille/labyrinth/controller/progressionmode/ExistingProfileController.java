@@ -1,12 +1,12 @@
 package fr.univlille.labyrinth.controller.progressionmode;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import java.io.IOException;
 
 
 /**

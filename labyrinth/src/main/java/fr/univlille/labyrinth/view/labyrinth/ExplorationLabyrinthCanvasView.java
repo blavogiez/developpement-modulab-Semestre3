@@ -15,6 +15,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
 
     public ExplorationLabyrinthCanvasView(Maze maze) {
         super(maze);
+        update(maze);
     }
 
     @Override
@@ -36,8 +37,8 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     @Override
     protected void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
         marquerCellulesExplorees(maze);
-        update(maze);
-        //dessinerZonesNonExplorees(gc, maze, lignes, colonnes);
+        //update(maze);
+        dessinerZonesNonExplorees(gc, maze, lignes, colonnes);
         dessinerJoueur(gc, maze);
     }
 
