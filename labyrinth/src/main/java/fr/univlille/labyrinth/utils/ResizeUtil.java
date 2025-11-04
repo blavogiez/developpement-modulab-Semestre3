@@ -24,9 +24,14 @@ public class ResizeUtil {
         if(cont instanceof Button button){
             button.setFont(new Font(height * 0.50));
             button.setPadding(new Insets(0, 0, 0, 0));
+            if(button.getText().length() * height * 0.60 < width){
+                button.setFont(new Font(height*0.60));
+            }else{
+                button.setFont(new Font(width/button.getText().length()));
+            }
         } else if(cont instanceof Label label){
             if(label.getText().length() * height * 0.60 < width){
-                label.setFont(new Font(height*0.60));
+                label.setFont(new Font(height * 0.60));
             }else{
                 label.setFont(new Font(width/label.getText().length()));
             }
