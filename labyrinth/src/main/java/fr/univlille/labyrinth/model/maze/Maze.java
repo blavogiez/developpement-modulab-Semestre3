@@ -161,4 +161,5 @@ public class Maze {
     public boolean[][] getMurVerticaux() {
         return murVerticaux;
     }
+
 }
