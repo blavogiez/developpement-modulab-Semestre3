@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.parcours;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Maze;
 import org.junit.jupiter.api.Test;
 

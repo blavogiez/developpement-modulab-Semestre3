@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.algorithm.MazeSizeException;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithmold.MazeSizeException;
 import fr.univlille.labyrinth.model.maze.Maze;
 
 /**

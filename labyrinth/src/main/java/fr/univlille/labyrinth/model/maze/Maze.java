@@ -1,10 +1,13 @@
 package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.Cell;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm.adjacent;
+import static fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm.positionCorrecte;
 
 /**
  * Maze est une classe qui permet récupérer un labyrinthe, et gérer les intéractions des joueurs.
@@ -43,41 +46,55 @@ public class Maze {
     }
 
     /**
-     * Cette méthode renvoie si les coordonnées demandées sont un mur ou non
      *
-     * @param x coordonnées des abscisses.
-     * @param y coordonnées des ordonnées.
+     * @param ligne
+     * @param colonne
+     * @param ligne1
+     * @param colonne1
+     * @return true s'il y a un mur entre la Positionule située entre la Positionule à la
+     *         position (ligne,colonne) et la Positionule à la position
+     *         (ligne1,colonne1), false sinon
      */
-    public boolean isWall(int x, int y){
-        return !grid[x][y];
+
+    public boolean isWall(int ligne, int colonne, int ligne1, int colonne1) {
+
+        if (!adjacent(ligne, colonne, ligne1, colonne1))
+            throw new RuntimeException();
+
+        if (!positionCorrecte(ligne, colonne) || !positionCorrecte(ligne1, colonne1)) {
+            return true;
+        }
+
+        if (colonne == colonne1) {
+            return murHorizontaux[Math.min(ligne,ligne1)][colonne];
+        }
+        if (ligne == ligne1) {
+            return murVerticaux[Math.min(colonne,colonne1)][ligne];
+        }
+        return true;
     }
 
 
     private final int width;
     private final int height;
-    private final boolean[][] grid;
+    private final Cell[][] grid;
     private final Position playerPosition;
     private final Position entryPosition;
     private final Position exitPosition;
+    private final boolean[][] murVerticaux;
+    private final boolean[][] murHorizontaux;
 
-    /**
-     * Cette méthode permet de générer un labyrinthe
-     *
-     * @param algorithm L'algorithme choisi dans la Factory
-     * @param width La largeur du labyrinthe
-     * @param height La hauteur du labyrinthe
-     * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
-     * @param minPathLength La longueur minimale de chemin entre l'entrée et la sortie
-     */
-    public Maze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int minPathLength) {
+    public Maze(int width, int height, boolean[][] murVerticaux, boolean[][] murHorizontaux, Cell[][] mazeCells) {
         this.observers=new ArrayList<>();
-        // Génération du labyrinthe
-        this.grid = algorithm.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);
-        this.width = this.grid.length;
-        this.height = this.grid[0].length;
-        this.playerPosition = algorithm.getAlgorithm().getStart();
-        this.entryPosition = algorithm.getAlgorithm().getStart();
-        this.exitPosition = algorithm.getAlgorithm().getEnd();
+        this.width = width;
+        this.height = height;
+        this.grid = mazeCells;
+        this.murVerticaux = murVerticaux;
+        this.murHorizontaux = murHorizontaux;
+        this.entryPosition = new Position(0, 0);
+        this.playerPosition = new Position(0, 0);
+        this.exitPosition = new Position(1, 1);
+
     }
     
     /**
@@ -87,10 +104,6 @@ public class Maze {
      * @param height La hauteur du labyrinthe
      * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
      */
-    public Maze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
-        //this(width, height, wallPercentage, 20);
-        this(algorithm, width, height, wallPercentage, ((width-3) + (height-3))); // la distance minimale entre début et fin est la distance maximale possible selon le labyrinthe si rien n'est spécifie (notamment pour le mode libre) !
-    }
 
     /**
      * Cette méthode renvoie true si le joueur se situe à la sortie.
@@ -116,7 +129,7 @@ public class Maze {
     /**
      * Cette méthode renvoie le labyrinthe sous un tableau de booleans.
      */
-    public boolean[][] getGrid() {
+    public Cell[][] getGrid() {
         return grid;
     }
 

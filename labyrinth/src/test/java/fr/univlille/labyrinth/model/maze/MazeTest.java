@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

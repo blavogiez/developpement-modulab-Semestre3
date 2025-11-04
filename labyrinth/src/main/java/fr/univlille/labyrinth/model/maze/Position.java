@@ -11,14 +11,14 @@ public class Position {
         this.y=y;
     }
 
-    /** 
+    /**
      * @return coordonnée x
      */
     public int getX() {
         return this.x;
     }
 
-    /** 
+    /**
      * @return coordonnée y
      */
     public int getY() {
@@ -41,25 +41,40 @@ public class Position {
         this.y+=y;
     }
 
-    /**
-     * @param o objet comparé
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Position position = (Position) o;
-        return x == position.x && y == position.y;
+    public Position add(int x, int y){
+        return new Position(this.x+x,this.y+y);
     }
 
-    /** 
-     * @return le hashcode de l'objet
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
+    public Position min(Position next) {
+        if (this.x<next.x || this.y<next.y) return this;
+        return next;
     }
+
+    public Direction diff(Position next) {
+        int[] values = new int[]{this.x-next.x,this.y- next.y};
+        return Direction.getDirection(values[0],values[1]);
+    }
+
+
+/**
+ * @param o objet comparé
+ * @return boolean
+ */
+@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Position position = (Position) o;
+    return x == position.x && y == position.y;
+}
+
+/**
+ * @return le hashcode de l'objet
+ */
+@Override
+public int hashCode() {
+    return Objects.hash(x, y);
+}
 
 
 }

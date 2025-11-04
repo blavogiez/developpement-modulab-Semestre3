@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;

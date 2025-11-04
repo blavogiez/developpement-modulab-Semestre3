@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm;
+package fr.univlille.labyrinth.model.algorithmold;
 
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Position;

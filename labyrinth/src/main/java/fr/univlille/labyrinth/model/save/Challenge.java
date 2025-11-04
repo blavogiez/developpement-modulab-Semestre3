@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.model.save;
 import java.io.Serializable;
 import java.util.Objects;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.score.ScoreCalculator;
 import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 

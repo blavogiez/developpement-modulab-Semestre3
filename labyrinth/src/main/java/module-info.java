@@ -5,6 +5,7 @@ module fr.univlille.labyrinth {
     requires javafx.graphics;
     requires javafx.base;
     requires jdk.compiler;
+    requires fr.univlille.labyrinth;
 
     exports fr.univlille.labyrinth.view;
 
@@ -19,5 +20,5 @@ module fr.univlille.labyrinth {
     exports fr.univlille.labyrinth.model.maze;
     exports fr.univlille.labyrinth.model.gamemode;
     exports fr.univlille.labyrinth.model.save;
-    exports fr.univlille.labyrinth.model.algorithm;
+    exports fr.univlille.labyrinth.model.algorithmold;
 }

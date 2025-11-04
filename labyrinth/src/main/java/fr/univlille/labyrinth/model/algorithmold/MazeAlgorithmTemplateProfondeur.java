@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm;
+package fr.univlille.labyrinth.model.algorithmold;
 
 public abstract class MazeAlgorithmTemplateProfondeur extends MazeAlgorithmTemplate {
     /** 
