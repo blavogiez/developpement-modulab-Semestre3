@@ -7,8 +7,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import static fr.univlille.labyrinth.view.GameColors.PLAYER;
-import static fr.univlille.labyrinth.view.GameColors.WALL;
 
 // A adapter pour model
 // Should render cell à bosser ?
@@ -75,7 +73,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        gc.setFill(Color.web(GameColors.PATH));
+        gc.setFill(GameColors.PATH.getColor());
         gc.fillRect(offsetX, offsetY, colonnes * tailleCellule, lignes * tailleCellule);
 
         dessinerMurs(gc, lignes, colonnes);
@@ -99,7 +97,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
     }
 
     protected void dessinerMurs(GraphicsContext gc, int lignes, int colonnes) {
-        gc.setStroke(Color.web(WALL));
+        gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(epaisseurMur);
 
         gc.strokeRect(offsetX, offsetY, colonnes * tailleCellule, lignes * tailleCellule);
@@ -128,11 +126,11 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
      * wrappers successifs de "dessinerMarqueur"
      */
     protected void dessinerJoueur(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, maze.getPlayerPosition().getX(), maze.getPlayerPosition().getY(), Color.web(PLAYER));
+        dessinerMarqueur(gc, maze.getPlayerPosition().getX(), maze.getPlayerPosition().getY(), GameColors.PLAYER.getColor());
     }
 
     protected void dessinerSortie(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, maze.getExitPosition().getX(), maze.getExitPosition().getY(), Color.GREEN);
+        dessinerMarqueur(gc, maze.getExitPosition().getX(), maze.getExitPosition().getY(), GameColors.EXIT.getColor());
     }
 
     // en fait osef d'elle
