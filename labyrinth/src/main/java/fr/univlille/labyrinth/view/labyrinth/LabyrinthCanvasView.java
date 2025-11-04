@@ -8,16 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-// A adapter pour model
-// Should render cell à bosser ?
-
-/*
- * Classe abstraite mutualisant les comportements communs aux vues de labyrinthe
- * Permet de créer une nouvelle vue avec un code minimal
- * Permet d'injecter une dépendance abstraite et non concrète
- * 
- * Permet le O et le D de S O L I D
- */
 public abstract class LabyrinthCanvasView implements Observer<Maze> {
 
     private Pane container;
@@ -64,7 +54,6 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -75,7 +64,6 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         dessinerElements(gc, maze, lignes, colonnes);
     }
 
-    // final numbers à mettre
     protected void calculerDimensions(int lignes, int colonnes) {
         double width = canvas.getWidth();
         double height = canvas.getHeight();
@@ -87,54 +75,49 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         offsetX = (width - (colonnes * tailleCellule)) / 2;
         offsetY = (height - (lignes * tailleCellule)) / 2;
 
-        // donc un minimum
         epaisseurMur = Math.max(2, tailleCellule / 15);
     }
 
     protected void dessinerMurs(GraphicsContext gc, int lignes, int colonnes) {
         gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(epaisseurMur);
-
-        gc.strokeRect(offsetX, offsetY, colonnes * tailleCellule, lignes * tailleCellule);
-
+        
         boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
         boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
-
-        for (int i = 0; i < mursHorizontaux.length; i++) {
-            for (int j = 0; j < mursHorizontaux[0].length; j++) {
-                if (!shouldRenderCell(i, j, currentMaze)) {
-                    continue;
+        
+        for (int ligne = 0; ligne < lignes; ligne++) {
+            double y1 = offsetY + ligne * tailleCellule;
+            double y2 = y1 + tailleCellule;
+            
+            gc.strokeLine(offsetX, y1, offsetX, y2);
+            
+            for (int colonne = 0; colonne < colonnes - 1; colonne++) {
+                if (mursVerticaux[colonne][ligne]) {
+                    double x = offsetX + (colonne + 1) * tailleCellule;
+                    gc.strokeLine(x, y1, x, y2);
                 }
-
-                double x = offsetX + j * tailleCellule;
-                double y = offsetY + i * tailleCellule;
-
-                if (mursHorizontaux[i][j]) {
-                    gc.strokeLine(x, y + tailleCellule, x + tailleCellule, y + tailleCellule);
-                }
-
             }
+            
+            gc.strokeLine(offsetX + colonnes * tailleCellule, y1, offsetX + colonnes * tailleCellule, y2);
         }
-
-        for (int i = 0; i < mursVerticaux.length; i++) {
-            for (int j = 0; j < mursVerticaux[0].length; j++) {
-                if (!shouldRenderCell(i, j, currentMaze)) {
-                    continue;
-                }
-
-                double x = offsetX + j * tailleCellule;
-                double y = offsetY + i * tailleCellule;
-
-                if (mursVerticaux[i][j]) {
-                    gc.strokeLine(x + tailleCellule, y, x + tailleCellule, y + tailleCellule);
+        
+        for (int colonne = 0; colonne < colonnes; colonne++) {
+            double x1 = offsetX + colonne * tailleCellule;
+            double x2 = x1 + tailleCellule;
+            
+            gc.strokeLine(x1, offsetY, x2, offsetY);
+            
+            for (int ligne = 0; ligne < lignes - 1; ligne++) {
+                if (mursHorizontaux[ligne][colonne]) {
+                    double y = offsetY + (ligne + 1) * tailleCellule;
+                    gc.strokeLine(x1, y, x2, y);
                 }
             }
+            
+            gc.strokeLine(x1, offsetY + lignes * tailleCellule, x2, offsetY + lignes * tailleCellule);
         }
     }
 
-    /*
-     * wrappers successifs de "dessinerMarqueur"
-     */
     protected void dessinerJoueur(GraphicsContext gc, Maze maze) {
         dessinerMarqueur(gc, maze.getPlayerPosition().getX(), maze.getPlayerPosition().getY(), GameColors.PLAYER.getColor());
     }
@@ -143,27 +126,22 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         dessinerMarqueur(gc, maze.getExitPosition().getX(), maze.getExitPosition().getY(), GameColors.EXIT.getColor());
     }
 
-    // en fait osef d'elle
     protected void dessinerEntree(GraphicsContext gc, Maze maze) {
         dessinerMarqueur(gc, maze.getEntryPosition().getX(), maze.getEntryPosition().getY(), Color.GREEN);
     }
 
-    /*
-     * Dessine une forme ronde d'une couleur donnée sur une case (utile pour joueur / sortie)
-     */
     protected void dessinerMarqueur(GraphicsContext gc, int ligne, int colonne, Color couleur) {
         double tailleMarqueur = tailleCellule * 0.5;
         double marginMarqueur = (tailleCellule - tailleMarqueur) / 2;
 
         gc.setFill(couleur);
         gc.fillOval(
-            offsetX + colonne * tailleCellule + marginMarqueur,
-            offsetY + ligne * tailleCellule + marginMarqueur,
+            offsetX + ligne * tailleCellule + marginMarqueur,
+            offsetY + colonne * tailleCellule + marginMarqueur,
             tailleMarqueur,
             tailleMarqueur
         );
     }
-
     protected boolean estDansRayon(int ligne, int colonne, Maze maze, int rayon) {
         int playerX = maze.getPlayerPosition().getX();
         int playerY = maze.getPlayerPosition().getY();
@@ -172,11 +150,8 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         return Math.max(dx, dy) <= rayon;
     }
 
-    // quels élements le labyrinthe implémenté decide de dessiner ? 
     protected abstract void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes);
 
-    // faut il dessiner la cellule à cet endroit ? peut etre utile
-    // Attention à ça pour la Ségrégation d'interfaces 
     protected abstract boolean shouldRenderCell(int ligne, int colonne, Maze maze);
 
     public Pane getView() {
