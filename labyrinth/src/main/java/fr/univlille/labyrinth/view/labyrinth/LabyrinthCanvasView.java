@@ -100,8 +100,8 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
         boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
 
-        for (int i = 0; i < currentMaze.getWidth(); i++) {
-            for (int j = 0; j < currentMaze.getHeight(); j++) {
+        for (int i = 0; i < mursHorizontaux.length; i++) {
+            for (int j = 0; j < mursHorizontaux[0].length; j++) {
                 if (!shouldRenderCell(i, j, currentMaze)) {
                     continue;
                 }
@@ -113,7 +113,19 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
                     gc.strokeLine(x, y + tailleCellule, x + tailleCellule, y + tailleCellule);
                 }
 
-                if (mursVerticaux[j][i]) {
+            }
+        }
+
+        for (int i = 0; i < mursVerticaux.length; i++) {
+            for (int j = 0; j < mursVerticaux[0].length; j++) {
+                if (!shouldRenderCell(i, j, currentMaze)) {
+                    continue;
+                }
+
+                double x = offsetX + j * tailleCellule;
+                double y = offsetY + i * tailleCellule;
+
+                if (mursVerticaux[i][j]) {
                     gc.strokeLine(x + tailleCellule, y, x + tailleCellule, y + tailleCellule);
                 }
             }
