@@ -90,7 +90,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         drawHorizontalsWall(gc, lignes, colonnes, mursHorizontaux);
     }
 
-    private void drawVerticalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursHorizontaux) {
+    private void drawVerticalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursVerticaux) {
         for (int colonne = 0; colonne < colonnes; colonne++) {
             double x1 = offsetX + colonne * tailleCellule;
             double x2 = x1 + tailleCellule;
@@ -98,7 +98,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
             gc.strokeLine(x1, offsetY, x2, offsetY);
 
             for (int ligne = 0; ligne < lignes - 1; ligne++) {
-                if (mursHorizontaux[ligne][colonne]) {
+                if (mursVerticaux[ligne][colonne]) {
                     double y = offsetY + (ligne + 1) * tailleCellule;
                     gc.strokeLine(x1, y, x2, y);
                 }
@@ -108,7 +108,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         }
     }
 
-    private void drawHorizontalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursVerticaux) {
+    private void drawHorizontalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursHorizontaux) {
         for (int ligne = 0; ligne < lignes; ligne++) {
             double y1 = offsetY + ligne * tailleCellule;
             double y2 = y1 + tailleCellule;
@@ -116,7 +116,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
             gc.strokeLine(offsetX, y1, offsetX, y2);
 
             for (int colonne = 0; colonne < colonnes - 1; colonne++) {
-                if (mursVerticaux[colonne][ligne]) {
+                if (mursHorizontaux[colonne][ligne]) {
                     double x = offsetX + (colonne + 1) * tailleCellule;
                     gc.strokeLine(x, y1, x, y2);
                 }

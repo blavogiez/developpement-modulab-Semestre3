@@ -97,7 +97,7 @@ public class PerfectAlgorithm {
 
 
     public static boolean positionCorrecte(int ligne, int colonne) {
-        return ligne >= 0 && ligne < hauteur && colonne >= 0 && colonne < largeur;
+        return ligne >= 0 && ligne < largeur && colonne >= 0 && colonne < hauteur;
     }
 
     public static boolean positionCorrecte(int ligne, int colonne, boolean[][] tab) {
