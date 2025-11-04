@@ -1,6 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.save.Player;
+package fr.univlille.labyrinth.model.algorithmold;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

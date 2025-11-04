@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 
 /**
  * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).

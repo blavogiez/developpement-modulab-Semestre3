@@ -1,6 +1,5 @@
-package fr.univlille.labyrinth.model.algorithm;
+package fr.univlille.labyrinth.model.algorithmold;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 import org.junit.jupiter.api.Test;

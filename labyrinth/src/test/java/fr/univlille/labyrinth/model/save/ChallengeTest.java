@@ -1,8 +1,6 @@
 package fr.univlille.labyrinth.model.save;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.save.ViewType;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
 import org.junit.jupiter.api.BeforeEach;

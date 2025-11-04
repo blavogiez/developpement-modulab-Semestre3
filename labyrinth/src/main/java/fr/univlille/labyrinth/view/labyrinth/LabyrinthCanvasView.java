@@ -29,13 +29,8 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
     protected double offsetY;
     protected double epaisseurMur;
 
-    protected boolean[][] mursVerticaux;
-    protected boolean[][] mursHorizontaux;
-
     public LabyrinthCanvasView(Maze maze) {
         this.currentMaze = maze;
-
-        genererLabyrintheTest();
 
         container = new Pane();
         canvas = new Canvas(700, 700);
@@ -62,8 +57,8 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
             return;
         }
 
-        int lignes = mursVerticaux.length;
-        int colonnes = mursVerticaux[0].length;
+        int lignes = maze.getWidth();
+        int colonnes = maze.getHeight();
 
         calculerDimensions(lignes, colonnes);
 
@@ -102,8 +97,11 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
 
         gc.strokeRect(offsetX, offsetY, colonnes * tailleCellule, lignes * tailleCellule);
 
-        for (int i = 0; i < lignes; i++) {
-            for (int j = 0; j < colonnes; j++) {
+        boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
+        boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
+
+        for (int i = 0; i < currentMaze.getWidth(); i++) {
+            for (int j = 0; j < currentMaze.getHeight(); j++) {
                 if (!shouldRenderCell(i, j, currentMaze)) {
                     continue;
                 }
@@ -115,7 +113,7 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
                     gc.strokeLine(x, y + tailleCellule, x + tailleCellule, y + tailleCellule);
                 }
 
-                if (mursVerticaux[i][j]) {
+                if (mursVerticaux[j][i]) {
                     gc.strokeLine(x + tailleCellule, y, x + tailleCellule, y + tailleCellule);
                 }
             }
@@ -161,9 +159,6 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         int dy = Math.abs(colonne - playerY);
         return Math.max(dx, dy) <= rayon;
     }
-
-    // random, sert que en attendant l'algo
-    protected abstract void genererLabyrintheTest();
 
     // quels élements le labyrinthe implémenté decide de dessiner ? 
     protected abstract void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes);

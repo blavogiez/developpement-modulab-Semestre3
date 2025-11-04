@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm;
+package fr.univlille.labyrinth.model.algorithmold;
 
 public enum MazeAlgorithmFactory {
     PERFECT(MazeAlgorithmPerfect.getInstance()),

@@ -44,4 +44,11 @@ public enum     Direction {
     public int getY() {
         return y;
     }
+
+    public static Direction getDirection(int x, int y){
+        if (x== UP.x && y == UP.y) return UP;
+        else if (x== DOWN.x && y== DOWN.y) return DOWN;
+        else if (x== LEFT.x && y == LEFT.y) return LEFT;
+        else return RIGHT;
+    }
 }
