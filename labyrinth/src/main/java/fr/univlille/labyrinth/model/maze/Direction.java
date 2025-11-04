@@ -7,7 +7,7 @@ package fr.univlille.labyrinth.model.maze;
  * @version 0.0
  * @since 0.0
  */
-public enum Direction {
+public enum     Direction {
     /**
      * go UP
      */

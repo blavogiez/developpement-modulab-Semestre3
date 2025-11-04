@@ -33,7 +33,13 @@ public class ResizeUtil {
         } else if(cont instanceof TextField textField){
             textField.setFont(new Font(height * 0.60));
         }else if(cont instanceof ComboBox combo) {
-            combo.setStyle("-fx-font-size: " + (height * 0.50) + "px;");
+
+            int maxItemLength = getMaxLengthItemComboBox(combo);
+            if ( maxItemLength * height * 0.60 < width) {
+                combo.setStyle("-fx-font-size: " + (height * 0.60) + "px;");
+            } else {
+                combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
+            }
         }
         if(parent instanceof VBox){
             VBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));
@@ -99,4 +105,16 @@ public class ResizeUtil {
         }
     }
 
+    private static int getMaxLengthItemComboBox(ComboBox comboBox){
+        int maxLength = 0;
+        for (Object item : comboBox.getItems()) {
+            if (item != null) {
+                int length = item.toString().length();
+                if (length > maxLength) {
+                    maxLength = length;
+                }
+            }
+        }
+        return maxLength;
+    }
 }
