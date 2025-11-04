@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
@@ -36,12 +37,12 @@ public abstract class GameMode {
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
-        this.currentMaze = new Maze(algorithm, width,height,wallPercentage);
+        this.currentMaze = PerfectAlgorithm.createMaze(width, height);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
-        this.currentMaze = new Maze(algorithm, width,height,wallPercentage,distanceBetweenEntryAndExit);
+        this.currentMaze = PerfectAlgorithm.createMaze(width, height);
     }
 
     /**
@@ -52,7 +53,7 @@ public abstract class GameMode {
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
             Position playerPosition = currentMaze.getPlayerPosition();
-            if ( !currentMaze.isWall(playerPosition.getX()+direction.getX(),playerPosition.getY()+direction.getY())){
+            if ( !currentMaze.isWall(playerPosition.getX(),playerPosition.getY(),playerPosition.getX()+direction.getX(),playerPosition.getY()+direction.getY())){
                 currentMaze.movePlayer(direction);
                 if (isPlayerAtEnd()) {
                     handleVictory();
