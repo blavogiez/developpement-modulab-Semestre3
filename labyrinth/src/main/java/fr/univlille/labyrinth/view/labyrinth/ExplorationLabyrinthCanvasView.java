@@ -1,9 +1,8 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import java.util.Random;
 
 // à test plus en détail
 public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
@@ -11,14 +10,14 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private boolean[][] cellulesExplorees;
 
-    public ExplorationLabyrinthCanvasView(Maze maze) {
+    public ExplorationLabyrinthCanvasView(PlayerMaze maze) {
         super(maze);
         cellulesExplorees = new boolean[maze.getHeight()][maze.getWidth()];
         update(maze);
     }
 
     @Override
-    public void update(Maze maze) {
+    public void update(PlayerMaze maze) {
         if (cellulesExplorees == null ||
             cellulesExplorees.length != maze.getHeight() ||
             cellulesExplorees[0].length != maze.getWidth()) {
@@ -28,21 +27,21 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
+    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
         marquerCellulesExplorees(maze);
-        dessinerZonesNonExplorees(gc, maze, lignes, colonnes);
+        dessinerZonesNonExplorees(gc, maze, hauteur, largeur);
 
-        if (shouldRenderCell(maze.getEntryPosition().getX(), maze.getEntryPosition().getY(), maze)) {
+        if (shouldRenderCell(maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), maze)) {
             dessinerEntree(gc, maze);
         }
-        if (shouldRenderCell(maze.getExitPosition().getX(), maze.getExitPosition().getY(), maze)) {
+        if (shouldRenderCell(maze.getExitPosition().getY(), maze.getExitPosition().getX(), maze)) {
             dessinerSortie(gc, maze);
         }
 
         dessinerJoueur(gc, maze);
     }
 
-    private void marquerCellulesExplorees(Maze maze) {
+    private void marquerCellulesExplorees(PlayerMaze maze) {
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
                 if (estDansRayon(j, i, maze, EXPLORATION_RADIUS)) {
@@ -52,22 +51,22 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
-    private void dessinerZonesNonExplorees(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
+    private void dessinerZonesNonExplorees(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
         gc.setFill(Color.BLACK);
 
-        for (int ligne = 0; ligne < lignes; ligne++) {
-            for (int colonne = 0; colonne < colonnes; colonne++) {
-                if (!shouldRenderCell(colonne, ligne, maze)) {
-                    double x = offsetX + colonne * tailleCellule;
-                    double y = offsetY + ligne * tailleCellule;
-                    gc.fillRect(x, y, tailleCellule, tailleCellule);
+        for (int y = 0; y < hauteur; y++) {
+            for (int x = 0; x < largeur; x++) {
+                if (!shouldRenderCell(y, x, maze)) {
+                    double xCoord = offsetX + x * tailleCellule;
+                    double yCoord = offsetY + y * tailleCellule;
+                    gc.fillRect(xCoord, yCoord, tailleCellule, tailleCellule);
                 }
             }
         }
     }
 
     @Override
-    protected boolean shouldRenderCell(int ligne, int colonne, Maze maze) {
-        return cellulesExplorees[colonne][ligne];
+    protected boolean shouldRenderCell(int y, int x, PlayerMaze maze) {
+        return cellulesExplorees[y][x];
     }
 }

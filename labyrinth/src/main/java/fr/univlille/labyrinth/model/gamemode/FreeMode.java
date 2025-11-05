@@ -24,7 +24,7 @@ public class FreeMode extends GameMode {
 
      */
     public void createMaze() {
-        if(algorithm.isPerfect()) createMaze(algorithm, mazeWidth, mazeHeight, mazeWallPercentage, distanceBetweenEntryAndExit);
+        if(algorithm.isPerfect()) createMaze(algorithm, mazeWidth, mazeHeight, distanceBetweenEntryAndExit);
         else createMaze(algorithm, mazeWidth, mazeHeight, mazeWallPercentage);
     }
 

@@ -37,15 +37,16 @@ public abstract class GameMode {
      * @param height la hauteur du labyrinthe.
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
-        int maxDistance = (height - 3) + (width - 3);
-        this.currentMaze = new Maze(width,height,wallPercentage);
-        PerfectAlgorithm.generateMaze(width, height, maxDistance);
+    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, int distanceBetweenEntryAndExit) {
+        //int maxDistance = (height - 3) + (width - 3);
+        this.currentMaze = new PlayerMaze(width,height,distanceBetweenEntryAndExit);
+        //PerfectAlgorithm.generateMaze(this.currentMaze);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
-        this.currentMaze = PerfectAlgorithm.createMaze(width, height, distanceBetweenEntryAndExit);
+    // TODO: à gérer apres !
+    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
+        this.createMaze(algorithm, width, height, (height-3+width-3));
     }
 
     /**
@@ -56,7 +57,7 @@ public abstract class GameMode {
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
             Position playerPosition = currentMaze.getPlayerPosition();
-            if ( !currentMaze.isWall(playerPosition.getX(),playerPosition.getY(),playerPosition.getX()+direction.getX(),playerPosition.getY()+direction.getY())){
+            if ( !currentMaze.isWall(playerPosition.getY(),playerPosition.getX(),playerPosition.getY()+direction.getY(),playerPosition.getX()+direction.getX())){
                 currentMaze.movePlayer(direction);
                 if (isPlayerAtEnd()) {
                     handleVictory();
@@ -75,14 +76,14 @@ public abstract class GameMode {
     /** 
      * @param currentMaze set Maze
      */
-    public void setCurrentMaze(Maze currentMaze) {
+    public void setCurrentMaze(PlayerMaze currentMaze) {
         this.currentMaze = currentMaze;
     }
 
     /**
      * @return Maze
      */
-    public Maze getCurrentMaze() {
+    public PlayerMaze getCurrentMaze() {
         return currentMaze;
     }
 

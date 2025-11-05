@@ -17,19 +17,21 @@ import java.util.List;
  * @since 0.0
  */
 public class PlayerMaze extends Maze {
-    private final Position playerPosition;
-    private final List<Observer<Maze>> observers;
+    private Position playerPosition;
+    private final List<Observer<PlayerMaze>> observers;
 
     /**
      * Cette méthode permet d'ajouter un observateur à Maze, afin qu'il puisse être alerté d'une modification
      *
      * @param observer un observateur de Maze.
      */
-    public boolean add(Observer<Maze> observer){return observers.add(observer);}
+    public boolean add(Observer<PlayerMaze> observer){
+        return observers.add(observer);
+    }
 
 
     private void notifyObserver(){
-        for (Observer<Maze> observer : observers){
+        for (Observer<PlayerMaze> observer : observers){
             observer.update(this);
         }
     }
@@ -46,10 +48,10 @@ public class PlayerMaze extends Maze {
     }
 
 
-    public PlayerMaze(int width, int height, boolean[][] murVerticaux, boolean[][] murHorizontaux, Cell[][] mazeCells, Position entryPosition, Position exitPosition) {
-        super(width, height, murVerticaux, murHorizontaux, mazeCells, entryPosition, exitPosition) ;
+    public PlayerMaze(int width, int height, int distanceBetweenEntryAndExit) {
+        super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
-        this.playerPosition = entryPosition;
+        this.playerPosition = new Position(entryPosition.getX(),entryPosition.getY());
     }
     
     /**
@@ -68,53 +70,10 @@ public class PlayerMaze extends Maze {
     }
 
     /**
-     * Cette méthode renvoie la largeur du labyrinthe.
-     */
-    public int getWidth()    {
-        return width;
-    }
-
-    /**
-     * Cette méthode renvoie la hauteur du labyrinthe.
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * Cette méthode renvoie le labyrinthe sous un tableau de booleans.
-     */
-    public Cell[][] getGrid() {
-        return grid;
-    }
-
-    /**
      * Cette méthode renvoie la position du joueur.
      */
     public Position getPlayerPosition() {
         return playerPosition;
-    }
-
-    /**
-     * Cette méthode renvoie la position de l'entrée.
-     */
-    public Position getEntryPosition() {
-        return entryPosition;
-    }
-
-    /**
-     * Cette méthode renvoie la position de la sortie.
-     */
-    public Position getExitPosition() {
-        return exitPosition;
-    }
-
-    public boolean[][] getMurHorizontaux() {
-        return murHorizontaux;
-    }
-
-    public boolean[][] getMurVerticaux() {
-        return murVerticaux;
     }
 
 }

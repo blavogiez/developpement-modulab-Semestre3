@@ -1,25 +1,25 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.view.GameColors;
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.view.GameColors;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public abstract class LabyrinthCanvasView implements Observer<Maze> {
+public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
 
     private Pane container;
     protected Canvas canvas;
-    protected Maze currentMaze;
+    protected PlayerMaze currentMaze;
 
     protected double tailleCellule;
     protected double offsetX;
     protected double offsetY;
     protected double epaisseurMur;
 
-    public LabyrinthCanvasView(Maze maze) {
+    public LabyrinthCanvasView(PlayerMaze maze) {
         this.currentMaze = maze;
 
         container = new Pane();
@@ -40,17 +40,17 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
     }
 
     @Override
-    public void update(Maze maze) {
+    public void update(PlayerMaze maze) {
         this.currentMaze = maze;
 
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) {
             return;
         }
 
-        int lignes = maze.getHeight();
-        int colonnes = maze.getWidth();
+        int hauteur = maze.getHeight();
+        int largeur = maze.getWidth();
 
-        calculerDimensions(lignes, colonnes);
+        calculerDimensions(hauteur, largeur);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -58,109 +58,100 @@ public abstract class LabyrinthCanvasView implements Observer<Maze> {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         gc.setFill(GameColors.PATH.getColor());
-        gc.fillRect(offsetX, offsetY, colonnes * tailleCellule, lignes * tailleCellule);
+        gc.fillRect(offsetX, offsetY, largeur * tailleCellule, hauteur * tailleCellule);
 
-        dessinerMurs(gc, lignes, colonnes);
-        dessinerElements(gc, maze, lignes, colonnes);
+        dessinerMurs(gc, hauteur, largeur);
+        dessinerElements(gc, maze, hauteur, largeur);
     }
 
-    protected void calculerDimensions(int lignes, int colonnes) {
+    protected void calculerDimensions(int hauteur, int largeur) {
         double width = canvas.getWidth();
         double height = canvas.getHeight();
 
-        double tailleCelluleX = (width - 20) / colonnes;
-        double tailleCelluleY = (height - 20) / lignes;
+        double tailleCelluleX = (width - 20) / largeur;
+        double tailleCelluleY = (height - 20) / hauteur;
         tailleCellule = Math.min(tailleCelluleX, tailleCelluleY);
 
-        offsetX = (width - (colonnes * tailleCellule)) / 2;
-        offsetY = (height - (lignes * tailleCellule)) / 2;
+        offsetX = (width - (largeur * tailleCellule)) / 2;
+        offsetY = (height - (hauteur * tailleCellule)) / 2;
 
         epaisseurMur = Math.max(2, tailleCellule / 15);
     }
 
-    protected void dessinerMurs(GraphicsContext gc, int lignes, int colonnes) {
+    protected void dessinerMurs(GraphicsContext gc, int hauteur, int largeur) {
         gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(epaisseurMur);
-        
-        boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
-        boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
 
-        drawVerticalsWall(gc, lignes, colonnes, mursVerticaux);
-
-        drawHorizontalsWall(gc, lignes, colonnes, mursHorizontaux);
-    }
-
-    private void drawVerticalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursVerticaux) {
-        for (int colonne = 0; colonne < colonnes; colonne++) {
-            double x1 = offsetX + colonne * tailleCellule;
-            double x2 = x1 + tailleCellule;
-
-            gc.strokeLine(x1, offsetY, x2, offsetY);
-
-            for (int ligne = 0; ligne < lignes - 1; ligne++) {
-                if (mursVerticaux[ligne][colonne]) {
-                    double y = offsetY + (ligne + 1) * tailleCellule;
-                    gc.strokeLine(x1, y, x2, y);
+        for (int y = 0; y < hauteur; y++) {
+            if (currentMaze.isWall(y, -1, y, 0)) {
+                double x1 = offsetX;
+                double y1 = offsetY + y * tailleCellule;
+                double y2 = y1 + tailleCellule;
+                gc.strokeLine(x1, y1, x1, y2);
+            }
+            for (int x = 0; x < largeur; x++) {
+                if (currentMaze.isWall(y, x, y, x + 1)) {
+                    double x1 = offsetX + (x + 1) * tailleCellule;
+                    double y1 = offsetY + y * tailleCellule;
+                    double y2 = y1 + tailleCellule;
+                    gc.strokeLine(x1, y1, x1, y2);
                 }
             }
+        }
 
-            gc.strokeLine(x1, offsetY + lignes * tailleCellule, x2, offsetY + lignes * tailleCellule);
+        for (int x = 0; x < largeur; x++) {
+            if (currentMaze.isWall(-1, x, 0, x)) {
+                double x1 = offsetX + x * tailleCellule;
+                double x2 = x1 + tailleCellule;
+                double y1 = offsetY;
+                gc.strokeLine(x1, y1, x2, y1);
+            }
+            for (int y = 0; y < hauteur; y++) {
+                if (currentMaze.isWall(y, x, y + 1, x)) {
+                    double x1 = offsetX + x * tailleCellule;
+                    double x2 = x1 + tailleCellule;
+                    double y1 = offsetY + (y + 1) * tailleCellule;
+                    gc.strokeLine(x1, y1, x2, y1);
+                }
+            }
         }
     }
 
-    private void drawHorizontalsWall(GraphicsContext gc, int lignes, int colonnes, boolean[][] mursHorizontaux) {
-        for (int ligne = 0; ligne < lignes; ligne++) {
-            double y1 = offsetY + ligne * tailleCellule;
-            double y2 = y1 + tailleCellule;
-
-            gc.strokeLine(offsetX, y1, offsetX, y2);
-
-            for (int colonne = 0; colonne < colonnes - 1; colonne++) {
-                if (mursHorizontaux[colonne][ligne]) {
-                    double x = offsetX + (colonne + 1) * tailleCellule;
-                    gc.strokeLine(x, y1, x, y2);
-                }
-            }
-
-            gc.strokeLine(offsetX + colonnes * tailleCellule, y1, offsetX + colonnes * tailleCellule, y2);
-        }
+    protected void dessinerJoueur(GraphicsContext gc, PlayerMaze maze) {
+        dessinerMarqueur(gc, maze.getPlayerPosition().getY(), maze.getPlayerPosition().getX(), GameColors.PLAYER.getColor());
     }
 
-    protected void dessinerJoueur(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, maze.getPlayerPosition().getX(), maze.getPlayerPosition().getY(), GameColors.PLAYER.getColor());
+    protected void dessinerSortie(GraphicsContext gc, PlayerMaze maze) {
+        dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameColors.EXIT.getColor());
     }
 
-    protected void dessinerSortie(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, maze.getExitPosition().getX(), maze.getExitPosition().getY(), GameColors.EXIT.getColor());
+    protected void dessinerEntree(GraphicsContext gc, PlayerMaze maze) {
+        dessinerMarqueur(gc, maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), Color.GREEN);
     }
 
-    protected void dessinerEntree(GraphicsContext gc, Maze maze) {
-        dessinerMarqueur(gc, maze.getEntryPosition().getX(), maze.getEntryPosition().getY(), Color.GREEN);
-    }
-
-    protected void dessinerMarqueur(GraphicsContext gc, int ligne, int colonne, Color couleur) {
+    protected void dessinerMarqueur(GraphicsContext gc, int y, int x, Color couleur) {
         double tailleMarqueur = tailleCellule * 0.5;
         double marginMarqueur = (tailleCellule - tailleMarqueur) / 2;
 
         gc.setFill(couleur);
         gc.fillOval(
-            offsetX + ligne * tailleCellule + marginMarqueur,
-            offsetY + colonne * tailleCellule + marginMarqueur,
+            offsetX + x * tailleCellule + marginMarqueur,
+            offsetY + y * tailleCellule + marginMarqueur,
             tailleMarqueur,
             tailleMarqueur
         );
     }
-    protected boolean estDansRayon(int ligne, int colonne, Maze maze, int rayon) {
+    protected boolean estDansRayon(int x, int y, PlayerMaze maze, int rayon) {
         int playerX = maze.getPlayerPosition().getX();
         int playerY = maze.getPlayerPosition().getY();
-        int dx = Math.abs(ligne - playerX);
-        int dy = Math.abs(colonne - playerY);
+        int dx = Math.abs(x - playerX);
+        int dy = Math.abs(y - playerY);
         return Math.max(dx, dy) <= rayon;
     }
 
-    protected abstract void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes);
+    protected abstract void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur);
 
-    protected abstract boolean shouldRenderCell(int ligne, int colonne, Maze maze);
+    protected abstract boolean shouldRenderCell(int y, int x, PlayerMaze maze);
 
     public Pane getView() {
         return container;

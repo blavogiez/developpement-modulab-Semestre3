@@ -1,23 +1,22 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import java.util.Random;
 import fr.univlille.labyrinth.view.GameColors;
 
 public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
-    private static final int VIEW_RADIUS = 2;
+    private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
 
-    public LocalLabyrinthCanvasView(Maze maze) {
+    public LocalLabyrinthCanvasView(PlayerMaze maze) {
         super(maze);
     }
 
     @Override
-    public void update(Maze maze) {
+    public void update(PlayerMaze maze) {
         this.currentMaze = maze;
 
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) {
@@ -39,101 +38,86 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerMurs(GraphicsContext gc, int lignes, int colonnes) {
+    protected void dessinerMurs(GraphicsContext gc, int hauteur, int largeur) {
         gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(epaisseurMur);
-
-        boolean[][] mursHorizontaux = currentMaze.getMurHorizontaux();
-        boolean[][] mursVerticaux = currentMaze.getMurVerticaux();
 
         Position player = currentMaze.getPlayerPosition();
         int playerX = player.getX();
         int playerY = player.getY();
 
-        int mazeWidth = currentMaze.getWidth();
-        int mazeHeight = currentMaze.getHeight();
+        for (int localY = 0; localY < VIEW_SIZE; localY++) {
+            int globalY = playerY - VIEW_RADIUS + localY;
 
-        for (int localCol = 0; localCol < VIEW_SIZE; localCol++) {
-            int globalX = playerX - VIEW_RADIUS + localCol;
-
-            double x1 = offsetX + localCol * tailleCellule;
-            double x2 = x1 + tailleCellule;
-
-            gc.strokeLine(x1, offsetY, x2, offsetY);
-
-            for (int localRow = 0; localRow < VIEW_SIZE - 1; localRow++) {
-                int globalY = playerY - VIEW_RADIUS + localRow;
-
-                if (globalX >= 0 && globalX < mazeWidth - 1 &&
-                    globalY >= 0 && globalY < mazeHeight - 1) {
-                    if (mursVerticaux[globalY][globalX]) {
-                        double y = offsetY + (localRow + 1) * tailleCellule;
-                        gc.strokeLine(x1, y, x2, y);
-                    }
-                }
-                else {
-                    double x = offsetX + localCol * tailleCellule;
-                    double y = offsetY + localRow * tailleCellule;
-                    gc.setFill(Color.BLACK);
-                    gc.fillRect(x, y, tailleCellule, tailleCellule);
-                }
+            int localX = 0;
+            int globalX = playerX - VIEW_RADIUS + localX;
+            if (currentMaze.isWall(globalY, globalX - 1, globalY, globalX)) {
+                double x1 = offsetX;
+                double y1 = offsetY + localY * tailleCellule;
+                double y2 = y1 + tailleCellule;
+                gc.strokeLine(x1, y1, x1, y2);
             }
 
-            gc.strokeLine(x1, offsetY + VIEW_SIZE * tailleCellule, x2, offsetY + VIEW_SIZE * tailleCellule);
+            for (int localX2 = 0; localX2 < VIEW_SIZE - 1; localX2++) {
+                globalX = playerX - VIEW_RADIUS + localX2;
+                int globalXNext = globalX + 1;
+
+                if (currentMaze.isWall(globalY, globalX, globalY, globalXNext)) {
+                    double x1 = offsetX + (localX2 + 1) * tailleCellule;
+                    double y1 = offsetY + localY * tailleCellule;
+                    double y2 = y1 + tailleCellule;
+                    gc.strokeLine(x1, y1, x1, y2);
+                }
+            }
         }
 
-        for (int localRow = 0; localRow < VIEW_SIZE; localRow++) {
-            int globalY = playerY - VIEW_RADIUS + localRow;
+        for (int localX3 = 0; localX3 < VIEW_SIZE; localX3++) {
+            int globalX = playerX - VIEW_RADIUS + localX3;
 
-            double y1 = offsetY + localRow * tailleCellule;
-            double y2 = y1 + tailleCellule;
-
-            
-            gc.strokeLine(offsetX, y1, offsetX, y2);
-
-            for (int localCol = 0; localCol < VIEW_SIZE - 1; localCol++) {
-                int globalX = playerX - VIEW_RADIUS + localCol;
-
-                if (globalY >= 0 && globalY < mazeHeight - 1 &&
-                    globalX >= 0 && globalX < mazeWidth - 1) {
-                    if (mursHorizontaux[globalX][globalY]) {
-                        double x = offsetX + (localCol + 1) * tailleCellule;
-                        gc.strokeLine(x, y1, x, y2);
-                    }
-                }
-                else {
-                    double x = offsetX + localCol * tailleCellule;
-                    double y = offsetY + localRow * tailleCellule;
-                    gc.setFill(Color.BLACK);
-                    gc.fillRect(x, y, tailleCellule, tailleCellule);
-                }
+            int localY2 = 0;
+            int globalY = playerY - VIEW_RADIUS + localY2;
+            if (currentMaze.isWall(globalY - 1, globalX, globalY, globalX)) {
+                double x1 = offsetX + localX3 * tailleCellule;
+                double x2 = x1 + tailleCellule;
+                double y1 = offsetY;
+                gc.strokeLine(x1, y1, x2, y1);
             }
 
-            gc.strokeLine(offsetX + VIEW_SIZE * tailleCellule, y1, offsetX + VIEW_SIZE * tailleCellule, y2);
+            for (int localY3 = 0; localY3 < VIEW_SIZE - 1; localY3++) {
+                globalY = playerY - VIEW_RADIUS + localY3;
+                int globalYNext = globalY + 1;
+
+                if (currentMaze.isWall(globalY, globalX, globalYNext, globalX)) {
+                    double x1 = offsetX + localX3 * tailleCellule;
+                    double x2 = x1 + tailleCellule;
+                    double y1 = offsetY + (localY3 + 1) * tailleCellule;
+                    gc.strokeLine(x1, y1, x2, y1);
+                }
+            }
         }
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
+    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int lignes, int colonnes) {
         Position exit = maze.getExitPosition();
         Position player = maze.getPlayerPosition();
 
         if (estDansRayon(exit.getX(), exit.getY(), maze, VIEW_RADIUS)) {
             int localX = exit.getX() - player.getX() + VIEW_RADIUS;
             int localY = exit.getY() - player.getY() + VIEW_RADIUS;
-            dessinerMarqueur(gc, localX, localY, GameColors.EXIT.getColor());
+            dessinerMarqueur(gc, localY, localX, GameColors.EXIT.getColor());
         }
 
         dessinerJoueur(gc, maze);
     }
 
     @Override
-    protected void dessinerJoueur(GraphicsContext gc, Maze maze) {
+    protected void dessinerJoueur(GraphicsContext gc, PlayerMaze maze) {
         dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
     }
 
     @Override
-    protected boolean shouldRenderCell(int ligne, int colonne, Maze maze) {
+    protected boolean shouldRenderCell(int ligne, int colonne, PlayerMaze maze) {
         return true;
     }
 }

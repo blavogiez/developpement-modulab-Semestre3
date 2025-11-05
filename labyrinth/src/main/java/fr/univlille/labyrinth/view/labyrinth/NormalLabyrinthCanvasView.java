@@ -1,27 +1,25 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import java.util.Random;
 
+/*
+ * Vue typique d'un labyrinthe, héritant donc la plupart de ses méthodes.
+ */
 public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
-
-    private static final int MAZE_SIZE = 50;
-
-    public NormalLabyrinthCanvasView(Maze maze) {
+    public NormalLabyrinthCanvasView(PlayerMaze maze) {
         super(maze);
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, Maze maze, int lignes, int colonnes) {
+    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
         dessinerEntree(gc, maze);
         dessinerSortie(gc, maze);
         dessinerJoueur(gc, maze);
     }
 
     @Override
-    protected boolean shouldRenderCell(int ligne, int colonne, Maze maze) {
+    protected boolean shouldRenderCell(int y, int x, PlayerMaze maze) {
         return true;
     }
 }

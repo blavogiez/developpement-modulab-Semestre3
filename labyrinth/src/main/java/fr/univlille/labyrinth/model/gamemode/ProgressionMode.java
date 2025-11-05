@@ -39,7 +39,8 @@ public class ProgressionMode extends GameMode {
         int height = chosenChallenge.getHeight();
         double wallPercentage = chosenChallenge.getWallPercentage();
         int minPathLength = chosenChallenge.getDistanceBetweenEntryAndExit();
-        createMaze(algorithm, width, height, wallPercentage, minPathLength);
+        //wallPercentage à gérer !
+        createMaze(algorithm, width, height, minPathLength);
     }
 
     /**

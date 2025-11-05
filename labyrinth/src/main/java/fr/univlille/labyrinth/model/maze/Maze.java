@@ -3,35 +3,43 @@ package fr.univlille.labyrinth.model.maze;
 import fr.univlille.labyrinth.model.algorithm.Cell;
 import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 
-import static fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm.adjacent;
-import static fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm.positionCorrecte;
-
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.
  * La position du joueur est gérée dans la classe PlayerMaze (Qui sera la version observable), qui hérite de cette classe.
  * Afin de mieux respecter le S de S O L I D et de mieux retrouver les comportements exclusivements relatifs aux murs
+ * <p>
+ * Convention de coordonnées :
+ * - (x, y) : position avec x = colonne (axe horizontal, largeur), y = ligne (axe vertical, hauteur)
+ * - L'axe X est horizontal (de gauche à droite)
+ * - L'axe Y est vertical (de haut en bas)
+ * - murHorizontaux[y][x] représente les murs horizontaux entre (y, x) et (y, x+1)
+ * - murVerticaux[y][x] représente les murs verticaux entre (y, x) et (y+1, x)
+ * </p>
  * 
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
  * @since 0.0
  */
 public abstract class Maze {
-    protected final int width;
-    protected final int height;
-    protected final Cell[][] grid;
+    protected int width;
+    protected int height;
+    protected Cell[][] grid;
     protected Position entryPosition;
     protected Position exitPosition;
-    protected final int distanceBetweenEntryAndExit;
-    protected final boolean[][] murVerticaux;
-    protected final boolean[][] murHorizontaux;
+    protected int distanceBetweenEntryAndExit;
+    protected boolean[][] murVerticaux;
+    protected boolean[][] murHorizontaux;
 
-    public Maze(int width, int height, Cell[][] mazeCells, int distanceBetweenEntryAndExit) {
+
+    // cell grid à gérer ?
+    public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this.width = width;
         this.height = height;
-        this.grid = mazeCells;
+        this.grid = new Cell[width][height];
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
-        this.murVerticaux = new boolean[width - 1][height];
         this.murHorizontaux = new boolean[height - 1][width];
+        this.murVerticaux = new boolean[width - 1][height];
+        //eventuellement faire la gene ailleurs ?
         PerfectAlgorithm.generateMaze(this);
     }
 
@@ -46,22 +54,34 @@ public abstract class Maze {
      *         (ligne1,colonne1), false sinon
      */
 
-    public boolean isWall(int ligne, int colonne, int ligne1, int colonne1) {
+    public boolean isWall(int y1, int x1, int y2, int x2) {
 
-        if (!adjacent(ligne, colonne, ligne1, colonne1))
+        if (!adjacent(y1, x1, y2, x2))
             throw new RuntimeException();
 
-        if (!positionCorrecte(ligne, colonne) || !positionCorrecte(ligne1, colonne1)) {
+        if (!positionCorrecte(y1, x1) || !positionCorrecte(y2, x2)) {
             return true;
         }
 
-        if (colonne == colonne1) {
-            return murHorizontaux[Math.min(ligne,ligne1)][colonne];
+        if (x1 == x2) { // Même colonne = mur horizontal
+            return murHorizontaux[Math.min(y1, y2)][x1];
         }
-        if (ligne == ligne1) {
-            return murVerticaux[Math.min(colonne,colonne1)][ligne];
+        if (y1 == y2) { // Même ligne = mur vertical
+            return murVerticaux[Math.min(x1, x2)][y1];
         }
         return true;
+    }
+
+    /*
+     * La position est elle dans le labyrinthe ?
+     */
+    public boolean positionCorrecte(int y, int x) {
+        return y >= 0 && y < height && x >= 0 && x < width;
+    }
+
+    public boolean adjacent(int y1, int x1, int y2, int x2) {
+        return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
+                || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
     }
 
     /**

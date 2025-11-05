@@ -89,18 +89,8 @@ public class PerfectAlgorithm {
             Arrays.fill(tab[i], true);
         }
     }
-
-    public static boolean positionCorrecte(int ligne, int colonne) {
-        return ligne >= 0 && ligne < largeur && colonne >= 0 && colonne < hauteur;
-    }
-
+    
     public static boolean positionCorrecte(int ligne, int colonne, boolean[][] tab) {
         return ligne>=0 && ligne < tab.length && colonne >=0 && colonne < tab[0].length;
     }
-
-    public static boolean adjacent(int ligne, int colonne, int ligne1, int colonne1) {
-        return (ligne == ligne1 && (colonne == colonne1 - 1 || colonne == colonne1 + 1))
-                || (colonne == colonne1 && (ligne == ligne1 - 1 || ligne == ligne1 + 1));
-    }
-
 }

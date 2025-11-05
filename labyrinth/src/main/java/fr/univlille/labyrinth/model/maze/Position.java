@@ -56,25 +56,25 @@ public class Position {
     }
 
 
-/**
- * @param o objet comparé
- * @return boolean
- */
-@Override
-public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Position position = (Position) o;
-    return x == position.x && y == position.y;
-}
+    /**
+     * @param o objet comparé
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
 
-/**
- * @return le hashcode de l'objet
- */
-@Override
-public int hashCode() {
-    return Objects.hash(x, y);
-}
+    /**
+     * @return le hashcode de l'objet
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 
 
 }
