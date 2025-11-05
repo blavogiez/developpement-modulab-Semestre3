@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 /**
@@ -19,7 +20,7 @@ import fr.univlille.labyrinth.model.maze.Position;
  */
 public abstract class GameMode {
 
-    private Maze currentMaze;
+    private PlayerMaze currentMaze;
     private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
@@ -38,7 +39,8 @@ public abstract class GameMode {
      */
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
         int maxDistance = (height - 3) + (width - 3);
-        this.currentMaze = PerfectAlgorithm.createMaze(width, height, maxDistance);
+        this.currentMaze = new Maze(width,height,wallPercentage);
+        PerfectAlgorithm.generateMaze(width, height, maxDistance);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
