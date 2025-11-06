@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.Trap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,9 @@ import java.util.List;
  * @since 0.0
  */
 public class PlayerMaze extends Maze {
-    private Position playerPosition;
-    private final List<Observer<PlayerMaze>> observers;
+    protected Position playerPosition;
+    protected final List<Observer<PlayerMaze>> observers;
+
 
     /**
      * Cette méthode permet d'ajouter un observateur à Maze, afin qu'il puisse être alerté d'une modification
@@ -29,7 +31,7 @@ public class PlayerMaze extends Maze {
     }
 
 
-    private void notifyObserver(){
+    protected void notifyObserver(){
         for (Observer<PlayerMaze> observer : observers){
             observer.update(this);
         }
@@ -40,10 +42,14 @@ public class PlayerMaze extends Maze {
      *
      * @param direction une direction parmi haut, bas, droite, gauche.
      */
-    public void movePlayer(Direction direction){
-        playerPosition.addX(direction.getX());
-        playerPosition.addY(direction.getY());
-        notifyObserver();
+    public boolean movePlayer(Direction direction){
+        if ( !isWall(playerPosition.getY(),playerPosition.getX(),playerPosition.getY()+direction.getY(),playerPosition.getX()+direction.getX())) {
+            playerPosition.addX(direction.getX());
+            playerPosition.addY(direction.getY());
+            notifyObserver();
+            return true;
+        }
+        return false;
     }
 
 
@@ -74,5 +80,7 @@ public class PlayerMaze extends Maze {
     public Position getPlayerPosition() {
         return playerPosition;
     }
+
+
 
 }

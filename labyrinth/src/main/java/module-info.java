@@ -5,7 +5,7 @@ module fr.univlille.labyrinth {
     requires javafx.graphics;
     requires javafx.base;
     requires jdk.compiler;
-
+    requires fr.univlille.labyrinth;
 
 
     opens fr.univlille.labyrinth to javafx.fxml, org.junit.platform.commons;

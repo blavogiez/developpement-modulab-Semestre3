@@ -136,7 +136,7 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 ### **Antonin** :
 
 - ReadMe
-- Création du `run.sh` et création du fichier jar avec maven
+- Création du `run.sh` et `compile.sh`
 - Un peut de Java Doc
 - Ajout de Progress Bar
 - Ajout de test
@@ -174,3 +174,40 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 - Ajout du paramètre facultatif mode nuit
 - modification légère du CSS
 - Ajout de Javadoc
+
+## **Semaine du 27/10 au 2/11**
+
+### **Antonin** :
+
+- Ajout choix différents type d'algo possible dans freeMode
+- Fxml choix type d'algo freeMode
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+### **Romain** :
+
+
+### **Victor** :
+
+
+## **Semaine du 3/11 au 9/11**
+
+### **Antonin** :
+
+- Ajout Classement TableView
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+### **Romain** :
+
+
+### **Victor** :
+

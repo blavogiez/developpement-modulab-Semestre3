@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.algorithm.Trap;
-import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.
@@ -21,7 +20,7 @@ import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
  * @version 0.0
  * @since 0.0
  */
-public abstract class Maze {
+public class Maze {
     protected int width;
     protected int height;
     protected Trap[][] grid;
@@ -150,5 +149,8 @@ public abstract class Maze {
     public void setExit(Position exitPosition) {
         this.exitPosition=exitPosition;
     }
+
+    public void trapEffect(Position position) {}
+
 
 }

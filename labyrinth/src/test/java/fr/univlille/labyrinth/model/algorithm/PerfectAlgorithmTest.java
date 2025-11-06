@@ -1,40 +1,50 @@
-package fr.univlille.labyrinth.model.algorithmold;
+package fr.univlille.labyrinth.model.algorithm;
 
-import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmTemplate;
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.Position;
 
 // Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
 // On verifie que le labyrinthe genere respecte la distance minimale entre start et end
 // et que l'algo fonctionne correctement dans differents cas!
 
-public class MazeAlgorithmStandardLargeurTest {
+public class PerfectAlgorithmTest {
 
-    static MazeAlgorithmStandardLargeur algo;
-    static boolean[][] maze1, maze2, maze3;
+    static MazeAlgorithmTemplate algo;
+    static Maze maze1, maze2, maze3;
     static Position start1, end1, start2, end2, start3, end3;
 
     @BeforeAll
     public static void initialization() {
-        algo = MazeAlgorithmStandardLargeur.getInstance();
+        algo = MazeAlgorithm.PERFECT.getAlgorithm();
 
-        //labyrinthe de taille moyenne avec distance minimale moderee
-        maze1 = algo.createMaze(15, 15, 0.3, 8);
-        start1 = algo.getStart();
+        //petit labyrinthe de taille avec distance minimale
+        maze1 = new Maze(10,12,10); 
+        start1 = maze1.getEntryPosition();
         end1 = algo.getEnd();
+        algo.generateMaze(maze1);
 
-        // Petit labyrinthe avec petite distance
-        maze2 = algo.createMaze(7, 7, 0.2, 3);
+
+        // moyen labyrinthe avec petite distance
+        maze2 = new Maze(40,12,20); 
         start2 = algo.getStart();
         end2 = algo.getEnd();
+        algo.generateMaze(maze1);
 
         //grand labyrinthe avec grande distance
-        maze3 = algo.createMaze(25, 25, 0.4, 15);
+        maze3 = new Maze(50,32,30); 
         start3 = algo.getStart();
         end3 = algo.getEnd();
+        algo.generateMaze(maze3);
     }
 
     @Test
@@ -78,13 +88,13 @@ public class MazeAlgorithmStandardLargeurTest {
         // Il doit exister un chemin (PATH = true) entre start et end
 
         //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
-        Integer distance1 = BreadthFirstSearch.calculateAllDistances(maze1, start1, end1);
+        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
 
-        Integer distance2 = BreadthFirstSearch.calculateAllDistances(maze2, start2, end2);
+        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2, "Un chemin doit exister entre start et end dans maze2");
 
-        Integer distance3 = BreadthFirstSearch.calculateAllDistances(maze3, start3, end3);
+        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3, "Un chemin doit exister entre start et end dans maze3");
     }
 

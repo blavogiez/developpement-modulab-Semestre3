@@ -87,7 +87,7 @@ class MazeTest {
 
     @Test
     void shouldHavePathBetweenEntryAndExit() {
-        Maze maze = new PlayerMaze(10, 10, 12);
+        Maze maze = new PlayerMaze(12, 10, 12);
         assertTrue(DepthStackSearch.isExitPossible(maze));
     }
 }
