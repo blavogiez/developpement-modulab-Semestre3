@@ -64,6 +64,7 @@ public abstract class GameMode {
                 } else {
 
                     currentMaze.trapEffect(playerPosition);
+                    
 
                 }
             }
