@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm.parcours;
+package fr.univlille.labyrinth.model.algorithm.pathsearch;
 
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
