@@ -68,13 +68,6 @@
     -fx-background-insets: 0;
 }
 
-.table-view {
-    -fx-background-color: #222222;
-    -fx-background-radius: 10px;
-    -fx-background-insets: 0;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 10px;
- }
 
  .table-cell:hover {
      -fx-background-color: #333333;
@@ -85,16 +78,10 @@
      -fx-text-fill: #FFFFFF;
  }
 
-
-.table-column-header {
+.table-view .column-header.scoreCol {
     -fx-background-color: #222222;
-    -fx-background-radius: 10px;
-    -fx-background-insets: 0;
-    -fx-border-color: #FFFFFF;
-    -fx-border-radius: 10px;
 }
-
-.table-view .column-header-background {
+.table-view .column-header.nameCol {
     -fx-background-color: #222222;
 }
 
