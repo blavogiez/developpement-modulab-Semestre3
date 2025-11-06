@@ -33,14 +33,17 @@ public class ObservableMaze extends Maze {
     protected Position playerPosition;
     protected final List<Observer<ObservableMaze>> observers;
 
-    public ObservableMaze(List<Entity> entities, int width, int height, int distanceBetweenEntryAndExit) {
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
         super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
-        entityManager.addEntity(EntityType.EXIT.create(getExitPosition()));
+        Entity exit = EntityType.EXIT.create(getExitPosition(), new MovingStepBehavior()) ;
+        entityManager.addEntity(exit);
         this.trapManager = new TrapManager(this);
     }
+
 
 
 
@@ -93,14 +96,7 @@ public class ObservableMaze extends Maze {
     /*
      * Surcharge pour ajouter les entités par défaut
      */
-    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
-        super(width, height, distanceBetweenEntryAndExit) ;
-        this.observers = new ArrayList<>();
-        this.entityManager = new EntityManager();
-        entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
-        Entity exit = EntityType.EXIT.create(getExitPosition(), new MovingStepBehavior()) ;
-        entityManager.addEntity(exit);
-    }
+
 
     public Position getPlayerPosition() {
         PlayerEntity player = entityManager.getPlayerEntity();
