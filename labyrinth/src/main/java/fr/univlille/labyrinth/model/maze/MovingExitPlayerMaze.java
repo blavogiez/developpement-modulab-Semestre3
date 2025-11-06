@@ -16,11 +16,11 @@ public class MovingExitPlayerMaze extends PlayerMaze {
     }
 
     @Override
-    public void movePlayer(Direction direction){
-        super.movePlayer(direction);
+    public boolean movePlayer(Direction direction){
         if(random.nextInt(MOVING_PERCENTAGE)==1){
             movingExitByStep();
         }
+        return super.movePlayer(direction);
     }
 
     public void movingExitByCurrentDistance() {
