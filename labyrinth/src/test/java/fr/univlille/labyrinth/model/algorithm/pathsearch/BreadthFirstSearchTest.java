@@ -1,22 +1,23 @@
-package fr.univlille.labyrinth.model.maze;
+package fr.univlille.labyrinth.model.algorithm.pathsearch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.DepthStackSearch;
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.PlayerMaze;
 
-class MazeTest {
+class BreadthFirstSearchTest {
 
     @Test
-    void shouldInitializeGridWithCorrectDimensions() {
+    void shouldNotFindPathInFullMaze() {
         Maze maze = new PlayerMaze(10, 10, 12);
 
-        assertNotNull(maze.getGrid());
-        assertEquals(10, maze.getGrid().length);
-        assertEquals(10, maze.getGrid()[0].length);
+        assertFalse(DepthStackSearch.isExitPossible(maze));
     }
 
     @Test
