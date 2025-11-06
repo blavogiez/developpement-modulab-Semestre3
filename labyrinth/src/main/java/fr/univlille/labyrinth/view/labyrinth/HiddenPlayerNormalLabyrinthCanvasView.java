@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import javafx.scene.canvas.GraphicsContext;
 
 /*
@@ -8,12 +8,12 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class HiddenPlayerNormalLabyrinthCanvasView extends NormalLabyrinthCanvasView {
 
-    public HiddenPlayerNormalLabyrinthCanvasView(PlayerMaze maze) {
+    public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int lignes, int colonnes) {
+    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
         dessinerSortie(gc, maze);
     }
 }

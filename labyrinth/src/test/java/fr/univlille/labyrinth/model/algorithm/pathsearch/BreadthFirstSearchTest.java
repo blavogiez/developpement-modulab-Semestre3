@@ -10,13 +10,12 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
 
 class BreadthFirstSearchTest {
 
     @Test
     void shouldFindDistance() {
-        Maze maze = new PlayerMaze(10, 10, 12);
+        Maze maze = new Maze(10, 10, 12);
 
         assertEquals(12, BreadthFirstSearch.calculateDistance(maze, maze.getEntryPosition(), maze.getExitPosition()));
     }
