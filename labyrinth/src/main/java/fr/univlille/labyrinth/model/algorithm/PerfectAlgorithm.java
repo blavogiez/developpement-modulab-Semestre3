@@ -7,9 +7,10 @@ import fr.univlille.labyrinth.parcours.BreadthFirstSearch;
 
 import java.util.*;
 
-public class PerfectAlgorithm {
+public class PerfectAlgorithm extends MazeAlgorithmTemplate {
 
-    public static void generateMaze(Maze maze) {
+
+    public void generateMaze(Maze maze) {
         boolean[][] murHorizontaux = maze.getMurHorizontaux();
         boolean[][] murVerticaux = maze.getMurVerticaux();
         int largeur = maze.getWidth();
@@ -92,5 +93,13 @@ public class PerfectAlgorithm {
     
     public static boolean positionCorrecte(int ligne, int colonne, boolean[][] tab) {
         return ligne>=0 && ligne < tab.length && colonne >=0 && colonne < tab[0].length;
+    }
+    private static PerfectAlgorithm instance;
+
+    public static PerfectAlgorithm getInstance(){
+        if (instance==null){
+            instance = new PerfectAlgorithm();
+        }
+        return instance;
     }
 }
