@@ -51,4 +51,8 @@ public enum     Direction {
         else if (x== LEFT.x && y == LEFT.y) return LEFT;
         else return RIGHT;
     }
+
+    public static Direction getDirection(Position playerPosition, Position playerPosition2){
+        return getDirection(playerPosition.getX()-playerPosition2.getX(), playerPosition.getY()-playerPosition2.getY());
+    }
 }
