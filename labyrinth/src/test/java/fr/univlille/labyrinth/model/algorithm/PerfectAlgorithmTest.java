@@ -1,15 +1,15 @@
 package fr.univlille.labyrinth.model.algorithm;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmTemplate;
+import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -30,31 +30,42 @@ public class PerfectAlgorithmTest {
         //petit labyrinthe de taille avec distance minimale
         maze1 = new Maze(10,12,10); 
         start1 = maze1.getEntryPosition();
-        end1 = algo.getEnd();
+        end1 = maze1.getExitPosition();
         algo.generateMaze(maze1);
 
 
         // moyen labyrinthe avec petite distance
         maze2 = new Maze(40,12,20); 
-        start2 = algo.getStart();
-        end2 = algo.getEnd();
-        algo.generateMaze(maze1);
+        start2 = maze2.getEntryPosition();
+        end2 = maze2.getExitPosition();
+        algo.generateMaze(maze2);
 
         //grand labyrinthe avec grande distance
         maze3 = new Maze(50,32,30); 
-        start3 = algo.getStart();
-        end3 = algo.getEnd();
+        start3 = maze3.getEntryPosition();
+        end3 = maze3.getExitPosition();
         algo.generateMaze(maze3);
     }
 
     @Test
     public void testStartPosition() {
-        assertTrue(start1.getX() > 0 && start1.getX() < maze1.length - 1);
-        assertTrue(start1.getY() > 0 && start1.getY() < maze1[0].length - 1);
-        assertTrue(start2.getX() > 0 && start2.getX() < maze2.length - 1);
-        assertTrue(start2.getY() > 0 && start2.getY() < maze2[0].length - 1);
-        assertTrue(start3.getX() > 0 && start3.getX() < maze3.length - 1);
-        assertTrue(start3.getY() > 0 && start3.getY() < maze3[0].length - 1);
+        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()));
+
+        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()));
+
+        assertTrue(maze2.positionCorrecte(start3.getY(), start3.getX()));
+    }
+
+    @Test
+    public void testExitPosition() {
+        Position start = maze1.getEntryPosition();
+        assertTrue(maze1.positionCorrecte(start.getY(), start.getX()));
+
+        start = maze2.getEntryPosition();
+        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
+
+        start = maze3.getEntryPosition();
+        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
     }
 
     @Test
@@ -63,24 +74,6 @@ public class PerfectAlgorithmTest {
         assertNotEquals(start1, end1);
         assertNotEquals(start2, end2);
         assertNotEquals(start3, end3);
-    }
-
-    @Test
-    public void testStartAndEndAreInsideBounds() {
-        assertTrue(start1.getX()>0 && start1.getX() < maze1.length-1);
-        assertTrue(start1.getY()>0 && start1.getY() < maze1[0].length-1);
-        assertTrue(end1.getX()>0 && end1.getX() < maze1.length-1);
-        assertTrue(end1.getY()>0 && end1.getY() < maze1[0].length-1);
-
-        assertTrue(start2.getX() > 0 && start2.getX()<maze2.length - 1);
-        assertTrue(start2.getY() > 0 && start2.getY()<maze2[0].length - 1);
-        assertTrue(end2.getX() > 0 && end2.getX()<maze2.length - 1);
-        assertTrue(end2.getY() > 0 && end2.getY()<maze2[0].length - 1);
-
-        assertTrue(start3.getX() > 0 && start3.getX() < maze3.length - 1);
-        assertTrue(start3.getY() > 0 && start3.getY() < maze3[0].length - 1);
-        assertTrue(end3.getX() > 0 && end3.getX() < maze3.length - 1);
-        assertTrue(end3.getY() > 0 && end3.getY() < maze3[0].length - 1);
     }
 
     @Test
@@ -103,45 +96,39 @@ public class PerfectAlgorithmTest {
         // la distance BFS reelle entre start et end doit etre >= pathLength demande
         Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
-        assertTrue(distance1 >= 8, "Distance dans maze1 devrait être >= 8, mais est " + distance1);
+        assertEquals(distance1,10, "Distance dans maze1 devrait être = 10, mais est " + distance1);
 
         Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2);
-        assertTrue(distance2>=3, "Distance dans maze2 devrait être >= 3, mais est " + distance2);
+        assertEquals(distance2=20, "Distance dans maze2 devrait être = 20, mais est " + distance2);
 
         Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3);
-        assertTrue(distance3 >= 15, "Distance dans maze3 devrait être >= 15, mais est " + distance3);
+        assertEquals(distance3 = 30, "Distance dans maze3 devrait être = 30, mais est " + distance3);
     }
 
     @Test
-    public void testSingletonPattern() {
-        // getInstance() doit toujours retourner la meme instance
-        MazeAlgorithmStandardLargeur instance1 = MazeAlgorithmStandardLargeur.getInstance();
-        MazeAlgorithmStandardLargeur instance2 = MazeAlgorithmStandardLargeur.getInstance();
-        assertSame(instance1, instance2);
-        assertSame(algo, instance1);
-    }
+    public void testDistanceConsistency() {
+        // gen 50 labyrinthes et verif que tous respectent la distance minimale
+        int minDistance = 8;
+        int failCount = 0;
 
-    @Test
-    public void testWithImpossiblePathLength() {
-        // quand la distance demandee est trop grande, l'algo doit soit trouver la distance max possible
-        // soit lancer une exception (selon l'implementation)
-        MazeAlgorithmStandardLargeur testAlgo = MazeAlgorithmStandardLargeur.getInstance();
+        for (int i = 0; i < 50; i++) {
+            // dimensions variables 1 fois sur 2 !
+            minDistance = (i%2 == 0) ? 15 : 8 ;
 
-        // Pour un tres petit labyrinthe, une grande distance devrait soit fonctionner avec distance max
-        // soit lancer MazeSizeException
-        try {
-            boolean[][] maze = testAlgo.createMaze(5, 5, 0.1, 100);
-            Position start = testAlgo.getStart();
-            Position end = testAlgo.getEnd();
+            // on choisit le i aussi ; l'objectif est de tester beaucoup de combis :)
+            Maze maze = new Maze(15+i, 15+(2*i), minDistance);
+            Position start = maze.getEntryPosition();
+            Position end = maze.getExitPosition();
 
-            // si ca ne lance pas d'exception, verifier qu'un chemin existe quand meme
             Integer distance = BreadthFirstSearch.calculateDistance(maze, start, end);
-            assertNotNull(distance, "Un chemin devrait exister même si pathLength est trop grand");
-        } catch (MazeSizeException e) {
-            // l'exception est acceptable dans ce cas
-            assertTrue(true);
+            if (distance == null || distance < minDistance) {
+                failCount++;
+            }
         }
+
+        // verif que tous les labyrinthes respectent la distance minimale
+        assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale de " + minDistance);
     }
 }
