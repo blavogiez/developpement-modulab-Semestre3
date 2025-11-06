@@ -1,0 +1,3 @@
+EntityType,Shape,Color
+PLAYER,CIRCLE,RED
+EXIT,SQUARE,GREEN

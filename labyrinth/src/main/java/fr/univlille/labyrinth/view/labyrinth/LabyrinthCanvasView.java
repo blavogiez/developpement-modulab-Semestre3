@@ -3,7 +3,12 @@ package fr.univlille.labyrinth.view.labyrinth;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.view.EntityShapeMapper;
 import fr.univlille.labyrinth.view.GameColors;
+import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
+import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
+import fr.univlille.labyrinth.view.renderer.EntityRenderer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -14,14 +19,18 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     private Pane container;
     protected Canvas canvas;
     protected ObservableMaze currentMaze;
-
-    protected double tailleCellule;
-    protected double offsetX;
-    protected double offsetY;
-    protected double epaisseurMur;
+    /*
+     * Attributs calculant la façon "responsive"
+     */
+    protected LabyrinthLayout layout;
+    protected LabyrinthLayoutCalculator layoutCalculator;
+    protected EntityRenderer entityRenderer;
 
     public LabyrinthCanvasView(ObservableMaze maze) {
         this.currentMaze = maze;
+        this.layoutCalculator = new LabyrinthLayoutCalculator();
+        EntityShapeMapper entityShapeMapper = new EntityShapeMapper();
+        this.entityRenderer = new EntityRenderer(entityShapeMapper);
 
         container = new Pane();
         canvas = new Canvas(700, 700);
@@ -51,7 +60,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         int hauteur = maze.getHeight();
         int largeur = maze.getWidth();
 
-        calculerDimensions(hauteur, largeur);
+        layout = layoutCalculator.calculate(canvas.getWidth(), canvas.getHeight(), largeur, hauteur);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -59,42 +68,28 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         gc.setFill(GameColors.PATH.getColor());
-        gc.fillRect(offsetX, offsetY, largeur * tailleCellule, hauteur * tailleCellule);
+        gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(), hauteur * layout.getCellSize());
 
         dessinerMurs(gc, hauteur, largeur);
         dessinerElements(gc, maze, hauteur, largeur);
     }
 
-    protected void calculerDimensions(int hauteur, int largeur) {
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
-
-        double tailleCelluleX = (width - 20) / largeur;
-        double tailleCelluleY = (height - 20) / hauteur;
-        tailleCellule = Math.min(tailleCelluleX, tailleCelluleY);
-
-        offsetX = (width - (largeur * tailleCellule)) / 2;
-        offsetY = (height - (hauteur * tailleCellule)) / 2;
-
-        epaisseurMur = Math.max(2, tailleCellule / 15);
-    }
-
     protected void dessinerMurs(GraphicsContext gc, int hauteur, int largeur) {
         gc.setStroke(GameColors.WALL.getColor());
-        gc.setLineWidth(epaisseurMur);
+        gc.setLineWidth(layout.getWallThickness());
 
         for (int y = 0; y < hauteur; y++) {
             if (currentMaze.isWall(y, -1, y, 0)) {
-                double x1 = offsetX;
-                double y1 = offsetY + y * tailleCellule;
-                double y2 = y1 + tailleCellule;
+                double x1 = layout.getOffsetX();
+                double y1 = layout.getOffsetY() + y * layout.getCellSize();
+                double y2 = y1 + layout.getCellSize();
                 gc.strokeLine(x1, y1, x1, y2);
             }
             for (int x = 0; x < largeur; x++) {
                 if (currentMaze.isWall(y, x, y, x + 1)) {
-                    double x1 = offsetX + (x + 1) * tailleCellule;
-                    double y1 = offsetY + y * tailleCellule;
-                    double y2 = y1 + tailleCellule;
+                    double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
+                    double y1 = layout.getOffsetY() + y * layout.getCellSize();
+                    double y2 = y1 + layout.getCellSize();
                     gc.strokeLine(x1, y1, x1, y2);
                 }
             }
@@ -102,16 +97,16 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
         for (int x = 0; x < largeur; x++) {
             if (currentMaze.isWall(-1, x, 0, x)) {
-                double x1 = offsetX + x * tailleCellule;
-                double x2 = x1 + tailleCellule;
-                double y1 = offsetY;
+                double x1 = layout.getOffsetX() + x * layout.getCellSize();
+                double x2 = x1 + layout.getCellSize();
+                double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
             for (int y = 0; y < hauteur; y++) {
                 if (currentMaze.isWall(y, x, y + 1, x)) {
-                    double x1 = offsetX + x * tailleCellule;
-                    double x2 = x1 + tailleCellule;
-                    double y1 = offsetY + (y + 1) * tailleCellule;
+                    double x1 = layout.getOffsetX() + x * layout.getCellSize();
+                    double x2 = x1 + layout.getCellSize();
+                    double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
                     gc.strokeLine(x1, y1, x2, y1);
                 }
             }
@@ -140,17 +135,24 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected void dessinerMarqueur(GraphicsContext gc, int y, int x, Color couleur) {
-        double tailleMarqueur = tailleCellule * 0.5;
-        double marginMarqueur = (tailleCellule - tailleMarqueur) / 2;
+        double tailleMarqueur = layout.getCellSize() * 0.5;
+        double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
 
         gc.setFill(couleur);
         gc.fillOval(
-            offsetX + x * tailleCellule + marginMarqueur,
-            offsetY + y * tailleCellule + marginMarqueur,
+            layout.getOffsetX() + x * layout.getCellSize() + marginMarqueur,
+            layout.getOffsetY() + y * layout.getCellSize() + marginMarqueur,
             tailleMarqueur,
             tailleMarqueur
         );
     }
+
+    protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
+        for (Entity entity : maze.getEntityManager().getEntities()) {
+            entityRenderer.renderEntity(gc, entity, layout);
+        }
+    }
+
     protected boolean estDansRayon(int x, int y, ObservableMaze maze, int rayon) {
         int playerX = maze.getPlayerPosition().getX();
         int playerY = maze.getPlayerPosition().getY();

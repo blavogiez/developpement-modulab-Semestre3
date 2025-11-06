@@ -1,12 +1,11 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import javafx.scene.canvas.GraphicsContext;
 
-/*
- * Vue à gauche dans l'étape 3 et 5 ; tout le labyrinthe, mais pas la position du joueur.
- */
-public class HiddenPlayerNormalLabyrinthCanvasView extends NormalLabyrinthCanvasView {
+public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
@@ -14,6 +13,15 @@ public class HiddenPlayerNormalLabyrinthCanvasView extends NormalLabyrinthCanvas
 
     @Override
     protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
-        dessinerSortie(gc, maze);
+        for (Entity entity : maze.getEntityManager().getEntities()) {
+            if (entity.getEntityType() != EntityType.PLAYER) {
+                entityRenderer.renderEntity(gc, entity, layout);
+            }
+        }
+    }
+
+    @Override
+    protected boolean shouldRenderCell(int y, int x, ObservableMaze maze) {
+        return true;
     }
 }
