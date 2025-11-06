@@ -21,7 +21,7 @@ import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
  * @version 0.0
  * @since 0.0
  */
-public abstract class Maze {
+public class Maze {
     protected int width;
     protected int height;
     protected Trap[][] grid;
