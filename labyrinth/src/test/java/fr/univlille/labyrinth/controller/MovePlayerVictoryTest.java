@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.Cell;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
@@ -96,7 +97,7 @@ public class MovePlayerVictoryTest {
 
     // methode util pour trouver le chemin entre deux positions
     // Retourne une liste de directions à suivre pour aller de start à end
-    private List<Direction> findPath(boolean[][] grid, Position start, Position end) {
+    private List<Direction> findPath(Cell[][] grid, Position start, Position end) {
         Queue<Position> queue = new LinkedList<>();
         Map<Position, Position> parent = new HashMap<>();
 
