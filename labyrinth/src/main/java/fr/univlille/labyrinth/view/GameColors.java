@@ -6,11 +6,12 @@ import javafx.scene.paint.Color;
 
 public enum GameColors {
     PLAYER ("#FF0000"),
-    EXIT("66BB6A"),
+    EXIT("#66BB6A"),
     WALL ("#555555"),
     PATH ("#FFFFFF"),
-    OUT_OF_BOUNDS("808080"),
-    COMPLETED ("#66BB6A");
+    TELEPORTER_TRAP("#800080"),
+    OUT_OF_BOUNDS("#808080"),
+    COMPLETED ("#66BB6A"), TRAP_USED("#dbdbdb");
 
     private String colorCode ;
 

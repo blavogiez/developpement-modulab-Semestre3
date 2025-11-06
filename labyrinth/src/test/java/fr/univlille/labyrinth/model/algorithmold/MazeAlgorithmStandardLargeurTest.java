@@ -78,13 +78,13 @@ public class MazeAlgorithmStandardLargeurTest {
         // Il doit exister un chemin (PATH = true) entre start et end
 
         //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
-        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
+        Integer distance1 = BreadthFirstSearch.calculateAllDistances(maze1, start1, end1);
         assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
 
-        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
+        Integer distance2 = BreadthFirstSearch.calculateAllDistances(maze2, start2, end2);
         assertNotNull(distance2, "Un chemin doit exister entre start et end dans maze2");
 
-        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
+        Integer distance3 = BreadthFirstSearch.calculateAllDistances(maze3, start3, end3);
         assertNotNull(distance3, "Un chemin doit exister entre start et end dans maze3");
     }
 

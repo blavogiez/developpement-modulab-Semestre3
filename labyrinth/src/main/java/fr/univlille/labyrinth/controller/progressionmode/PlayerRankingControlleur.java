@@ -14,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class PlayerRankingController {
+public class PlayerRankingControlleur {
 
     private final List<Player> ranking= PlayerDatabase.loadAllPlayers();
 
@@ -30,8 +30,6 @@ public class PlayerRankingController {
 
     @FXML
     public void initialize(){
-        colName.getStyleClass().add("nameCol");
-        colScore.getStyleClass().add("scoreCol");
         Collections.sort(ranking);
 
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
