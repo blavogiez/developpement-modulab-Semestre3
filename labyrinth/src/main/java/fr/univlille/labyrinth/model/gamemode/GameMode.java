@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.maze.*;
+
+import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.Position;
+
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.

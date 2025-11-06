@@ -5,12 +5,12 @@ import java.util.Random;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 
-public class MovingExitPlayerMaze extends PlayerMaze {
+public class MovingExitObservableMaze extends ObservableMaze {
     private final int MOVING_PERCENTAGE = 5 ;
     private final int MOVING_STEP = 1 ;
     private Random random ;
 
-    public MovingExitPlayerMaze(int width, int height, int distanceBetweenEntryAndExit) {
+    public MovingExitObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
         super(width, height, distanceBetweenEntryAndExit);
         this.random = new Random();
     }
@@ -24,7 +24,7 @@ public class MovingExitPlayerMaze extends PlayerMaze {
     }
 
     public void movingExitByCurrentDistance() {
-        PlayerMaze maze = this;
+        ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
         //utilisation d'un methode pour calculer une distance entre deux cellule
         int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, maze.getPlayerPosition(), maze.getExitPosition());
@@ -35,7 +35,7 @@ public class MovingExitPlayerMaze extends PlayerMaze {
     }
 
     public void movingExitByStep() {
-        PlayerMaze maze = this;
+        ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
         List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP);
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));

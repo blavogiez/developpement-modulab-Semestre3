@@ -12,14 +12,14 @@ public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
+    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
         dessinerEntree(gc, maze);
         dessinerSortie(gc, maze);
         dessinerJoueur(gc, maze);
     }
 
     @Override
-    protected boolean shouldRenderCell(int y, int x, PlayerMaze maze) {
+    protected boolean shouldRenderCell(int y, int x, ObservableMaze maze) {
         return true;
     }
 }

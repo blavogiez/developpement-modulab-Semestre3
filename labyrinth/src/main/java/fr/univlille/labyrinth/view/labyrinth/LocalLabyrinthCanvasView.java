@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -11,12 +11,12 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
 
-    public LocalLabyrinthCanvasView(PlayerMaze maze) {
+    public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
     }
 
     @Override
-    public void update(PlayerMaze maze) {
+    public void update(ObservableMaze maze) {
         this.currentMaze = maze;
 
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) {
@@ -98,7 +98,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int lignes, int colonnes) {
+    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
         Position exit = maze.getExitPosition();
         Position player = maze.getPlayerPosition();
 
@@ -112,12 +112,12 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerJoueur(GraphicsContext gc, PlayerMaze maze) {
+    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
     }
 
     @Override
-    protected boolean shouldRenderCell(int ligne, int colonne, PlayerMaze maze) {
+    protected boolean shouldRenderCell(int ligne, int colonne, ObservableMaze maze) {
         return true;
     }
 }
