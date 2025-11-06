@@ -1,25 +1,25 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.view.GameColors;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
+public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     private Pane container;
     protected Canvas canvas;
-    protected PlayerMaze currentMaze;
+    protected ObservableMaze currentMaze;
 
     protected double tailleCellule;
     protected double offsetX;
     protected double offsetY;
     protected double epaisseurMur;
 
-    public LabyrinthCanvasView(PlayerMaze maze) {
+    public LabyrinthCanvasView(ObservableMaze maze) {
         this.currentMaze = maze;
 
         container = new Pane();
@@ -40,7 +40,7 @@ public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
     }
 
     @Override
-    public void update(PlayerMaze maze) {
+    public void update(ObservableMaze maze) {
         this.currentMaze = maze;
 
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) {
@@ -117,15 +117,15 @@ public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
         }
     }
 
-    protected void dessinerJoueur(GraphicsContext gc, PlayerMaze maze) {
+    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, maze.getPlayerPosition().getY(), maze.getPlayerPosition().getX(), GameColors.PLAYER.getColor());
     }
 
-    protected void dessinerSortie(GraphicsContext gc, PlayerMaze maze) {
+    protected void dessinerSortie(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameColors.EXIT.getColor());
     }
 
-    protected void dessinerEntree(GraphicsContext gc, PlayerMaze maze) {
+    protected void dessinerEntree(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), Color.GREEN);
     }
 
@@ -141,7 +141,7 @@ public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
             tailleMarqueur
         );
     }
-    protected boolean estDansRayon(int x, int y, PlayerMaze maze, int rayon) {
+    protected boolean estDansRayon(int x, int y, ObservableMaze maze, int rayon) {
         int playerX = maze.getPlayerPosition().getX();
         int playerY = maze.getPlayerPosition().getY();
         int dx = Math.abs(x - playerX);
@@ -149,9 +149,9 @@ public abstract class LabyrinthCanvasView implements Observer<PlayerMaze> {
         return Math.max(dx, dy) <= rayon;
     }
 
-    protected abstract void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur);
+    protected abstract void dessinerElements(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur);
 
-    protected abstract boolean shouldRenderCell(int y, int x, PlayerMaze maze);
+    protected abstract boolean shouldRenderCell(int y, int x, ObservableMaze maze);
 
     public Pane getView() {
         return container;

@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -10,14 +10,14 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private boolean[][] cellulesExplorees;
 
-    public ExplorationLabyrinthCanvasView(PlayerMaze maze) {
+    public ExplorationLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
         cellulesExplorees = new boolean[maze.getHeight()][maze.getWidth()];
         update(maze);
     }
 
     @Override
-    public void update(PlayerMaze maze) {
+    public void update(ObservableMaze maze) {
         if (cellulesExplorees == null ||
             cellulesExplorees.length != maze.getHeight() ||
             cellulesExplorees[0].length != maze.getWidth()) {
@@ -27,7 +27,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
+    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
         marquerCellulesExplorees(maze);
         dessinerZonesNonExplorees(gc, maze, hauteur, largeur);
 
@@ -41,7 +41,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         dessinerJoueur(gc, maze);
     }
 
-    private void marquerCellulesExplorees(PlayerMaze maze) {
+    private void marquerCellulesExplorees(ObservableMaze maze) {
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
                 if (estDansRayon(j, i, maze, EXPLORATION_RADIUS)) {
@@ -51,7 +51,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
-    private void dessinerZonesNonExplorees(GraphicsContext gc, PlayerMaze maze, int hauteur, int largeur) {
+    private void dessinerZonesNonExplorees(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
         gc.setFill(Color.BLACK);
 
         for (int y = 0; y < hauteur; y++) {
@@ -66,7 +66,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected boolean shouldRenderCell(int y, int x, PlayerMaze maze) {
+    protected boolean shouldRenderCell(int y, int x, ObservableMaze maze) {
         return cellulesExplorees[y][x];
     }
 }
