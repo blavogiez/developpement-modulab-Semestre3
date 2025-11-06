@@ -56,4 +56,43 @@ public class BreadthFirstSearch {
 
         return result;
     }
+
+    public static List<Position> pathFinder(Maze maze, Position start, Position end){
+        Queue<Position> queue = new LinkedList<>();
+        Map<Position, Position> previousPos = new HashMap<>();
+        queue.add(start);
+        List<Position> finalPath = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            Position current = queue.poll();
+            if(current.equals(end)){
+                Position positionPath = current;
+                while (!positionPath.equals(start)){
+                    finalPath.add(positionPath);
+                    positionPath = previousPos.get(positionPath);
+                    Collections.reverse(finalPath);
+                }
+                return finalPath;
+            }
+            List<Position> nextPositions = getNextPosition(maze, current ,previousPos.keySet());
+            for (Position nextPos :nextPositions) {
+                previousPos.put(nextPos,current);
+                queue.add(nextPos);
+            }
+
+        }
+        return null;
+    }
+
+    public static List<Position> getNextPosition (Maze maze,Position currentPos,Set<Position> listedPosition){
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        List<Position> correctNextPositions = new ArrayList<>();
+        for (int[] direction : directions){
+            Position temp = new Position(currentPos.getX() + direction[0],currentPos.getY()  + direction[1]);
+            if(maze.positionCorrecte(temp) && !listedPosition.contains(temp) && !maze.isWall(currentPos.getY(), currentPos.getX(), temp.getY(), temp.getX())){
+                correctNextPositions.add(temp);
+            }
+        }
+        return correctNextPositions;
+    }
 }
