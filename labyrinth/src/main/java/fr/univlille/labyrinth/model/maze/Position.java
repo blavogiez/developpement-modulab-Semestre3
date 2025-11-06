@@ -76,5 +76,8 @@ public class Position {
         return Objects.hash(x, y);
     }
 
+    public String toString() {
+        return "Y="+y+",X="+x;
+    }
 
 }

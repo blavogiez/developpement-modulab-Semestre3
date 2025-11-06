@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.save.score;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.ViewType;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StandardScoreCalculatorTest {
 
     private StandardScoreCalculator calculator;
+    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
     @BeforeEach
     void setUp() {
@@ -19,7 +21,7 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldReturnZeroWhenChallengeNotCompleted() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Test", 10, 10, 0.3, calculator);
 
         int score = calculator.calculateScore(defi);
@@ -29,7 +31,7 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldCalculateScoreWhenChallengeCompleted() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Test", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
 
@@ -41,11 +43,11 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldCalculateScoreWithDifferentDimensions() {
-        Challenge petit = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge petit = new Challenge(algo, ViewType.NORMAL,
                 "Small", 5, 5, 0.2, calculator);
         petit.setCompleted(true);
 
-        Challenge grand = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge grand = new Challenge(algo, ViewType.NORMAL,
                 "Large", 20, 15, 0.4, calculator);
         grand.setCompleted(true);
 
@@ -55,11 +57,11 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldCalculateScoreWithDifferentWallPercentages() {
-        Challenge peuDeMurs = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge peuDeMurs = new Challenge(algo, ViewType.NORMAL,
                 "Low", 10, 10, 0.1, calculator);
         peuDeMurs.setCompleted(true);
 
-        Challenge beaucoupDeMurs = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge beaucoupDeMurs = new Challenge(algo, ViewType.NORMAL,
                 "High", 10, 10, 0.5, calculator);
         beaucoupDeMurs.setCompleted(true);
 
@@ -69,7 +71,7 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldReturnZeroForZeroWallPercentage() {
-        Challenge sansMurs = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge sansMurs = new Challenge(algo, ViewType.NORMAL,
                 "NoWalls", 10, 10, 0.0, calculator);
         sansMurs.setCompleted(true);
 
@@ -84,11 +86,11 @@ class StandardScoreCalculatorTest {
 
     @Test
     void shouldCalculateHigherScoreForLargerMaze() {
-        Challenge petit = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge petit = new Challenge(algo, ViewType.NORMAL,
                 "Small", 5, 5, 0.3, calculator);
         petit.setCompleted(true);
 
-        Challenge grand = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge grand = new Challenge(algo, ViewType.NORMAL,
                 "Large", 10, 10, 0.3, calculator);
         grand.setCompleted(true);
 

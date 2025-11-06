@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -35,7 +35,7 @@ public abstract class GameMode {
      * @param height la hauteur du labyrinthe.
      * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, int distanceBetweenEntryAndExit) {
+    public void createMaze(MazeAlgorithm algorithm, int width, int height, int distanceBetweenEntryAndExit) {
         //int maxDistance = (height - 3) + (width - 3);
         this.currentMaze = new ObservableMaze(width,height,distanceBetweenEntryAndExit);
         //PerfectAlgorithm.generateMaze(this.currentMaze);
@@ -43,7 +43,7 @@ public abstract class GameMode {
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
     // TODO: à gérer apres !
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
+    public void createMaze(MazeAlgorithm algorithm, int width, int height, double wallPercentage) {
         this.createMaze(algorithm, width, height, (height-3+width-3));
     }
 
