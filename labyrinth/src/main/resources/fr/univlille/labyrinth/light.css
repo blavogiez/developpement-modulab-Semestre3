@@ -43,6 +43,25 @@
     -fx-background-insets: 0;
 }
 
+ .table-cell:hover {
+     -fx-background-color: #EEEEEE;
+ }
+
+ .table-cell {
+         -fx-background-color: #F8F8F8;
+         -fx-text-fill: black;
+         -fx-border-color: #000000;
+         -fx-border-width: 1;
+         -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 2);
+ }
+
+.table-view .column-header.scoreCol {
+    -fx-background-color: #EEEEEE;
+}
+.table-view .column-header.nameCol {
+    -fx-background-color: #EEEEEE;
+}
+
 .etapes{
     -fx-background-color: #C5C5C5;
     -fx-background-radius: 10;
