@@ -13,8 +13,17 @@ public class MonsterEntity extends Entity {
     protected Position position;
     protected MoveBehavior moveBehavior ;
 
+    public MonsterEntity(Position position) {
+        this(position,null);
+    }
+
     public MonsterEntity(Position position, MoveBehavior moveBehavior) {
-        super(new Position(5,5),moveBehavior);
+        super(position, moveBehavior);
+    }
+
+    @Override
+    public EntityType getEntityType() {
+        return EntityType.;
     }
 
     public Position getPosition() {
@@ -36,7 +45,5 @@ public class MonsterEntity extends Entity {
             position = path.get(0);
             return true ;
         } return false ;
-
-
     }
 }
