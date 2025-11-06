@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model.maze.trap;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
 public class TrapManager {
     private final ObservableMaze maze;
@@ -21,10 +22,10 @@ public class TrapManager {
             case PUSH -> {
                 revealTrap(newPosition);
                 Direction direction = Direction.getDirection(oldPosition,newPosition);
-                boolean hasMoved;
+
                 do {
-                    hasMoved =  maze.getEntityManager().getPlayerEntity().move(maze,direction);
-                } while (hasMoved);
+                    maze.getEntityManager().getPlayerEntity().getMoveBehavior().move(maze.getEntityManager().getPlayerEntity(),direction,maze);
+                } while (((PlayerMoveBehavior) maze.getEntityManager().getPlayerEntity().getMoveBehavior()).isMoving());
 
 
             }
