@@ -1,4 +1,4 @@
-scoreType,algorithm,viewType,level,challenge_index,difficulty,width,height,wallPercentage,distanceBetweenEntryAndExit
+scoreType,algorithm,viewType,level,challenge_index,difficulty,width,height,wallPercentage,distanceBetweenEntryAndExit,
 STANDARD,PERFECT,NORMAL,1,0,Facile,10,10,0.2,14
 SPEEDRUN,PERFECT,NORMAL,1,1,Facile,15,12,0.3,18
 STANDARD,PERFECT,NORMAL,1,2,Moyenne,20,15,0.5,20
@@ -17,3 +17,12 @@ STANDARD,PERFECT,LOCAL,5,2,Difficile,60,60,0.5,100
 STANDARD,PERFECT,EXPLORATION,6,0,Difficile,40,40,0.3,45
 STANDARD,PERFECT,EXPLORATION,6,1,Difficile,50,50,0.4,70
 STANDARD,PERFECT,EXPLORATION,6,2,Difficile,70,70,0.5,120
+STANDARD,PERFECT,NORMAL,7,0,Difficile,40,40,0.3,45
+STANDARD,PERFECT,NORMAL,7,1,Difficile,50,50,0.4,70
+STANDARD,PERFECT,NORMAL,7,2,Difficile,70,70,0.5,120
+STANDARD,PERFECT,NORMAL,8,0,Difficile,40,40,0.3,45
+STANDARD,PERFECT,NORMAL,8,1,Difficile,50,50,0.4,70
+STANDARD,PERFECT,NORMAL,8,2,Difficile,70,70,0.5,120
+STANDARD,PERFECT,NORMAL,9,0,Difficile,40,40,0.3,45
+STANDARD,PERFECT,NORMAL,9,1,Difficile,50,50,0.4,70
+STANDARD,PERFECT,NORMAL,9,2,Difficile,70,70,0.5,120

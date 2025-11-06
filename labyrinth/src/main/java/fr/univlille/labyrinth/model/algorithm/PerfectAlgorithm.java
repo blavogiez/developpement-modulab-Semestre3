@@ -7,7 +7,7 @@ import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 
 import java.util.*;
 
-public class PerfectAlgorithm extends MazeAlgorithm {
+public class PerfectAlgorithm implements MazeAlgorithm {
 
 
     public void generateMaze(Maze maze) {
