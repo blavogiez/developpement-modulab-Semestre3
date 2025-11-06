@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.maze.trap;
 
-import fr.univlille.labyrinth.model.algorithm.Trap;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -20,8 +19,11 @@ public class TrapSetup {
         trapMap.put(Trap.TELEPORTER, numberOfTeleporter);
         trapMap.put(Trap.FAKE, numberOfFake);
         trapMap.put(Trap.STUN, numberOfStun);
+        fillPath();
         generateTraps(maze);
         randomizeRandomTrap();
+
+
         return traps;
     }
 
@@ -42,9 +44,11 @@ public class TrapSetup {
 
     public static void generateTraps(Maze maze) {
         for(Map.Entry<Trap, Integer> entry : trapMap.entrySet()){
-            for (int i = 0; i < entry.getValue(); i++){
+            int value = entry.getValue();
+            for (int i = 0; i < value; i++){
                 Position position = getRandomCell(maze);
                 setTrap(position.getX(),  position.getY(), entry.getKey());
+                System.out.println("Trap mis en position "+position.toString());
             }
         }
     }
@@ -57,8 +61,18 @@ public class TrapSetup {
             y = random.nextInt(traps.length);
             x = random.nextInt(traps[y].length);
             position = new Position(x, y);
-        } while (getTrap(y,x)!=Trap.PATH || position.equals(maze.getExitPosition()) || position.equals(maze.getEntryPosition()));
+        } while (getTrap(y,x)!=Trap.PATH && !position.equals(maze.getExitPosition()) && !position.equals(maze.getEntryPosition()));
         return position;
+    }
+
+    public static void fillPath(){
+        for (int i = 0; i<traps.length;i++){
+            for (int j = 0; j<traps[i].length;j++){
+                if (traps[i][j]==null){
+                    traps[i][j]=Trap.PATH;
+                }
+            }
+        }
     }
 
     static Enum<Trap> getTrap(int y, int x){

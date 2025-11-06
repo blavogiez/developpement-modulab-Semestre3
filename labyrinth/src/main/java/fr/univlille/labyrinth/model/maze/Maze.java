@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
-import fr.univlille.labyrinth.model.algorithm.Trap;
+import fr.univlille.labyrinth.model.maze.trap.Trap;
 
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.

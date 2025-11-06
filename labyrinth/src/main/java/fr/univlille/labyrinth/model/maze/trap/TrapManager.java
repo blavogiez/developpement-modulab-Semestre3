@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.maze.trap;
 
-import fr.univlille.labyrinth.model.algorithm.Trap;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -11,7 +10,7 @@ public class TrapManager {
 
     public TrapManager(ObservableMaze maze){
         this.maze=maze;
-        this.traps = TrapSetup.generate(maze,5);
+        this.traps = TrapSetup.generate(maze,0,0,100,0,0);
     }
 
 
@@ -42,5 +41,7 @@ public class TrapManager {
         traps[playerPosition.getY()][playerPosition.getX()] = Trap.USED;
     }
 
-
+    public Trap[][] getTraps() {
+        return traps;
+    }
 }

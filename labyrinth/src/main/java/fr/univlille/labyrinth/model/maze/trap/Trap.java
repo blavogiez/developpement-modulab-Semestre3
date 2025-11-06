@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.algorithm;
+package fr.univlille.labyrinth.model.maze.trap;
 
 import fr.univlille.labyrinth.view.GameColors;
 
@@ -8,7 +8,7 @@ public enum Trap {
     USED(GameColors.TRAP_USED),
     TELEPORTER(GameColors.TELEPORTER_TRAP),
     FAKE(GameColors.EXIT),
-    PUSH,
+    PUSH(GameColors.TELEPORTER_TRAP),
     STUN;
 
     Trap(GameColors color) {

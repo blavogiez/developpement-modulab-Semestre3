@@ -29,6 +29,17 @@ public class ObservableMaze extends Maze {
     protected final List<Observer<ObservableMaze>> observers;
 
 
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
+        super(width, height, distanceBetweenEntryAndExit) ;
+        this.observers = new ArrayList<>();
+        this.playerPosition = new Position(entryPosition.getX(),entryPosition.getY());
+        this.trapManager = new TrapManager(this);
+        System.out.println("tmp");
+    }
+
+
+
+
     /**
      * Cette méthode permet d'ajouter un observateur à Maze, afin qu'il puisse être alerté d'une modification
      *
@@ -62,11 +73,6 @@ public class ObservableMaze extends Maze {
     }
 
 
-    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
-        super(width, height, distanceBetweenEntryAndExit) ;
-        this.observers = new ArrayList<>();
-        this.playerPosition = new Position(entryPosition.getX(),entryPosition.getY());
-    }
     
     /**
      * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale). Cette méthode sera notamment appelée par le createMaze du mode libre
@@ -98,5 +104,9 @@ public class ObservableMaze extends Maze {
     @Override
     public void trapEffect(Position position) {
         trapManager.trapEffect(position);
+    }
+
+    public TrapManager getTrapManager() {
+        return trapManager;
     }
 }
