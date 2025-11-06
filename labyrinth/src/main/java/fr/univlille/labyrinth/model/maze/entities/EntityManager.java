@@ -37,9 +37,12 @@ public class EntityManager {
         return stmt ;
     }
 
+    /*
+     * Le joueur doit être obtenu car il opère un comportement spécial (c'est lui qui dirige vraiment les mouvements)
+     */
     public PlayerEntity getPlayerEntity() {
         for (Entity e : this.entities) {
-            if (e instanceof PlayerEntity) return (PlayerEntity) e ;
+            if (e.getEntityType()==EntityType.PLAYER) return (PlayerEntity) e ;
         }
         return null ;
     }

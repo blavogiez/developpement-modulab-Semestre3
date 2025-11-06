@@ -4,7 +4,6 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-// à test plus en détail
 public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     private static final int EXPLORATION_RADIUS = 5;
 
@@ -31,14 +30,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         marquerCellulesExplorees(maze);
         dessinerZonesNonExplorees(gc, maze, hauteur, largeur);
 
-        if (shouldRenderCell(maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), maze)) {
-            dessinerEntree(gc, maze);
-        }
-        if (shouldRenderCell(maze.getExitPosition().getY(), maze.getExitPosition().getX(), maze)) {
-            dessinerSortie(gc, maze);
-        }
-
-        dessinerJoueur(gc, maze);
+        drawEntities(gc, maze);
     }
 
     private void marquerCellulesExplorees(ObservableMaze maze) {
@@ -57,9 +49,9 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         for (int y = 0; y < hauteur; y++) {
             for (int x = 0; x < largeur; x++) {
                 if (!shouldRenderCell(y, x, maze)) {
-                    double xCoord = offsetX + x * tailleCellule;
-                    double yCoord = offsetY + y * tailleCellule;
-                    gc.fillRect(xCoord, yCoord, tailleCellule, tailleCellule);
+                    double xCoord = layout.getOffsetX() + x * layout.getCellSize();
+                    double yCoord = layout.getOffsetY() + y * layout.getCellSize();
+                    gc.fillRect(xCoord, yCoord, layout.getCellSize(), layout.getCellSize());
                 }
             }
         }
