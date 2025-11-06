@@ -38,7 +38,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
             dessinerSortie(gc, maze);
         }
 
-        dessinerTrap(gc, maze);
+//        dessinerTrap(gc, maze);
         dessinerJoueur(gc, maze);
     }
 

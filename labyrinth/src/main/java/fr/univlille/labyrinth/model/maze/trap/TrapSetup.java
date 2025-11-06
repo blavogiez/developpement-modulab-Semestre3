@@ -33,10 +33,10 @@ public class TrapSetup {
 
     private static void randomizeRandomTrap() {
         Random random = new Random();
-        for (int y = 0; y < traps.length; y++) {
-            for (int x = 0; x < traps[y].length; x++) {
-                if (traps[y][x] == Trap.RANDOM) {
-                    traps[y][x] = Trap.values()[random.nextInt(Trap.TELEPORTER.ordinal(),Trap.values().length)];
+        for (int x = 0; x < traps.length; x++) {
+            for (int y = 0; y < traps[x].length; y++) {
+                if (traps[x][y] == Trap.RANDOM) {
+                    traps[x][y] = Trap.values()[random.nextInt(Trap.TELEPORTER.ordinal(),Trap.values().length)];
                 }
             }
         }
@@ -47,7 +47,7 @@ public class TrapSetup {
             int value = entry.getValue();
             for (int i = 0; i < value; i++){
                 Position position = getRandomCell(maze);
-                setTrap(position.getX(),  position.getY(), entry.getKey());
+                setTrap(position.getY(),  position.getX(), entry.getKey());
                 System.out.println("Trap mis en position "+position.toString());
             }
         }
