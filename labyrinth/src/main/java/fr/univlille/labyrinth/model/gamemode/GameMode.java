@@ -59,9 +59,7 @@ public abstract class GameMode {
                 if (isPlayerAtEnd()) {
                     handleVictory();
                 } else {
-                    currentMaze.trapEffect(playerPosition);
-                    
-
+                    currentMaze.trapEffect(playerPosition); 
                 }
             }
         }
