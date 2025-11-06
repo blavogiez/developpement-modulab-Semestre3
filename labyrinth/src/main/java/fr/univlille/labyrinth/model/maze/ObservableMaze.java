@@ -1,12 +1,12 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.Trap;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.maze.entities.EntityManager;
 /**
- * Implémentation de Maze avec la position du joueur
+ * Implémentation de Maze en version dynamique, observable
  *
  * Afin de mieux respecter le S de S O L I D 
  * 
@@ -16,9 +16,14 @@ import java.util.List;
  * @version 0.0
  * @since 0.0
  */
-public class PlayerMaze extends Maze {
+
+public class ObservableMaze extends Maze {
+    protected EntityManager entityManager ;
+    // protected TrapManager trapManager ;
+    // protected EventManager eventManager ;
+
     protected Position playerPosition;
-    protected final List<Observer<PlayerMaze>> observers;
+    protected final List<Observer<ObservableMaze>> observers;
 
 
     /**
@@ -26,13 +31,13 @@ public class PlayerMaze extends Maze {
      *
      * @param observer un observateur de Maze.
      */
-    public boolean add(Observer<PlayerMaze> observer){
+    public boolean add(Observer<ObservableMaze> observer){
         return observers.add(observer);
     }
 
 
     protected void notifyObserver(){
-        for (Observer<PlayerMaze> observer : observers){
+        for (Observer<ObservableMaze> observer : observers){
             observer.update(this);
         }
     }
@@ -47,13 +52,14 @@ public class PlayerMaze extends Maze {
             playerPosition.addX(direction.getX());
             playerPosition.addY(direction.getY());
             notifyObserver();
+            //notifyEntities();
             return true;
         }
         return false;
     }
 
 
-    public PlayerMaze(int width, int height, int distanceBetweenEntryAndExit) {
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
         super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
         this.playerPosition = new Position(entryPosition.getX(),entryPosition.getY());
@@ -80,6 +86,10 @@ public class PlayerMaze extends Maze {
     public Position getPlayerPosition() {
         return playerPosition;
     }
+
+    //TrapHandler
+    //EventHandler
+    //MoveBehavoirHandler
 
 
 
