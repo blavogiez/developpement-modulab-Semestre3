@@ -28,6 +28,18 @@ public enum EntityType {
             return new ExitEntity(position, moveBehavior);
         }
     };
+
+    MONSTER {
+        @Override
+        public Entity create(Position position) {
+            return new MonsterEntity(position);
+        }
+
+        @Override
+        public Entity create(Position position, MoveBehavior moveBehavior) {
+            return new MonsterEntity(position, moveBehavior);
+        }
+    };
     
     public abstract Entity create(Position position);
     public abstract Entity create(Position position, MoveBehavior moveBehavior);
