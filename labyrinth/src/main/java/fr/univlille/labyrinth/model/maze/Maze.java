@@ -83,6 +83,10 @@ public class Maze {
         return y >= 0 && y < height && x >= 0 && x < width;
     }
 
+    public boolean positionCorrecte(Position position) {
+        return position.getY() >= 0 && position.getY() < height && position.getX() >= 0 && position.getX() < width;
+    }
+
     public boolean adjacent(int y1, int x1, int y2, int x2) {
         return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
                 || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));

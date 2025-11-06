@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MovingExitPlayerMaze;
 import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
