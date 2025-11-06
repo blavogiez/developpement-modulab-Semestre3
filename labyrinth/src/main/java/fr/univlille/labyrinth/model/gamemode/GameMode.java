@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MovingExitPlayerMaze;
 import fr.univlille.labyrinth.model.maze.PlayerMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -20,7 +21,7 @@ import fr.univlille.labyrinth.model.maze.Position;
  */
 public abstract class GameMode {
 
-    private PlayerMaze currentMaze;
+    private MovingExitPlayerMaze currentMaze;
     private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
@@ -39,7 +40,7 @@ public abstract class GameMode {
      */
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, int distanceBetweenEntryAndExit) {
         //int maxDistance = (height - 3) + (width - 3);
-        this.currentMaze = new PlayerMaze(width,height,distanceBetweenEntryAndExit);
+        this.currentMaze = new MovingExitPlayerMaze(width,height,distanceBetweenEntryAndExit);
         //PerfectAlgorithm.generateMaze(this.currentMaze);
     }
 
@@ -76,7 +77,7 @@ public abstract class GameMode {
     /** 
      * @param currentMaze set Maze
      */
-    public void setCurrentMaze(PlayerMaze currentMaze) {
+    public void setCurrentMaze(MovingExitPlayerMaze currentMaze) {
         this.currentMaze = currentMaze;
     }
 
