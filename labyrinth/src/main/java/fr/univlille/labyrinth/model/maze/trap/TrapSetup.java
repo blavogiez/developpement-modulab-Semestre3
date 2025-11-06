@@ -1,17 +1,19 @@
-package fr.univlille.labyrinth.model.maze;
+package fr.univlille.labyrinth.model.maze.trap;
 
 import fr.univlille.labyrinth.model.algorithm.Trap;
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
-public class TrapManager {
+public class TrapSetup {
     static private Trap[][] traps;
     static private Map<Trap, Integer> trapMap;
 
-    public static Maze generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
-        TrapManager.traps = maze.getGrid();
+    public static Trap[][] generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
+        TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
         trapMap = new EnumMap<>(Trap.class);
         trapMap.put(Trap.RANDOM,numberOfRandomTraps);
         trapMap.put(Trap.PUSH, numberOfPush);
@@ -20,8 +22,11 @@ public class TrapManager {
         trapMap.put(Trap.STUN, numberOfStun);
         generateTraps(maze);
         randomizeRandomTrap();
-        maze.setGrid(traps);
-        return maze;
+        return traps;
+    }
+
+    public static Trap[][] generate(Maze maze, int numberOfRandomTraps){
+        return generate(maze,numberOfRandomTraps,0,0,0,0);
     }
 
     private static void randomizeRandomTrap() {

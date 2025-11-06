@@ -6,11 +6,7 @@ import java.util.List;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
 import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.model.maze.MovingExitPlayerMaze;
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
-import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.*;
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -21,7 +17,7 @@ import fr.univlille.labyrinth.model.maze.Position;
  */
 public abstract class GameMode {
 
-    private PlayerMaze currentMaze;
+    private ObservableMaze currentMaze;
     private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
@@ -36,11 +32,10 @@ public abstract class GameMode {
      *
      * @param width la largeur du labyrinthe.
      * @param height la hauteur du labyrinthe.
-     * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
     public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, int distanceBetweenEntryAndExit) {
         //int maxDistance = (height - 3) + (width - 3);
-        this.currentMaze = new PlayerMaze(width,height,distanceBetweenEntryAndExit);
+        this.currentMaze = new ObservableMaze(width,height,distanceBetweenEntryAndExit);
         //PerfectAlgorithm.generateMaze(this.currentMaze);
     }
 
@@ -81,14 +76,14 @@ public abstract class GameMode {
     /** 
      * @param currentMaze set Maze
      */
-    public void setCurrentMaze(PlayerMaze currentMaze) {
+    public void setCurrentMaze(ObservableMaze currentMaze) {
         this.currentMaze = currentMaze;
     }
 
     /**
      * @return Maze
      */
-    public PlayerMaze getCurrentMaze() {
+    public ObservableMaze getCurrentMaze() {
         return currentMaze;
     }
 

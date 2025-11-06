@@ -5,6 +5,9 @@ import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.trap.TrapManager;
+import fr.univlille.labyrinth.model.maze.trap.TrapSetup;
+
 /**
  * Implémentation de Maze en version dynamique, observable
  *
@@ -19,7 +22,7 @@ import fr.univlille.labyrinth.model.maze.entities.EntityManager;
 
 public class ObservableMaze extends Maze {
     protected EntityManager entityManager ;
-    // protected TrapManager trapManager ;
+     protected TrapManager trapManager ;
     // protected EventManager eventManager ;
 
     protected Position playerPosition;
@@ -92,5 +95,8 @@ public class ObservableMaze extends Maze {
     //MoveBehavoirHandler
 
 
-
+    @Override
+    public void trapEffect(Position position) {
+        trapManager.trapEffect(position);
+    }
 }

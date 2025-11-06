@@ -1,13 +1,13 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import javafx.scene.canvas.GraphicsContext;
 
 /*
  * Vue typique d'un labyrinthe, héritant donc la plupart de ses méthodes.
  */
 public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
-    public NormalLabyrinthCanvasView(PlayerMaze maze) {
+    public NormalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
     }
 
