@@ -23,6 +23,7 @@ import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
 
 public class ProgressionLoader {
     private static final String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
+    private static int EXPECTED_LENGTH=11;
 
     /**
      * Charge la progression par défaut depuis le fichier CSV
@@ -42,7 +43,7 @@ public class ProgressionLoader {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length == 10) {
+                if (parts.length == EXPECTED_LENGTH) {
                     int levelNumber = Integer.parseInt(parts[3]);
                     if (levelNumber > maxLevel) maxLevel = levelNumber;
                 }
@@ -63,7 +64,7 @@ public class ProgressionLoader {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length != 10) continue;
+                if (parts.length != EXPECTED_LENGTH) continue;
 
                 ScoreCalculatorFactory scoreFactory = ScoreCalculatorFactory.valueOf(parts[0]);
                 MazeAlgorithm algorithm = MazeAlgorithmFactory.valueOf(parts[1]).getAlgorithm();
