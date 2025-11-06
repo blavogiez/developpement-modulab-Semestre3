@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -19,13 +18,13 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 public class PerfectAlgorithmTest {
 
-    static MazeAlgorithmTemplate algo;
+    static MazeAlgorithm algo;
     static Maze maze1, maze2, maze3;
     static Position start1, end1, start2, end2, start3, end3;
 
     @BeforeAll
     public static void initialization() {
-        algo = MazeAlgorithm.PERFECT.getAlgorithm();
+        algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
         //petit labyrinthe de taille avec distance minimale
         maze1 = new Maze(10,12,10); 
@@ -49,23 +48,20 @@ public class PerfectAlgorithmTest {
 
     @Test
     public void testStartPosition() {
-        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()));
+        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()), "" + start1);
 
-        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()));
+        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()), "" + start2);
 
-        assertTrue(maze2.positionCorrecte(start3.getY(), start3.getX()));
+        assertTrue(maze3.positionCorrecte(start3.getY(), start3.getX()), "" + start3);
     }
 
     @Test
     public void testExitPosition() {
-        Position start = maze1.getEntryPosition();
-        assertTrue(maze1.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze1.positionCorrecte(end1.getY(), end1.getX()));
 
-        start = maze2.getEntryPosition();
-        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze2.positionCorrecte(end2.getY(), end2.getX()));
 
-        start = maze3.getEntryPosition();
-        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze3.positionCorrecte(end3.getY(), end3.getX()));
     }
 
     @Test

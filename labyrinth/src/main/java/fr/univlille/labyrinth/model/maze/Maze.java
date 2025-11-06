@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.
@@ -39,7 +39,7 @@ public class Maze {
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
         //eventuellement faire la gene ailleurs ?
-        MazeAlgorithm.PERFECT.getAlgorithm().generateMaze(this);
+        MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
     }
 
 
@@ -73,7 +73,7 @@ public class Maze {
     }
 
     /*
-     * La méthode permet de savoir si la position ce situe dans le labyrinthe.
+     * La méthode permet de savoir si la position se situe dans le labyrinthe.
      */
     public boolean positionCorrecte(int y, int x) {
         return y >= 0 && y < height && x >= 0 && x < width;

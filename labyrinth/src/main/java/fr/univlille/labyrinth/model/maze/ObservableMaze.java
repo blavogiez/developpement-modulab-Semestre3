@@ -5,8 +5,8 @@ import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.trap.TrapManager;
-import fr.univlille.labyrinth.model.maze.trap.TrapSetup;
 
 /**
  * Implémentation de Maze en version dynamique, observable
@@ -56,20 +56,10 @@ public class ObservableMaze extends Maze {
         }
     }
 
-    /**
-     * Cette méthode permet de diriger le joueur vers une direction
-     *
-     * @param direction une direction parmi haut, bas, droite, gauche.
-     */
     public boolean movePlayer(Direction direction){
-        if ( !isWall(playerPosition.getY(),playerPosition.getX(),playerPosition.getY()+direction.getY(),playerPosition.getX()+direction.getX())) {
-            playerPosition.addX(direction.getX());
-            playerPosition.addY(direction.getY());
-            notifyObserver();
-            //notifyEntities();
-            return true;
-        }
-        return false;
+        entityManager.moveEntities(this, direction);
+        notifyObserver();
+        return true ;
     }
 
 
@@ -89,11 +79,9 @@ public class ObservableMaze extends Maze {
         return playerPosition.equals(exitPosition);
     }
 
-    /**
-     * Cette méthode renvoie la position du joueur.
-     */
     public Position getPlayerPosition() {
-        return playerPosition;
+        PlayerEntity player = entityManager.getPlayerEntity();
+        return player != null ? player.getPosition() : null;
     }
 
     //TrapHandler

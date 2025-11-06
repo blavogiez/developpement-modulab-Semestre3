@@ -1,9 +1,14 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
+import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
+/*
+ * Entité dans le labyrinthe qui réagit à chaque mouvement du joueur
+ * Il peut s'agir du joueur, d'un monstre..
+ */
 public class Entity {
     protected Position position ;
     protected MoveBehavior moveBehavior ;
@@ -25,7 +30,13 @@ public class Entity {
         this.position = position;
     }
 
-    public void move(Maze maze) {
-        if(moveBehavior!=null) moveBehavior.move(this,maze);
+    /*
+     * Retourne true si l'action s'est bien déroulée.
+     */
+    public boolean move(Maze maze, Direction direction) {
+        if(moveBehavior!=null) {
+            moveBehavior.move(this,direction,maze);
+            return true ;
+        } return false ;
     }
 }

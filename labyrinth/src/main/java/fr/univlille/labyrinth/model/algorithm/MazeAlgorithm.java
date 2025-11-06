@@ -1,17 +1,7 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-public enum MazeAlgorithm {
-    PERFECT(PerfectAlgorithm.getInstance()),
-    OTHER(null);
+import fr.univlille.labyrinth.model.maze.Maze;
 
-    private MazeAlgorithm(MazeAlgorithmTemplate MazeAlgorithm) {
-        this.MazeAlgorithm = MazeAlgorithm;
-    }
-
-    private final MazeAlgorithmTemplate MazeAlgorithm;
-
-    public MazeAlgorithmTemplate getAlgorithm(){
-        return MazeAlgorithm;
-    }
-
+public abstract class MazeAlgorithm {
+    public abstract void generateMaze(Maze maze);
 }

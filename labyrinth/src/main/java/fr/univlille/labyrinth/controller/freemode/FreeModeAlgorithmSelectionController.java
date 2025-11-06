@@ -1,13 +1,11 @@
 package fr.univlille.labyrinth.controller.freemode;
 
 import fr.univlille.labyrinth.App;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;

@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -65,7 +66,7 @@ public class ProgressionLoader {
                 if (parts.length != 10) continue;
 
                 ScoreCalculatorFactory scoreFactory = ScoreCalculatorFactory.valueOf(parts[0]);
-                MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.valueOf(parts[1]);
+                MazeAlgorithm algorithm = MazeAlgorithmFactory.valueOf(parts[1]).getAlgorithm();
                 ViewType viewType = ViewType.valueOf(parts[2]);
                 int levelNumber = Integer.parseInt(parts[3]);
                 int challengeIndex = Integer.parseInt(parts[4]);

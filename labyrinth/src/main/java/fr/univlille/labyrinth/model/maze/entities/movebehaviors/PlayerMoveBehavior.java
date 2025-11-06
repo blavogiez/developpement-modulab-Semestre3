@@ -6,20 +6,16 @@ import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 
 public class PlayerMoveBehavior implements MoveBehavior {
-    public void move(Entity entity, Maze maze) {
-//        Position playerPosition = entity.getPosition();
-//        Position newPos = new Position(pos.getY(), pos.getX());
-//
-//        maze.notifyObserver();
-        
-    }
-
     /**
-     * Cette méthode permet de diriger le joueur vers une direction
+     * Cette méthode permet de diriger l'entité vers une direction
      *
      * @param direction une direction parmi haut, bas, droite, gauche.
      */
-    public void movePlayer(Direction direction){
-
+    public void move(Entity entity, Direction direction, Maze maze) {
+        Position position = entity.getPosition();
+        if (!maze.isWall(position.getY(),position.getX(),position.getY()+direction.getY(),position.getX()+direction.getX())) {
+            position.addX(direction.getX());
+            position.addY(direction.getY());
+        }
     }
 }

@@ -1,20 +1,25 @@
 package fr.univlille.labyrinth.model.save;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
 class ChallengeTest {
 
     private Challenge challenge;
+    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
     @BeforeEach
     void init() {
-        challenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Facile", 10, 8, 30, new StandardScoreCalculator());
+        challenge = new Challenge(algo, ViewType.NORMAL,"Facile", 10, 8, 30, new StandardScoreCalculator());
     }
 
     @Test
@@ -59,11 +64,11 @@ class ChallengeTest {
 
     @Test
     void testScoreValueChangesWithParameters() {
-        Challenge smallChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Moyen", 5, 5, 0.2, new StandardScoreCalculator());
+        Challenge smallChallenge = new Challenge(algo, ViewType.NORMAL,"Moyen", 5, 5, 0.2, new StandardScoreCalculator());
         smallChallenge.setCompleted(true);
         assertEquals(5 * 5 * 20, smallChallenge.getScoreValue(), "Le score devrait dépendre des dimensions et du pourcentage de murs");
 
-        Challenge largeChallenge = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,"Difficile", 15, 15, 0.5, new StandardScoreCalculator());
+        Challenge largeChallenge = new Challenge(algo, ViewType.NORMAL,"Difficile", 15, 15, 0.5, new StandardScoreCalculator());
         largeChallenge.setCompleted(true);
         assertEquals(15 * 15 * 50, largeChallenge.getScoreValue(), "Un grand labyrinthe devrait rapporter plus de points");
     }
