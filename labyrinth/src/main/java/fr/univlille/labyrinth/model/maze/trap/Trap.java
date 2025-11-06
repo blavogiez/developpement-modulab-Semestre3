@@ -8,8 +8,14 @@ public enum Trap {
     USED(GameColors.TRAP_USED),
     TELEPORTER(GameColors.TELEPORTER_TRAP),
     FAKE(GameColors.EXIT),
-    PUSH(GameColors.TELEPORTER_TRAP),
-    STUN;
+    PUSH,
+    STUN,
+    REGENERATE_WALL,
+    TURN_WALL,
+    MONSTER_SPAWN,
+    TELEPORT_EXIT,
+    LAVA;
+
 
     Trap(GameColors color) {
         this.color = color;

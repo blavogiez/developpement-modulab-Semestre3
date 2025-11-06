@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.trap.Trap;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import fr.univlille.labyrinth.view.GameColors;
@@ -109,7 +110,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
 
         dessinerJoueur(gc, maze);
+
     }
+
+
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {

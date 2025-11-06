@@ -5,33 +5,38 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 public class TrapManager {
-    private ObservableMaze maze;
-    private Trap[][] traps;
+    private final ObservableMaze maze;
+    private final Trap[][] traps;
 
     public TrapManager(ObservableMaze maze){
         this.maze=maze;
-        this.traps = TrapSetup.generate(maze,0,0,100,0,0);
+        this.traps = TrapSetup.generate(maze,0,5,10,3,0);
     }
 
 
     public void trapEffect(Position oldPosition) {
-        Trap trap = traps[maze.getPlayerPosition().getY()][maze.getPlayerPosition().getX()];
+        Position newPosition = maze.getPlayerPosition();
+        Trap trap = traps[newPosition.getY()][newPosition.getX()];
         switch (trap) {
             case PUSH -> {
-                Direction direction = Direction.getDirection(oldPosition, maze.getPlayerPosition());
-                boolean moving;
+                revealTrap(newPosition);
+                Direction direction = Direction.getDirection(oldPosition,newPosition);
+                boolean hasMoved;
                 do {
-                    moving = maze.movePlayer(direction);
-                } while (moving);
-                revealTrap(oldPosition);
+                    hasMoved =  maze.getEntityManager().getPlayerEntity().move(maze,direction);
+                } while (hasMoved);
+
+
             }
             case FAKE -> {
-                revealTrap(oldPosition);
+                revealTrap(newPosition);
             }
             case STUN ->  {
                 //besoin des codes, execute PvETurn()
             }
             case TELEPORTER -> {
+
+                maze.setPlayerPosition(TrapSetup.getRandomCell(maze));
 
             }
         }

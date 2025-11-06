@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.trap.TrapManager;
 
@@ -30,11 +31,11 @@ public class ObservableMaze extends Maze {
 
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
-        super(width, height, distanceBetweenEntryAndExit) ;
-        this.observers = new ArrayList<>();
-        this.playerPosition = new Position(entryPosition.getX(),entryPosition.getY());
-        this.trapManager = new TrapManager(this);
-        System.out.println("tmp");
+                super(width, height, distanceBetweenEntryAndExit) ;
+                this.observers = new ArrayList<>();
+                this.entityManager = new EntityManager();
+                this.trapManager=new TrapManager(this);
+               entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
     }
 
 
@@ -58,7 +59,7 @@ public class ObservableMaze extends Maze {
 
     public boolean movePlayer(Direction direction){
         entityManager.moveEntities(this, direction);
-        notifyObserver();
+
         return true ;
     }
 
@@ -84,17 +85,26 @@ public class ObservableMaze extends Maze {
         return player != null ? player.getPosition() : null;
     }
 
-    //TrapHandler
-    //EventHandler
-    //MoveBehavoirHandler
+//    TrapHandler
+//    EventHandler
+//    MoveBehavoirHandler
 
 
     @Override
     public void trapEffect(Position position) {
         trapManager.trapEffect(position);
+        notifyObserver();
     }
 
     public TrapManager getTrapManager() {
         return trapManager;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setPlayerPosition(Position playerPosition) {
+        entityManager.getPlayerEntity().setPosition(playerPosition);
     }
 }

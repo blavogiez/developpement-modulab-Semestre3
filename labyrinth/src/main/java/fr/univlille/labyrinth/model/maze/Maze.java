@@ -143,4 +143,6 @@ public class Maze {
     public void trapEffect(Position position) {}
 
 
+
+
 }

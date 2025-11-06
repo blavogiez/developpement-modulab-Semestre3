@@ -54,11 +54,13 @@ public abstract class GameMode {
      */
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
-            Position playerPosition = currentMaze.getPlayerPosition();
+            Position playerPosition = currentMaze.getPlayerPosition().add(0,0);
             if (currentMaze.movePlayer(direction)){
+
                 if (isPlayerAtEnd()) {
                     handleVictory();
                 } else {
+
                     currentMaze.trapEffect(playerPosition);
                 }
             }

@@ -48,7 +48,6 @@ public class TrapSetup {
             for (int i = 0; i < value; i++){
                 Position position = getRandomCell(maze);
                 setTrap(position.getY(),  position.getX(), entry.getKey());
-                System.out.println("Trap mis en position "+position.toString());
             }
         }
     }
@@ -61,7 +60,9 @@ public class TrapSetup {
             y = random.nextInt(traps.length);
             x = random.nextInt(traps[y].length);
             position = new Position(x, y);
-        } while (getTrap(y,x)!=Trap.PATH && !position.equals(maze.getExitPosition()) && !position.equals(maze.getEntryPosition()));
+        } while (getTrap(y,x)!=Trap.PATH ||
+                position.equals(maze.getExitPosition()) ||
+                position.equals(maze.getEntryPosition()));
         return position;
     }
 
