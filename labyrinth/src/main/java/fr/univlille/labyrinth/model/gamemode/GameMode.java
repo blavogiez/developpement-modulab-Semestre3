@@ -10,6 +10,13 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
+/**
+ * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public abstract class GameMode {
 
     private MazeManager mazeManager;
@@ -21,6 +28,11 @@ public abstract class GameMode {
         this.victoryHandler = victoryHandler;
     }
 
+    /**
+     * Cette méthode vérifie si le joueur peut se déplacer à l'endroit demandé, et envoie au labyrinthe de le déplacer si c'est le cas.
+     *
+     * @param direction la direction du déplacement.
+     */
     public void movePlayerPosition(Direction direction) {
         if (!mazeManager.hasMaze()) return;
 
@@ -37,16 +49,25 @@ public abstract class GameMode {
         }
     }
 
+    /**
+     * @return boolean
+     */
     public boolean isPlayerAtEnd() {
         if (!mazeManager.hasMaze()) return false;
         ObservableMaze maze = mazeManager.getCurrentMaze();
         return maze.getPlayerPosition().equals(maze.getExitPosition());
     }
 
+    /**
+     * @return Maze
+     */
     public ObservableMaze getCurrentMaze() {
         return mazeManager.getCurrentMaze();
     }
 
+    /**
+     * @param maze set Maze
+     */
     public void setCurrentMaze(ObservableMaze maze) {
         mazeManager.setCurrentMaze(maze);
     }
@@ -74,6 +95,9 @@ public abstract class GameMode {
         return victoryHandler;
     }
 
+    /* Les dimensions demandées sont-elles possibles ?
+     * @return boolean
+     */
     public static boolean areDimensionsCorrect(int width, int height) {
         return width >= 3 && height >= 4 || width >= 4 && height >= 3;
     }

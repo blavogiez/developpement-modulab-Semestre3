@@ -14,6 +14,7 @@ public class ProgressionMode extends GameMode {
     private ProgressionModeVictoryHandler victoryHandler;
     public static PlayerProgress defaultProgress;
 
+    // execute at start to init default progress
     static {
         ProgressionMode.initDefaultProgress();
     }
@@ -24,6 +25,7 @@ public class ProgressionMode extends GameMode {
         this.victoryHandler = (ProgressionModeVictoryHandler) getVictoryHandler();
     }
 
+    // Initialise l'objet defaultProgress à un objet PlayerProgress basé sur le fichier "default_progression.csv", par la classe utilitaire ProgressionLoader
     public static void initDefaultProgress() {
         ProgressionMode.defaultProgress = ProgressionLoader.loadDefaultProgress();
     }
@@ -32,6 +34,9 @@ public class ProgressionMode extends GameMode {
         getMazeManager().createMaze(config);
     }
 
+    /**
+     * @return Player
+     */
     public Player getPlayer() {
         return victoryHandler != null ? victoryHandler.getPlayer() : null;
     }
