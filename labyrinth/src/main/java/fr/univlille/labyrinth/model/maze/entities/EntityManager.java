@@ -9,9 +9,15 @@ import fr.univlille.labyrinth.model.maze.Maze;
 public class EntityManager {
     private final List<Entity> entities;
 
-    public EntityManager() {
-        this.entities = new ArrayList<>();
+    public EntityManager(List<Entity> entities) {
+        this.entities = entities;
     }
+
+    public EntityManager() {
+        this(new ArrayList<>());
+    }
+
+
 
     public void addEntity(Entity entity) {
         entities.add(entity);

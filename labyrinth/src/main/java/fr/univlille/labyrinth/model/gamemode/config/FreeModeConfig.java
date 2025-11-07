@@ -9,6 +9,7 @@ public class FreeModeConfig implements GameConfig {
     private int height;
     private double wallPercentage;
     private int distanceBetweenEntryAndExit;
+    private String entityConfiguration ;
 
     /*
      * Constructeur par défaut
@@ -86,5 +87,9 @@ public class FreeModeConfig implements GameConfig {
 
     public int getMaxDistanceBetweenEntryAndExit() {
         return (height - 3) + (width - 3);
+    }
+
+    public String getEntitiesConfiguration() {
+        return entityConfiguration;
     }
 }
