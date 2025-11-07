@@ -3,19 +3,13 @@ package fr.univlille.labyrinth.controller.freemode;
 import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-/**
- * Controller des labyrinthes spécifiquement du mode libre
- *
- * @author Antonin, Angel, Baptise, Romain, Victor
- * @version 0.0
- * @since 0.0
- */
 public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @FXML
     private Button bouttonRetour;
@@ -24,7 +18,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
-        gameMode = new FreeMode();
+        gameMode = new FreeMode(AppState.getInstance().getFreeModeConfig());
         gameMode.createMaze();
 
         labyrinth = new NormalLabyrinthCanvasView(gameMode.getCurrentMaze());

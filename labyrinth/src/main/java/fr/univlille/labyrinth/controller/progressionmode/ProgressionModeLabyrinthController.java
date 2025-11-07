@@ -45,7 +45,7 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
         challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
 
         gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
-        gameMode.createMaze(selectedChallenge);
+        gameMode.createMaze();
 
         pane1.setCenter(setupViews(gameMode));
 

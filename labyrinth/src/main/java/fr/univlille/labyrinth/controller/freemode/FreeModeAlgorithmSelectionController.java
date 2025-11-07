@@ -1,8 +1,8 @@
 package fr.univlille.labyrinth.controller.freemode;
 
 import fr.univlille.labyrinth.App;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -20,12 +20,12 @@ public class FreeModeAlgorithmSelectionController {
     @FXML
     private void initialize() {
         freeModeComboBox.getItems().addAll(MazeAlgorithmFactory.values());
-        freeModeComboBox.getSelectionModel().select(FreeMode.algorithm);
+        freeModeComboBox.getSelectionModel().select(AppState.getInstance().getFreeModeConfig().getAlgorithmFactory());
         resize();
     }
     @FXML
-    private void goToJouer()throws IOException{
-        FreeMode.algorithm=freeModeComboBox.getSelectionModel().getSelectedItem();
+    private void goToJouer() throws IOException {
+        AppState.getInstance().getFreeModeConfig().setAlgorithmFactory(freeModeComboBox.getSelectionModel().getSelectedItem());
         App.goTo("freemode/FreeMode.fxml");
     }
     @FXML
