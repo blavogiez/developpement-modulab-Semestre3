@@ -32,7 +32,8 @@ public class PlayerProgress implements Serializable {
                     original.getHeight(),
                     original.getWallPercentage(),
                     original.getDistanceBetweenEntryAndExit(),
-                    original.getScoreCalculator()
+                    original.getScoreCalculator(),
+                    original.getEntitiesConfiguration()
                 );
             }
             newLevels[i] = newLevel;

@@ -131,6 +131,8 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 
 ## **Semaine du 20/10 au 24/10**
 
+**Rendu du jalon 1.**
+
 ### **Le groupe** :
 
 ### **Antonin** :
@@ -177,6 +179,9 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 ## **Semaine du 27/10 au 2/11**
 
+**Sujet du jalon 2 rendu disponible**
+**Semaine de vacances**
+
 ### **Antonin** :
 
 - Ajout choix différents type d'algo possible dans freeMode
@@ -187,6 +192,16 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 ### **Baptiste** :
 
+| Développement | Algorithmie |
+|--------------|-------------|
+| Refactor de la sélection de défis pour permettre une initialisation dynamique (autant de défis que dans le CSV)| |
+| Refactor du controlleur de mode de jeu pour simplifier le code | |
+| Strategy Pattern pour le score des défis (speedrun, temps) | |
+| Couverture de tests augmentée pour les controlleurs | |
+
+J'ai profité de cette semaine de vacances pour faire des petites retouches sur le code afin de faciliter les futures implémentations, en les communiquant sur le groupe.
+
+Comme c'était une semaine de vacances et que l'objectif n'était pas de travailler au maximum, je n'ai pas touché aux nouvelles *features* ni à l'algorithme pour ne pas prendre des tâches aux autres.
 
 ### **Romain** :
 
@@ -196,6 +211,8 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 ## **Semaine du 3/11 au 9/11**
 
+**Semaine de rentrée.**
+
 ### **Antonin** :
 
 - Ajout Classement TableView
@@ -204,6 +221,17 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 
 ### **Baptiste** :
+
+| Développement | Algorithmie |
+|--------------|-------------|
+| Avec Victor, refactor des vues pour correspondre au nouvel algorithme (mur entre les cases)| |
+| Implémentation de la vue Exploration (Étape 6) | |
+| Refactor de la classe Maze en deux parties : Maze et ObservableMaze pour mieux respecter le DIP et SRP.*   | |
+| Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
+
+*(Un `Maze` est un labyrinthe qui contient uniquement les murs et position entrée / sortie (L'algorithme ne voit que les Maze) ; un ObservableMaze hérite du labyrinthe et gère les positions d'entités )
+
+**Le système d'entités a emergé après la volonté de chacun d'implémenter des modes de jeux originaux ; Antonin a pensé à un mode à deux joueurs, Angèl à un monstre (Minotaure-like), Romain à une sortie qui bouge... J'ai implémenté ce système pour que tout le monde puisse rapidement créer l'entité qu'il veut. De plus, elles peuvent s'assembler (on peut mettre 15 monstres, 4 sorties...)
 
 
 ### **Romain** :

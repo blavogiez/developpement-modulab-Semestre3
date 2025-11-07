@@ -8,12 +8,24 @@ import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 public class ObservableMaze extends Maze {
     protected EntityManager entityManager ;
     protected final List<Observer<ObservableMaze>> observers;
 
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
+        super(width, height, distanceBetweenEntryAndExit);
+        this.observers = new ArrayList<>();
+        this.entityManager = new EntityManager();
+        List<Entity> entities = EntityListFactory.createEntities(entitiesConfiguration, this);
+        entities.forEach(entityManager::addEntity);
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
+        this(width, height, distanceBetweenEntryAndExit, "DEFAULT");
+    }
 
     public boolean add(Observer<ObservableMaze> observer){
         return observers.add(observer);
@@ -35,26 +47,6 @@ public class ObservableMaze extends Maze {
         entityManager.moveEntities(this, direction);
         notifyObserver();
         return true ;
-    }
-
-    public ObservableMaze(List<Entity> entities, int width, int height, int distanceBetweenEntryAndExit) {
-        super(width, height, distanceBetweenEntryAndExit) ;
-        this.observers = new ArrayList<>();
-        this.entityManager = new EntityManager();
-        entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
-        entityManager.addEntity(EntityType.EXIT.create(getExitPosition()));
-    }
-
-    /*
-     * Surcharge pour ajouter les entités par défaut
-     */
-    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
-        super(width, height, distanceBetweenEntryAndExit) ;
-        this.observers = new ArrayList<>();
-        this.entityManager = new EntityManager();
-        entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
-        Entity exit = EntityType.EXIT.create(getExitPosition(), new MovingStepBehavior()) ;
-        entityManager.addEntity(exit);
     }
 
     public Position getPlayerPosition() {

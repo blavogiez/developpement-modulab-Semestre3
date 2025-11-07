@@ -39,6 +39,12 @@ public class ProgressionModeConfig implements GameConfig {
     }
 
     @Override
+    public String getEntitiesConfiguration() {
+        String config = challenge.getEntitiesConfiguration();
+        return config;
+    }
+
+    @Override
     public boolean isPerfectAlgorithm() {
         return true;
     }

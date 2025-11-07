@@ -9,4 +9,5 @@ public interface GameConfig {
     double getWallPercentage();
     int getDistanceBetweenEntryAndExit();
     boolean isPerfectAlgorithm();
+    String getEntitiesConfiguration();
 }

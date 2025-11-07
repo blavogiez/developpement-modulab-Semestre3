@@ -30,7 +30,6 @@ public class MovingExitObservableMaze extends ObservableMaze {
         int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, maze.getPlayerPosition(), maze.getExitPosition());
         List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getPlayerPosition(),currentDistanceBetweenPlayerAndExit);
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
-        System.out.println("Position exit : " + exitPosition);
         maze.setExit(exitPosition);
     }
 
@@ -39,7 +38,6 @@ public class MovingExitObservableMaze extends ObservableMaze {
         this.entryPosition=this.getPlayerPosition();
         List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP);
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
-        System.out.println("Position exit : " + exitPosition);
         maze.setExit(exitPosition);
     }
 }
