@@ -112,8 +112,8 @@ public class BreadthFirstSearch {
                 while (!positionPath.equals(start)){
                     finalPath.add(positionPath);
                     positionPath = previousPos.get(positionPath);
-                    Collections.reverse(finalPath);
                 }
+                Collections.reverse(finalPath);
                 return finalPath;
             }
             List<Position> nextPositions = getNextPosition(maze, current ,previousPos.keySet());

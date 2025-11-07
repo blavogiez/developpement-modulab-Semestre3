@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.controller;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
+import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -14,10 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
- * Suite de tests pour la victoire du joueur dans un GameMode
- * Test que la victoire se déclenche et prévient bien les observateurs
- */
 public class MovePlayerVictoryTest {
 
     //mock rapide d'un observer
@@ -42,8 +39,9 @@ public class MovePlayerVictoryTest {
 
     @Test
     public void testMovePlayerToExitTriggersVictory() {
-        FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(MazeAlgorithmFactory.PERFECT.getAlgorithm(), 50, 50, 30);
+        FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 30);
+        FreeMode gameMode = new FreeMode(config);
+        gameMode.createMaze();
 
         VictoryObserver observer = new VictoryObserver();
         gameMode.addVictoryObserver(observer);
@@ -85,8 +83,9 @@ public class MovePlayerVictoryTest {
 
     @Test
     public void testMultipleObserversAreNotified() {
-        FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(MazeAlgorithmFactory.PERFECT.getAlgorithm(), 50, 50, 30);
+        FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 30);
+        FreeMode gameMode = new FreeMode(config);
+        gameMode.createMaze();
 
         VictoryObserver observer1 = new VictoryObserver();
         VictoryObserver observer2 = new VictoryObserver();

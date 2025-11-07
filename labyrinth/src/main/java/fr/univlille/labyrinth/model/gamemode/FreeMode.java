@@ -1,49 +1,37 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
+import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
 
-/**
- * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).
- *
- * @author Antonin, Angel, Baptise, Romain, Victor
- * @version 0.0
- * @since 0.0
- */
 public class FreeMode extends GameMode {
-    //ces attributs peuvent être amenés à être changés par le controlleur afin d'assurer une persistance par session (le joueur n'a pas à resaisir plein de fois son entrée !)
-    public static MazeAlgorithmFactory algorithm = MazeAlgorithmFactory.PERFECT ;
-    public static int mazeWidth = 20;
-    public static int mazeHeight = 20;
-    public static double mazeWallPercentage = 0.4 ;
-    public static int distanceBetweenEntryAndExit = 10 ;
+    private FreeModeConfig config;
 
-    /*
-     * Conformément au sujet :
-     * si l'algorithme est parfait, on crée le labyrinthe avec une distance entrée / sortie et on ne prend pas en compte le pourcentage de murs
-     * si l'algorithme est aléatoire, on crée le labyrinthe avec un pourcentage de murs et on ne prend pas en compte la distance entrée / sortie
+    public FreeMode(FreeModeConfig config) {
+        super(new MazeManager(), new FreeModeVictoryHandler());
+        this.config = config;
+    }
 
-     */
+    public FreeMode() {
+        this(new FreeModeConfig());
+    }
+
     public void createMaze() {
-        if(algorithm.isPerfect()) createMaze(algorithm.getAlgorithm(), mazeWidth, mazeHeight, distanceBetweenEntryAndExit);
-        else createMaze(algorithm.getAlgorithm(), mazeWidth, mazeHeight, mazeWallPercentage);
+        getMazeManager().createMaze(config);
+    }
+
+    public FreeModeConfig getConfig() {
+        return config;
     }
 
     public String toString() {
-        String info = "Labyrinthe d'algorithme " + algorithm.name() + " ; \n" ;
-        info+= "Dimensions : " + FreeMode.mazeWidth + "x" + FreeMode.mazeHeight;
-        if (algorithm.isPerfect()) {
-            info+= ", Distance : "+ FreeMode.distanceBetweenEntryAndExit ;
-        }else{
-            info += ", Pourcentage : " + (int) (FreeMode.mazeWallPercentage * 100) + "%";
+        String info = "Labyrinthe d'algorithme " + config.getAlgorithmFactory().name() + " ; \n";
+        info += "Dimensions : " + config.getWidth() + "x" + config.getHeight();
+        if (config.isPerfectAlgorithm()) {
+            info += ", Distance : " + config.getDistanceBetweenEntryAndExit();
+        } else {
+            info += ", Pourcentage : " + (int) (config.getWallPercentage() * 100) + "%";
         }
-        return info ;
-    }
-
-    /* Donne la distance maximale entre l'entrée et la sortie (Hauteur -3, Largeur -3) selon les dimensions du mode libre
-     * Utile pour mettre cette valeur maximum si la sélection de distance entrée / sortie est trop élevée
-     * @return int
-     */
-    public static int getMaxDistanceBetweenEntryAndExit() {
-        return (FreeMode.mazeHeight - 3) + (FreeMode.mazeWidth - 3) ;
+        return info;
     }
 }
