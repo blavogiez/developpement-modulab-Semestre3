@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.PerfectAlgorithm;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.model.maze.MovingExitPlayerMaze;
-import fr.univlille.labyrinth.model.maze.PlayerMaze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -21,7 +19,7 @@ import fr.univlille.labyrinth.model.maze.Position;
  */
 public abstract class GameMode {
 
-    private PlayerMaze currentMaze;
+    private ObservableMaze currentMaze;
     private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
 
     /** 
@@ -36,17 +34,16 @@ public abstract class GameMode {
      *
      * @param width la largeur du labyrinthe.
      * @param height la hauteur du labyrinthe.
-     * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, int distanceBetweenEntryAndExit) {
+    public void createMaze(MazeAlgorithm algorithm, int width, int height, int distanceBetweenEntryAndExit) {
         //int maxDistance = (height - 3) + (width - 3);
-        this.currentMaze = new PlayerMaze(width,height,distanceBetweenEntryAndExit);
+        this.currentMaze = new ObservableMaze(width,height,distanceBetweenEntryAndExit);
         //PerfectAlgorithm.generateMaze(this.currentMaze);
     }
 
     // Surcharge pour prendre en compte une distance entre l'entrée et la sortie (Le sujet ne mentionne que pour la progression)
     // TODO: à gérer apres !
-    public void createMaze(MazeAlgorithmFactory algorithm, int width, int height, double wallPercentage) {
+    public void createMaze(MazeAlgorithm algorithm, int width, int height, double wallPercentage) {
         this.createMaze(algorithm, width, height, (height-3+width-3));
     }
 
@@ -57,14 +54,14 @@ public abstract class GameMode {
      */
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
-            Position playerPosition = currentMaze.getPlayerPosition();
+            Position playerPosition = currentMaze.getPlayerPosition().add(0,0);
             if (currentMaze.movePlayer(direction)){
 
                 if (isPlayerAtEnd()) {
                     handleVictory();
                 } else {
-                    currentMaze.trapEffect(playerPosition);
 
+                    currentMaze.trapEffect(playerPosition);
                 }
             }
         }
@@ -80,14 +77,14 @@ public abstract class GameMode {
     /** 
      * @param currentMaze set Maze
      */
-    public void setCurrentMaze(PlayerMaze currentMaze) {
+    public void setCurrentMaze(ObservableMaze currentMaze) {
         this.currentMaze = currentMaze;
     }
 
     /**
      * @return Maze
      */
-    public PlayerMaze getCurrentMaze() {
+    public ObservableMaze getCurrentMaze() {
         return currentMaze;
     }
 

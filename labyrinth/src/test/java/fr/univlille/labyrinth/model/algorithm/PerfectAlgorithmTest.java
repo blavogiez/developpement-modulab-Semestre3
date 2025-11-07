@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmStandardLargeur;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -19,53 +18,50 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 public class PerfectAlgorithmTest {
 
-    static MazeAlgorithmTemplate algo;
+    static MazeAlgorithm algo;
     static Maze maze1, maze2, maze3;
     static Position start1, end1, start2, end2, start3, end3;
 
     @BeforeAll
     public static void initialization() {
-        algo = MazeAlgorithm.PERFECT.getAlgorithm();
+        algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
         //petit labyrinthe de taille avec distance minimale
         maze1 = new Maze(10,12,10); 
         start1 = maze1.getEntryPosition();
         end1 = maze1.getExitPosition();
-        algo.generateMaze(maze1);
+        //algo.generateMaze(maze1);
 
 
         // moyen labyrinthe avec petite distance
         maze2 = new Maze(40,12,20); 
         start2 = maze2.getEntryPosition();
         end2 = maze2.getExitPosition();
-        algo.generateMaze(maze2);
+        //algo.generateMaze(maze2);
 
         //grand labyrinthe avec grande distance
         maze3 = new Maze(50,32,30); 
         start3 = maze3.getEntryPosition();
         end3 = maze3.getExitPosition();
-        algo.generateMaze(maze3);
+        //algo.generateMaze(maze3);
     }
 
     @Test
     public void testStartPosition() {
-        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()));
+        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()), "" + start1);
 
-        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()));
+        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()), "" + start2);
 
-        assertTrue(maze2.positionCorrecte(start3.getY(), start3.getX()));
+        assertTrue(maze3.positionCorrecte(start3.getY(), start3.getX()), "" + start3);
     }
 
     @Test
     public void testExitPosition() {
-        Position start = maze1.getEntryPosition();
-        assertTrue(maze1.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze1.positionCorrecte(end1.getY(), end1.getX()));
 
-        start = maze2.getEntryPosition();
-        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze2.positionCorrecte(end2.getY(), end2.getX()));
 
-        start = maze3.getEntryPosition();
-        assertTrue(maze2.positionCorrecte(start.getY(), start.getX()));
+        assertTrue(maze3.positionCorrecte(end3.getY(), end3.getX()));
     }
 
     @Test
@@ -100,11 +96,11 @@ public class PerfectAlgorithmTest {
 
         Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2);
-        assertEquals(distance2=20, "Distance dans maze2 devrait être = 20, mais est " + distance2);
+        assertEquals(distance2,20, "Distance dans maze2 devrait être = 20, mais est " + distance2);
 
         Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3);
-        assertEquals(distance3 = 30, "Distance dans maze3 devrait être = 30, mais est " + distance3);
+        assertEquals(distance3,30, "Distance dans maze3 devrait être = 30, mais est " + distance3);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
@@ -34,7 +34,7 @@ public class ProgressionMode extends GameMode {
      * @param chosenChallenge
      */
     public void createMaze(Challenge chosenChallenge) {
-        MazeAlgorithmFactory algorithm = chosenChallenge.getAlgorithm() ;
+        MazeAlgorithm algorithm = chosenChallenge.getAlgorithm() ;
         int width = chosenChallenge.getWidth();
         int height = chosenChallenge.getHeight();
         double wallPercentage = chosenChallenge.getWallPercentage();

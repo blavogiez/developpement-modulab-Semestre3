@@ -1,17 +1,15 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-public enum MazeAlgorithm {
-    PERFECT(PerfectAlgorithm.getInstance()),
-    OTHER(null);
+import java.io.Serializable;
 
-    private MazeAlgorithm(MazeAlgorithmTemplate MazeAlgorithm) {
-        this.MazeAlgorithm = MazeAlgorithm;
-    }
+import fr.univlille.labyrinth.model.maze.Maze;
 
-    private final MazeAlgorithmTemplate MazeAlgorithm;
-
-    public MazeAlgorithmTemplate getAlgorithm(){
-        return MazeAlgorithm;
-    }
-
+/*
+ * Interface pour les algorithmes
+ * Permet le DIP
+ * 
+ * Serializable car attribut d'un défi.
+ */
+public interface MazeAlgorithm extends Serializable{
+    public abstract void generateMaze(Maze maze);
 }

@@ -1,24 +1,26 @@
 package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.algorithm.Cell;
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// cette classe teste le déplacement du joueur et le déclenchement de la victoire (observé par un controleur)
-// On crée un petit labyrinthe, on déplace le joueur jusqu'à la sortie, et on vérifie que l'observateur de victoire est bien appelé
-
+/*
+ * Suite de tests pour la victoire du joueur dans un GameMode
+ * Test que la victoire se déclenche et prévient bien les observateurs
+ */
 public class MovePlayerVictoryTest {
 
-    // mock simple pour détecter la victoire
+    //mock rapide d'un observer
     private static class VictoryObserver implements Observer<GameMode> {
         private boolean victoryTriggered = false;
         private GameMode notifiedGameMode = null;
@@ -41,112 +43,82 @@ public class MovePlayerVictoryTest {
     @Test
     public void testMovePlayerToExitTriggersVictory() {
         FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(MazeAlgorithmFactory.STANDARDLARGEUR,5, 5, 0.0);
+        gameMode.createMaze(MazeAlgorithmFactory.PERFECT.getAlgorithm(), 50, 50, 30);
 
         VictoryObserver observer = new VictoryObserver();
         gameMode.addVictoryObserver(observer);
 
-        assertFalse(observer.isVictoryTriggered(), "La victoire ne devrait pas être déclenchée au début");
-        assertFalse(gameMode.isPlayerAtEnd(), "Le joueur ne devrait pas être à la fin au début");
+        assertFalse(observer.isVictoryTriggered());
+        assertFalse(gameMode.isPlayerAtEnd());
 
-        Position start = gameMode.getCurrentMaze().getPlayerPosition();
-        Position exit = gameMode.getCurrentMaze().getExitPosition();
-        List<Direction> path = findPath(gameMode.getCurrentMaze().getGrid(), start, exit);
+        ObservableMaze maze = gameMode.getCurrentMaze();
+        Position start = maze.getPlayerPosition();
+        Position exit = maze.getExitPosition();
 
-        assertNotNull(path, "Un chemin devrait exister entre l'entrée et la sortie");
-        assertTrue(path.size() > 0, "Le chemin devrait avoir au moins un mouvement");
+        // Use BFS to find path from current player position to exit
+        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        assertNotNull(path, "A path should be found from start to exit.");
+        assertFalse(path.isEmpty(), "Path should not be empty.");
 
-        // deplacer le joueur le long du chemin
-        for (int i = 0; i < path.size() - 1; i++) {
-            Direction dir = path.get(i);
-            gameMode.movePlayerPosition(dir);
-            assertFalse(observer.isVictoryTriggered(), "La victoire ne devrait pas être déclenchée avant d'atteindre la sortie");
+        // Execute the moves in the path
+        for (Position targetPosition : path) {
+            Position currentPlayerPos = maze.getPlayerPosition();
+
+            if (currentPlayerPos.equals(targetPosition)) {
+                continue; // Already at this position or overshoot corrected
+            }
+
+            Direction direction = determineDirectionStep(currentPlayerPos, targetPosition);
+            gameMode.movePlayerPosition(direction);
+
+            // If this was not the last move (not at exit yet), victory should not be triggered
+            if (!maze.getPlayerPosition().equals(exit)) {
+                assertFalse(observer.isVictoryTriggered(),
+                    "Victory should not be triggered before reaching the exit");
+            }
         }
 
-        // faire le dernier mouvement qui devrait déclencher la victoire
-        Direction lastMove = path.get(path.size() - 1);
-        gameMode.movePlayerPosition(lastMove);
-
-        assertTrue(observer.isVictoryTriggered(), "La victoire devrait être déclenchée après avoir atteint la sortie");
-        assertTrue(gameMode.isPlayerAtEnd(), "Le joueur devrait être à la fin");
-        assertEquals(gameMode, observer.getNotifiedGameMode(), "L'observateur devrait recevoir le bon GameMode");
+        assertTrue(observer.isVictoryTriggered(), "Victory should be triggered when reaching the exit");
+        assertTrue(gameMode.isPlayerAtEnd(), "Player should be at the end");
+        assertEquals(gameMode, observer.getNotifiedGameMode(), "Observer should receive the correct game mode");
     }
 
     @Test
     public void testMultipleObserversAreNotified() {
-        // Teste que plusieurs observateurs sont notifiés en cas de victoire
         FreeMode gameMode = new FreeMode();
-        gameMode.createMaze(MazeAlgorithmFactory.STANDARDLARGEUR,5, 5, 0.0);
+        gameMode.createMaze(MazeAlgorithmFactory.PERFECT.getAlgorithm(), 50, 50, 30);
 
         VictoryObserver observer1 = new VictoryObserver();
         VictoryObserver observer2 = new VictoryObserver();
         gameMode.addVictoryObserver(observer1);
         gameMode.addVictoryObserver(observer2);
 
-        Position start = gameMode.getCurrentMaze().getPlayerPosition();
-        Position exit = gameMode.getCurrentMaze().getExitPosition();
-        List<Direction> path = findPath(gameMode.getCurrentMaze().getGrid(), start, exit);
+        ObservableMaze maze = gameMode.getCurrentMaze();
+        Position start = maze.getPlayerPosition();
+        Position exit = maze.getExitPosition();
 
-        for (Direction dir : path) {
-            gameMode.movePlayerPosition(dir);
-        }
+        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        assertNotNull(path, "A path should be found from start to exit.");
+        assertFalse(path.isEmpty(), "Path should not be empty.");
 
-        assertTrue(observer1.isVictoryTriggered(), "Le premier observateur devrait être notifié");
-        assertTrue(observer2.isVictoryTriggered(), "Le deuxième observateur devrait être notifié");
-    }
+        // Execute the moves in the path
+        for (Position targetPosition : path) {
+            Position currentPlayerPos = maze.getPlayerPosition();
 
-    // methode util pour trouver le chemin entre deux positions
-    // Retourne une liste de directions à suivre pour aller de start à end
-    private List<Direction> findPath(Cell[][] grid, Position start, Position end) {
-        Queue<Position> queue = new LinkedList<>();
-        Map<Position, Position> parent = new HashMap<>();
-
-        queue.add(start);
-        parent.put(start, null);
-
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
-        while (!queue.isEmpty()) {
-            Position current = queue.poll();
-
-            if (current.equals(end)) {
-                // Reconstruire le chemin
-                List<Position> positionPath = new ArrayList<>();
-                Position p = end;
-                while (p != null) {
-                    positionPath.add(0, p);
-                    p = parent.get(p);
-                }
-
-                // convertir les positions en directions
-                List<Direction> directionPath = new ArrayList<>();
-                for (int i = 0; i < positionPath.size() - 1; i++) {
-                    Position from = positionPath.get(i);
-                    Position to = positionPath.get(i + 1);
-                    Direction dir = getDirection(from, to);
-                    directionPath.add(dir);
-                }
-                return directionPath;
+            if (currentPlayerPos.equals(targetPosition)) {
+                continue; // Already at this position or overshoot corrected
             }
 
-            for (int[] dir : directions) {
-                int nx = current.getX() + dir[0];
-                int ny = current.getY() + dir[1];
-                Position next = new Position(nx, ny);
-
-                if (nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length
-                    && grid[nx][ny] && !parent.containsKey(next)) {
-                    parent.put(next, current);
-                    queue.add(next);
-                }
-            }
+            Direction direction = determineDirectionStep(currentPlayerPos, targetPosition);
+            gameMode.movePlayerPosition(direction);
         }
 
-        return null; // aucun chemin trouvé
+        assertTrue(observer1.isVictoryTriggered(), "First observer should be notified");
+        assertTrue(observer2.isVictoryTriggered(), "Second observer should be notified");
     }
 
-    // convertir deux positions consécutives en direction
-    private Direction getDirection(Position from, Position to) {
+    // Determine the single step direction between two adjacent positions
+    private Direction determineDirectionStep(Position from, Position to) {
         int dx = to.getX() - from.getX();
         int dy = to.getY() - from.getY();
 
@@ -155,6 +127,6 @@ public class MovePlayerVictoryTest {
         if (dx == 0 && dy == 1) return Direction.DOWN;
         if (dx == 0 && dy == -1) return Direction.UP;
 
-        throw new IllegalArgumentException("Les positions ne sont pas adjacentes");
+        throw new IllegalArgumentException("Positions are not adjacent: " + from + " to " + to);
     }
 }
