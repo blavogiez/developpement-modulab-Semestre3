@@ -208,6 +208,8 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 ### **Romain** :
 
+-code du classement
+-ajout mode movingexit
 
 ### **Victor** :
 
