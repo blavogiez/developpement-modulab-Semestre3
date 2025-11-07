@@ -37,7 +37,7 @@ public abstract class Entity {
     /*
      * Retourne true si l'action s'est bien déroulée.
      */
-    public boolean move(Maze maze, Direction direction,List<Entity>otherEntities) {
+    public boolean move(Maze maze, Direction direction) {
         if(moveBehavior!=null) {
             moveBehavior.move(this,direction,maze);
             return true ;
