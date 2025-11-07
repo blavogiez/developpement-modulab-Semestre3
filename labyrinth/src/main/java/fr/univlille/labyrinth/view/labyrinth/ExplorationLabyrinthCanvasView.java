@@ -30,7 +30,9 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         marquerCellulesExplorees(maze);
         dessinerZonesNonExplorees(gc, maze, hauteur, largeur);
 
+        dessinerTrap(gc, maze);
         drawEntities(gc, maze);
+
     }
 
     private void marquerCellulesExplorees(ObservableMaze maze) {

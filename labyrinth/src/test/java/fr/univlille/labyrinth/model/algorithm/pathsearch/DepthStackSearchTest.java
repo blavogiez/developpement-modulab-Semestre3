@@ -14,7 +14,7 @@ import fr.univlille.labyrinth.model.maze.Maze;
 class DepthStackSearchTest {
 
     /*
-     * Helper pour rendre un labyrinthe complet
+     * helper pour rendre un labyrinthe complet
      */
     private static void allAreTrue(boolean[][] tab) {
         for (int i = 0; i < tab.length; i++) {

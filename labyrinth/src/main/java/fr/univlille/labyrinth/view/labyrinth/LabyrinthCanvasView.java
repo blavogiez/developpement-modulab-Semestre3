@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.view.EntityShapeMapper;
@@ -110,6 +111,27 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
                 }
             }
         }
+    }
+
+    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
+        dessinerMarqueur(gc, maze.getPlayerPosition().getY(), maze.getPlayerPosition().getX(), GameColors.PLAYER.getColor());
+    }
+
+    protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze){
+        Trap[][] traps = maze.getTrapManager().getTraps();
+        for (int y = 0; y<traps.length;y++){
+            for (int x=0;x<traps[y].length;x++){
+                dessinerMarqueur(gc,y,x,traps[y][x].getColor().getColor());
+            }
+        }
+    }
+
+    protected void dessinerSortie(GraphicsContext gc, ObservableMaze maze) {
+        dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameColors.EXIT.getColor());
+    }
+
+    protected void dessinerEntree(GraphicsContext gc, ObservableMaze maze) {
+        dessinerMarqueur(gc, maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), Color.GREEN);
     }
 
     protected void dessinerMarqueur(GraphicsContext gc, int y, int x, Color couleur) {

@@ -9,6 +9,7 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
+
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
  *
@@ -33,7 +34,6 @@ public abstract class GameMode {
      *
      * @param width la largeur du labyrinthe.
      * @param height la hauteur du labyrinthe.
-     * @param wallPercentage le taux de mur entre 0 et 0.5.
      */
     public void createMaze(MazeAlgorithm algorithm, int width, int height, int distanceBetweenEntryAndExit) {
         //int maxDistance = (height - 3) + (width - 3);
@@ -54,12 +54,14 @@ public abstract class GameMode {
      */
     public void movePlayerPosition(Direction direction) {
         if (currentMaze!=null && currentMaze.getPlayerPosition()!=null){
-            Position playerPosition = currentMaze.getPlayerPosition();
+            Position playerPosition = currentMaze.getPlayerPosition().add(0,0);
             if (currentMaze.movePlayer(direction)){
+
                 if (isPlayerAtEnd()) {
                     handleVictory();
                 } else {
-                    currentMaze.trapEffect(playerPosition); 
+
+                    currentMaze.trapEffect(playerPosition);
                 }
             }
         }

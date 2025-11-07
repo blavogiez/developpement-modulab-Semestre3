@@ -16,6 +16,16 @@ public class PlayerMoveBehavior implements MoveBehavior {
         if (!maze.isWall(position.getY(),position.getX(),position.getY()+direction.getY(),position.getX()+direction.getX())) {
             position.addX(direction.getX());
             position.addY(direction.getY());
+            moving=true;
+        } else {
+            moving=false;
         }
+
+    }
+
+    private boolean moving = false;
+
+    public boolean isMoving() {
+        return moving;
     }
 }
