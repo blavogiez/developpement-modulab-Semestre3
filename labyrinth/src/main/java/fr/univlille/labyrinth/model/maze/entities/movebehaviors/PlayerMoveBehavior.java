@@ -20,7 +20,6 @@ public class PlayerMoveBehavior implements MoveBehavior {
         } else {
             moving=false;
         }
-
     }
 
     private boolean moving = false;

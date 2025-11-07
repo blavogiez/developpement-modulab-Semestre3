@@ -38,16 +38,9 @@ public class EntityManager {
     public boolean moveEntities(Maze maze, Direction direction) {
         boolean stmt = true ;
         for (Entity entity : entities) {
-            if (!entity.move(maze, direction, entities)) stmt = false ;
+            if (!entity.move(maze, direction)) stmt = false ;
         }
         return stmt ;
-    }
-
-    /*
-     * Le joueur doit être obtenu car il opère un comportement spécial (c'est lui qui dirige vraiment les mouvements)
-     */
-    public PlayerEntity getPlayerEntity() {
-        return PlayerEntity.getPlayerEntity(entities);
     }
     
 }

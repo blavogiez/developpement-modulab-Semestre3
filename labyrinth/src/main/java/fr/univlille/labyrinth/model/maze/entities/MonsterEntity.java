@@ -3,18 +3,21 @@ package fr.univlille.labyrinth.model.maze.entities;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
-import javafx.geometry.Pos;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
 import java.util.List;
 
 public class MonsterEntity extends Entity {
     protected Position position;
-    protected MoveBehavior moveBehavior ;
+    public MonsterEntity() {
+        super(new Position(2, 2), new PlayerMoveBehavior());
+    }
 
     public MonsterEntity(Position position) {
-        this(position,null);
+        super(position, new PlayerMoveBehavior());
     }
 
     public MonsterEntity(Position position, MoveBehavior moveBehavior) {
@@ -23,27 +26,12 @@ public class MonsterEntity extends Entity {
 
     @Override
     public EntityType getEntityType() {
-        return EntityType.;
+        return EntityType.PLAYER;
     }
 
-    public Position getPosition() {
-        return position;
+    @Override
+    public MoveBehavior getMoveBehavior() {
+        return super.getMoveBehavior();
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    /*
-     * Retourne true si l'action s'est bien déroulée.
-     */
-    public boolean move(Maze maze, Direction direction, List<Entity> otherEntities) {
-        Position playerPosition = PlayerEntity.getPlayerEntity(otherEntities).getPosition();
-        List<Position> path = BreadthFirstSearch.pathFinder(maze,position,playerPosition);
-        if(!path.isEmpty()) {
-            System.out.println(position);
-            position = path.get(0);
-            return true ;
-        } return false ;
-    }
 }

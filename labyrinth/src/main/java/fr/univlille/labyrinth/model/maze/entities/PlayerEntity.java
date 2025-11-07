@@ -35,20 +35,4 @@ public class PlayerEntity extends Entity {
         return this.position.equals(maze.getExitPosition());
     }
 
-    @Override
-    public boolean move(Maze maze, Direction direction, List<Entity> otherEntities) {
-        if (!maze.isWall(position.getY(),position.getX(),position.getY()+direction.getY(),position.getX()+direction.getX())) {
-            position.addX(direction.getX());
-            position.addY(direction.getY());
-            return true ;
-        }
-        return false ;
-    }
-
-    public static PlayerEntity getPlayerEntity(List<Entity> entities) {
-        for (Entity e : entities) {
-            if (e.getEntityType()==EntityType.PLAYER) return (PlayerEntity) e ;
-        }
-        return null ;
-    }
 }
