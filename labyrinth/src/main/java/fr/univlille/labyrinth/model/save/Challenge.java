@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model.save;
 import java.io.Serializable;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.score.ScoreCalculator;
 import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
@@ -19,7 +20,9 @@ public class Challenge implements Serializable {
     private final int height;
     private final double wallPercentage;
     private final int distanceBetweenEntryAndExit;
-    private final MazeAlgorithm algorithm ;
+
+    private final String algorithm ;
+
     private final ViewType viewType ;
     private long timeCompleted;
     private boolean completed;
@@ -38,7 +41,7 @@ public class Challenge implements Serializable {
      * @param distanceBetweenEntryAndExit Distance minimale entre l'entrée et la sortie.
      * @param scoreCalculator Stratégie de calcul de score à utiliser
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
         this.algorithm=algorithm;
         this.viewType=viewType;
         this.difficulty=difficulty;
@@ -52,21 +55,21 @@ public class Challenge implements Serializable {
     /**
      * Génère un challenge avec la distance minimale par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, scoreCalculator);
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, new StandardScoreCalculator());
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring et la distance minimale par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, 10);
     }
 
@@ -94,7 +97,7 @@ public class Challenge implements Serializable {
     /** 
      * @return algorithm
      */
-    public MazeAlgorithm getAlgorithm() {
+    public String  getAlgorithm() {
         return algorithm;
     }
 

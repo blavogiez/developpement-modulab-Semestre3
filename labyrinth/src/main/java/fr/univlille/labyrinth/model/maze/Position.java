@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Position {
     private int x;
@@ -53,6 +54,13 @@ public class Position {
     public Direction diff(Position next) {
         int[] values = new int[]{this.x-next.x,this.y- next.y};
         return Direction.getDirection(values[0],values[1]);
+    }
+
+    public static Position getRandomPosition(int width, int heigth){
+        Random random = new Random();
+        int x = random.nextInt(width);
+        int y = random.nextInt(heigth);
+        return new Position(x,y);
     }
 
 

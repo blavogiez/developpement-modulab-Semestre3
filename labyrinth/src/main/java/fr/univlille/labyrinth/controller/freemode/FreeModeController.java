@@ -55,7 +55,7 @@ public class FreeModeController {
     @FXML
     private HBox wallBox ;
 
-    // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
+    // mettre par défaut les valeurs des champs aux dernières valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         heightField.setText("" + FreeMode.mazeHeight);

@@ -55,4 +55,31 @@ class PositionTest {
 
         assertEquals(7, position.getY());
     }
+
+    @Test
+    public void randomPositionTest(){
+        for (int heigth = 10; heigth<15;heigth++){
+            for (int width = 0; width<15; width++){
+                boolean[][] wasGenerated = new boolean[heigth][width];
+
+                int i = 0;
+                do {
+                    Position position = Position.getRandomPosition(heigth,width);
+                    wasGenerated[position.getY()][position.getX()]=true;
+                    i++;
+                } while (i<10000 || checkAllAreTrue(wasGenerated));
+
+                assertTrue(checkAllAreTrue(wasGenerated));
+            }
+        }
+    }
+
+    private boolean checkAllAreTrue(boolean[][] tab){
+        for (boolean[] booleans : tab) {
+            for (boolean aBoolean : booleans) {
+                if (!aBoolean) return false;
+            }
+        }
+        return true;
+    }
 }

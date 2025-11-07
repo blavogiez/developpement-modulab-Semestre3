@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
+import java.util.Random;
+
 /**
  * Représente les directions haut, bas, droite et gauche
  *
@@ -55,5 +57,9 @@ public enum     Direction {
     public static Direction getDirection(Position playerPosition, Position playerPosition2){
 
         return getDirection(playerPosition.getX()-playerPosition2.getX(), playerPosition.getY()-playerPosition2.getY());
+    }
+
+    public static Direction getRandomDirection(){
+        return values()[new Random(values().length).nextInt()];
     }
 }

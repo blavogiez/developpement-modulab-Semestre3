@@ -7,20 +7,20 @@ import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 
 import java.util.*;
 
-public class PerfectAlgorithm implements MazeAlgorithm {
+public class PerfectAlgorithm extends MazeAlgorithm {
 
 
     public void generateMaze(Maze maze) {
-        boolean[][] murHorizontaux = maze.getMurHorizontaux();
-        boolean[][] murVerticaux = maze.getMurVerticaux();
+        horizontalsWalls = maze.getMurHorizontaux();
+        verticalsWalls = maze.getMurVerticaux();
         int largeur = maze.getWidth();
         int hauteur = maze.getHeight();
         int distanceBetweenEntryAndExit = maze.getDistanceBetweenEntryAndExit();
 
-        allAreTrue(murHorizontaux);
-        allAreTrue(murVerticaux);
+        allAreTrue(horizontalsWalls);
+        allAreTrue(verticalsWalls);
 
-        algoProfondeur(largeur, hauteur, murHorizontaux, murVerticaux);
+        algoProfondeur(largeur, hauteur);
 
         Random random = new Random();
         Position entryPosition = new Position(random.nextInt(largeur), random.nextInt(hauteur));
@@ -33,7 +33,7 @@ public class PerfectAlgorithm implements MazeAlgorithm {
         maze.setExit(exitPosition);
     }
 
-    private static void algoProfondeur(int largeur, int hauteur, boolean[][] murHorizontaux, boolean[][] murVerticaux) {
+    private void algoProfondeur(int largeur, int hauteur) {
         Random random = new Random();
         boolean[][] visite = new boolean[largeur][hauteur];
         Stack<Position> positionStack = new Stack<>();
@@ -46,24 +46,12 @@ public class PerfectAlgorithm implements MazeAlgorithm {
                 positionStack.pop();
             } else {
                 visite[position.getX()][position.getY()] = true;
-                enleverMur(positionStack.peek(), position, murHorizontaux, murVerticaux);
+                removeWall(positionStack.peek(), position);
                 positionStack.push(position);
             }
         }
     }
 
-    private static void enleverMur(Position start, Position next, boolean[][] murHorizontaux, boolean[][] murVerticaux) {
-        Direction diff = start.diff(next);
-        Position min = start.min(next);
-        switch (diff) {
-            case LEFT, RIGHT -> {
-                murVerticaux[min.getX()][min.getY()] = false;
-            }
-            case UP, DOWN -> {
-                murHorizontaux[min.getY()][min.getX()] = false;
-            }
-        }
-    }
 
     private static Position getRandomPositionNotVisited(Position peek, boolean[][] visite) {
         List<Direction> directions = new ArrayList<>(Arrays.asList(Direction.values()));
@@ -85,11 +73,7 @@ public class PerfectAlgorithm implements MazeAlgorithm {
         visite[start.getX()][start.getY()] = true;
     }
 
-    private static void allAreTrue(boolean[][] tab) {
-        for (int i = 0; i < tab.length; i++) {
-            Arrays.fill(tab[i], true);
-        }
-    }
+
     
     public static boolean positionCorrecte(int ligne, int colonne, boolean[][] tab) {
         return ligne>=0 && ligne < tab.length && colonne >=0 && colonne < tab[0].length;
