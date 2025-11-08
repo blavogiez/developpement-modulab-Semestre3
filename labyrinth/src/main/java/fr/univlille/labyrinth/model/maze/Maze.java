@@ -39,8 +39,11 @@ public class Maze {
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
         //eventuellement faire la gene ailleurs ?
-        MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
+        MazeAlgorithmFactory.FUSION.getAlgorithm().generateMaze(this);
+        MazeAlgorithmFactory.FUSION.getAlgorithm().generateExitAndPlayer(this);
     }
+
+
 
 
     /**
@@ -53,6 +56,7 @@ public class Maze {
      *         position (ligne,colonne) et la Positionule à la position
      *         (ligne1,colonne1), false sinon
      */
+
 
     public boolean isWall(int y1, int x1, int y2, int x2) {
 
@@ -69,6 +73,9 @@ public class Maze {
         if (y1 == y2) {
             return murVerticaux[Math.min(x1, x2)][y1];
         }
+
+
+        //IMPOSSIBLE
         return true;
     }
 

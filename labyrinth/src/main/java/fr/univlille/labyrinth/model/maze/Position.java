@@ -56,10 +56,10 @@ public class Position {
         return Direction.getDirection(values[0],values[1]);
     }
 
-    public static Position getRandomPosition(int width, int heigth){
+    public static Position getRandomPosition(int height, int width){
         Random random = new Random();
         int x = random.nextInt(width);
-        int y = random.nextInt(heigth);
+        int y = random.nextInt(height);
         return new Position(x,y);
     }
 

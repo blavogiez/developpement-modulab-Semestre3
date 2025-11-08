@@ -60,6 +60,6 @@ public enum     Direction {
     }
 
     public static Direction getRandomDirection(){
-        return values()[new Random(values().length).nextInt()];
+        return values()[new Random().nextInt(0,values().length)];
     }
 }

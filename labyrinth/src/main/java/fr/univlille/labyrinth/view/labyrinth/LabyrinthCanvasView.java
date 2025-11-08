@@ -57,10 +57,10 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             return;
         }
 
-        int hauteur = maze.getHeight();
-        int largeur = maze.getWidth();
+        int height = maze.getHeight();
+        int width = maze.getWidth();
 
-        layout = layoutCalculator.calculate(canvas.getWidth(), canvas.getHeight(), largeur, hauteur);
+        layout = layoutCalculator.calculate(canvas.getWidth(), canvas.getHeight(), width, height);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -68,46 +68,53 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         gc.setFill(GameColors.PATH.getColor());
-        gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(), hauteur * layout.getCellSize());
+        gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), width * layout.getCellSize(), height * layout.getCellSize());
 
-        dessinerMurs(gc, hauteur, largeur);
-        dessinerElements(gc, maze, hauteur, largeur);
+        dessinerMurs(gc, height, width);
+        dessinerElements(gc, maze, height, width);
     }
 
-    protected void dessinerMurs(GraphicsContext gc, int hauteur, int largeur) {
+    protected void dessinerMurs(GraphicsContext gc, int height, int width) {
         gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
 
-        for (int y = 0; y < hauteur; y++) {
-            if (currentMaze.isWall(y, -1, y, 0)) {
-                double x1 = layout.getOffsetX();
-                double y1 = layout.getOffsetY() + y * layout.getCellSize();
-                double y2 = y1 + layout.getCellSize();
-                gc.strokeLine(x1, y1, x1, y2);
-            }
-            for (int x = 0; x < largeur; x++) {
-                if (currentMaze.isWall(y, x, y, x + 1)) {
-                    double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
-                    double y1 = layout.getOffsetY() + y * layout.getCellSize();
-                    double y2 = y1 + layout.getCellSize();
-                    gc.strokeLine(x1, y1, x1, y2);
-                }
-            }
-        }
+        verticalsWalls(gc, height, width);
 
-        for (int x = 0; x < largeur; x++) {
+        horizontalsWalls(gc, height, width);
+    }
+
+    private void horizontalsWalls(GraphicsContext gc, int height, int width) {
+        for (int x = 0; x < width; x++) {
             if (currentMaze.isWall(-1, x, 0, x)) {
                 double x1 = layout.getOffsetX() + x * layout.getCellSize();
                 double x2 = x1 + layout.getCellSize();
                 double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
-            for (int y = 0; y < hauteur; y++) {
+            for (int y = 0; y < height; y++) {
                 if (currentMaze.isWall(y, x, y + 1, x)) {
                     double x1 = layout.getOffsetX() + x * layout.getCellSize();
                     double x2 = x1 + layout.getCellSize();
                     double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
                     gc.strokeLine(x1, y1, x2, y1);
+                }
+            }
+        }
+    }
+
+    private void verticalsWalls(GraphicsContext gc, int height, int width) {
+        for (int y = 0; y < height; y++) {
+                double x1 = layout.getOffsetX();
+                double y1 = layout.getOffsetY() + y * layout.getCellSize();
+                double y2 = y1 + layout.getCellSize();
+                gc.strokeLine(x1, y1, x1, y2);
+
+            for (int x = 0; x < width; x++) {
+                if (currentMaze.isWall(y, x, y, x + 1)) {
+                    x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
+                    y1 = layout.getOffsetY() + y * layout.getCellSize();
+                    y2 = y1 + layout.getCellSize();
+                    gc.strokeLine(x1, y1, x1, y2);
                 }
             }
         }

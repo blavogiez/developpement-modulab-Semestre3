@@ -45,7 +45,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerMurs(GraphicsContext gc, int hauteur, int largeur) {
+    protected void dessinerMurs(GraphicsContext gc, int height, int width) {
         gc.setStroke(GameColors.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
 
@@ -53,7 +53,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         int playerX = player.getX();
         int playerY = player.getY();
 
-        for (int localY = 0; localY < hauteur; localY++) {
+        for (int localY = 0; localY < height; localY++) {
             int globalY = playerY - VIEW_RADIUS + localY;
 
             int localX = 0;
@@ -65,7 +65,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                 gc.strokeLine(x1, y1, x1, y2);
             }
 
-            for (int localX2 = 0; localX2 < largeur - 1; localX2++) {
+            for (int localX2 = 0; localX2 < width - 1; localX2++) {
                 globalX = playerX - VIEW_RADIUS + localX2;
                 int globalXNext = globalX + 1;
 
@@ -78,7 +78,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
             }
         }
 
-        for (int localX3 = 0; localX3 < largeur; localX3++) {
+        for (int localX3 = 0; localX3 < width; localX3++) {
             int globalX = playerX - VIEW_RADIUS + localX3;
 
             int localY2 = 0;
@@ -90,7 +90,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                 gc.strokeLine(x1, y1, x2, y1);
             }
 
-            for (int localY3 = 0; localY3 < hauteur - 1; localY3++) {
+            for (int localY3 = 0; localY3 < height - 1; localY3++) {
                 globalY = playerY - VIEW_RADIUS + localY3;
                 int globalYNext = globalY + 1;
 

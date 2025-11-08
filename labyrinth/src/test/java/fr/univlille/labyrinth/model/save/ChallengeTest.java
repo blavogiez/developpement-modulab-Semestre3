@@ -15,7 +15,7 @@ import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 class ChallengeTest {
 
     private Challenge challenge;
-    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
+    private String algo = MazeAlgorithmFactory.PERFECT.name();
 
     @BeforeEach
     void init() {
