@@ -50,4 +50,11 @@ public class EntityManager {
         return null ;
     }
 
+    public MonsterEntity getMonsterEntity() {
+        for (Entity e : this.entities) {
+            if (e.getEntityType()==EntityType.MONSTER) return (MonsterEntity) e ;
+        }
+        return null ;
+    }
+
 }
