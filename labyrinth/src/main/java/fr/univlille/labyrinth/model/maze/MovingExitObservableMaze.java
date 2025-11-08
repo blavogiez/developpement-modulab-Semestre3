@@ -6,19 +6,26 @@ import java.util.Random;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 
 public class MovingExitObservableMaze extends ObservableMaze {
-    private final int MOVING_PERCENTAGE = 5 ;
-    private final int MOVING_STEP = 1 ;
-    private Random random ;
+    private final int MOVING_PERCENTAGE = 5;
+    private final int MOVING_STEP = 1;
+    private Random random;
+    private boolean withStep;
 
-    public MovingExitObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
+    public MovingExitObservableMaze(int width, int height, int distanceBetweenEntryAndExit, boolean withStep) {
         super(width, height, distanceBetweenEntryAndExit);
         this.random = new Random();
+        this.withStep = withStep;
     }
 
     @Override
-    public boolean movePlayer(Direction direction){
-        if(random.nextInt(MOVING_PERCENTAGE)==1){
-            movingExitByStep();
+    public boolean movePlayer(Direction direction) {
+        if (this.withStep) {
+            if (random.nextInt(MOVING_PERCENTAGE) == 1) {
+                movingExitByStep();
+            }
+            return super.movePlayer(direction);
+        } else {
+            movingExitByCurrentDistance();
         }
         return super.movePlayer(direction);
     }

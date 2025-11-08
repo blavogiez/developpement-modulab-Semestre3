@@ -236,6 +236,8 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 ### **Romain** :
 
+-code du classement
+-ajout mode movingexit
 
 ### **Victor** :
 

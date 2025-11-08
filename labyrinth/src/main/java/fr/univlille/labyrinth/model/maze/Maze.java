@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
+import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.algorithm.Trap;
 
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.
@@ -35,7 +35,6 @@ public class Maze {
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this.width = width;
         this.height = height;
-        this.grid = new Trap[width][height];
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
@@ -43,9 +42,6 @@ public class Maze {
         MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
     }
 
-    public void setGrid(Trap[][] grid) {
-        this.grid = grid;
-    }
 
     /**
      *
@@ -118,13 +114,6 @@ public class Maze {
     }
 
     /**
-     * Cette méthode renvoie le labyrinthe sous un tableau de booleans.
-     */
-    public Trap[][] getGrid() {
-        return grid;
-    }
-
-    /**
      * Cette méthode renvoie la position de l'entrée.
      */
     public Position getEntryPosition() {
@@ -155,6 +144,8 @@ public class Maze {
     }
 
     public void trapEffect(Position position) {}
+
+
 
 
 }

@@ -53,6 +53,7 @@ public enum     Direction {
     }
 
     public static Direction getDirection(Position playerPosition, Position playerPosition2){
+
         return getDirection(playerPosition.getX()-playerPosition2.getX(), playerPosition.getY()-playerPosition2.getY());
     }
 }

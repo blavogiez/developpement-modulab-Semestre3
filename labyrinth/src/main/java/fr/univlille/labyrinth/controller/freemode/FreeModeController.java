@@ -18,6 +18,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+/**
+ * Controller du menu mode libre
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class FreeModeController {
     @FXML
     private Label labelDistance;
@@ -49,6 +56,7 @@ public class FreeModeController {
     @FXML
     private HBox wallBox ;
 
+    // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         FreeModeConfig config = AppState.getInstance().getFreeModeConfig();

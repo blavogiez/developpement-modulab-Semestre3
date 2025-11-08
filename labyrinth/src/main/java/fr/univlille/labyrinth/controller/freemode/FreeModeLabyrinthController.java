@@ -10,6 +10,13 @@ import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+/**
+ * Controller des labyrinthes spécifiquement du mode libre
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @FXML
     private Button bouttonRetour;

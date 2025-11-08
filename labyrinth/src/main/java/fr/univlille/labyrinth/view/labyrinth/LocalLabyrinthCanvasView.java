@@ -2,10 +2,12 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.view.EntityShapeMapper;
 import fr.univlille.labyrinth.view.GameColors;
 import fr.univlille.labyrinth.view.renderer.LocalEntityRenderer;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -108,7 +110,22 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             localEntityRenderer.renderEntityLocal(gc, entity, layout, playerPos);
         }
+
+
+        dessinerJoueur(gc, maze);
+
     }
+
+
+
+    @Override
+    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
+        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
+    }
+
+
+
+
     @Override
     protected boolean shouldRenderCell(int ligne, int colonne, ObservableMaze maze) {
         return true;

@@ -24,6 +24,11 @@ public class PlayerEntity extends Entity {
         return EntityType.PLAYER;
     }
 
+    @Override
+    public MoveBehavior getMoveBehavior() {
+        return super.getMoveBehavior();
+    }
+
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }

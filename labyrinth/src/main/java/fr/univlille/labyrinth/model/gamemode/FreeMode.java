@@ -4,6 +4,13 @@ import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
 
+/**
+ * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).
+ *
+ * @author Antonin, Angel, Baptise, Romain, Victor
+ * @version 0.0
+ * @since 0.0
+ */
 public class FreeMode extends GameMode {
     private FreeModeConfig config;
 
