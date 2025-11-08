@@ -110,17 +110,15 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             localEntityRenderer.renderEntityLocal(gc, entity, layout, playerPos);
         }
-
-
-        dessinerJoueur(gc, maze);
-
     }
 
 
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
+        double localX = VIEW_RADIUS + (playerX - maze.getPlayerPosition().getX());
+        double localY = VIEW_RADIUS + (playerY - maze.getPlayerPosition().getY());
+        dessinerMarqueur(gc, localY, localX, GameColors.PLAYER.getColor());
     }
 
 
