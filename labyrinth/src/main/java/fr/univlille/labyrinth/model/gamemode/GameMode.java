@@ -47,7 +47,7 @@ public abstract class GameMode {
             if (isPlayerAtEnd()) {
                 handleVictory();
             } else if(chekIfMonsterOnPlayer(maze)) {
-                handleVictory(); //TODO Faire perdre le joueur
+                handleLoose();
             } else {
                 maze.trapEffect(playerPosition);
             }
@@ -89,6 +89,11 @@ public abstract class GameMode {
 
     protected void handleVictory() {
         victoryHandler.handleVictory();
+        notifyVictory();
+    }
+
+    protected void handleLoose() {
+        victoryHandler.handleLoose();
         notifyVictory();
     }
 

@@ -8,4 +8,7 @@ public class FreeModeVictoryHandler implements VictoryHandler {
     @Override
     public void handleVictory() {
     }
+    @Override
+    public void handleLoose() {
+    }
 }

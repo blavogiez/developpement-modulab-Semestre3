@@ -27,6 +27,11 @@ public class ProgressionModeVictoryHandler implements VictoryHandler {
         PlayerDatabase.savePlayer(player);
     }
 
+    @Override
+    public void handleLoose() {
+        PlayerDatabase.savePlayer(player);
+    }
+
     public void setTimer(Timer timer) {
         this.timer = timer;
     }
