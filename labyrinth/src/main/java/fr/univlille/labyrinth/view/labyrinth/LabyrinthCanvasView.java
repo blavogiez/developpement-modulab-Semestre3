@@ -35,16 +35,13 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         int targetX = currentMaze.getPlayerPosition().getX();
         int targetY = currentMaze.getPlayerPosition().getY();
 
-        // Interpolation fluide
         double alpha = 0.1; // plus petit = mouvement plus lent et visible
         playerX += (targetX - playerX) * alpha;
         playerY += (targetY - playerY) * alpha;
 
-        // Stopper si proche de la cible
         if (Math.abs(playerX - targetX) < 0.01) playerX = targetX;
         if (Math.abs(playerY - targetY) < 0.01) playerY = targetY;
 
-        // Redessiner le labyrinthe sans toucher la case cible
         drawMazeOnly();
         dessinerJoueur(canvas.getGraphicsContext2D(), currentMaze);
     }
