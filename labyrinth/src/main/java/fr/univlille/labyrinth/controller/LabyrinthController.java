@@ -7,6 +7,8 @@ import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.TimerFX;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,6 +38,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
     protected T gameMode;
     protected Timer chrono;
     protected Timeline chronoTimeline;
+    private boolean isMoving = false;
 
     /**
      * Méthode d'initialisation commune à tous les contrôleurs de labyrinthe
@@ -80,7 +83,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
         else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
 
         if (direction != null) {
-            gameMode.movePlayerPosition(direction);
+            animateMovement(direction);
             e.consume();
         }
     }
@@ -103,4 +106,42 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
      * Méthode abstraite à implémenter pour gérer la victoire
      */
     protected abstract void handleVictory();
+
+
+
+private void animateMovement(Direction dir) {
+    if (isMoving) {
+        return;
+    }
+    isMoving = true;
+
+    double deltaX = 0;
+    double deltaY = 0;
+
+    switch (dir) {
+        case UP -> deltaY = -50;
+        case DOWN -> deltaY = 50;
+        case LEFT -> deltaX = -50;
+        case RIGHT -> deltaX = 50;
+    }
+
+    Timeline timeline = new Timeline();
+    KeyValue kvX = new KeyValue(playerImageView.translateXProperty(), playerImageView.getTranslateX() + deltaX);
+    KeyValue kvY = new KeyValue(playerImageView.translateYProperty(), playerImageView.getTranslateY() + deltaY);
+
+    KeyFrame kf = new KeyFrame(Duration.millis(200), kvX, kvY);
+    timeline.getKeyFrames().add(kf);
+
+    timeline.setOnFinished(evt -> {
+        // Mise à jour de la position logique dans gameMode
+        gameMode.movePlayerPosition(dir);
+        // Réinitialisation de l'offset visuel pour éviter les cumul
+        playerImageView.setTranslateX(0);
+        playerImageView.setTranslateY(0);
+        isMoving = false;
+    });
+
+    timeline.play();
+}
+
 }
