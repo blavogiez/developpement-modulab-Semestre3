@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityManager;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.entities.*;
 import fr.univlille.labyrinth.model.maze.trap.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
@@ -44,6 +41,7 @@ public class ObservableMaze extends Maze {
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         List<Entity> entities = EntityListFactory.createEntities(entitiesConfiguration, this);
+        entities.add(new MonsterEntity());
         entities.forEach(entityManager::addEntity);
         this.trapManager = new TrapManager(this);
     }
