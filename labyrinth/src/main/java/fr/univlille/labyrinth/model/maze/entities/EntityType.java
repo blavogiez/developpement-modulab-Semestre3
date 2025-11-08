@@ -33,12 +33,12 @@ public enum EntityType {
     MONSTER {
         @Override
         public Entity create(Position position) {
-            return new ExitEntity(position);
+            return new MonsterEntity(position);
         }
 
         @Override
         public Entity create(Position position, MoveBehavior moveBehavior) {
-            return new ExitEntity(position, moveBehavior);
+            return new MonsterEntity(position, moveBehavior);
         }
     };
 

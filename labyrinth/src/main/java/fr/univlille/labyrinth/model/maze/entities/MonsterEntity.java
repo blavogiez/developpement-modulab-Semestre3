@@ -26,7 +26,7 @@ public class MonsterEntity extends Entity {
 
     @Override
     public EntityType getEntityType() {
-        return EntityType.PLAYER;
+        return EntityType.MONSTER;
     }
 
     @Override
