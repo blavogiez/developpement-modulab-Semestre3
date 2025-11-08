@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MonsterMoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public enum EntityType {

@@ -7,11 +7,8 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.MonsterEntity;
-import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -44,23 +41,14 @@ public abstract class GameMode {
 
         Position playerPosition = maze.getPlayerPosition();
         if (maze.movePlayer(direction)) {
-            if (isPlayerAtEnd()) {
+            if (maze.isPlayerAtExit()) {
                 handleVictory();
-            } else if(chekIfMonsterOnPlayer(maze)) {
+            } else if(maze.getEntityManager().checkMonsterOnPlayer()) {
                 handleLoose();
             } else {
                 maze.trapEffect(playerPosition);
             }
         }
-    }
-
-    /**
-     * @return boolean
-     */
-    public boolean isPlayerAtEnd() {
-        if (!mazeManager.hasMaze()) return false;
-        ObservableMaze maze = mazeManager.getCurrentMaze();
-        return maze.getPlayerPosition().equals(maze.getExitPosition());
     }
 
     /**
@@ -106,15 +94,10 @@ public abstract class GameMode {
     }
 
     /* Les dimensions demandées sont-elles possibles ?
+    à déplacer (CF fichier SOLID.md)
      * @return boolean
      */
     public static boolean areDimensionsCorrect(int width, int height) {
         return width >= 1 && height >= 1 ;
-    }
-
-    protected  boolean chekIfMonsterOnPlayer(ObservableMaze maze) {
-        MonsterEntity monster = maze.getEntityManager().getMonsterEntity();
-        Position playerPosition =  maze.getPlayerPosition();
-        return  monster != null && monster.getPosition().equals(playerPosition);
     }
 }

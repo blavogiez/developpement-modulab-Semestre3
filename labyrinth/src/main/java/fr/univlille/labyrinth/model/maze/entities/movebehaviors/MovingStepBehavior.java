@@ -6,6 +6,7 @@ import java.util.Random;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 
@@ -22,7 +23,7 @@ public class MovingStepBehavior implements MoveBehavior {
     }
 
     @Override
-    public void move(Entity entity, Direction direction, Maze maze) {
+    public void move(Entity entity, Direction direction, ObservableMaze maze) {
         if (random.nextInt(MOVING_PERCENTAGE) == 1) {
             movingExitByStep(entity, maze);
         }

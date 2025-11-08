@@ -112,17 +112,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
-
-    @Override
-    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        double localX = VIEW_RADIUS + (playerX - maze.getPlayerPosition().getX());
-        double localY = VIEW_RADIUS + (playerY - maze.getPlayerPosition().getY());
-        dessinerMarqueur(gc, localY, localX, GameColors.PLAYER.getColor());
-    }
-
-
-
-
     @Override
     protected boolean shouldRenderCell(int ligne, int colonne, ObservableMaze maze) {
         return true;
