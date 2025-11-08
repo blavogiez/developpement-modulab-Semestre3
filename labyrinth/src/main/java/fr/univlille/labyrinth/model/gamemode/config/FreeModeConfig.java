@@ -15,11 +15,7 @@ public class FreeModeConfig implements GameConfig {
      * Constructeur par défaut
      */
     public FreeModeConfig() {
-        this.algorithmFactory = MazeAlgorithmFactory.PERFECT;
-        this.width = 20;
-        this.height = 20;
-        this.wallPercentage = 0.4;
-        this.distanceBetweenEntryAndExit = 10;
+        this(MazeAlgorithmFactory.PERFECT, 20, 20, 0.4, 10);
     }
 
     public FreeModeConfig(MazeAlgorithmFactory algorithmFactory, int width, int height,

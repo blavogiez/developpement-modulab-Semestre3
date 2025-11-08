@@ -36,7 +36,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             int targetX = currentMaze.getPlayerPosition().getX();
             int targetY = currentMaze.getPlayerPosition().getY();
 
-            double alpha = 0.1; // plus petit = mouvement plus lent et visible
+            double alpha = 0.3; // plus petit = mouvement plus lent et visible
             playerX += (targetX - playerX) * alpha;
             playerY += (targetY - playerY) * alpha;
 

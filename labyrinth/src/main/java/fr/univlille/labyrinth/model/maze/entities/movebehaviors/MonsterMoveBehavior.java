@@ -12,9 +12,12 @@ import java.util.List;
 public class MonsterMoveBehavior implements MoveBehavior {
 
 
-    public void move(Entity entity, Direction direction, Maze maze) {
+    /*
+     * Observable maze à mettre en parametre apres
+     */
+    public void move(Entity entity, Direction direction, ObservableMaze maze) {
         Position position = entity.getPosition();
-        Position playerPosition = ((ObservableMaze)maze).getPlayerPosition();
+        Position playerPosition = maze.getPlayerPosition();
         List<Position> path = BreadthFirstSearch.pathFinder(maze,position,playerPosition);
         if(!path.isEmpty()) {
             System.out.println(position);

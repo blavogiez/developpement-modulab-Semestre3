@@ -1,11 +1,9 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
-
-import java.util.List;
 
 /*
  * Entité dans le labyrinthe qui réagit à chaque mouvement du joueur
@@ -37,7 +35,7 @@ public abstract class Entity {
     /*
      * Retourne true si l'action s'est bien déroulée.
      */
-    public boolean move(Maze maze, Direction direction) {
+    public boolean move(ObservableMaze maze, Direction direction) {
         if(moveBehavior!=null) {
             moveBehavior.move(this,direction,maze);
             return true ;
