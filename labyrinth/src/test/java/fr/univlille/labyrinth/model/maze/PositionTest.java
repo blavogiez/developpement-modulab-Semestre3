@@ -104,6 +104,14 @@ class PositionTest {
         assertEquals(pos4.min(pos3),pos3);
     }
 
+    @Test
+    public void copyTest(){
+        Position pos = new Position(1,1);
+        Position pos2 = pos.copy();
+        assertEquals(pos, pos2);
+        assertNotSame(pos, pos2);
+    }
+
     private boolean checkAllAreTrue(boolean[][] tab){
         for (boolean[] booleans : tab) {
             for (boolean aBoolean : booleans) {

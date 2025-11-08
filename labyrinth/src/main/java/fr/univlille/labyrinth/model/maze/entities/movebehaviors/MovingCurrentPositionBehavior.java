@@ -28,7 +28,7 @@ public class MovingCurrentPositionBehavior implements MoveBehavior {
      */
     public void movingExitByCurrentDistance(Entity entity, Maze maze) {
         int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, entity.getPosition(),maze.getExitPosition());
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit);
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }

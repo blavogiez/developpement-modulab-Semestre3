@@ -35,7 +35,7 @@ class ProgressionModeTest {
     void testHandleVictoryMarksChallenge() throws Exception {
         assertFalse(challenge.isCompleted());
 
-        Method handleVictory = ProgressionMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
         handleVictory.setAccessible(true);
         handleVictory.invoke(progressionMode);
 
@@ -52,7 +52,7 @@ class ProgressionModeTest {
         progressionMode.setChronometre(timer);
         long recordedTime = timer.getChrono();
 
-        Method handleVictory = ProgressionMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
         handleVictory.setAccessible(true);
         handleVictory.invoke(progressionMode);
 
@@ -68,7 +68,7 @@ class ProgressionModeTest {
         timer1.stop();
 
         progressionMode.setChronometre(timer1);
-        Method handleVictory = ProgressionMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
         handleVictory.setAccessible(true);
         handleVictory.invoke(progressionMode);
 

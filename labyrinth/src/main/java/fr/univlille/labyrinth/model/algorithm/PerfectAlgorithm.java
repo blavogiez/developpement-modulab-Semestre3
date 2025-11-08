@@ -18,9 +18,6 @@ public class PerfectAlgorithm extends MazeAlgorithm {
 
         algoProfondeur(height, width);
 
-        int distanceBetweenEntryAndExit = maze.getDistanceBetweenEntryAndExit();
-
-
 
     }
 

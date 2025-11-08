@@ -25,14 +25,15 @@ public class PlayerProgress implements Serializable {
             for (int j = 0; j < originalChallenges.length; j++) {
                 Challenge original = originalChallenges[j];
                 newLevel.getChallenges()[j] = new Challenge(
-                    original.getAlgorithm(),
+                    original.getAlgorithmName(),
                     original.getViewType(),
                     original.getDifficulty(),
                     original.getWidth(),
                     original.getHeight(),
                     original.getWallPercentage(),
                     original.getDistanceBetweenEntryAndExit(),
-                    original.getScoreCalculator()
+                    original.getScoreCalculator(),
+                    original.getEntitiesConfiguration()
                 );
             }
             newLevels[i] = newLevel;

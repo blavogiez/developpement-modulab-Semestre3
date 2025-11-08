@@ -42,6 +42,10 @@ public class Position {
         this.y+=y;
     }
 
+    public Position copy(){
+        return new Position(this.x,this.y);
+    }
+
     public Position add(int x, int y){
         return new Position(this.x+x,this.y+y);
     }
