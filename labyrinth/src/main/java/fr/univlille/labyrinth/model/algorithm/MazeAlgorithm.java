@@ -60,15 +60,15 @@ public abstract class MazeAlgorithm{
     }
 
     public static boolean positionCorrecte(Position pos, boolean[][] tab) {
-        return positionCorrecte(pos.getX(),pos.getY(),tab.length,tab[0].length);
+        return positionCorrecte(pos.getY(),pos.getX(),tab.length,tab[0].length);
     }
 
     public static boolean positionCorrecte(Position pos, int height, int width) {
-        return positionCorrecte(pos.getX(),pos.getY(),height,width);
+        return positionCorrecte(pos.getY(),pos.getX(),height,width);
     }
 
     protected void removeWall(Position start, Direction direction){
-        removeWall(start,start.add(direction.getX(),direction.getY()),direction);
+        removeWall(start,start.add(direction.getY(),direction.getX()),direction);
     }
 
     protected void removeWall(Position start, Position next){
