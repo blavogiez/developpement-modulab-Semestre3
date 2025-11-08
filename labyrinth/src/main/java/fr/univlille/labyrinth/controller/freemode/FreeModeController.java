@@ -84,9 +84,7 @@ public class FreeModeController {
         config.setWidth(width);
         config.setHeight(height);
         config.setWallPercentage(wallPercentageSlider.getValue());
-
-        int maxPossibleDistance = config.getMaxDistanceBetweenEntryAndExit();
-        config.setDistanceBetweenEntryAndExit(distance > maxPossibleDistance ? maxPossibleDistance : distance);
+        config.setDistanceBetweenEntryAndExit(distance);
 
         App.goTo("freemode/FreeModeLabyrinth.fxml");
     }

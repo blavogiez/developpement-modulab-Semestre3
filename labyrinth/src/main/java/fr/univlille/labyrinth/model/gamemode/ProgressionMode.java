@@ -50,7 +50,8 @@ public class ProgressionMode extends GameMode {
         Challenge challenge = config.getChallenge();
         String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();
         info += ", Pourcentage : " + (int) (challenge.getWallPercentage() * 100) + "%";
-        info += ", Distance entrée/sortie : " + challenge.getDistanceBetweenEntryAndExit();
+        int distance = getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : challenge.getDistanceBetweenEntryAndExit();
+        info += ", Distance entrée/sortie : " + distance;
         return info;
     }
 }

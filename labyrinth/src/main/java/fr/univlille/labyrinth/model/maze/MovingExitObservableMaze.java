@@ -26,9 +26,8 @@ public class MovingExitObservableMaze extends ObservableMaze {
     public void movingExitByCurrentDistance() {
         ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
-        //utilisation d'un methode pour calculer une distance entre deux cellule
         int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, maze.getPlayerPosition(), maze.getExitPosition());
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getPlayerPosition(),currentDistanceBetweenPlayerAndExit);
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getPlayerPosition(),currentDistanceBetweenPlayerAndExit).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }
@@ -36,7 +35,7 @@ public class MovingExitObservableMaze extends ObservableMaze {
     public void movingExitByStep() {
         ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP);
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }

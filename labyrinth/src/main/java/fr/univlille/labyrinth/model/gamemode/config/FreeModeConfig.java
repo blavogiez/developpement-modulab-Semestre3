@@ -85,10 +85,6 @@ public class FreeModeConfig implements GameConfig {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
 
-    public int getMaxDistanceBetweenEntryAndExit() {
-        return (height - 3) + (width - 3);
-    }
-
     public String getEntitiesConfiguration() {
         return entityConfiguration;
     }

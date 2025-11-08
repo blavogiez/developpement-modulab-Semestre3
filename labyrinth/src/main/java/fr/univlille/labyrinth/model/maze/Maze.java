@@ -113,6 +113,10 @@ public class Maze {
         return distanceBetweenEntryAndExit;
     }
 
+    public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
+        this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
+    }
+
     /**
      * Cette méthode renvoie le labyrinthe sous un tableau de booleans.
      */

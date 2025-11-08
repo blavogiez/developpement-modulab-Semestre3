@@ -75,6 +75,6 @@ public abstract class GameMode {
     }
 
     public static boolean areDimensionsCorrect(int width, int height) {
-        return width >= 3 && height >= 4 || width >= 4 && height >= 3;
+        return width >= 1 && height >= 1 ;
     }
 }

@@ -18,7 +18,7 @@ public class MazeManager {
             this.currentMaze = new ObservableMaze(
                 config.getWidth(),
                 config.getHeight(),
-                (config.getHeight() - 3 + config.getWidth() - 3),
+                1000,
                 config.getEntitiesConfiguration()
             );
         }
