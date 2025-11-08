@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model.maze.entities.factory;
 
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MonsterMoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
@@ -23,6 +24,8 @@ public class MoveBehaviorFactory {
             }
             case "MOVING" -> {
                 yield new MovingStepBehavior();
+            } case "MONSTER" -> {
+                yield new MonsterMoveBehavior();
             }
             default -> throw new IllegalArgumentException("MoveBehavior non supporte : " + name);
         };

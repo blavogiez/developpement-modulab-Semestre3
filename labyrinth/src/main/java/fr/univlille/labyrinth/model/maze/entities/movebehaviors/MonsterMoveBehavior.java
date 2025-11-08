@@ -9,7 +9,9 @@ import fr.univlille.labyrinth.model.maze.entities.Entity;
 
 import java.util.List;
 
-public class MonsterMoveBehavior {
+public class MonsterMoveBehavior implements MoveBehavior {
+
+
     public void move(Entity entity, Direction direction, Maze maze) {
         Position position = entity.getPosition();
         Position playerPosition = ((ObservableMaze)maze).getPlayerPosition();

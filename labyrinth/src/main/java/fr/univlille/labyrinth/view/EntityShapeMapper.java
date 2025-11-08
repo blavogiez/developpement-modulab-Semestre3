@@ -24,9 +24,11 @@ public class EntityShapeMapper {
     private void initializeDefaults() {
         shapeMap.put(EntityType.PLAYER, EntityShape.CIRCLE);
         shapeMap.put(EntityType.EXIT, EntityShape.SQUARE);
+        shapeMap.put(EntityType.MONSTER, EntityShape.TRIANGLE);
         
         colorMap.put(EntityType.PLAYER, GameColors.PLAYER.getColor());
         colorMap.put(EntityType.EXIT, GameColors.EXIT.getColor());
+        colorMap.put(EntityType.MONSTER, GameColors.MONSTER.getColor());
     }
 
     public void setShape(EntityType entityType, EntityShape shape) {
