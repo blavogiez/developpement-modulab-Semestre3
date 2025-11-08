@@ -238,6 +238,7 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 -code du classement
 -ajout mode movingexit
+-ajout d'un movement fluide pour le joueur
 
 ### **Victor** :
 
