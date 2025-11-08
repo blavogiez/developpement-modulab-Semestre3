@@ -5,7 +5,6 @@ import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.view.GameViewConfig;
-import fr.univlille.labyrinth.view.renderer.LocalComponentRenderer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,11 +13,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
-    private final LocalComponentRenderer localComponentRenderer;
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
-        this.localComponentRenderer = new LocalComponentRenderer();
     }
 
     @Override
@@ -31,16 +28,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
         layout = layoutCalculator.calculate(canvas.getWidth(), canvas.getHeight(), VIEW_SIZE, VIEW_SIZE);
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        gc.setFill(GameViewConfig.PATH.getColor());
-        gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), VIEW_SIZE * layout.getCellSize(), VIEW_SIZE * layout.getCellSize());
-
-        dessinerMurs(gc, VIEW_SIZE, VIEW_SIZE);
-        dessinerElements(gc, maze, VIEW_SIZE, VIEW_SIZE);
+        draw();
     }
 
     @Override
@@ -102,7 +90,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void drawMazeOnly() {
+    protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.LIGHTGRAY);
@@ -130,17 +118,26 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         dessinerMurs(gc, VIEW_SIZE, VIEW_SIZE);
         dessinerTrap(gc, currentMaze);
         drawEntities(gc, currentMaze);
+
+        if (shouldDrawPlayer()) {
+            dessinerJoueur(gc, currentMaze);
+        }
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
+    protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         Position playerPos = maze.getPlayerPosition();
         for (Entity entity : maze.getEntityManager().getEntities()) {
-            GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
-            localComponentRenderer.renderComponentAtLocal(gc, config.getShape(), config.getColor(),
-                entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6, playerPos);
+            if (shouldRenderEntity(entity)) {
+                int localX = entity.getPosition().getX() - playerPos.getX() + VIEW_RADIUS;
+                int localY = entity.getPosition().getY() - playerPos.getY() + VIEW_RADIUS;
+                if (localX >= 0 && localX < VIEW_SIZE && localY >= 0 && localY < VIEW_SIZE) {
+                    GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                    componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
+                        localX, localY, layout, 0.6);
+                }
+            }
         }
-        dessinerJoueur(gc, maze);
     }
 
     @Override
@@ -162,11 +159,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER.getColor());
-    }
-
-    @Override
-    protected boolean shouldRenderCell(int ligne, int colonne, ObservableMaze maze) {
-        return true;
     }
 
     private boolean isOutOfBounds(int globalX, int globalY) {

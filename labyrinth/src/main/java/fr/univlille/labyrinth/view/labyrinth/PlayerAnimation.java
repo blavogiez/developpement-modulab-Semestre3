@@ -32,11 +32,9 @@ public class PlayerAnimation extends AnimationTimer {
         view.setPlayerX( view.getPlayerX() + (targetX - view.getPlayerX()) * speed);
         view.setPlayerY( view.getPlayerY() + (targetY - view.getPlayerY()) * speed);
 
-
         if (Math.abs(view.getPlayerX() - targetX) < 0.01) view.setPlayerX(targetX);
         if (Math.abs(view.getPlayerY() - targetY) < 0.01) view.setPlayerY(targetY);
 
-        view.drawMazeOnly();
-        view.dessinerJoueur(view.getCanvas().getGraphicsContext2D(), maze);
+        view.draw();
     }
 }

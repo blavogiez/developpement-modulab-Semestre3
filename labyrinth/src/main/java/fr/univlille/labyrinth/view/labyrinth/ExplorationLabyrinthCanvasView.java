@@ -1,6 +1,10 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -26,13 +30,41 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
-        marquerCellulesExplorees(maze);
-        dessinerZonesNonExplorees(gc, maze, hauteur, largeur);
+    protected void draw() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        dessinerTrap(gc, maze);
-        drawEntities(gc, maze);
+        gc.setFill(Color.LIGHTGRAY);
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        int hauteur = currentMaze.getHeight();
+        int largeur = currentMaze.getWidth();
+
+        gc.setFill(GameViewConfig.PATH.getColor());
+        gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(), hauteur * layout.getCellSize());
+
+        marquerCellulesExplorees(currentMaze);
+        dessinerZonesNonExplorees(gc, currentMaze, hauteur, largeur);
+        
+        dessinerMurs(gc, hauteur, largeur);
+        dessinerTrap(gc, currentMaze);
+        drawEntities(gc, currentMaze);
+
+        if (shouldDrawPlayer()) {
+            dessinerJoueur(gc, currentMaze);
+        }
+    }
+
+    /*
+     * On met la couleur du stroke en noir également lors du dessin des murs (pour ne pas voir les lignes non plus, sans trop changer de code)
+     */
+    @Override
+    protected void dessinerMurs(GraphicsContext gc, int height, int width) {
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(layout.getWallThickness());
+
+        verticalsWalls(gc, height, width);
+
+        horizontalsWalls(gc, height, width);
     }
 
     private void marquerCellulesExplorees(ObservableMaze maze) {
@@ -50,7 +82,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
 
         for (int y = 0; y < hauteur; y++) {
             for (int x = 0; x < largeur; x++) {
-                if (!shouldRenderCell(y, x, maze)) {
+                if (!cellulesExplorees[y][x]) {
                     double xCoord = layout.getOffsetX() + x * layout.getCellSize();
                     double yCoord = layout.getOffsetY() + y * layout.getCellSize();
                     gc.fillRect(xCoord, yCoord, layout.getCellSize(), layout.getCellSize());
@@ -59,8 +91,23 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
-    @Override
-    protected boolean shouldRenderCell(int y, int x, ObservableMaze maze) {
+    private boolean isExplored(int x, int y) {
         return cellulesExplorees[y][x];
+    }
+
+    /*
+     * Ne dessine que les entités dans le rayon 
+     */
+    @Override
+    protected boolean shouldRenderEntity(Entity entity) {
+        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && entity.getEntityType()!=EntityType.PLAYER;
+    }
+
+    /*
+     * Ne dessine que les pièges dans le rayon 
+     */
+    @Override
+    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
+        return isExplored(x,y);
     }
 }

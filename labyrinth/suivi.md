@@ -224,10 +224,14 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Avec Victor, refactor des vues pour correspondre au nouvel algorithme (mur entre les cases)| |
-| Implémentation de la vue Exploration (Étape 6) | |
+| Avec Victor, refactor des vues pour correspondre au nouvel algorithme (murs entre les cases)| Début du rapport d'algorithmie|
+| Implémentation de la vue Exploration (Étape 6) | Fallback à (et calcul de) la distance entrée / sortie maximale possible dans l'algorithme de distance entrée / sortie |
 | Refactor de la classe Maze en deux parties : Maze et ObservableMaze pour mieux respecter le DIP et SRP.*   | |
 | Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
+| Implémentation d'une Factory de liste d'entités par chaine textuelle depuis le CSV des défis pour une configuraition facile| |
+| | |
+| Fonctionnalité originale : Gestion de plusieurs sorties de labyrinthe (Accepter n'importe quelle sortie en vérifiant la liste d'entités) (| |
+| Implémentation d'une gestion de Formes / Couleurs pour dessiner facilement les composants de 
 
 *(Un `Maze` est un labyrinthe qui contient uniquement les murs et position entrée / sortie (L'algorithme ne voit que les Maze) ; un ObservableMaze hérite du labyrinthe et gère les positions d'entités )
 
