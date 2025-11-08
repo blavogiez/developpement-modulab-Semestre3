@@ -39,6 +39,7 @@ public class EntityListFactory {
         return switch (type) {
             case PLAYER -> index == 0 ? maze.getEntryPosition() : new Position(index, 0);
             case EXIT -> index == 0 ? maze.getExitPosition() : new Position(index, index);
+            case MONSTER -> index == 0 ? maze.getExitPosition() : new Position(5,5 );
         };
     }
 }

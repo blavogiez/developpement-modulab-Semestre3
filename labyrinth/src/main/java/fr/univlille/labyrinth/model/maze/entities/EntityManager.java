@@ -42,5 +42,12 @@ public class EntityManager {
         }
         return stmt ;
     }
-    
+
+    public PlayerEntity getPlayerEntity() {
+        for (Entity e : this.entities) {
+            if (e.getEntityType()==EntityType.PLAYER) return (PlayerEntity) e ;
+        }
+        return null ;
+    }
+
 }
