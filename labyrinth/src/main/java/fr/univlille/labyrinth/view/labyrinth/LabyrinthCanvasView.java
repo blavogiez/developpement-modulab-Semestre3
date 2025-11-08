@@ -4,6 +4,7 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.view.EntityShapeMapper;
 import fr.univlille.labyrinth.view.GameColors;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
@@ -116,7 +117,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(),
                 hauteur * layout.getCellSize());
 
-        dessinerMurs(gc, hauteur, largeur);
+        //dessinerMurs(gc, hauteur, largeur);
         drawMazeOnly();
     }
 
@@ -194,7 +195,10 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
-            entityRenderer.renderEntity(gc, entity, layout);
+            if(!entity.getEntityType().equals(EntityType.PLAYER)){
+                entityRenderer.renderEntity(gc, entity, layout);
+            }
+            
         }
     }
 
