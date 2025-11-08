@@ -2,15 +2,14 @@ package fr.univlille.labyrinth.view.renderer;
 
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.view.EntityShapeMapper;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import javafx.scene.canvas.GraphicsContext;
 
 public class LocalEntityRenderer extends EntityRenderer {
     private static final int VIEW_RADIUS = 5;
 
-    public LocalEntityRenderer(EntityShapeMapper shapeMapper) {
-        super(shapeMapper);
+    public LocalEntityRenderer() {
+        super();
     }
 
     public void renderEntityLocal(GraphicsContext gc, Entity entity, LabyrinthLayout layout, Position playerPos) {

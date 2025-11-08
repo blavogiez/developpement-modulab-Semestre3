@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public enum EntityType {
 
-    PLAYER {
+    PLAYER{
         @Override
         public Entity create(Position position) {
             return new PlayerEntity(position);
@@ -41,7 +41,6 @@ public enum EntityType {
         }
     };
 
-    
     public abstract Entity create(Position position);
     public abstract Entity create(Position position, MoveBehavior moveBehavior);
 }

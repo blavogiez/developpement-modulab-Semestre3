@@ -4,8 +4,7 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.view.EntityShapeMapper;
-import fr.univlille.labyrinth.view.GameColors;
+import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.renderer.LocalEntityRenderer;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -19,7 +18,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
-        this.localEntityRenderer = new LocalEntityRenderer(new EntityShapeMapper());
+        this.localEntityRenderer = new LocalEntityRenderer();
     }
 
     @Override
@@ -37,7 +36,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        gc.setFill(GameColors.PATH.getColor());
+        gc.setFill(GameViewConfig.PATH.getColor());
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), VIEW_SIZE * layout.getCellSize(), VIEW_SIZE * layout.getCellSize());
 
         dessinerMurs(gc, VIEW_SIZE, VIEW_SIZE);
@@ -46,7 +45,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerMurs(GraphicsContext gc, int height, int width) {
-        gc.setStroke(GameColors.WALL.getColor());
+        gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
 
         Position player = currentMaze.getPlayerPosition();
@@ -117,7 +116,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameColors.PLAYER.getColor());
+        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER.getColor());
     }
 
     @Override

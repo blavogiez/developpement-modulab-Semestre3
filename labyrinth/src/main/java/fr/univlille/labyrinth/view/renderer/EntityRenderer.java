@@ -2,25 +2,17 @@ package fr.univlille.labyrinth.view.renderer;
 
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.view.EntityShape;
-import fr.univlille.labyrinth.view.EntityShapeMapper;
+import fr.univlille.labyrinth.view.GameViewConfig;
+import fr.univlille.labyrinth.view.Shape;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class EntityRenderer {
-    private final EntityShapeMapper shapeMapper;
-    private final Map<EntityShape, ShapeRenderer> renderers;
+    private final ShapeRendererManager shapeManager;
 
-    public EntityRenderer(EntityShapeMapper shapeMapper) {
-        this.shapeMapper = shapeMapper;
-        this.renderers = new HashMap<>();
-        this.renderers.put(EntityShape.CIRCLE, new CircleRenderer());
-        this.renderers.put(EntityShape.SQUARE, new SquareRenderer());
-        this.renderers.put(EntityShape.TRIANGLE, new TriangleRenderer());
+    public EntityRenderer() {
+        this.shapeManager = new ShapeRendererManager();
     }
 
     public void renderEntity(GraphicsContext gc, Entity entity, LabyrinthLayout layout) {
@@ -33,11 +25,11 @@ public class EntityRenderer {
             return;
         }
 
-        EntityShape shape = shapeMapper.getShape(type);
-        Color color = shapeMapper.getColor(type);
-        ShapeRenderer renderer = renderers.get(shape);
+        GameViewConfig config = GameViewConfig.valueOf(type.name());
+        Shape shape = config.getShape();
+        Color color = config.getColor();
 
-        if (renderer == null) {
+        if (shape == null) {
             return;
         }
 
@@ -48,6 +40,6 @@ public class EntityRenderer {
         double entityX = layout.getOffsetX() + x * layout.getCellSize() + (layout.getCellSize() - entitySize) / 2;
         double entityY = layout.getOffsetY() + y * layout.getCellSize() + (layout.getCellSize() - entitySize) / 2;
 
-        renderer.render(gc, entityX, entityY, entitySize, color);
+        shapeManager.render(gc, shape, entityX, entityY, entitySize, color);
     }
 }

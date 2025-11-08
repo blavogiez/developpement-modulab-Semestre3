@@ -13,7 +13,7 @@ import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.utils.ResizeUtil;
-import fr.univlille.labyrinth.view.GameColors;
+import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -131,7 +131,7 @@ public class LevelSelectionController {
                 });
 
                 if (challenge.isCompleted()) {
-                    btn.setStyle("-fx-background-color: " + GameColors.COMPLETED.getColorCode() + ";");
+                    btn.setStyle("-fx-background-color: " + GameViewConfig.COMPLETED.getColorCode() + ";");
                     completedCount++;
                 } else {
                     btn.setStyle("");

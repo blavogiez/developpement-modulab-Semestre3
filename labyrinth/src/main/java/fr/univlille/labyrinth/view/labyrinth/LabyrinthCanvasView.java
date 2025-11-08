@@ -5,8 +5,7 @@ import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.view.EntityShapeMapper;
-import fr.univlille.labyrinth.view.GameColors;
+import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
 import fr.univlille.labyrinth.view.renderer.EntityRenderer;
@@ -52,8 +51,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     public LabyrinthCanvasView(ObservableMaze maze) {
         this.currentMaze = maze;
         this.layoutCalculator = new LabyrinthLayoutCalculator();
-        EntityShapeMapper entityShapeMapper = new EntityShapeMapper();
-        this.entityRenderer = new EntityRenderer(entityShapeMapper);
+        this.entityRenderer = new EntityRenderer();
 
         container = new Pane();
         canvas = new Canvas(700, 700);
@@ -85,7 +83,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();
 
-        gc.setFill(GameColors.PATH.getColor());
+        gc.setFill(GameViewConfig.PATH.getColor());
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(),hauteur * layout.getCellSize());
 
         dessinerMurs(gc, hauteur, largeur);
@@ -113,7 +111,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        gc.setFill(GameColors.PATH.getColor());
+        gc.setFill(GameViewConfig.PATH.getColor());
 
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), width * layout.getCellSize(),
                 height * layout.getCellSize());
@@ -123,7 +121,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected void dessinerMurs(GraphicsContext gc, int height, int width) {
-        gc.setStroke(GameColors.WALL.getColor());
+        gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
 
         verticalsWalls(gc, height, width);
@@ -169,20 +167,21 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, playerY, playerX, GameColors.PLAYER.getColor());
+        dessinerMarqueur(gc, playerY, playerX, GameViewConfig.PLAYER.getColor());
     }
 
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
         Trap[][] traps = maze.getTrapManager().getTraps();
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
-                dessinerMarqueur(gc, y, x, traps[y][x].getColor().getColor());
+                GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[y][x].name());
+                dessinerMarqueur(gc, y, x, config.getColor());
             }
         }
     }
 
     protected void dessinerSortie(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameColors.EXIT.getColor());
+        dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameViewConfig.EXIT.getColor());
     }
 
     protected void dessinerEntree(GraphicsContext gc, ObservableMaze maze) {
