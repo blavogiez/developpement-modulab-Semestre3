@@ -1,11 +1,15 @@
 package fr.univlille.labyrinth.model.save;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
 class PlayerProgressTest {
 
@@ -18,7 +22,7 @@ class PlayerProgressTest {
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new Level(i + 1);
             for (int j = 0; j < 3; j++) {
-                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL, "trèèèès difficile" + j, 10, 10, 20, new StandardScoreCalculator());
+                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.PERFECT.getAlgorithm(), ViewType.NORMAL, "trèèèès difficile" + j, 10, 10, 20, new StandardScoreCalculator());
             }
         }
         progress = new PlayerProgress(levels);

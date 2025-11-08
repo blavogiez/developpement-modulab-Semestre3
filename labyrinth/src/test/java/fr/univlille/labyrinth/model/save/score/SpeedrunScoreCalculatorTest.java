@@ -1,16 +1,20 @@
 package fr.univlille.labyrinth.model.save.score;
 
-import fr.univlille.labyrinth.model.algorithmold.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.save.ViewType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.save.Challenge;
+import fr.univlille.labyrinth.model.save.ViewType;
 
 class SpeedrunScoreCalculatorTest {
 
     private SpeedrunScoreCalculator calculator;
+    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
     @BeforeEach
     void setUp() {
@@ -19,7 +23,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldReturnZeroWhenChallengeNotCompleted() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Test", 10, 10, 0.3, calculator);
 
         int score = calculator.calculateScore(defi);
@@ -29,7 +33,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldCalculateBaseScoreWhenNoTimeSet() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Test", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
 
@@ -41,7 +45,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldApplyBonusWhenTimeBelowThreshold() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Fast", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
         defi.setTimeCompleted(30000L);
@@ -54,7 +58,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldNotApplyBonusWhenTimeAboveThreshold() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "Slow", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
         defi.setTimeCompleted(70000L);
@@ -66,12 +70,12 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldGiveHigherBonusForFasterCompletion() {
-        Challenge rapide = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge rapide = new Challenge(algo, ViewType.NORMAL,
                 "tropvite", 10, 10, 0.3, calculator);
         rapide.setCompleted(true);
         rapide.setTimeCompleted(10000L);
 
-        Challenge moyen = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge moyen = new Challenge(algo, ViewType.NORMAL,
                 "tropvite", 10, 10, 0.3, calculator);
         moyen.setCompleted(true);
         moyen.setTimeCompleted(40000L);
@@ -85,7 +89,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldCalculateScoreAtExactThreshold() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "totocaca", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
         defi.setTimeCompleted(60000L);
@@ -98,12 +102,12 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldWorkWithDifferentMazeSizes() {
-        Challenge petit = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge petit = new Challenge(algo, ViewType.NORMAL,
                 "Small", 5, 5, 0.2, calculator);
         petit.setCompleted(true);
         petit.setTimeCompleted(20000L);
 
-        Challenge grand = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge grand = new Challenge(algo, ViewType.NORMAL,
                 "Large", 20, 15, 0.4, calculator);
         grand.setCompleted(true);
         grand.setTimeCompleted(20000L);
@@ -123,7 +127,7 @@ class SpeedrunScoreCalculatorTest {
 
     @Test
     void shouldHandleVeryFastTime() {
-        Challenge defi = new Challenge(MazeAlgorithmFactory.STANDARDLARGEUR, ViewType.NORMAL,
+        Challenge defi = new Challenge(algo, ViewType.NORMAL,
                 "tropvite", 10, 10, 0.3, calculator);
         defi.setCompleted(true);
         defi.setTimeCompleted(1000L);

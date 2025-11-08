@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
-import fr.univlille.labyrinth.model.algorithm.Trap;
+import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 /**
  * Maze est une classe abstraite qui permet de représenter un labyrinthe.
@@ -35,17 +35,13 @@ public class Maze {
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this.width = width;
         this.height = height;
-        this.grid = new Trap[width][height];
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
         //eventuellement faire la gene ailleurs ?
-        MazeAlgorithm.PERFECT.getAlgorithm().generateMaze(this);
+        MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
     }
 
-    public void setGrid(Trap[][] grid) {
-        this.grid = grid;
-    }
 
     /**
      *
@@ -77,7 +73,7 @@ public class Maze {
     }
 
     /*
-     * La méthode permet de savoir si la position ce situe dans le labyrinthe.
+     * La méthode permet de savoir si la position se situe dans le labyrinthe.
      */
     public boolean positionCorrecte(int y, int x) {
         return y >= 0 && y < height && x >= 0 && x < width;
@@ -113,12 +109,6 @@ public class Maze {
         return distanceBetweenEntryAndExit;
     }
 
-    /**
-     * Cette méthode renvoie le labyrinthe sous un tableau de booleans.
-     */
-    public Trap[][] getGrid() {
-        return grid;
-    }
 
     /**
      * Cette méthode renvoie la position de l'entrée.
@@ -151,6 +141,8 @@ public class Maze {
     }
 
     public void trapEffect(Position position) {}
+
+
 
 
 }
