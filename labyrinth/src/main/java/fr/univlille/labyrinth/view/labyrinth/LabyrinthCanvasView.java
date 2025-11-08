@@ -9,7 +9,6 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
 import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -17,9 +16,12 @@ import javafx.scene.paint.Color;
 
 public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
-    private Pane container;
+    protected Pane container;
     protected Canvas canvas;
     protected ObservableMaze currentMaze;
+    protected PlayerAnimation playerAnimation;
+    protected double playerX, playerY;
+
     /*
      * Attributs calculant la façon "responsive"
      */
@@ -27,31 +29,12 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
 
-    protected double playerX, playerY;
-
-    private AnimationTimer playerAnimation = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            int targetX = currentMaze.getPlayerPosition().getX();
-            int targetY = currentMaze.getPlayerPosition().getY();
-
-            double alpha = 0.3; // plus petit = mouvement plus lent et visible
-            playerX += (targetX - playerX) * alpha;
-            playerY += (targetY - playerY) * alpha;
-
-            if (Math.abs(playerX - targetX) < 0.01) playerX = targetX;
-            if (Math.abs(playerY - targetY) < 0.01) playerY = targetY;
-
-            drawMazeOnly();
-            dessinerJoueur(canvas.getGraphicsContext2D(), currentMaze);
-        }
-    };
-
-
     public LabyrinthCanvasView(ObservableMaze maze) {
         this.currentMaze = maze;
         this.layoutCalculator = new LabyrinthLayoutCalculator();
         this.componentRenderer = new ComponentRenderer();
+        this.playerAnimation = new PlayerAnimation(this);
+        playerAnimation.start();
 
         container = new Pane();
         canvas = new Canvas(700, 700);
@@ -66,15 +49,11 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
         container.widthProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
         container.heightProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
-
-        playerX = maze.getPlayerPosition().getX();
-        playerY = maze.getPlayerPosition().getY();
-
+        
         update(maze);
-        playerAnimation.start();
     }
 
-    private void drawMazeOnly() {
+    protected void drawMazeOnly() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.LIGHTGRAY);
@@ -87,8 +66,6 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(),hauteur * layout.getCellSize());
 
         dessinerMurs(gc, hauteur, largeur);
-        dessinerEntree(gc, currentMaze);
-        dessinerSortie(gc, currentMaze);
         dessinerTrap(gc, currentMaze);
         drawEntities(gc, currentMaze);
     }
@@ -115,8 +92,6 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), width * layout.getCellSize(),
                 height * layout.getCellSize());
-
-        //dessinerMurs(gc, hauteur, largeur);
         drawMazeOnly();
     }
 
@@ -150,10 +125,10 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     private void verticalsWalls(GraphicsContext gc, int height, int width) {
         for (int y = 0; y < height; y++) {
-                double x1 = layout.getOffsetX();
-                double y1 = layout.getOffsetY() + y * layout.getCellSize();
-                double y2 = y1 + layout.getCellSize();
-                gc.strokeLine(x1, y1, x1, y2);
+            double x1 = layout.getOffsetX();
+            double y1 = layout.getOffsetY() + y * layout.getCellSize();
+            double y2 = y1 + layout.getCellSize();
+            gc.strokeLine(x1, y1, x1, y2);
 
             for (int x = 0; x < width; x++) {
                 if (currentMaze.isWall(y, x, y, x + 1)) {
@@ -178,14 +153,6 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
                 componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
             }
         }
-    }
-
-    protected void dessinerSortie(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, maze.getExitPosition().getY(), maze.getExitPosition().getX(), GameViewConfig.EXIT.getColor());
-    }
-
-    protected void dessinerEntree(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, maze.getEntryPosition().getY(), maze.getEntryPosition().getX(), Color.GREEN);
     }
 
     protected void dessinerMarqueur(GraphicsContext gc, double y, double x, Color couleur) {
@@ -226,4 +193,29 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     public Pane getView() {
         return container;
     }
+
+    public ObservableMaze getCurrentMaze() {
+        return currentMaze;
+    }
+
+    public double getPlayerX() {
+        return playerX;
+    }
+
+    public void setPlayerX(double x) {
+        this.playerX = x;
+    }
+
+    public double getPlayerY() {
+        return playerY;
+    }
+
+    public void setPlayerY(double y) {
+        this.playerY = y;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
 }

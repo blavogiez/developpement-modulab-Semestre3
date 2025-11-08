@@ -12,7 +12,6 @@ public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
     protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
         dessinerTrap(gc, maze);
         drawEntities(gc, maze);
-
     }
 
     @Override
