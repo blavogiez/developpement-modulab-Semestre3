@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 
 public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
@@ -15,7 +16,9 @@ public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
     protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if (entity.getEntityType() != EntityType.PLAYER) {
-                entityRenderer.renderEntity(gc, entity, layout);
+                GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
+                    entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6);
             }
         }
     }

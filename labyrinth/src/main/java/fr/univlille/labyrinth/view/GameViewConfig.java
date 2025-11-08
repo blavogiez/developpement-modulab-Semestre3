@@ -10,18 +10,18 @@ public enum GameViewConfig {
     PATH("#FFFFFF"),
     OUT_OF_BOUNDS("#808080"),
     COMPLETED("#66BB6A"),
-    TRAP_PATH("#FFFFFF"),
-    TRAP_RANDOM("#FFFFFF"),
-    TRAP_USED("#dbdbdb"),
-    TRAP_TELEPORTER("#800080"),
-    TRAP_FAKE("#78A821"),
-    TRAP_PUSH("#FFFFFF"),
-    TRAP_STUN("#FFFFFF"),
-    TRAP_REGENERATE_WALL("#FFFFFF"),
-    TRAP_TURN_WALL("#FFFFFF"),
-    TRAP_MONSTER_SPAWN("#FFFFFF"),
-    TRAP_TELEPORT_EXIT("#FFFFFF"),
-    TRAP_LAVA("#FFFFFF");
+    TRAP_PATH("#FFFFFF", Shape.CIRCLE),
+    TRAP_RANDOM("#FFFFFF", Shape.CIRCLE),
+    TRAP_USED("#dbdbdb", Shape.CIRCLE),
+    TRAP_TELEPORTER("#800080", Shape.CIRCLE),
+    TRAP_FAKE("#78A821", Shape.SQUARE),
+    TRAP_PUSH("#FFFFFF", Shape.CIRCLE),
+    TRAP_STUN("#FFFFFF", Shape.CIRCLE),
+    TRAP_REGENERATE_WALL("#FFFFFF", Shape.CIRCLE),
+    TRAP_TURN_WALL("#FFFFFF", Shape.CIRCLE),
+    TRAP_MONSTER_SPAWN("#FFFFFF", Shape.CIRCLE),
+    TRAP_TELEPORT_EXIT("#FFFFFF", Shape.CIRCLE),
+    TRAP_LAVA("#FFFFFF", Shape.CIRCLE);
 
     private final String colorCode;
     private final Shape shape;
@@ -32,7 +32,8 @@ public enum GameViewConfig {
     }
 
     GameViewConfig(String colorCode) {
-        this(colorCode, Shape.TRIANGLE);
+        this.colorCode = colorCode;
+        this.shape = null;
     }
 
     public Color getColor() {

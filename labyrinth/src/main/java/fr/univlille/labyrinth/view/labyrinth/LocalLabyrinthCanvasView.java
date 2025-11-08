@@ -2,10 +2,10 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-
+import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.view.GameViewConfig;
-import fr.univlille.labyrinth.view.renderer.LocalEntityRenderer;
+import fr.univlille.labyrinth.view.renderer.LocalComponentRenderer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,11 +14,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
-    private final LocalEntityRenderer localEntityRenderer;
+    private final LocalComponentRenderer localComponentRenderer;
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
-        this.localEntityRenderer = new LocalEntityRenderer();
+        this.localComponentRenderer = new LocalComponentRenderer();
     }
 
     @Override
@@ -107,12 +107,24 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     protected void dessinerElements(GraphicsContext gc, ObservableMaze maze, int lignes, int colonnes) {
         Position playerPos = maze.getPlayerPosition();
         for (Entity entity : maze.getEntityManager().getEntities()) {
-            localEntityRenderer.renderEntityLocal(gc, entity, layout, playerPos);
+            GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+            localComponentRenderer.renderComponentAtLocal(gc, config.getShape(), config.getColor(),
+                entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6, playerPos);
         }
         dessinerJoueur(gc, maze);
     }
 
-
+    @Override
+    protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
+        Position playerPos = maze.getPlayerPosition();
+        Trap[][] traps = maze.getTrapManager().getTraps();
+        for (int y = 0; y < traps.length; y++) {
+            for (int x = 0; x < traps[y].length; x++) {
+                GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[y][x].name());
+                localComponentRenderer.renderComponentAtLocal(gc, config.getShape(), config.getColor(), x, y, layout, 0.5, playerPos);
+            }
+        }
+    }
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {

@@ -8,7 +8,7 @@ import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
-import fr.univlille.labyrinth.view.renderer.EntityRenderer;
+import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,7 +25,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
      */
     protected LabyrinthLayout layout;
     protected LabyrinthLayoutCalculator layoutCalculator;
-    protected EntityRenderer entityRenderer;
+    protected ComponentRenderer componentRenderer;
 
     protected double playerX, playerY;
 
@@ -51,7 +51,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     public LabyrinthCanvasView(ObservableMaze maze) {
         this.currentMaze = maze;
         this.layoutCalculator = new LabyrinthLayoutCalculator();
-        this.entityRenderer = new EntityRenderer();
+        this.componentRenderer = new ComponentRenderer();
 
         container = new Pane();
         canvas = new Canvas(700, 700);
@@ -175,7 +175,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[y][x].name());
-                dessinerMarqueur(gc, y, x, config.getColor());
+                componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
             }
         }
     }
@@ -203,9 +203,11 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if(!entity.getEntityType().equals(EntityType.PLAYER)){
-                entityRenderer.renderEntity(gc, entity, layout);
+                GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
+                    entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6);
             }
-            
+
         }
     }
 
