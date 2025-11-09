@@ -142,7 +142,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        Position playerPos = maze.getPlayerPosition();
         Trap[][] traps = maze.getTrapManager().getTraps();
         for (int globalY = 0; globalY < traps.length; globalY++) {
             for (int globalX = 0; globalX < traps[globalY].length; globalX++) {

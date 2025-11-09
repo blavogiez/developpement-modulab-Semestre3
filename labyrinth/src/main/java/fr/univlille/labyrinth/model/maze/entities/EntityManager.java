@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.Position;
 
 public class EntityManager {
     private final List<Entity> entities;
@@ -91,6 +92,18 @@ public class EntityManager {
             }
         }
         return false;
+    }
+
+    /*
+     * Vérifie si une quelconque entité se situe sur la position en entrée. Cela permet d'éviter de faire positionner deux entités sur la même position.
+     */
+    public boolean isEntityOnCell(Position position) {
+        for (Entity e : this.entities) {
+            if (e.getPosition().equals(position)) {
+                return true;
+            }
+        }
+        return false ;
     }
 
 }

@@ -1,46 +1,46 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
-import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public enum EntityType {
 
     PLAYER{
         @Override
-        public Entity create(Position position) {
-            return new PlayerEntity(position);
+        public Entity create(ObservableMaze maze, MoveBehavior moveBehavior) {
+            return new PlayerEntity(PlayerEntity.getInitialPosition(maze), moveBehavior);
         }
 
         @Override
-        public Entity create(Position position, MoveBehavior moveBehavior) {
-            return new PlayerEntity(position, moveBehavior);
+        public Entity create(ObservableMaze maze) {
+            return new PlayerEntity(PlayerEntity.getInitialPosition(maze));
         }
     },
-    
+
     EXIT {
         @Override
-        public Entity create(Position position) {
-            return new ExitEntity(position);
+        public Entity create(ObservableMaze maze, MoveBehavior moveBehavior) {
+            return new ExitEntity(ExitEntity.getInitialPosition(maze), moveBehavior);
         }
 
         @Override
-        public Entity create(Position position, MoveBehavior moveBehavior) {
-            return new ExitEntity(position, moveBehavior);
+        public Entity create(ObservableMaze maze) {
+            return new ExitEntity(ExitEntity.getInitialPosition(maze));
         }
     },
 
     MONSTER {
         @Override
-        public Entity create(Position position) {
-            return new MonsterEntity(position);
+        public Entity create(ObservableMaze maze, MoveBehavior moveBehavior) {
+            return new MonsterEntity(MonsterEntity.getInitialPosition(maze), moveBehavior);
         }
 
         @Override
-        public Entity create(Position position, MoveBehavior moveBehavior) {
-            return new MonsterEntity(position, moveBehavior);
+        public Entity create(ObservableMaze maze) {
+            return new MonsterEntity(MonsterEntity.getInitialPosition(maze));
         }
     };
 
-    public abstract Entity create(Position position);
-    public abstract Entity create(Position position, MoveBehavior moveBehavior);
+    public abstract Entity create(ObservableMaze maze);
+    public abstract Entity create(ObservableMaze maze, MoveBehavior moveBehavior);
 }

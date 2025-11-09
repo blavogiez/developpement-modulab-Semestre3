@@ -1,24 +1,22 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
-import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
-import java.util.List;
 
 public class PlayerEntity extends Entity {
-    public PlayerEntity() {
-        super(new Position(0, 0), new PlayerMoveBehavior());
-    }
-
     public PlayerEntity(Position position) {
-        super(position, new PlayerMoveBehavior());
+        this(position, new PlayerMoveBehavior());
     }
 
     public PlayerEntity(Position position, MoveBehavior moveBehavior) {
         super(position, moveBehavior);
+    }
+
+    public static Position getInitialPosition(ObservableMaze maze) {
+        return maze.getEntryPosition();
     }
 
     @Override

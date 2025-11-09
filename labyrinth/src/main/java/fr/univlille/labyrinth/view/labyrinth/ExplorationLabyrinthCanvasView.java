@@ -54,17 +54,20 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
-    /*
-     * On met la couleur du stroke en noir également lors du dessin des murs (pour ne pas voir les lignes non plus, sans trop changer de code)
-     */
     @Override
-    protected void dessinerMurs(GraphicsContext gc, int height, int width) {
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(layout.getWallThickness());
+    protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
+        if (x == -1) {
+            return cellulesExplorees[y][0];
+        }
+        return cellulesExplorees[y][x] && (x + 1 >= width || cellulesExplorees[y][x + 1]);
+    }
 
-        verticalsWalls(gc, height, width);
-
-        horizontalsWalls(gc, height, width);
+    @Override
+    protected boolean shouldDrawHorizontalWall(int y, int x, int height, int width) {
+        if (y == -1) {
+            return cellulesExplorees[0][x];
+        }
+        return cellulesExplorees[y][x] && (y + 1 >= height || cellulesExplorees[y + 1][x]);
     }
 
     private void marquerCellulesExplorees(ObservableMaze maze) {

@@ -40,8 +40,7 @@ public class ObservableMaze extends Maze {
         super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
-        List<Entity> entities = EntityListFactory.createEntities(entitiesConfiguration, this);
-        entities.forEach(entityManager::addEntity);
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
         this.trapManager = new TrapManager(this);
     }
 

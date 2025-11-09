@@ -37,7 +37,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         playerAnimation.start();
 
         container = new Pane();
-        canvas = new Canvas(700, 700);
+        canvas = new Canvas(800, 800);
         container.getChildren().add(canvas);
 
         container.setMinSize(0, 0);
@@ -101,14 +101,14 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void horizontalsWalls(GraphicsContext gc, int height, int width) {
         for (int x = 0; x < width; x++) {
-            if (currentMaze.isWall(-1, x, 0, x)) {
+            if (currentMaze.isWall(-1, x, 0, x) && shouldDrawHorizontalWall(-1, x, height, width)) {
                 double x1 = layout.getOffsetX() + x * layout.getCellSize();
                 double x2 = x1 + layout.getCellSize();
                 double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
             for (int y = 0; y < height; y++) {
-                if (currentMaze.isWall(y, x, y + 1, x)) {
+                if (currentMaze.isWall(y, x, y + 1, x) && shouldDrawHorizontalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + x * layout.getCellSize();
                     double x2 = x1 + layout.getCellSize();
                     double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
@@ -120,16 +120,18 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void verticalsWalls(GraphicsContext gc, int height, int width) {
         for (int y = 0; y < height; y++) {
-            double x1 = layout.getOffsetX();
-            double y1 = layout.getOffsetY() + y * layout.getCellSize();
-            double y2 = y1 + layout.getCellSize();
-            gc.strokeLine(x1, y1, x1, y2);
+            if (shouldDrawVerticalWall(y, -1, height, width)) {
+                double x1 = layout.getOffsetX();
+                double y1 = layout.getOffsetY() + y * layout.getCellSize();
+                double y2 = y1 + layout.getCellSize();
+                gc.strokeLine(x1, y1, x1, y2);
+            }
 
             for (int x = 0; x < width; x++) {
-                if (currentMaze.isWall(y, x, y, x + 1)) {
-                    x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
-                    y1 = layout.getOffsetY() + y * layout.getCellSize();
-                    y2 = y1 + layout.getCellSize();
+                if (currentMaze.isWall(y, x, y, x + 1) && shouldDrawVerticalWall(y, x, height, width)) {
+                    double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
+                    double y1 = layout.getOffsetY() + y * layout.getCellSize();
+                    double y2 = y1 + layout.getCellSize();
                     gc.strokeLine(x1, y1, x1, y2);
                 }
             }
@@ -199,6 +201,14 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected boolean shouldRenderEntity(Entity entity) {
         return entity.getEntityType() != EntityType.PLAYER;
+    }
+
+    protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
+        return true;
+    }
+
+    protected boolean shouldDrawHorizontalWall(int y, int x, int height, int width) {
+        return true;
     }
 
     public Pane getView() {

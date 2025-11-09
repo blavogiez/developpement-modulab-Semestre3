@@ -39,9 +39,6 @@ public abstract class MazeAlgorithm{
         maze.setEntry(entryPosition);
         maze.setExit(exitPosition);
         maze.setDistanceBetweenEntryAndExit(distResult.actualDistance());
-
-
-
     }
 
 

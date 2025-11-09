@@ -39,6 +39,8 @@ public class Maze {
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
         //eventuellement faire la gene ailleurs ?
+        //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
+        //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateExitAndPlayer(this);
         MazeAlgorithmFactory.FUSION.getAlgorithm().generateMaze(this);
         MazeAlgorithmFactory.FUSION.getAlgorithm().generateExitAndPlayer(this);
     }

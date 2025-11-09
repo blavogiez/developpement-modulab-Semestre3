@@ -1,6 +1,6 @@
 # Organisation
 
-Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démonstration (petite phrase, ou screen) à chaque commit
+Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démonstration (petite phrase, ou screen) à chaque commit.
 
 # Membres de l'équipe
 
@@ -154,16 +154,14 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 | Développement| Algorithmie |
 |--------------|-------------|
 |Implémentation d'une fonctionnalité de "tooltip" quand on survole un bouton, affichant ses informations|Test de la distance entrée/sortie correcte et debug du placement adéquat de la case de départ|
-|Contrôle de saisie du mode libre (Avertissement de 2 secondes si erreur)|
-|Contrôle de saisie du mode progression (saisie des noms vérifiée)||
-|Couverture de tests pour les controlleurs / la distance entrée/sortie ||
-|Amélioration de la qualité de code globale du projet (petits refactor, faire respecter la logique métier...)||
+|Contrôle de saisie des modes de jeu (Avertissement de 2 secondes si erreur)||
+|Amélioration de la qualité de code globale du projet (refactor, faire respecter la logique métier pour SOLID)||
 |Script bash pour créer la javadoc et la placer dans `doc` ||
 |Création des UML à différentes granularités et explication dans README ||
 |Ajout d'une suite de tests complète pour ProgressionMode afin de garantir une couverture maximale avant le rendu ||
 |Renommage de tous les fichiers en anglais avec des noms explicites et restructuration des packages selon les conventions Java ||
 
-La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est très faible. Je fais tout pour la réduire au maximum, en l'assurant par la non-régression des tests.
+La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est faible. Je fais tout pour la réduire au maximum, en l'assurant par la non-régression des tests.
 
 
 ### **Romain** :
@@ -180,6 +178,7 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 ## **Semaine du 27/10 au 2/11**
 
 **Sujet du jalon 2 rendu disponible**
+
 **Semaine de vacances**
 
 ### **Antonin** :
@@ -194,9 +193,9 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Refactor de la sélection de défis pour permettre une initialisation dynamique (autant de défis que dans le CSV)| |
+| Refactor de la sélection de défis pour permettre une initialisation dynamique (autant de défis que dans le CSV)|  |
 | Refactor du controlleur de mode de jeu pour simplifier le code | |
-| Strategy Pattern pour le score des défis (speedrun, temps) | |
+| Fonctionnalité originale : Strategy Pattern pour permettre différents calculs de score pour les défis (speedrun, temps...) | |
 | Couverture de tests augmentée pour les controlleurs | |
 
 J'ai profité de cette semaine de vacances pour faire des petites retouches sur le code afin de faciliter les futures implémentations, en les communiquant sur le groupe.
@@ -224,14 +223,13 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Avec Victor, refactor des vues pour correspondre au nouvel algorithme (murs entre les cases)| Début du rapport d'algorithmie|
-| Implémentation de la vue Exploration (Étape 6) | Fallback à (et calcul de) la distance entrée / sortie maximale possible dans l'algorithme de distance entrée / sortie |
-| Refactor de la classe Maze en deux parties : Maze et ObservableMaze pour mieux respecter le DIP et SRP.*   | |
-| Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
-| Implémentation d'une Factory de liste d'entités par chaine textuelle depuis le CSV des défis pour une configuraition facile| |
-| | |
-| Fonctionnalité originale : Gestion de plusieurs sorties de labyrinthe (Accepter n'importe quelle sortie en vérifiant la liste d'entités) (| |
-| Implémentation d'une gestion de Formes / Couleurs pour dessiner facilement les composants de 
+| Avec Victor, refactor des vues en Canvas + responsive pour correspondre au nouvel algorithme (murs entre les cases)| Début du rapport d'algorithmie|
+| Implémentation de la vue Exploration (Étape 6) | Algorithme pour la distance entrée / sortie |
+| Refactor de la classe Maze en deux parties : Maze et ObservableMaze pour mieux respecter le DIP et SRP.* | Création de la classe `Benchmark` pour mesurer le temps d'exécution des différents algorithmes avec résultats dans un fichier CSV + modélisation `matplotlib`|
+| Fonctionnalité originale : Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
+| Fonctionnalité originale : Implémentation d'une Factory de liste d'entités par chaine textuelle depuis le CSV des défis pour une configuration facile | |
+| Fonctionnalité originale : Gestion de plusieurs sorties de labyrinthe (Accepter n'importe quelle sortie en vérifiant la liste d'entités) | |
+| Fonctionnalité originale : Implémentation d'une gestion de Formes / Couleurs dans la vue pour dessiner et configurer facilement les composants du labyrinthe (Pièges, entités) | |
 
 *(Un `Maze` est un labyrinthe qui contient uniquement les murs et position entrée / sortie (L'algorithme ne voit que les Maze) ; un ObservableMaze hérite du labyrinthe et gère les positions d'entités )
 
@@ -246,3 +244,37 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 ### **Victor** :
 
+## **Semaine du 10/11 au 16/11**
+
+
+### **Antonin** :
+
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+### **Romain** :
+
+
+### **Victor** :
+
+
+## **Semaine du 17/11 au 21/11**
+
+
+### **Antonin** :
+
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+### **Romain** :
+
+
+### **Victor** :
