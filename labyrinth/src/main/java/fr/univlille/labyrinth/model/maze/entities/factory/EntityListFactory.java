@@ -25,11 +25,6 @@ public class EntityListFactory {
             for (int i = 0; i < config.quantity(); i++) {
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
                 Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
-                if(entity.getEntityType()== EntityType.PLAYER) {
-                    PlayerEntity playerEntity = (PlayerEntity) entity ;
-                    playerEntity.setID(maze.getEntityManager().getCptPlayerID());
-                    maze.getEntityManager().addCptPlayerID();
-                }
                 entities.add(entity);
             }
         }
@@ -48,6 +43,11 @@ public class EntityListFactory {
             for (int i = 0; i < config.quantity(); i++) {
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
                 Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
+                if(entity.getEntityType()== EntityType.PLAYER) {
+                    PlayerEntity playerEntity = (PlayerEntity) entity ;
+                    playerEntity.setID(entityManager.getCptPlayerID());
+                    entityManager.addCptPlayerID();
+                }
                 entityManager.addEntity(entity);
             }
         }
