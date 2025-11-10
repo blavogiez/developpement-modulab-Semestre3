@@ -9,7 +9,7 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
+public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
@@ -63,8 +63,8 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
         if (globalX <= 0) return true;
-        if (!currentMaze.positionCorrecte(globalY, globalX)) return false;
-        if (!currentMaze.positionCorrecte(globalY, globalX - 1)) return true;
+        if (positionCorrecte(globalY, globalX,currentMaze)) return false;
+        if (positionCorrecte(globalY, globalX - 1),currentMaze) return true;
         return currentMaze.isWall(globalY, globalX - 1, globalY, globalX);
     }
 

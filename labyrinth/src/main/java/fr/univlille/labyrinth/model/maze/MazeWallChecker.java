@@ -45,6 +45,12 @@ public class  MazeWallChecker {
         return y >= 0 && y < height && x >= 0 && x < width;
     }
 
+    public static boolean positionCorrecte(Position position,Maze maze) {
+        int height=maze.getHeight();
+        int width=maze.getWidth();
+        return position.getY() >= 0 && position.getY() < height && position.getX() >= 0 && position.getX() < width;
+    }
+
     public static boolean adjacent(Maze maze) {
         int y1=maze.entryPosition.getY();
         int x1=maze.entryPosition.getX();
