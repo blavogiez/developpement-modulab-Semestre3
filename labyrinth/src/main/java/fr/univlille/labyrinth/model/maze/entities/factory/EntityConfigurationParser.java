@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class EntityConfigurationParser {
 
-    private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
+    private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=2;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
 
     public static List<EntityConfiguration> parse(String configuration) {
         if (configuration == null || configuration.trim().isEmpty() || configuration.equalsIgnoreCase("DEFAULT")) {

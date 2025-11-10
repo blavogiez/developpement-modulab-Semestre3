@@ -8,6 +8,8 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 public class EntityManager {
+    private int cptPlayerID;
+
     private final List<Entity> entities;
 
     public EntityManager(List<Entity> entities) {
@@ -16,6 +18,14 @@ public class EntityManager {
 
     public EntityManager() {
         this(new ArrayList<>());
+    }
+
+    public void addCptPlayerID() {
+        cptPlayerID++;
+    }
+
+    public int getCptPlayerID() {
+        return cptPlayerID;
     }
 
 

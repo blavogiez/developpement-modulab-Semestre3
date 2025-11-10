@@ -61,9 +61,21 @@ public class MultiplayerFreeModeLabyrinthController extends FreeModeLabyrinthCon
         else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
         else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
 
-        if (direction != null) {
-            gameMode.movePlayerPosition(direction);
-            e.consume();
+        if(code==KeyCode.S || code==KeyCode.Z || code==KeyCode.Q || code==KeyCode.D) {
+            if (direction != null) {
+                gameMode.movePlayerPosition(0, direction);
+                e.consume();
+            }
         }
+
+        if(code==KeyCode.DOWN || code==KeyCode.UP || code==KeyCode.LEFT || code==KeyCode.RIGHT) {
+            if (direction != null) {
+                gameMode.movePlayerPosition(1, direction);
+                e.consume();
+            }
+        }
+
+
+
     }
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 /*
@@ -23,6 +25,11 @@ public class EntityListFactory {
             for (int i = 0; i < config.quantity(); i++) {
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
                 Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
+                if(entity.getEntityType()== EntityType.PLAYER) {
+                    PlayerEntity playerEntity = (PlayerEntity) entity ;
+                    playerEntity.setID(maze.getEntityManager().getCptPlayerID());
+                    maze.getEntityManager().addCptPlayerID();
+                }
                 entities.add(entity);
             }
         }

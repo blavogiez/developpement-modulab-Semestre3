@@ -7,6 +7,7 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
 public class PlayerEntity extends Entity {
+    public int ID;
     public PlayerEntity(Position position) {
         this(position, new PlayerMoveBehavior());
     }
@@ -19,6 +20,9 @@ public class PlayerEntity extends Entity {
         return maze.getEntryPosition();
     }
 
+    public void setID(int id) {
+        this.ID=id;
+    }
     @Override
     public EntityType getEntityType() {
         return EntityType.PLAYER;
