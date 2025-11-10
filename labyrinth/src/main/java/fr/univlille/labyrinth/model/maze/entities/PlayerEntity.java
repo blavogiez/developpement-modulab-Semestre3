@@ -12,6 +12,8 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavi
 
 /*
 Chaque entité de joueur a un ID différent pour permettre un mouvement distinct lors du multijoueur.
+Si le multijoueur n'est pas activé, alors il n'y a que le joueur d'ID 0 qui est manipulé.
+OCP mieux respecté de ce fait
  */
 public class PlayerEntity extends Entity {
     private int ID;
@@ -28,32 +30,30 @@ public class PlayerEntity extends Entity {
         if(!maze.getEntityManager().isEntityOnCell(entryPos)) return entryPos;
 
         BreadthFirstSearch.DistanceResult distResult;
-        int distanceOffset = 0;
-        boolean reverseDirection = false;
+        int cpt = 0;
+        boolean stuckToMaximum = false;
 
         do {
-            int targetDistance = maze.getDistanceBetweenEntryAndExit() + distanceOffset;
-            Position entryPosition = maze.getEntryPosition();
+            int distanceBetweenEntryAndExit = maze.getDistanceBetweenEntryAndExit();
+            distanceBetweenEntryAndExit += cpt;
+            Position exitPosition = maze.getExitPosition();
 
-            distResult = BreadthFirstSearch.calculateAllDistances(maze, entryPosition, targetDistance);
-
-            List<Position> occupiedPositions = new ArrayList<>();
-            for(Position pos : distResult.positions()) {
-                if(maze.getEntityManager().isEntityOnCell(pos)) {
-                    occupiedPositions.add(pos);
-                }
+            List<Position> positionsWithEntities = new ArrayList<>();
+            distResult = BreadthFirstSearch.calculateAllDistances(maze, exitPosition, distanceBetweenEntryAndExit);
+            for(Position positionCheck : distResult.positions()) {
+                if(maze.getEntityManager().isEntityOnCell(positionCheck)) positionsWithEntities.add(positionCheck);
             }
-            distResult.positions().removeAll(occupiedPositions);
-
-            distanceOffset = reverseDirection ? distanceOffset - 1 : distanceOffset + 1;
-            if(distanceOffset > 5) {
-                reverseDirection = true;
-                distanceOffset = -1;
+            distResult.positions().removeAll(positionsWithEntities);
+            cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
+            if(cpt > 5) {
+                stuckToMaximum = true;
+                cpt = -1;
             }
-        } while (distResult.positions().isEmpty());
+        } while (distResult.positions().size() == 0);
 
         Random random = new Random();
-        return distResult.positions().get(random.nextInt(distResult.positions().size()));
+        Position thisPlayerPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
+        return thisPlayerPosition;
     }
 
     public void setID(int id) {

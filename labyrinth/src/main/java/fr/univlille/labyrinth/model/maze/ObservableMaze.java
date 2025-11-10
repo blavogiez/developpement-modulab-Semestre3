@@ -76,8 +76,6 @@ public class ObservableMaze extends Maze {
         return true ;
     }
 
-
-    
     /**
      * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale). Cette méthode sera notamment appelée par le createMaze du mode libre
      *
@@ -94,7 +92,6 @@ public class ObservableMaze extends Maze {
     public boolean isPlayerAtExit() {
         return entityManager.checkPlayerOnExit();
     }
-
 
     /*
      * Surcharge pour ajouter les entités par défaut

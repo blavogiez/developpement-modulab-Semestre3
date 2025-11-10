@@ -1,8 +1,8 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
+
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
@@ -146,7 +146,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             Double y = playerYMap.get(id);
 
             if (x != null && y != null) {
-                Color color = Color.hsb(id * 137, 0.8, 0.9);
+                Color color = GameViewConfig.valueOf("PLAYER" + id).getColor();
                 dessinerMarqueur(gc, y, x, color);
             }
         }
@@ -159,14 +159,14 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
                 if (shouldRenderTrap(traps[y][x], x, y)) {
                     System.out.println(traps[y][x].name());
                     GameViewConfig config = GameViewConfig.valueOf(traps[y][x].name());
-                    componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
+                    componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
             }
         }
     }
 
     protected void dessinerMarqueur(GraphicsContext gc, double y, double x, Color couleur) {
-        double tailleMarqueur = layout.getCellSize() * 0.5;
+        double tailleMarqueur = layout.getCellSize() * 0.6;
         double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
 
         gc.setFill(couleur);
@@ -209,8 +209,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected boolean shouldRenderEntity(Entity entity) {
-        //return entity.getEntityType() != EntityType.PLAYER;
-        return true ;
+        return entity.getEntityType() != EntityType.PLAYER;
     }
 
     protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {

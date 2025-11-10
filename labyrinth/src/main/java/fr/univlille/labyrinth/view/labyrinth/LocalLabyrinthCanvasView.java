@@ -2,12 +2,11 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -131,6 +130,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
+    protected boolean shouldRenderEntity(Entity entity) {
+        return entity.getEntityType() != EntityType.PLAYER;
+    }
+
+    @Override
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         PlayerEntity playerEntity = maze.getEntityManager().getPlayerEntityByID(0);
         if (playerEntity == null) return;
@@ -159,7 +163,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                     System.out.println(trapFactories[globalY][globalX].name());
                     GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
-                        local.getX(), local.getY(), layout, 0.5);
+                        local.getX(), local.getY(), layout, 0.6);
                 }
             }
         }
@@ -167,7 +171,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER.getColor());
+        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER0.getColor());
     }
 
     private boolean isOutOfBounds(int globalX, int globalY) {

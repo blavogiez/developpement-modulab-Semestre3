@@ -4,6 +4,10 @@ import javafx.scene.paint.Color;
 
 public enum GameViewConfig {
     PLAYER("#e01111ff", Shape.CIRCLE),
+    PLAYER0("#e01111ff", Shape.CIRCLE),
+    PLAYER1("#1155ff", Shape.CIRCLE),
+    PLAYER2("#11dd55", Shape.CIRCLE),
+    PLAYER3("#ff9911", Shape.CIRCLE),
     EXIT("#78A821", Shape.SQUARE),
     MONSTER("#821111", Shape.TRIANGLE),
     WALL("#555555"),
@@ -11,8 +15,8 @@ public enum GameViewConfig {
     OUT_OF_BOUNDS("#808080"),
     COMPLETED("#66BB6A"),
     TRAP_RANDOM,
-    TRAP_USED("#dbdbdb", Shape.CIRCLE),
-    TRAP_TELEPORT("#800080", Shape.CIRCLE),
+    TRAP_USED("#dbdbdb", Shape.SQUARE),
+    TRAP_TELEPORT("#800080", Shape.SQUARE),
     TRAP_FAKE_EXIT("#78A821", Shape.SQUARE),
     TRAP_PUSH,
     TRAP_STUN,

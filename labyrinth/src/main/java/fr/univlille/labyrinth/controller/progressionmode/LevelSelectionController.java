@@ -16,7 +16,6 @@ import fr.univlille.labyrinth.utils.ResizeUtil;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -173,6 +172,7 @@ public class LevelSelectionController {
     public void goToPlayerRanking() throws IOException {
         App.goTo("progressionmode/PlayerRanking.fxml");
     }
+    
     private void resize(){
         menuEtape.widthProperty().addListener((o, oldW, newW) -> resizeEtapePanesInPane(menuEtape));
         menuEtape.heightProperty().addListener((o, oldH, newH) -> resizeEtapePanesInPane(menuEtape));

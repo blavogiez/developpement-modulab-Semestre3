@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.maze.traps.trap.*;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public enum TrapFactory {
