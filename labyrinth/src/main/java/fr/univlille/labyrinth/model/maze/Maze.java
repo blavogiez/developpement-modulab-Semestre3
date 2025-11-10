@@ -45,42 +45,6 @@ public class Maze {
         MazeAlgorithmFactory.FUSION.getAlgorithm().generateExitAndPlayer(this);
     }
 
-
-
-
-    /**
-     *
-     * @param y1 Ordonnée de la cellule de départ
-     * @param x1 Abscisse de la cellule de départ
-     * @param y2 Ordonnée de la cellule d'arrivé
-     * @param x2 Abscisse de la cellule d'arrivé
-     * @return true s'il y a un mur entre la Positionule située entre la Positionule à la
-     *         position (ligne,colonne) et la Positionule à la position
-     *         (ligne1,colonne1), false sinon
-     */
-
-
-    public boolean isWall(int y1, int x1, int y2, int x2) {
-
-        if (!adjacent(y1, x1, y2, x2))
-            throw new RuntimeException();
-
-        if (!positionCorrecte(y1, x1) || !positionCorrecte(y2, x2)) {
-            return true;
-        }
-
-        if (x1 == x2) {
-            return murHorizontaux[Math.min(y1, y2)][x1];
-        }
-        if (y1 == y2) {
-            return murVerticaux[Math.min(x1, x2)][y1];
-        }
-
-
-        //IMPOSSIBLE
-        return true;
-    }
-
     /*
      * La méthode permet de savoir si la position se situe dans le labyrinthe.
      */
