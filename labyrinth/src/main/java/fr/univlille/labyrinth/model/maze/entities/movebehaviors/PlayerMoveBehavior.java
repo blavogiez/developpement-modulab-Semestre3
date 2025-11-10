@@ -8,7 +8,7 @@ import fr.univlille.labyrinth.model.maze.entities.Entity;
 
 public class PlayerMoveBehavior implements MoveBehavior {
     /**
-     * Cette méthode permet de diriger l'entité vers une direction
+     * Cette méthode permet de diriger l'entité joueur vers une direction
      *
      * @param direction une direction parmi haut, bas, droite, gauche.
      */

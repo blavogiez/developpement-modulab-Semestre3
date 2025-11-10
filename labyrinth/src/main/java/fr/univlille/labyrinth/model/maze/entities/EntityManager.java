@@ -6,8 +6,11 @@ import java.util.List;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.save.Player;
 
 public class EntityManager {
+    private int cptPlayerID;
+
     private final List<Entity> entities;
 
     public EntityManager(List<Entity> entities) {
@@ -16,6 +19,14 @@ public class EntityManager {
 
     public EntityManager() {
         this(new ArrayList<>());
+    }
+
+    public void addCptPlayerID() {
+        cptPlayerID++;
+    }
+
+    public int getCptPlayerID() {
+        return cptPlayerID;
     }
 
 
@@ -36,10 +47,18 @@ public class EntityManager {
         entities.clear();
     }
 
-    public boolean moveEntities(ObservableMaze maze, Direction direction) {
+    public boolean moveEntities(int playerID, ObservableMaze maze, Direction direction) {
         boolean stmt = true ;
         for (Entity entity : entities) {
-            if (!entity.move(maze, direction)) stmt = false ;
+            if(entity.getEntityType()==EntityType.PLAYER) {
+                PlayerEntity playerEntity = (PlayerEntity) entity ;
+                if(playerEntity.getID()==playerID) {
+                    if (!playerEntity.move(maze, direction)) stmt = false ;
+                }
+            }
+            else {
+                if (!entity.move(maze, direction)) stmt = false ;
+            }
         }
         return stmt ;
     }
@@ -51,6 +70,25 @@ public class EntityManager {
         return null ;
     }
 
+    public List<PlayerEntity> getPlayerEntities() {
+        List<PlayerEntity> players = new ArrayList<>();
+        for (Entity e : this.entities) {
+            if (e.getEntityType() == EntityType.PLAYER) {
+                players.add((PlayerEntity) e);
+            }
+        }
+        return players;
+    }
+
+    public PlayerEntity getPlayerEntityByID(int playerID) {
+        for (PlayerEntity player : getPlayerEntities()) {
+            if (player.getID() == playerID) {
+                return player;
+            }
+        }
+        return null;
+    }
+
     public MonsterEntity getMonsterEntity() {
         for (Entity e : this.entities) {
             if (e.getEntityType()==EntityType.MONSTER) return (MonsterEntity) e ;
@@ -58,45 +96,46 @@ public class EntityManager {
         return null ;
     }
 
-    /*
-     * Vérifie si au moins au monstre se situe à la même position que le joueur.
-     * quand y'aura multijoueur il faudra avoir param int et remove l'entité de la liste (le 1er joueur meurt mais le 2e continue)
-     * comme ça la lose sera déclenchée quand y'aura aucun joueur dans le 
-     */
-    public boolean checkMonsterOnPlayer() {
-        PlayerEntity player = getPlayerEntity();
-        if (player == null) return false;
-        for (Entity e : this.entities) {
-            if (e.getEntityType() == EntityType.MONSTER) {
-                if (e.getPosition().equals(player.getPosition())) {
-                    return true;
+    public int checkMonsterOnPlayer() {
+        int deadCount = 0;
+        List<Entity> toRemove = new ArrayList<>();
+
+        for (Entity player : this.entities) {
+            if (player.getEntityType() == EntityType.PLAYER) {
+                for (Entity monster : this.entities) {
+                    if (monster.getEntityType() == EntityType.MONSTER) {
+                        if (monster.getPosition().equals(player.getPosition())) {
+                            toRemove.add(player);
+                            deadCount++;
+                            break;
+                        }
+                    }
                 }
             }
         }
-        return false;
+
+        for (Entity e : toRemove) {
+            entities.remove(e);
+        }
+
+        return deadCount;
     }
 
-    /*
-     * Vérifie si le joueur se situe à la même position qu'une sortie.
-     * quand y'aura multijoueur il faudra avoir param int et remove l'entité de la liste (le 1er joueur meurt mais le 2e continue)
-     * comme ça la lose sera déclenchée quand y'aura aucun joueur dans le 
-     */
     public boolean checkPlayerOnExit() {
-        PlayerEntity player = getPlayerEntity();
-        if (player == null) return false;
-        for (Entity e : this.entities) {
-            if (e.getEntityType() == EntityType.EXIT) {
-                if (e.getPosition().equals(player.getPosition())) {
-                    return true;
+        for (Entity player : this.entities) {
+            if (player.getEntityType() == EntityType.PLAYER) {
+                for (Entity exit : this.entities) {
+                    if (exit.getEntityType() == EntityType.EXIT) {
+                        if (player.getPosition().equals(exit.getPosition())) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
 
-    /*
-     * Vérifie si une quelconque entité se situe sur la position en entrée. Cela permet d'éviter de faire positionner deux entités sur la même position.
-     */
     public boolean isEntityOnCell(Position position) {
         for (Entity e : this.entities) {
             if (e.getPosition().equals(position)) {

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Position;
 
 // Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
@@ -27,41 +28,38 @@ public class PerfectAlgorithmTest {
         algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
         //petit labyrinthe de taille avec distance minimale
-        maze1 = new Maze(10,12,10); 
+        maze1 = new Maze(10,12,10, algo); 
         start1 = maze1.getEntryPosition();
         end1 = maze1.getExitPosition();
-        algo.generateMaze(maze1);
 
 
         // moyen labyrinthe avec petite distance
-        maze2 = new Maze(40,12,20); 
+        maze2 = new Maze(40,12,20, algo); 
         start2 = maze2.getEntryPosition();
         end2 = maze2.getExitPosition();
-        algo.generateMaze(maze2);
 
         //grand labyrinthe avec grande distance
-        maze3 = new Maze(50,32,30); 
+        maze3 = new Maze(50,32,30, algo); 
         start3 = maze3.getEntryPosition();
         end3 = maze3.getExitPosition();
-        algo.generateMaze(maze3);
     }
 
     @Test
     public void testStartPosition() {
-        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()), "" + start1);
+        assertTrue(MazeWallChecker.positionCorrecte(start1.getY(), start1.getX(), maze1), "" + start1);
 
-        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()), "" + start2);
+        assertTrue(MazeWallChecker.positionCorrecte(start2.getY(), start2.getX(), maze2), "" + start2);
 
-        assertTrue(maze3.positionCorrecte(start3.getY(), start3.getX()), "" + start3);
+        assertTrue(MazeWallChecker.positionCorrecte(start3.getY(), start3.getX(), maze3), "" + start3);
     }
 
     @Test
     public void testExitPosition() {
-        assertTrue(maze1.positionCorrecte(end1.getY(), end1.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end1.getY(), end1.getX(), maze1));
 
-        assertTrue(maze2.positionCorrecte(end2.getY(), end2.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end2.getY(), end2.getX(), maze2));
 
-        assertTrue(maze3.positionCorrecte(end3.getY(), end3.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end3.getY(), end3.getX(), maze3));
     }
 
     @Test

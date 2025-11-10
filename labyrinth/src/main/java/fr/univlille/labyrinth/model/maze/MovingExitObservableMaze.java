@@ -1,3 +1,4 @@
+/*
 package fr.univlille.labyrinth.model.maze;
 
 import java.util.List;
@@ -47,3 +48,4 @@ public class MovingExitObservableMaze extends ObservableMaze {
         maze.setExit(exitPosition);
     }
 }
+*/

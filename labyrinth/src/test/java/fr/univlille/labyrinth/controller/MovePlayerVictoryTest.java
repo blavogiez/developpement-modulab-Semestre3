@@ -50,7 +50,7 @@ public class MovePlayerVictoryTest {
         assertFalse(gameMode.getCurrentMaze().isPlayerAtExit());
 
         ObservableMaze maze = gameMode.getCurrentMaze();
-        Position start = maze.getPlayerPosition();
+        Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
         List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
@@ -59,16 +59,16 @@ public class MovePlayerVictoryTest {
         path.add(0, start);
 
         for (Position targetPosition : path) {
-            Position currentPlayerPos = maze.getPlayerPosition();
+            Position currentPlayerPos = maze.getEntityManager().getPlayerEntityByID(0).getPosition();
 
             if (currentPlayerPos.equals(targetPosition)) {
                 continue;
             }
 
             Direction direction = determineDirectionStep(currentPlayerPos, targetPosition);
-            gameMode.movePlayerPosition(direction);
+            gameMode.movePlayerPosition(0,direction);
 
-            if (!maze.getPlayerPosition().equals(exit)) {
+            if (!maze.getEntityManager().getPlayerEntityByID(0).getPosition().equals(exit)) {
                 assertFalse(observer.isVictoryTriggered());
             }
         }
@@ -90,23 +90,22 @@ public class MovePlayerVictoryTest {
         gameMode.addVictoryObserver(observer2);
 
         ObservableMaze maze = gameMode.getCurrentMaze();
-        Position start = maze.getPlayerPosition();
+        Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
         List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
         assertNotNull(path);
         assertFalse(path.isEmpty());
-        path.add(0, start);
-
+        
         for (Position targetPosition : path) {
-            Position currentPlayerPos = maze.getPlayerPosition();
+            Position currentPlayerPos = maze.getEntityManager().getPlayerEntityByID(0).getPosition();
 
             if (currentPlayerPos.equals(targetPosition)) {
                 continue;
             }
 
             Direction direction = determineDirectionStep(currentPlayerPos, targetPosition);
-            gameMode.movePlayerPosition(direction);
+            gameMode.movePlayerPosition(0, direction);
         }
 
         assertTrue(observer1.isVictoryTriggered());

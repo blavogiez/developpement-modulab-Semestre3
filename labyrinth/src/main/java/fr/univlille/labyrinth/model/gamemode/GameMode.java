@@ -9,6 +9,7 @@ import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -33,20 +34,26 @@ public abstract class GameMode {
      *
      * @param direction la direction du déplacement.
      */
-    public void movePlayerPosition(Direction direction) {
+    public void movePlayerPosition(int playerID, Direction direction) {
         if (!mazeManager.hasMaze()) return;
 
         ObservableMaze maze = mazeManager.getCurrentMaze();
-        if (maze.getPlayerPosition() == null) return;
+        PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(playerID);
+        if (player == null) return;
 
-        Position playerPosition = maze.getPlayerPosition().copy();
-        if (maze.movePlayer(direction)) {
+        Position oldPosition = player.getPosition().copy();
+        if (maze.movePlayer(playerID, direction)) {
             if (maze.isPlayerAtExit()) {
                 handleVictory();
-            } else if(maze.getEntityManager().checkMonsterOnPlayer()) {
-                handleLoose();
             } else {
-                maze.trapEffect(playerPosition);
+                int deadPlayers = maze.getEntityManager().checkMonsterOnPlayer();
+                if (deadPlayers > 0) {
+                    if (maze.getEntityManager().getPlayerEntities().isEmpty()) {
+                        handleLoose();
+                    }
+                } else {
+                    maze.trapEffect(playerID, oldPosition);
+                }
             }
         }
     }

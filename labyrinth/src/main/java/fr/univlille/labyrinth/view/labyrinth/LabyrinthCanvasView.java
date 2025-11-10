@@ -1,11 +1,13 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import java.util.HashMap;
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
@@ -21,11 +23,9 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected Canvas canvas;
     protected ObservableMaze currentMaze;
     protected PlayerAnimation playerAnimation;
-    protected double playerX, playerY;
+    protected HashMap<Integer, Double> playerXMap = new HashMap<>();
+    protected HashMap<Integer, Double> playerYMap = new HashMap<>();
 
-    /*
-     * Attributs calculant la façon "responsive"
-     */
     protected LabyrinthLayout layout;
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
@@ -102,14 +102,14 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void horizontalsWalls(GraphicsContext gc, int height, int width) {
         for (int x = 0; x < width; x++) {
-            if (MazeWallChecker.isWall(currentMaze) && shouldDrawHorizontalWall(-1, x, height, width)) {
+            if (shouldDrawHorizontalWall(-1, x, height, width)) {
                 double x1 = layout.getOffsetX() + x * layout.getCellSize();
                 double x2 = x1 + layout.getCellSize();
                 double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
             for (int y = 0; y < height; y++) {
-                if (MazeWallChecker.isWall(currentMaze) && shouldDrawHorizontalWall(y, x, height, width)) {
+                if (MazeWallChecker.isWall(currentMaze, y, x, y + 1, x) && shouldDrawHorizontalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + x * layout.getCellSize();
                     double x2 = x1 + layout.getCellSize();
                     double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
@@ -130,7 +130,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
             }
 
             for (int x = 0; x < width; x++) {
-                if (MazeWallChecker.isWall(currentMaze) && shouldDrawVerticalWall(y, x, height, width)) {
+                if (MazeWallChecker.isWall(currentMaze, y, x, y, x + 1) && shouldDrawVerticalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
                     double y1 = layout.getOffsetY() + y * layout.getCellSize();
                     double y2 = y1 + layout.getCellSize();
@@ -140,12 +140,17 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
-    /*
-     * le joueur est dessiné spécialement car il recoit une animation (sa position change un tout petit peu chaque 1/60 de seconde
-     * on utilise donc ses variables spéciales
-     */
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, playerY, playerX, GameViewConfig.PLAYER.getColor());
+        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+            int id = player.getID();
+            Double x = playerXMap.get(id);
+            Double y = playerYMap.get(id);
+
+            if (x != null && y != null) {
+                Color color = GameViewConfig.valueOf("PLAYER" + id).getColor();
+                dessinerMarqueur(gc, y, x, color);
+            }
+        }
     }
 
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
@@ -153,15 +158,16 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 if (shouldRenderTrap(traps[y][x], x, y)) {
-                    GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[y][x].name());
-                    componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
+                    System.out.println(traps[y][x].name());
+                    GameViewConfig config = GameViewConfig.valueOf(traps[y][x].name());
+                    componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
             }
         }
     }
 
     protected void dessinerMarqueur(GraphicsContext gc, double y, double x, Color couleur) {
-        double tailleMarqueur = layout.getCellSize() * 0.5;
+        double tailleMarqueur = layout.getCellSize() * 0.6;
         double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
 
         gc.setFill(couleur);
@@ -183,8 +189,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected boolean estDansRayon(int x, int y, ObservableMaze maze, int rayon) {
-        int playerX = maze.getPlayerPosition().getX();
-        int playerY = maze.getPlayerPosition().getY();
+        PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(0);
+        if (player == null) return false;
+        int playerX = player.getPosition().getX();
+        int playerY = player.getPosition().getY();
         int dx = Math.abs(x - playerX);
         int dy = Math.abs(y - playerY);
         return Math.max(dx, dy) <= rayon;
@@ -197,7 +205,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return true;
     }
 
-    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
+    protected boolean shouldRenderTrap(Trap trapFactory, int x, int y) {
         return true;
     }
 
@@ -221,20 +229,12 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return currentMaze;
     }
 
-    public double getPlayerX() {
-        return playerX;
+    public HashMap<Integer, Double> getPlayerXMap() {
+        return playerXMap;
     }
 
-    public void setPlayerX(double x) {
-        this.playerX = x;
-    }
-
-    public double getPlayerY() {
-        return playerY;
-    }
-
-    public void setPlayerY(double y) {
-        this.playerY = y;
+    public HashMap<Integer, Double> getPlayerYMap() {
+        return playerYMap;
     }
 
     public Canvas getCanvas() {

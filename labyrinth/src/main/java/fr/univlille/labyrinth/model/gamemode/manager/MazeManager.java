@@ -12,14 +12,16 @@ public class MazeManager {
                 config.getWidth(),
                 config.getHeight(),
                 config.getDistanceBetweenEntryAndExit(),
-                config.getEntitiesConfiguration()
+                config.getEntitiesConfiguration(),
+                    config.getAlgorithm()
             );
         } else {
             this.currentMaze = new ObservableMaze(
                 config.getWidth(),
                 config.getHeight(),
                 1000,
-                config.getEntitiesConfiguration()
+                config.getEntitiesConfiguration(),
+                    config.getAlgorithm()
             );
         }
     }

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.entities.*;
-import fr.univlille.labyrinth.model.maze.trap.TrapManager;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 /**
  * Implémentation de Maze en version dynamique, observable
@@ -37,7 +38,11 @@ public class ObservableMaze extends Maze {
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
-        super(width, height, distanceBetweenEntryAndExit) ;
+        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        super(width, height, distanceBetweenEntryAndExit, algo) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
@@ -66,13 +71,11 @@ public class ObservableMaze extends Maze {
      * (Le joueur est contenu dans les entités)
      * 
      */
-    public boolean movePlayer(Direction direction){
-        entityManager.moveEntities(this, direction);
+    public boolean movePlayer(int playerID, Direction direction){
+        entityManager.moveEntities(playerID, this, direction);
         return true ;
     }
 
-
-    
     /**
      * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale). Cette méthode sera notamment appelée par le createMaze du mode libre
      *
@@ -90,16 +93,9 @@ public class ObservableMaze extends Maze {
         return entityManager.checkPlayerOnExit();
     }
 
-
     /*
      * Surcharge pour ajouter les entités par défaut
      */
-
-
-    public Position getPlayerPosition() {
-        PlayerEntity player = entityManager.getPlayerEntity();
-        return player != null ? player.getPosition() : null;
-    }
 
 //    TrapHandler
 //    EventHandler
@@ -107,32 +103,23 @@ public class ObservableMaze extends Maze {
 
 
     @Override
-    public void trapEffect(Position position) {
-        trapManager.trapEffect(position);
+    public void trapEffect(int playerID, Position oldPosition) {
+        trapManager.trapEffect(playerID, oldPosition);
         notifyObserver();
     }
 
     public TrapManager getTrapManager() {
         return trapManager;
     }
-    /*
-     * Renvoie les coordonnées de sortie de la sortie de l'entité (si elle bouge)
-     * S'il n'y a pas (encore) de sortie on appelle le getter de la variable (super)
-     */
-    public Position getExitPosition() {
-        for (Entity entity : entityManager.getEntities()) {
-            if (entity.getEntityType()==EntityType.EXIT) {
-                return entity.getPosition();
-            }
-        }
-        return super.getExitPosition();
-    }
 
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
-    public void setPlayerPosition(Position playerPosition) {
-        entityManager.getPlayerEntity().setPosition(playerPosition);
+    public void setPlayerPosition(int playerID, Position position) {
+        PlayerEntity player = entityManager.getPlayerEntityByID(playerID);
+        if (player != null) {
+            player.setPosition(position);
+        }
     }
 }
