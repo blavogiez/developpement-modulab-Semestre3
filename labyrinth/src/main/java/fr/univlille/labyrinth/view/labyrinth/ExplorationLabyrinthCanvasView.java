@@ -113,4 +113,10 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     protected boolean shouldRenderTrap(Trap trap, int x, int y) {
         return isExplored(x,y);
     }
+
+    @Override
+    protected boolean isWall(ObservableMaze currentMaze2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isWall'");
+    }
 }
