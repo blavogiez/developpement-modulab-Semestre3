@@ -114,9 +114,4 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         return isExplored(x,y);
     }
 
-    @Override
-    protected boolean isWall(ObservableMaze currentMaze2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isWall'");
-    }
 }

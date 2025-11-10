@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
@@ -14,7 +15,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
+public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected Pane container;
     protected Canvas canvas;
@@ -101,14 +102,14 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void horizontalsWalls(GraphicsContext gc, int height, int width) {
         for (int x = 0; x < width; x++) {
-            if (isWall(currentMaze) && shouldDrawHorizontalWall(-1, x, height, width)) {
+            if (MazeWallChecker.isWall(currentMaze) && shouldDrawHorizontalWall(-1, x, height, width)) {
                 double x1 = layout.getOffsetX() + x * layout.getCellSize();
                 double x2 = x1 + layout.getCellSize();
                 double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
             for (int y = 0; y < height; y++) {
-                if (isWall(currentMaze) && shouldDrawHorizontalWall(y, x, height, width)) {
+                if (MazeWallChecker.isWall(currentMaze) && shouldDrawHorizontalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + x * layout.getCellSize();
                     double x2 = x1 + layout.getCellSize();
                     double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
@@ -118,7 +119,6 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
-    protected abstract boolean isWall(ObservableMaze currentMaze2);
 
     protected void verticalsWalls(GraphicsContext gc, int height, int width) {
         for (int y = 0; y < height; y++) {
@@ -130,7 +130,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             }
 
             for (int x = 0; x < width; x++) {
-                if (isWall(currentMaze) && shouldDrawVerticalWall(y, x, height, width)) {
+                if (MazeWallChecker.isWall(currentMaze) && shouldDrawVerticalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
                     double y1 = layout.getOffsetY() + y * layout.getCellSize();
                     double y2 = y1 + layout.getCellSize();

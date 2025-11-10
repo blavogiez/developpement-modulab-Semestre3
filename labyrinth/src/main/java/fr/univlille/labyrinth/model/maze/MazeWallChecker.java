@@ -34,6 +34,28 @@ public class  MazeWallChecker {
         return true;
     }
 
+    public static boolean isWall(Maze maze,int y1,int x1,int y2,int x2) {
+        if (!adjacent(maze,y1, x1, y2, x2))
+            throw new RuntimeException();
+        Position p1 =new Position(x1, y1);
+        Position p2 =new Position(x2, y2);
+        if (positionCorrecte(p1,maze) || !positionCorrecte(p2,maze)) {
+            return true;
+        }
+
+        if (x1 == x2) {
+            return maze.murHorizontaux[Math.min(y1, y2)][x1];
+        }
+        if (y1 == y2) {
+            return maze.murVerticaux[Math.min(x1, x2)][y1];
+        }
+
+
+        //IMPOSSIBLE
+        return true;
+
+    }
+
     /*
      * La méthode permet de savoir si la position se situe dans le labyrinthe.
      */
@@ -56,6 +78,11 @@ public class  MazeWallChecker {
         int x1=maze.entryPosition.getX();
         int y2=maze.exitPosition.getY(); 
         int x2=maze.exitPosition.getX(); 
+        return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
+                || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
+    }
+
+    public static boolean adjacent(Maze maze,int y1,int x1,int y2,int x2) {
         return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
                 || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
     }

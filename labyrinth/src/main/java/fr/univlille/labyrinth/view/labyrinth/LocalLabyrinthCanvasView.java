@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
@@ -9,7 +11,7 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
+public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
@@ -63,18 +65,20 @@ public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
         if (globalX <= 0) return true;
-        if (positionCorrecte(globalY, globalX,currentMaze)) return false;
-        if (positionCorrecte(globalY, globalX - 1,currentMaze)) return true;
-        return currentMaze.isWall(globalY, globalX - 1, globalY, globalX);
+        Position p1 =new Position(globalY, globalX);
+        Position p2 =new Position(globalY, globalX-1);
+        if (MazeWallChecker.positionCorrecte(p1,currentMaze)) return false;
+        if (MazeWallChecker.positionCorrecte(p2,currentMaze)) return true;
+        return MazeWallChecker.isWall(currentMaze,globalY, globalX - 1, globalY, globalX);
     }
-
-    protected abstract boolean positionCorrecte(int globalY, int globalX, ObservableMaze currentMaze);
 
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
         if (globalY <= 0) return true;
-        if (positionCorrecte(globalY, globalX,currentMaze)) return false;
-        if (positionCorrecte(globalY-1, globalX,currentMaze)) return true;
-        return currentMaze.isWall(globalY - 1, globalX, globalY, globalX);
+        Position p1 =new Position(globalY, globalX);
+        Position p2 =new Position(globalY-1, globalX);
+        if (MazeWallChecker.positionCorrecte(p1,currentMaze)) return false;
+        if (MazeWallChecker.positionCorrecte(p2,currentMaze)) return true;
+        return MazeWallChecker.isWall(currentMaze,globalY - 1, globalX, globalY, globalX);
     }
 
     private void drawVerticalWallAt(GraphicsContext gc, int localX, int localY) {
@@ -163,7 +167,8 @@ public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     private boolean isOutOfBounds(int globalX, int globalY) {
-        return !positionCorrecte(globalY, globalX,currentMaze);
+        Position p=new Position(globalX, globalY);
+        return !MazeWallChecker.positionCorrecte(p,currentMaze);
     }
 
     private Position toLocalCoordinates(int globalX, int globalY) {
@@ -175,4 +180,5 @@ public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
         return new Position(localX, localY);
     }
+
 }

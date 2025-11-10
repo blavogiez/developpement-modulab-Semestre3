@@ -27,9 +27,4 @@ public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
         return entity.getEntityType() == EntityType.EXIT;
     }
 
-    @Override
-    protected boolean isWall(ObservableMaze currentMaze2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isWall'");
-    }
 }

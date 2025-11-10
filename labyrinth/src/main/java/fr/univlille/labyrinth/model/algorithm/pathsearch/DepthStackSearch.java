@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.algorithm.pathsearch;
 
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.Stack;
@@ -39,7 +40,7 @@ public class DepthStackSearch {
                for (Position neighbor : getNeighbors(current, maze)) {
                    if (neighbor != null && !neighborFound) {
                        if (isValid(neighbor, maze)) {
-                           if (!marked.contains(neighbor) && !maze.isWall(current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
+                           if (!marked.contains(neighbor) && !MazeWallChecker.isWall(maze,current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
                                System.out.println(neighbor.getY() + "," + neighbor.getY());
                                marked.add(neighbor);
                                stack.push(neighbor);

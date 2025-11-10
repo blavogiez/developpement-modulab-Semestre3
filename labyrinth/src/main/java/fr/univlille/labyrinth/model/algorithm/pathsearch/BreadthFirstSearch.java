@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.algorithm.pathsearch;
 
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.*;
@@ -42,7 +43,7 @@ public class BreadthFirstSearch {
 
                 if (nx >= 0 && nx < maze.getWidth() && ny >= 0 && ny < maze.getHeight()
                     && !distances.containsKey(next)
-                    && !maze.isWall(current.getY(), current.getX(), ny, nx)) {
+                    && !MazeWallChecker.isWall(maze,current.getY(), current.getX(), ny, nx)) {
                     distances.put(next, currentDistance + 1);
                     queue.add(next);
                 }
@@ -95,7 +96,7 @@ public class BreadthFirstSearch {
 
                 if (nx >= 0 && nx < maze.getWidth() && ny >= 0 && ny < maze.getHeight()
                     && !distances.containsKey(next)
-                    && !maze.isWall(current.getY(), current.getX(), ny, nx)) {
+                    && !MazeWallChecker.isWall(maze,current.getY(), current.getX(), ny, nx)) {
                     distances.put(next, distances.get(current) + 1);
                     queue.add(next);
                 }
@@ -137,7 +138,7 @@ public class BreadthFirstSearch {
         List<Position> correctNextPositions = new ArrayList<>();
         for (Direction direction : Direction.values()){
             Position temp = new Position(currentPos.getX() + direction.getX(),currentPos.getY()  + direction.getY());
-            if(maze.positionCorrecte(temp) && !listedPosition.contains(temp) && !maze.isWall(currentPos.getY(), currentPos.getX(), temp.getY(), temp.getX())){
+            if(MazeWallChecker.positionCorrecte(temp,maze) && !listedPosition.contains(temp) && !MazeWallChecker.isWall(maze,currentPos.getY(), currentPos.getX(), temp.getY(), temp.getX())){
                 correctNextPositions.add(temp);
             }
         }
