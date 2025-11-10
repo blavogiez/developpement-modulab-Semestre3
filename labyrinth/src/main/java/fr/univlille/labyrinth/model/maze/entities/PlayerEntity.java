@@ -6,6 +6,8 @@ import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
+import java.util.Random;
+
 /*
 Chaque entité de joueur a un ID différent pour permettre un mouvement distinct lors du multijoueur.
  */
@@ -20,7 +22,9 @@ public class PlayerEntity extends Entity {
     }
 
     public static Position getInitialPosition(ObservableMaze maze) {
-        return maze.getEntryPosition();
+        //return maze.getEntryPosition();
+        Random random = new Random();
+        return new Position(random.nextInt(5), random.nextInt(5));
     }
 
     public void setID(int id) {

@@ -80,7 +80,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
         else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
 
         if (direction != null) {
-            gameMode.movePlayerPosition(direction);
+            gameMode.movePlayerPosition(0,direction);
             e.consume();
         }
     }

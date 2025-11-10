@@ -52,6 +52,7 @@ public class EntityManager {
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
                 PlayerEntity playerEntity = (PlayerEntity) entity ;
+                System.out.println(playerEntity.getID());
                 if(playerEntity.getID()==playerID) {
                     if (!playerEntity.move(maze, direction)) stmt = false ;
                 }
@@ -105,8 +106,10 @@ public class EntityManager {
         if (player == null) return false;
         for (Entity e : this.entities) {
             if (e.getEntityType() == EntityType.EXIT) {
-                if (e.getPosition().equals(player.getPosition())) {
-                    return true;
+                for (Entity checkPlayer : this.entities) {
+                    if(e.getEntityType()==EntityType.PLAYER) {
+                        if (e.getPosition().equals(checkPlayer.getPosition()));
+                    }
                 }
             }
         }

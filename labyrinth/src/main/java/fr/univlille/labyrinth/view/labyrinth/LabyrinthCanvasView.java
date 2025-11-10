@@ -200,7 +200,8 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected boolean shouldRenderEntity(Entity entity) {
-        return entity.getEntityType() != EntityType.PLAYER;
+        //return entity.getEntityType() != EntityType.PLAYER;
+        return true ;
     }
 
     protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
