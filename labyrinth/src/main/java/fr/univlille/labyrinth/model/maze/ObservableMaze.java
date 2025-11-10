@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.entities.*;
-import fr.univlille.labyrinth.model.maze.trap.TrapManager;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 /**
  * Implémentation de Maze en version dynamique, observable
@@ -37,7 +38,11 @@ public class ObservableMaze extends Maze {
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
-        super(width, height, distanceBetweenEntryAndExit) ;
+        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        super(width, height, distanceBetweenEntryAndExit, algo) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);

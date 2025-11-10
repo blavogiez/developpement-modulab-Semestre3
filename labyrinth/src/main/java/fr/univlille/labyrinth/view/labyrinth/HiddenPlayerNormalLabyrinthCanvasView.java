@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 
 public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
 
@@ -19,7 +19,7 @@ public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected boolean shouldRenderTrap(Trap trap, int x, int y) {
-        return trap.name().equals("FAKE");
+        return trap.name().equals("FAKE_EXIT_TRAP");
     }
 
     @Override

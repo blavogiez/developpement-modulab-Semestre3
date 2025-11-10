@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 /**
@@ -23,7 +24,6 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 public class Maze {
     protected int width;
     protected int height;
-    protected Trap[][] grid;
     protected Position entryPosition;
     protected Position exitPosition;
     protected int distanceBetweenEntryAndExit;
@@ -31,8 +31,7 @@ public class Maze {
     protected boolean[][] murHorizontaux;
 
 
-    // cell grid à gérer ?
-    public Maze(int width, int height, int distanceBetweenEntryAndExit) {
+    public Maze(int width, int height, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
         this.width = width;
         this.height = height;
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
@@ -41,8 +40,13 @@ public class Maze {
         //eventuellement faire la gene ailleurs ?
         //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
         //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateExitAndPlayer(this);
-        MazeAlgorithmFactory.FUSION.getAlgorithm().generateMaze(this);
-        MazeAlgorithmFactory.FUSION.getAlgorithm().generateExitAndPlayer(this);
+        algo.generateMaze(this);
+        algo.generateExitAndPlayer(this);
+    }
+
+    // cell grid à gérer ?
+    public Maze(int width, int height, int distanceBetweenEntryAndExit) {
+        this(width, height, distanceBetweenEntryAndExit, MazeAlgorithmFactory.PERFECT.getAlgorithm());
     }
 
 

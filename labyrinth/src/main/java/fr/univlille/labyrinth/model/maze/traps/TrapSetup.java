@@ -1,7 +1,10 @@
-package fr.univlille.labyrinth.model.maze.trap;
+package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.traps.trap.NoneTrap;
+import fr.univlille.labyrinth.model.maze.traps.trap.RandomTrap;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -9,16 +12,16 @@ import java.util.Random;
 
 public class TrapSetup {
     static private Trap[][] traps;
-    static private Map<Trap, Integer> trapMap;
+    static private Map<TrapFactory, Integer> trapMap;
 
     public static Trap[][] generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
         TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
-        trapMap = new EnumMap<>(Trap.class);
-        trapMap.put(Trap.RANDOM,numberOfRandomTraps);
-        trapMap.put(Trap.PUSH, numberOfPush);
-        trapMap.put(Trap.TELEPORTER, numberOfTeleporter);
-        trapMap.put(Trap.FAKE, numberOfFake);
-        trapMap.put(Trap.STUN, numberOfStun);
+        trapMap = new EnumMap<>(TrapFactory.class);
+        trapMap.put(TrapFactory.RANDOM_TRAP,numberOfRandomTraps);
+        trapMap.put(TrapFactory.PUSH_TRAP, numberOfPush);
+        trapMap.put(TrapFactory.TELEPORTER_TRAP, numberOfTeleporter);
+        trapMap.put(TrapFactory.FAKE_EXIT_TRAP, numberOfFake);
+        trapMap.put(TrapFactory.STUN_TRAP, numberOfStun);
         fillPath();
         generateTraps(maze);
         randomizeRandomTrap();
@@ -35,19 +38,19 @@ public class TrapSetup {
         Random random = new Random();
         for (int x = 0; x < traps.length; x++) {
             for (int y = 0; y < traps[x].length; y++) {
-                if (traps[x][y] == Trap.RANDOM) {
-                    traps[x][y] = Trap.values()[random.nextInt(Trap.TELEPORTER.ordinal(),Trap.values().length)];
+                if (traps[x][y] instanceof RandomTrap) {
+                    traps[x][y] = TrapFactory.values()[random.nextInt(TrapFactory.TELEPORTER_TRAP.ordinal(), TrapFactory.values().length)].generateTrap();
                 }
             }
         }
     }
 
     public static void generateTraps(Maze maze) {
-        for(Map.Entry<Trap, Integer> entry : trapMap.entrySet()){
+        for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
             for (int i = 0; i < value; i++){
                 Position position = getRandomCell(maze);
-                setTrap(position.getY(),  position.getX(), entry.getKey());
+                setTrap(position.getY(),  position.getX(), entry.getKey().generateTrap());
             }
         }
     }
@@ -60,23 +63,23 @@ public class TrapSetup {
             y = random.nextInt(traps.length);
             x = random.nextInt(traps[y].length);
             position = new Position(x, y);
-        } while (getTrap(y,x)!=Trap.PATH ||
+        } while (!(getTrap(y,x) instanceof NoneTrap) ||
                 position.equals(maze.getExitPosition()) ||
                 position.equals(maze.getEntryPosition()));
         return position;
     }
 
     public static void fillPath(){
-        for (int i = 0; i<traps.length;i++){
-            for (int j = 0; j<traps[i].length;j++){
+        for (int i = 0; i< traps.length; i++){
+            for (int j = 0; j< traps[i].length; j++){
                 if (traps[i][j]==null){
-                    traps[i][j]=Trap.PATH;
+                    traps[i][j]= TrapFactory.NONE.generateTrap();
                 }
             }
         }
     }
 
-    static Enum<Trap> getTrap(int y, int x){
+    static Trap getTrap(int y, int x){
         return traps[y][x];
     }
 

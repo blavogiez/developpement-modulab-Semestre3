@@ -2,9 +2,10 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -149,12 +150,14 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        Trap[][] traps = maze.getTrapManager().getTraps();
-        for (int globalY = 0; globalY < traps.length; globalY++) {
-            for (int globalX = 0; globalX < traps[globalY].length; globalX++) {
+        System.out.println("Début du dessin des traps");
+        Trap[][] trapFactories = maze.getTrapManager().getTraps();
+        for (int globalY = 0; globalY < trapFactories.length; globalY++) {
+            for (int globalX = 0; globalX < trapFactories[globalY].length; globalX++) {
                 Position local = toLocalCoordinates(globalX, globalY);
                 if (local != null) {
-                    GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[globalY][globalX].name());
+                    System.out.println(trapFactories[globalY][globalX].name());
+                    GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         local.getX(), local.getY(), layout, 0.5);
                 }
