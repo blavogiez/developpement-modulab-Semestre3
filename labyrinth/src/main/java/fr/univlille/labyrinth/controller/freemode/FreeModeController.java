@@ -94,7 +94,7 @@ public class FreeModeController {
         config.setWallPercentage(wallPercentageSlider.getValue());
         config.setDistanceBetweenEntryAndExit(distance);
 
-        App.goTo("freemode/FreeModeLabyrinth.fxml");
+        App.goTo("freemode/MultiplayerFreeModeLabyrinth.fxml");
     }
 
     private void showError() {
