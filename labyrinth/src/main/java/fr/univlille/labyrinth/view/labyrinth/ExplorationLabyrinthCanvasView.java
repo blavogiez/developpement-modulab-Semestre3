@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -110,7 +110,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
      * Ne dessine que les pièges dans le rayon 
      */
     @Override
-    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
+    protected boolean shouldRenderTrap(TrapFactory trapFactory, int x, int y) {
         return isExplored(x,y);
     }
 }

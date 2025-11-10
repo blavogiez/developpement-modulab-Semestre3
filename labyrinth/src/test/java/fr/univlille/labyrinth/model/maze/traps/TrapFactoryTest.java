@@ -1,0 +1,19 @@
+package fr.univlille.labyrinth.model.maze.traps;
+
+
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TrapFactoryTest {
+
+    @Test
+    public void onCreateTrapTest(){
+        Trap trap = TrapFactory.NONE.getTrap();
+        Trap trap2 = TrapFactory.NONE.getTrap();
+
+        assertEquals(trap, trap2);
+        assertNotSame(trap, trap2);
+    }
+}

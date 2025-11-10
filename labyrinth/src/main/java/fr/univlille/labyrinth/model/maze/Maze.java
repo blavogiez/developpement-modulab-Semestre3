@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 /**
@@ -23,7 +23,7 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 public class Maze {
     protected int width;
     protected int height;
-    protected Trap[][] grid;
+    protected TrapFactory[][] grid;
     protected Position entryPosition;
     protected Position exitPosition;
     protected int distanceBetweenEntryAndExit;

@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.maze.trap;
+package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -7,18 +7,18 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavi
 
 public class TrapManager {
     private final ObservableMaze maze;
-    private final Trap[][] traps;
+    private final TrapFactory[][] trapFactories;
 
     public TrapManager(ObservableMaze maze){
         this.maze=maze;
-        this.traps = TrapSetup.generate(maze,0,5,10,3,0);
+        this.trapFactories = TrapSetup.generate(maze,0,5,10,3,0);
     }
 
 
     public void trapEffect(Position oldPosition) {
         Position newPosition = maze.getPlayerPosition();
-        Trap trap = traps[newPosition.getY()][newPosition.getX()];
-        switch (trap) {
+        TrapFactory trapFactory = trapFactories[newPosition.getY()][newPosition.getX()];
+        switch (trapFactory) {
             case PUSH -> {
                 revealTrap(newPosition);
                 Direction direction = Direction.getDirection(oldPosition,newPosition);
@@ -44,10 +44,10 @@ public class TrapManager {
     }
 
     private void revealTrap(Position playerPosition) {
-        traps[playerPosition.getY()][playerPosition.getX()] = Trap.USED;
+        trapFactories[playerPosition.getY()][playerPosition.getX()] = TrapFactory.USED;
     }
 
-    public Trap[][] getTraps() {
-        return traps;
+    public TrapFactory[][] getTraps() {
+        return trapFactories;
     }
 }

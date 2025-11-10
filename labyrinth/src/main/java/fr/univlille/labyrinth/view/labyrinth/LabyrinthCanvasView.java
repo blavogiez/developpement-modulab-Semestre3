@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
@@ -147,11 +147,11 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        Trap[][] traps = maze.getTrapManager().getTraps();
-        for (int y = 0; y < traps.length; y++) {
-            for (int x = 0; x < traps[y].length; x++) {
-                if (shouldRenderTrap(traps[y][x], x, y)) {
-                    GameViewConfig config = GameViewConfig.valueOf("TRAP_" + traps[y][x].name());
+        TrapFactory[][] trapFactories = maze.getTrapManager().getTraps();
+        for (int y = 0; y < trapFactories.length; y++) {
+            for (int x = 0; x < trapFactories[y].length; x++) {
+                if (shouldRenderTrap(trapFactories[y][x], x, y)) {
+                    GameViewConfig config = GameViewConfig.valueOf("TRAP_" + trapFactories[y][x].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
                 }
             }
@@ -195,7 +195,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return true;
     }
 
-    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
+    protected boolean shouldRenderTrap(TrapFactory trapFactory, int x, int y) {
         return true;
     }
 

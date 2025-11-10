@@ -5,9 +5,8 @@ import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.entities.*;
-import fr.univlille.labyrinth.model.maze.trap.TrapManager;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 /**
  * Implémentation de Maze en version dynamique, observable
