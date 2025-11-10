@@ -39,23 +39,16 @@ public abstract class GameMode {
         ObservableMaze maze = mazeManager.getCurrentMaze();
         if (maze.getPlayerPosition() == null) return;
 
-        Position playerPosition = maze.getPlayerPosition();
+        Position playerPosition = maze.getPlayerPosition().copy();
         if (maze.movePlayer(direction)) {
-            if (isPlayerAtEnd()) {
+            if (maze.isPlayerAtExit()) {
                 handleVictory();
+            } else if(maze.getEntityManager().checkMonsterOnPlayer()) {
+                handleLoose();
             } else {
                 maze.trapEffect(playerPosition);
             }
         }
-    }
-
-    /**
-     * @return boolean
-     */
-    public boolean isPlayerAtEnd() {
-        if (!mazeManager.hasMaze()) return false;
-        ObservableMaze maze = mazeManager.getCurrentMaze();
-        return maze.getPlayerPosition().equals(maze.getExitPosition());
     }
 
     /**
@@ -87,6 +80,11 @@ public abstract class GameMode {
         notifyVictory();
     }
 
+    protected void handleLoose() {
+        victoryHandler.handleLoose();
+        notifyVictory();
+    }
+
     protected MazeManager getMazeManager() {
         return mazeManager;
     }
@@ -96,9 +94,10 @@ public abstract class GameMode {
     }
 
     /* Les dimensions demandées sont-elles possibles ?
+    à déplacer (CF fichier SOLID.md)
      * @return boolean
      */
     public static boolean areDimensionsCorrect(int width, int height) {
-        return width >= 3 && height >= 4 || width >= 4 && height >= 3;
+        return width >= 1 && height >= 1 ;
     }
 }

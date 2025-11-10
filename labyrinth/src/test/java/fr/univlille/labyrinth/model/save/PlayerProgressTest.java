@@ -22,7 +22,7 @@ class PlayerProgressTest {
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new Level(i + 1);
             for (int j = 0; j < 3; j++) {
-                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.PERFECT.getAlgorithm(), ViewType.NORMAL, "trèèèès difficile" + j, 10, 10, 20, new StandardScoreCalculator());
+                levels[i].getChallenges()[j] = new Challenge(MazeAlgorithmFactory.PERFECT.name(), ViewType.NORMAL, "trèèèès difficile" + j, 10, 10, 20, new StandardScoreCalculator());
             }
         }
         progress = new PlayerProgress(levels);

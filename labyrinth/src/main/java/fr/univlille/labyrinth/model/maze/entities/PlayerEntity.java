@@ -7,16 +7,16 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
 public class PlayerEntity extends Entity {
-    public PlayerEntity() {
-        super(new Position(0, 0), new PlayerMoveBehavior());
-    }
-
     public PlayerEntity(Position position) {
-        super(position, new PlayerMoveBehavior());
+        this(position, new PlayerMoveBehavior());
     }
 
     public PlayerEntity(Position position, MoveBehavior moveBehavior) {
         super(position, moveBehavior);
+    }
+
+    public static Position getInitialPosition(ObservableMaze maze) {
+        return maze.getEntryPosition();
     }
 
     @Override
@@ -32,4 +32,5 @@ public class PlayerEntity extends Entity {
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }
+
 }

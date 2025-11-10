@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StandardScoreCalculatorTest {
 
     private StandardScoreCalculator calculator;
-    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
+    private String algo = MazeAlgorithmFactory.PERFECT.name();
 
     @BeforeEach
     void setUp() {

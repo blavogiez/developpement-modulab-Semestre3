@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model.algorithm.pathsearch;
 
+import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
@@ -7,24 +8,36 @@ import java.util.*;
 
 public class BreadthFirstSearch {
 
-    public static List<Position> calculateAllDistances(Maze maze, Position start, int targetDistance) {
+    /*
+     * Record simple qui retourne la liste de toutes les positions demandées à la distance demandée
+     * actualDistance corrige la distance si elle était impossible (supérieure à la distance maximale) et va changer le parametre distance dans le labyrinthe
+     * Donc si on met une distance de 300 000 et que le maximum est à 140, le labyrinthe corrige et c'est bien la distance effective de 140 qui sera affichée lors du toString du labyrinthe. 
+     */
+    public record DistanceResult(List<Position> positions, int actualDistance) {}
+
+    /**
+     * @param maze
+     * @param start
+     * @param targetDistance
+     * @return DistanceResult
+     */
+    // parcourt le labyrinthe en largeur depuis start et calcule les distances de toutes les positions accessibles
+    // si targetDistance depasse la distance maximale possible, elle est automatiquement limitee a cette distance maximale
+    // retourne toutes les positions situees a la distance cible (ou maximale si targetDistance est trop grande)
+    public static DistanceResult calculateAllDistances(Maze maze, Position start, int targetDistance) {
         Queue<Position> queue = new LinkedList<>();
         Map<Position, Integer> distances = new HashMap<>();
 
         queue.add(start);
         distances.put(start, 0);
 
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int maxDistance = 0;
-
         while (!queue.isEmpty()) {
             Position current = queue.poll();
             int currentDistance = distances.get(current);
-            maxDistance = Math.max(maxDistance, currentDistance);
 
-            for (int[] dir : directions) {
-                int nx = current.getX() + dir[0];
-                int ny = current.getY() + dir[1];
+            for (Direction dir : Direction.values()) {
+                int nx = current.getX() + dir.getX();
+                int ny = current.getY() + dir.getY();
                 Position next = new Position(nx, ny);
 
                 if (nx >= 0 && nx < maze.getWidth() && ny >= 0 && ny < maze.getHeight()
@@ -36,25 +49,21 @@ public class BreadthFirstSearch {
             }
         }
 
+        int maxDistance = 0;
+        for (int dist : distances.values()) {
+            maxDistance = Math.max(maxDistance, dist);
+        }
+
+        int finalTarget = Math.min(targetDistance, maxDistance);
         List<Position> result = new ArrayList<>();
-        int finalDistance = targetDistance;
 
         for (Map.Entry<Position, Integer> entry : distances.entrySet()) {
-            if (entry.getValue() == finalDistance) {
+            if (entry.getValue() == finalTarget) {
                 result.add(entry.getKey());
             }
         }
 
-        if (result.isEmpty()) {
-            finalDistance = maxDistance;
-            for (Map.Entry<Position, Integer> entry : distances.entrySet()) {
-                if (entry.getValue() == finalDistance) {
-                    result.add(entry.getKey());
-                }
-            }
-        }
-
-        return result;
+        return new DistanceResult(result, finalTarget);
     }
 
     /**
@@ -72,8 +81,6 @@ public class BreadthFirstSearch {
         queue.add(start);
         distances.put(start, 0);
 
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
         while (!queue.isEmpty()) {
             Position current = queue.poll();
 
@@ -81,9 +88,9 @@ public class BreadthFirstSearch {
                 return distances.get(current);
             }
 
-            for (int[] dir : directions) {
-                int nx = current.getX() + dir[0];
-                int ny = current.getY() + dir[1];
+            for (Direction dir : Direction.values()) {
+                int nx = current.getX() + dir.getX();
+                int ny = current.getY() + dir.getY();
                 Position next = new Position(nx, ny);
 
                 if (nx >= 0 && nx < maze.getWidth() && ny >= 0 && ny < maze.getHeight()
@@ -127,10 +134,9 @@ public class BreadthFirstSearch {
     }
 
     public static List<Position> getNextPosition (Maze maze,Position currentPos,Set<Position> listedPosition){
-        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         List<Position> correctNextPositions = new ArrayList<>();
-        for (int[] direction : directions){
-            Position temp = new Position(currentPos.getX() + direction[0],currentPos.getY()  + direction[1]);
+        for (Direction direction : Direction.values()){
+            Position temp = new Position(currentPos.getX() + direction.getX(),currentPos.getY()  + direction.getY());
             if(maze.positionCorrecte(temp) && !listedPosition.contains(temp) && !maze.isWall(currentPos.getY(), currentPos.getX(), temp.getY(), temp.getX())){
                 correctNextPositions.add(temp);
             }

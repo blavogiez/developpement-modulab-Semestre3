@@ -1,67 +1,111 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-// Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
-// On verifie que le labyrinthe genere respecte la distance minimale entre start et end
-// et que l'algo fonctionne correctement dans differents cas!
+import java.util.Arrays;
 
-public class PerfectAlgorithmTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    static MazeAlgorithm algo;
-    static Maze maze1, maze2, maze3;
-    static Position start1, end1, start2, end2, start3, end3;
+public class PerfectAlgorithmRandomFusionTest {
+    PerfectAlgorithmRandomFusion algo;
+    Maze maze1, maze2, maze3;
+    Position start1, start2, start3, end1, end2, end3;
 
-    @BeforeAll
-    public static void initialization() {
-        algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
+    @BeforeEach
+    public void init(){
+
+        algo = PerfectAlgorithmRandomFusion.getInstance();
 
         //petit labyrinthe de taille avec distance minimale
-        maze1 = new Maze(10,12,10); 
+        maze1 = new Maze(10,12,10);
         start1 = maze1.getEntryPosition();
         end1 = maze1.getExitPosition();
         algo.generateMaze(maze1);
 
 
         // moyen labyrinthe avec petite distance
-        maze2 = new Maze(40,12,20); 
+        maze2 = new Maze(40,12,20);
         start2 = maze2.getEntryPosition();
         end2 = maze2.getExitPosition();
         algo.generateMaze(maze2);
 
         //grand labyrinthe avec grande distance
-        maze3 = new Maze(50,32,30); 
+        maze3 = new Maze(50,32,30);
         start3 = maze3.getEntryPosition();
         end3 = maze3.getExitPosition();
         algo.generateMaze(maze3);
+
     }
 
     @Test
-    public void testStartPosition() {
-        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()), "" + start1);
-
-        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()), "" + start2);
-
-        assertTrue(maze3.positionCorrecte(start3.getY(), start3.getX()), "" + start3);
+    public void generateNumberGridTest(){
+        assertArrayEquals(new int[][]{{0,1},{2,3}}, algo.generateNumberGrid(2,2));
+        assertArrayEquals(new int[][]{{0,1,2},{3,4,5},{6,7,8}}, algo.generateNumberGrid(3,3));
+        assertArrayEquals(new int[][]{{0,1,2},{3,4,5}}, algo.generateNumberGrid(2,3));
+        assertArrayEquals(new int[][]{{0,1},{2,3},{4,5}}, algo.generateNumberGrid(3,2));
     }
 
     @Test
-    public void testExitPosition() {
-        assertTrue(maze1.positionCorrecte(end1.getY(), end1.getX()));
+    public void fusionPositionTest(){
+        algo.horizontalsWalls = new boolean[2][2];
+        algo.verticalsWalls = new boolean[2][2];
+        algo.grid = algo.generateNumberGrid(2,2);
+        algo.fusionPosition(new Position(1,0), Direction.DOWN);
+        assertArrayEquals(new int[][]{{0,1},{2,1}},algo.grid);
+//        algo.fusionPosition(new Position(0,1), Direction.UP);
+//        assertArrayEquals(new int[][]{{2,3},{2,3}},algo.grid);
+//        algo.fusionPosition(new Position(1,0), Direction.LEFT);
+//        assertArrayEquals(new int[][]{{3,3},{3,3}},algo.grid);
+//
+//        algo.grid = algo.generateNumberGrid(2,2);
+//        algo.fusionPosition(new Position(0,0), Direction.RIGHT);
+//        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
+//        algo.fusionPosition(new Position(0,0), Direction.UP);
+//        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
+    }
 
-        assertTrue(maze2.positionCorrecte(end2.getY(), end2.getX()));
 
-        assertTrue(maze3.positionCorrecte(end3.getY(), end3.getX()));
+
+
+
+    @Test
+    public void isAlltheSameNumberTest(){
+        algo.grid = new int[][]{{1,1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1,1}};
+        assertTrue(algo.isAllTheSameNumber());
+        algo.grid = new int[][]{{1,1,1,1,1,2,1,1,1},{1,1,1,1,1,1,1,1,1}};
+        assertFalse(algo.isAllTheSameNumber());
+        algo.grid = new int[][]{{753,753},{753,753},{753,753},{753,753},{753,753},{753,753}};
+        assertTrue(algo.isAllTheSameNumber());
+        algo.grid = new int[][]{{1,1},{1,1},{1,1},{1,3},{1,1},{1,1}};
+        assertFalse(algo.isAllTheSameNumber());
+
+    }
+
+    @Test
+    public void transformAllNumberTest(){
+        algo.grid = algo.generateNumberGrid(10,10);
+        for (int i = 0; i<algo.grid.length*algo.grid[0].length;i++){
+            algo.transformAllNumber(i,0);
+        }
+        assertTrue(algo.isAllTheSameNumber());
+
+        algo.grid = new int[][]{{1,1,1,1,1,2},{0,0,0,0,0,0}};
+        algo.transformAllNumber(1,2);
+        algo.transformAllNumber(2,0);
+        assertTrue(algo.isAllTheSameNumber());
+    }
+
+    @Test
+    public void generateMazeTest(){
+        Maze maze = new Maze(10,10,5);
+        algo.generateMaze(maze);
+        assertArrayEquals(maze.getMurHorizontaux(), algo.horizontalsWalls);
+        assertArrayEquals(maze.getMurVerticaux(), algo.verticalsWalls);
     }
 
     @Test
@@ -127,4 +171,6 @@ public class PerfectAlgorithmTest {
         // verif que tous les labyrinthes respectent la distance minimale
         assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale de " + minDistance);
     }
+
+
 }

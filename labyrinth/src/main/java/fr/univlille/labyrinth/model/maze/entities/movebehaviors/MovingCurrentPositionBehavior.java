@@ -6,6 +6,7 @@ import java.util.Random;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 
@@ -19,8 +20,8 @@ public class MovingCurrentPositionBehavior implements MoveBehavior {
     }
 
     @Override
-    public void move(Entity entity, Direction direction, Maze maze) {
-            movingExitByCurrentDistance(entity,maze);
+    public void move(Entity entity, Direction direction, ObservableMaze maze) {
+        movingExitByCurrentDistance(entity,maze);
     }
 
     /*
@@ -28,7 +29,7 @@ public class MovingCurrentPositionBehavior implements MoveBehavior {
      */
     public void movingExitByCurrentDistance(Entity entity, Maze maze) {
         int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, entity.getPosition(),maze.getExitPosition());
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit);
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }

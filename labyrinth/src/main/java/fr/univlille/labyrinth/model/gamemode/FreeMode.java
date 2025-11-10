@@ -35,7 +35,8 @@ public class FreeMode extends GameMode {
         String info = "Labyrinthe d'algorithme " + config.getAlgorithmFactory().name() + " ; \n";
         info += "Dimensions : " + config.getWidth() + "x" + config.getHeight();
         if (config.isPerfectAlgorithm()) {
-            info += ", Distance : " + config.getDistanceBetweenEntryAndExit();
+            int distance=getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : config.getDistanceBetweenEntryAndExit() ;
+            info += ", Distance entrée / sortie : " + distance;
         } else {
             info += ", Pourcentage : " + (int) (config.getWallPercentage() * 100) + "%";
         }

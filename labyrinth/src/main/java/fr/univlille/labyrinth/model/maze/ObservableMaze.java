@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityManager;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.entities.*;
 import fr.univlille.labyrinth.model.maze.trap.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
@@ -43,8 +40,7 @@ public class ObservableMaze extends Maze {
         super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
-        List<Entity> entities = EntityListFactory.createEntities(entitiesConfiguration, this);
-        entities.forEach(entityManager::addEntity);
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
         this.trapManager = new TrapManager(this);
     }
 
@@ -72,7 +68,6 @@ public class ObservableMaze extends Maze {
      */
     public boolean movePlayer(Direction direction){
         entityManager.moveEntities(this, direction);
-
         return true ;
     }
 
@@ -86,11 +81,13 @@ public class ObservableMaze extends Maze {
      * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
      */
 
+
     /**
      * Cette méthode renvoie true si le joueur se situe à la sortie.
+     * Délègue à l'encapsulation EntityManager
      */
-    public boolean isPlayerPositionAtExit() {
-        return playerPosition.equals(exitPosition);
+    public boolean isPlayerAtExit() {
+        return entityManager.checkPlayerOnExit();
     }
 
 
@@ -129,14 +126,6 @@ public class ObservableMaze extends Maze {
             }
         }
         return super.getExitPosition();
-    }
-
-    public boolean isPlayerAtExit() {
-        PlayerEntity player = entityManager.getPlayerEntity();
-        if (player == null) return false;
-        Position playerPos = player.getPosition();
-        Position exitPos = getExitPosition();
-        return playerPos != null && exitPos != null && playerPos.equals(exitPos);
     }
 
     public EntityManager getEntityManager() {

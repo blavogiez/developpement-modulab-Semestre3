@@ -16,7 +16,6 @@ public class DepthStackSearch {
     * @param maze
     * @return boolean
     */
-   // Algorithm from TP02 / Effidev
    public static boolean isExitPossible(Maze maze) {
        marked = new HashSet<>();
 

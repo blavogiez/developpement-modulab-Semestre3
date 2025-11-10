@@ -14,7 +14,7 @@ import fr.univlille.labyrinth.model.save.ViewType;
 class SpeedrunScoreCalculatorTest {
 
     private SpeedrunScoreCalculator calculator;
-    private MazeAlgorithm algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
+    private final String algo = MazeAlgorithmFactory.PERFECT.name();
 
     @BeforeEach
     void setUp() {

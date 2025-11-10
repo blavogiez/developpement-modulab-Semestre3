@@ -1,8 +1,12 @@
 package fr.univlille.labyrinth.model.gamemode;
 
+
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.config.ProgressionModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
+
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -30,8 +34,10 @@ public class ProgressionMode extends GameMode {
         ProgressionMode.defaultProgress = ProgressionLoader.loadDefaultProgress();
     }
 
+
     public void createMaze() {
         getMazeManager().createMaze(config);
+
     }
 
     /**
@@ -55,7 +61,8 @@ public class ProgressionMode extends GameMode {
         Challenge challenge = config.getChallenge();
         String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();
         info += ", Pourcentage : " + (int) (challenge.getWallPercentage() * 100) + "%";
-        info += ", Distance entrée/sortie : " + challenge.getDistanceBetweenEntryAndExit();
+        int distance = getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : challenge.getDistanceBetweenEntryAndExit();
+        info += ", Distance entrée/sortie : " + distance;
         return info;
     }
 }

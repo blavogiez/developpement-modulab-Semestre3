@@ -56,7 +56,7 @@ public class FreeModeController {
     @FXML
     private HBox wallBox ;
 
-    // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
+    // mettre par défaut les valeurs des champs aux dernières valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
         FreeModeConfig config = AppState.getInstance().getFreeModeConfig();
@@ -92,9 +92,7 @@ public class FreeModeController {
         config.setWidth(width);
         config.setHeight(height);
         config.setWallPercentage(wallPercentageSlider.getValue());
-
-        int maxPossibleDistance = config.getMaxDistanceBetweenEntryAndExit();
-        config.setDistanceBetweenEntryAndExit(distance > maxPossibleDistance ? maxPossibleDistance : distance);
+        config.setDistanceBetweenEntryAndExit(distance);
 
         App.goTo("freemode/FreeModeLabyrinth.fxml");
     }

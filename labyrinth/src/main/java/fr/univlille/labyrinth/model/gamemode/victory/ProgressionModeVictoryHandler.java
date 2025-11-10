@@ -5,6 +5,10 @@ import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.utils.Timer;
 
+/*
+ * Lorsque notifié de la victoire, marque le défi actuel comme réussi dans les données du joueur.
+ * Puis, le sauvegarde.
+ */
 public class ProgressionModeVictoryHandler implements VictoryHandler {
     private Player player;
     private Challenge challenge;
@@ -20,6 +24,11 @@ public class ProgressionModeVictoryHandler implements VictoryHandler {
     public void handleVictory() {
         long completionTime = timer != null ? timer.getChrono() : 0;
         player.getProgress().markChallengeCompleted(challenge, completionTime);
+        PlayerDatabase.savePlayer(player);
+    }
+
+    @Override
+    public void handleLoose() {
         PlayerDatabase.savePlayer(player);
     }
 

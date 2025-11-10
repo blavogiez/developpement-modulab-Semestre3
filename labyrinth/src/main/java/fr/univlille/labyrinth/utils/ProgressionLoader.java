@@ -67,7 +67,7 @@ public class ProgressionLoader {
                 if (parts.length != EXPECTED_LENGTH) continue;
 
                 ScoreCalculatorFactory scoreFactory = ScoreCalculatorFactory.valueOf(parts[0]);
-                MazeAlgorithm algorithm = MazeAlgorithmFactory.valueOf(parts[1]).getAlgorithm();
+                String algorithm = parts[1];
                 ViewType viewType = ViewType.valueOf(parts[2]);
                 int levelNumber = Integer.parseInt(parts[3]);
                 int challengeIndex = Integer.parseInt(parts[4]);
