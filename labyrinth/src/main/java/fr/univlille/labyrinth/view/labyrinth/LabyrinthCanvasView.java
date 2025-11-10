@@ -101,14 +101,14 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void horizontalsWalls(GraphicsContext gc, int height, int width) {
         for (int x = 0; x < width; x++) {
-            if (currentMaze.isWall(-1, x, 0, x) && shouldDrawHorizontalWall(-1, x, height, width)) {
+            if (isWall(currentMaze) && shouldDrawHorizontalWall(-1, x, height, width)) {
                 double x1 = layout.getOffsetX() + x * layout.getCellSize();
                 double x2 = x1 + layout.getCellSize();
                 double y1 = layout.getOffsetY();
                 gc.strokeLine(x1, y1, x2, y1);
             }
             for (int y = 0; y < height; y++) {
-                if (currentMaze.isWall(y, x, y + 1, x) && shouldDrawHorizontalWall(y, x, height, width)) {
+                if (isWall(currentMaze) && shouldDrawHorizontalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + x * layout.getCellSize();
                     double x2 = x1 + layout.getCellSize();
                     double y1 = layout.getOffsetY() + (y + 1) * layout.getCellSize();
@@ -117,6 +117,8 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             }
         }
     }
+
+    protected abstract boolean isWall(ObservableMaze currentMaze2);
 
     protected void verticalsWalls(GraphicsContext gc, int height, int width) {
         for (int y = 0; y < height; y++) {
@@ -128,7 +130,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
             }
 
             for (int x = 0; x < width; x++) {
-                if (currentMaze.isWall(y, x, y, x + 1) && shouldDrawVerticalWall(y, x, height, width)) {
+                if (isWall(currentMaze) && shouldDrawVerticalWall(y, x, height, width)) {
                     double x1 = layout.getOffsetX() + (x + 1) * layout.getCellSize();
                     double y1 = layout.getOffsetY() + y * layout.getCellSize();
                     double y2 = y1 + layout.getCellSize();
