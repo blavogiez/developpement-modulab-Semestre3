@@ -64,14 +64,16 @@ public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
         if (globalX <= 0) return true;
         if (positionCorrecte(globalY, globalX,currentMaze)) return false;
-        if (positionCorrecte(globalY, globalX - 1),currentMaze) return true;
+        if (positionCorrecte(globalY, globalX - 1,currentMaze)) return true;
         return currentMaze.isWall(globalY, globalX - 1, globalY, globalX);
     }
 
+    protected abstract boolean positionCorrecte(int globalY, int globalX, ObservableMaze currentMaze);
+
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
         if (globalY <= 0) return true;
-        if (!currentMaze.positionCorrecte(globalY, globalX)) return false;
-        if (!currentMaze.positionCorrecte(globalY - 1, globalX)) return true;
+        if (positionCorrecte(globalY, globalX,currentMaze)) return false;
+        if (positionCorrecte(globalY-1, globalX,currentMaze)) return true;
         return currentMaze.isWall(globalY - 1, globalX, globalY, globalX);
     }
 
@@ -161,7 +163,7 @@ public abstract class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     private boolean isOutOfBounds(int globalX, int globalY) {
-        return !currentMaze.positionCorrecte(globalY, globalX);
+        return !positionCorrecte(globalY, globalX,currentMaze);
     }
 
     private Position toLocalCoordinates(int globalX, int globalY) {
