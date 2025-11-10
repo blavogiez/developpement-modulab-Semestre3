@@ -19,7 +19,7 @@ public class TrapManager {
 
     public void trapEffect(Position oldPosition) {
         Position newPosition = maze.getPlayerPosition();
-        this.trap[oldPosition.getY()][oldPosition.getX()].onUse(newPosition, oldPosition, maze);
+        this.trap[newPosition.getY()][newPosition.getX()].onUse(newPosition, oldPosition, maze);
     }
 
     public Trap[][] getTraps() {

@@ -152,6 +152,7 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 if (shouldRenderTrap(traps[y][x], x, y)) {
+                    System.out.println(traps[y][x].name());
                     GameViewConfig config = GameViewConfig.valueOf(traps[y][x].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.5);
                 }

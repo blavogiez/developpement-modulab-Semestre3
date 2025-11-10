@@ -2,62 +2,29 @@ package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.maze.traps.trap.*;
 
-public enum TrapFactory {
-    NONE,
-    RANDOM_TRAP{
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-    },
-    USED{
-        @Override
-        public Trap generateTrap() {
-            return new UsedTrap();
-        }
-    },
-    TELEPORTER_TRAP {
-        @Override
-        public Trap generateTrap() {
-            return new TeleportTrap();
-        }
-    },
-    FAKE_EXIT_TRAP{
-        @Override
-        public Trap generateTrap() {
-            return new FakeTrap();
-        }
-    },
-    PUSH_TRAP {
-        @Override
-        public Trap generateTrap() {
-            return new PushTrap();
-        }
-    },
-    STUN_TRAP {
-        @Override
-        public Trap generateTrap() {
-            return new StunTrap();
-        }
-    },
-    HIDE_WALL_TRAP {
-        @Override
-        public Trap generateTrap() {
-            return new HideWallTrap();
-        }
-    },
-    TELEPORT_EXIT_TRAP{
-        @Override
-        public Trap generateTrap() {
-            return new TeleportExitTrap();
-        }
-    },
-    LAVA_TRAP{
-        @Override
-        public Trap generateTrap() {
-            return new LavaTrap();
-        }
-    };
+public enum TrapFactory {
+    NONE(NoneTrap::new),
+    RANDOM_TRAP(RandomTrap::new),
+    USED(UsedTrap::new),
+    TELEPORTER_TRAP(TeleportTrap::new),
+    FAKE_EXIT_TRAP(FakeTrap::new),
+    PUSH_TRAP(PushTrap::new),
+    STUN_TRAP(StunTrap::new),
+    HIDE_WALL_TRAP(HideWallTrap::new),
+    TELEPORT_EXIT_TRAP(TeleportExitTrap::new),
+    LAVA_TRAP(LavaTrap::new);
+
+    private Supplier<Trap> trap;
+
+    TrapFactory(Supplier<Trap> trap){
+        this.trap=trap;
+    }
 
     public Trap generateTrap(){
-        return new NoneTrap();
+        return trap.get();
     }
 
 

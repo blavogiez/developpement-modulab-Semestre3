@@ -85,6 +85,8 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
         return instance;
     }
 
-
+    public String toString() {
+        return "Fusion";
+    }
 
 }

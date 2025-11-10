@@ -143,12 +143,14 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
+        System.out.println("Début du dessin des traps");
         Trap[][] trapFactories = maze.getTrapManager().getTraps();
         for (int globalY = 0; globalY < trapFactories.length; globalY++) {
             for (int globalX = 0; globalX < trapFactories[globalY].length; globalX++) {
                 Position local = toLocalCoordinates(globalX, globalY);
                 if (local != null) {
-                    GameViewConfig config = GameViewConfig.valueOf("TRAP_" + trapFactories[globalY][globalX].name());
+                    System.out.println(trapFactories[globalY][globalX].name());
+                    GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         local.getX(), local.getY(), layout, 0.5);
                 }

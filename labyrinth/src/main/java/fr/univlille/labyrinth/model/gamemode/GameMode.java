@@ -38,15 +38,14 @@ public abstract class GameMode {
 
         ObservableMaze maze = mazeManager.getCurrentMaze();
         if (maze.getPlayerPosition() == null) return;
-
-        Position playerPosition = maze.getPlayerPosition().copy();
+        Position oldPlayerPosition = maze.getPlayerPosition().copy();
         if (maze.movePlayer(direction)) {
             if (maze.isPlayerAtExit()) {
                 handleVictory();
             } else if(maze.getEntityManager().checkMonsterOnPlayer()) {
                 handleLoose();
             } else {
-                maze.trapEffect(playerPosition);
+                maze.trapEffect(oldPlayerPosition);
             }
         }
     }

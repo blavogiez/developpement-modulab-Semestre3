@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.entities.*;
 import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
@@ -36,7 +38,11 @@ public class ObservableMaze extends Maze {
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
-        super(width, height, distanceBetweenEntryAndExit) ;
+        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        super(width, height, distanceBetweenEntryAndExit, algo) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
@@ -106,8 +112,8 @@ public class ObservableMaze extends Maze {
 
 
     @Override
-    public void trapEffect(Position position) {
-        trapManager.trapEffect(position);
+    public void trapEffect(Position oldPlayerPosition) {
+        trapManager.trapEffect(oldPlayerPosition);
         notifyObserver();
     }
 
