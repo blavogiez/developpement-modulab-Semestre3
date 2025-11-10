@@ -23,7 +23,6 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 public class Maze {
     protected int width;
     protected int height;
-    protected TrapFactory[][] grid;
     protected Position entryPosition;
     protected Position exitPosition;
     protected int distanceBetweenEntryAndExit;

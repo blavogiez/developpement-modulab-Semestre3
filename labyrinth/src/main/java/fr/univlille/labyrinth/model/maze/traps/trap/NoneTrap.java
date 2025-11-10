@@ -1,8 +1,16 @@
 package fr.univlille.labyrinth.model.maze.traps.trap;
 
-public class NoneTrap implements Trap {
-    @Override
-    public void onUse() {
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.Position;
 
+public class NoneTrap extends Trap {
+    @Override
+    public void onUse(Position position, Position oldPosition, ObservableMaze maze) {
+
+    }
+
+    @Override
+    public String name() {
+        return "PATH";
     }
 }

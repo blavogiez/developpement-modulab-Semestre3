@@ -4,6 +4,7 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -142,7 +143,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        TrapFactory[][] trapFactories = maze.getTrapManager().getTraps();
+        Trap[][] trapFactories = maze.getTrapManager().getTraps();
         for (int globalY = 0; globalY < trapFactories.length; globalY++) {
             for (int globalX = 0; globalX < trapFactories[globalY].length; globalX++) {
                 Position local = toLocalCoordinates(globalX, globalY);

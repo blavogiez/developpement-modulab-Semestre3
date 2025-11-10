@@ -4,27 +4,62 @@ import fr.univlille.labyrinth.model.maze.traps.trap.*;
 
 public enum TrapFactory {
     NONE,
-    RANDOM,
-    USED,
-    TELEPORTER(new TeleportTrap()),
-    FAKE(new FakeTrap()),
-    PUSH(new PushTrap()),
-    STUN(new StunTrap()),
-    REGENERATE_WALL(new HideWallTrap()),
-    TELEPORT_EXIT(new TeleportExitTrap()),
-    LAVA(new LavaTrap());
+    RANDOM_TRAP{
 
-    private final Trap trap;
+    },
+    USED{
+        @Override
+        public Trap generateTrap() {
+            return new UsedTrap();
+        }
+    },
+    TELEPORTER_TRAP {
+        @Override
+        public Trap generateTrap() {
+            return new TeleportTrap();
+        }
+    },
+    FAKE_EXIT_TRAP{
+        @Override
+        public Trap generateTrap() {
+            return new FakeTrap();
+        }
+    },
+    PUSH_TRAP {
+        @Override
+        public Trap generateTrap() {
+            return new PushTrap();
+        }
+    },
+    STUN_TRAP {
+        @Override
+        public Trap generateTrap() {
+            return new StunTrap();
+        }
+    },
+    HIDE_WALL_TRAP {
+        @Override
+        public Trap generateTrap() {
+            return new HideWallTrap();
+        }
+    },
+    TELEPORT_EXIT_TRAP{
+        @Override
+        public Trap generateTrap() {
+            return new TeleportExitTrap();
+        }
+    },
+    LAVA_TRAP{
+        @Override
+        public Trap generateTrap() {
+            return new LavaTrap();
+        }
+    };
 
-    TrapFactory(Trap trap){
-        this.trap=trap;
+    public Trap generateTrap(){
+        return new NoneTrap();
     }
 
-    TrapFactory(){
-        this.trap=new NoneTrap();
-    }
 
-    public Trap getTrap() {
-        return trap;
-    }
+
 }

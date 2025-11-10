@@ -10,8 +10,8 @@ public class TrapFactoryTest {
 
     @Test
     public void onCreateTrapTest(){
-        Trap trap = TrapFactory.NONE.getTrap();
-        Trap trap2 = TrapFactory.NONE.getTrap();
+        Trap trap = TrapFactory.NONE.generateTrap();
+        Trap trap2 = TrapFactory.NONE.generateTrap();
 
         assertEquals(trap, trap2);
         assertNotSame(trap, trap2);
