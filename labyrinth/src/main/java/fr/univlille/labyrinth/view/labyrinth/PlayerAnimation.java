@@ -1,6 +1,8 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import java.util.HashMap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import javafx.animation.AnimationTimer;
 
 public class PlayerAnimation extends AnimationTimer {
@@ -24,17 +26,37 @@ public class PlayerAnimation extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        if(!enabled) return;
+        if (!enabled) return;
         ObservableMaze maze = view.getCurrentMaze();
-        int targetX = maze.getPlayerPosition().getX();
-        int targetY = maze.getPlayerPosition().getY();
 
-        view.setPlayerX( view.getPlayerX() + (targetX - view.getPlayerX()) * speed);
-        view.setPlayerY( view.getPlayerY() + (targetY - view.getPlayerY()) * speed);
+        HashMap<Integer, Double> xMap = view.getPlayerXMap();
+        HashMap<Integer, Double> yMap = view.getPlayerYMap();
+        boolean hasMoved = false;
 
-        if (Math.abs(view.getPlayerX() - targetX) < 0.01) view.setPlayerX(targetX);
-        if (Math.abs(view.getPlayerY() - targetY) < 0.01) view.setPlayerY(targetY);
+        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+            int id = player.getID();
+            int targetX = player.getPosition().getX();
+            int targetY = player.getPosition().getY();
 
-        view.draw();
+            double currentX = xMap.getOrDefault(id, (double) targetX);
+            double currentY = yMap.getOrDefault(id, (double) targetY);
+
+            double newX = currentX + (targetX - currentX) * speed;
+            double newY = currentY + (targetY - currentY) * speed;
+
+            if (Math.abs(newX - targetX) < 0.01) newX = targetX;
+            if (Math.abs(newY - targetY) < 0.01) newY = targetY;
+
+            xMap.put(id, newX);
+            yMap.put(id, newY);
+
+            if (Math.abs(currentX - newX) > 0.01 || Math.abs(currentY - newY) > 0.01) {
+                hasMoved = true;
+            }
+        }
+
+        if (hasMoved) {
+            view.draw();
+        }
     }
 }

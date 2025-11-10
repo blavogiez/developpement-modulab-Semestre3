@@ -1,10 +1,12 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import java.util.HashMap;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
@@ -20,11 +22,9 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected Canvas canvas;
     protected ObservableMaze currentMaze;
     protected PlayerAnimation playerAnimation;
-    protected double playerX, playerY;
+    protected HashMap<Integer, Double> playerXMap = new HashMap<>();
+    protected HashMap<Integer, Double> playerYMap = new HashMap<>();
 
-    /*
-     * Attributs calculant la façon "responsive"
-     */
     protected LabyrinthLayout layout;
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
@@ -138,12 +138,17 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
-    /*
-     * le joueur est dessiné spécialement car il recoit une animation (sa position change un tout petit peu chaque 1/60 de seconde
-     * on utilise donc ses variables spéciales
-     */
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, playerY, playerX, GameViewConfig.PLAYER.getColor());
+        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+            int id = player.getID();
+            Double x = playerXMap.get(id);
+            Double y = playerYMap.get(id);
+
+            if (x != null && y != null) {
+                Color color = Color.hsb(id * 137, 0.8, 0.9);
+                dessinerMarqueur(gc, y, x, color);
+            }
+        }
     }
 
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
@@ -220,20 +225,12 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return currentMaze;
     }
 
-    public double getPlayerX() {
-        return playerX;
+    public HashMap<Integer, Double> getPlayerXMap() {
+        return playerXMap;
     }
 
-    public void setPlayerX(double x) {
-        this.playerX = x;
-    }
-
-    public double getPlayerY() {
-        return playerY;
-    }
-
-    public void setPlayerY(double y) {
-        this.playerY = y;
+    public HashMap<Integer, Double> getPlayerYMap() {
+        return playerYMap;
     }
 
     public Canvas getCanvas() {
