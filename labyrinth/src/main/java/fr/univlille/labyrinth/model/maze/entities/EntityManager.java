@@ -81,6 +81,15 @@ public class EntityManager {
         return players;
     }
 
+    public PlayerEntity getPlayerEntityByID(int playerID) {
+        for (PlayerEntity player : getPlayerEntities()) {
+            if (player.getID() == playerID) {
+                return player;
+            }
+        }
+        return null;
+    }
+
     public MonsterEntity getMonsterEntity() {
         for (Entity e : this.entities) {
             if (e.getEntityType()==EntityType.MONSTER) return (MonsterEntity) e ;

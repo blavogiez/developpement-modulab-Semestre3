@@ -186,8 +186,10 @@ public abstract class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
     protected boolean estDansRayon(int x, int y, ObservableMaze maze, int rayon) {
-        int playerX = maze.getPlayerPosition().getX();
-        int playerY = maze.getPlayerPosition().getY();
+        PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(0);
+        if (player == null) return false;
+        int playerX = player.getPosition().getX();
+        int playerY = player.getPosition().getY();
         int dx = Math.abs(x - playerX);
         int dy = Math.abs(y - playerY);
         return Math.max(dx, dy) <= rayon;

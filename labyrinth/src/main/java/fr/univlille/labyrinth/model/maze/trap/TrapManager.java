@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model.maze.trap;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
 public class TrapManager {
@@ -15,19 +16,20 @@ public class TrapManager {
     }
 
 
-    public void trapEffect(Position oldPosition) {
-        Position newPosition = maze.getPlayerPosition();
+    public void trapEffect(int playerID, Position oldPosition) {
+        PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(playerID);
+        if (player == null) return;
+
+        Position newPosition = player.getPosition();
         Trap trap = traps[newPosition.getY()][newPosition.getX()];
+
         switch (trap) {
             case PUSH -> {
                 revealTrap(newPosition);
-                Direction direction = Direction.getDirection(oldPosition,newPosition);
-
+                Direction direction = Direction.getDirection(oldPosition, newPosition);
                 do {
-                    maze.getEntityManager().getPlayerEntity().getMoveBehavior().move(maze.getEntityManager().getPlayerEntity(),direction,maze);
-                } while (((PlayerMoveBehavior) maze.getEntityManager().getPlayerEntity().getMoveBehavior()).isMoving());
-
-
+                    player.getMoveBehavior().move(player, direction, maze);
+                } while (((PlayerMoveBehavior) player.getMoveBehavior()).isMoving());
             }
             case FAKE -> {
                 revealTrap(newPosition);
@@ -36,9 +38,7 @@ public class TrapManager {
                 //besoin des codes, execute PvETurn()
             }
             case TELEPORTER -> {
-
-                maze.setPlayerPosition(TrapSetup.getRandomCell(maze));
-
+                player.setPosition(TrapSetup.getRandomCell(maze));
             }
         }
     }

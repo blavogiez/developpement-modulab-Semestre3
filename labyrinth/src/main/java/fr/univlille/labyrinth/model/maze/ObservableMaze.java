@@ -95,44 +95,29 @@ public class ObservableMaze extends Maze {
      * Surcharge pour ajouter les entités par défaut
      */
 
-
-    public Position getPlayerPosition() {
-        PlayerEntity player = entityManager.getPlayerEntity();
-        return player != null ? player.getPosition() : null;
-    }
-
 //    TrapHandler
 //    EventHandler
 //    MoveBehavoirHandler
 
 
     @Override
-    public void trapEffect(Position position) {
-        trapManager.trapEffect(position);
+    public void trapEffect(int playerID, Position oldPosition) {
+        trapManager.trapEffect(playerID, oldPosition);
         notifyObserver();
     }
 
     public TrapManager getTrapManager() {
         return trapManager;
     }
-    /*
-     * Renvoie les coordonnées de sortie de la sortie de l'entité (si elle bouge)
-     * S'il n'y a pas (encore) de sortie on appelle le getter de la variable (super)
-     */
-    public Position getExitPosition() {
-        for (Entity entity : entityManager.getEntities()) {
-            if (entity.getEntityType()==EntityType.EXIT) {
-                return entity.getPosition();
-            }
-        }
-        return super.getExitPosition();
-    }
 
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
-    public void setPlayerPosition(Position playerPosition) {
-        entityManager.getPlayerEntity().setPosition(playerPosition);
+    public void setPlayerPosition(int playerID, Position position) {
+        PlayerEntity player = entityManager.getPlayerEntityByID(playerID);
+        if (player != null) {
+            player.setPosition(position);
+        }
     }
 }

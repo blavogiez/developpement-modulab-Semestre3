@@ -152,7 +152,7 @@ public class Maze {
         this.exitPosition=exitPosition;
     }
 
-    public void trapEffect(Position position) {}
+    public void trapEffect(int playerID, Position oldPosition) {}
 
 
 

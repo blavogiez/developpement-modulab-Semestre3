@@ -4,6 +4,7 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.trap.Trap;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.view.GameViewConfig;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -36,7 +37,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
 
-        Position player = currentMaze.getPlayerPosition();
+        PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
+        if (playerEntity == null) return;
+        Position player = playerEntity.getPosition();
 
         for (int localY = 0; localY < VIEW_SIZE; localY++) {
             for (int localX = 0; localX <= VIEW_SIZE; localX++) {
@@ -96,7 +99,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        Position player = currentMaze.getPlayerPosition();
+        PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
+        if (playerEntity == null) return;
+        Position player = playerEntity.getPosition();
 
         for (int localY = 0; localY < VIEW_SIZE; localY++) {
             for (int localX = 0; localX < VIEW_SIZE; localX++) {
@@ -126,7 +131,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     @Override
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
-        Position playerPos = maze.getPlayerPosition();
+        PlayerEntity playerEntity = maze.getEntityManager().getPlayerEntityByID(0);
+        if (playerEntity == null) return;
+        Position playerPos = playerEntity.getPosition();
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if (shouldRenderEntity(entity)) {
                 int localX = entity.getPosition().getX() - playerPos.getX() + VIEW_RADIUS;
@@ -165,7 +172,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     private Position toLocalCoordinates(int globalX, int globalY) {
-        Position player = currentMaze.getPlayerPosition();
+        PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
+        if (playerEntity == null) return null;
+        Position player = playerEntity.getPosition();
         int localX = globalX - player.getX() + VIEW_RADIUS;
         int localY = globalY - player.getY() + VIEW_RADIUS;
         if (localX < 0 || localX >= VIEW_SIZE || localY < 0 || localY >= VIEW_SIZE) {
