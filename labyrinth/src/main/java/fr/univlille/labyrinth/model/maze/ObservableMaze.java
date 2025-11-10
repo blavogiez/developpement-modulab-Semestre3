@@ -66,8 +66,8 @@ public class ObservableMaze extends Maze {
      * (Le joueur est contenu dans les entités)
      * 
      */
-    public boolean movePlayer(Direction direction){
-        entityManager.moveEntities(this, direction);
+    public boolean movePlayer(int playerID, Direction direction){
+        entityManager.moveEntities(playerID, this, direction);
         return true ;
     }
 

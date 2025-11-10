@@ -6,6 +6,7 @@ import java.util.List;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.save.Player;
 
 public class EntityManager {
     private int cptPlayerID;
@@ -46,10 +47,18 @@ public class EntityManager {
         entities.clear();
     }
 
-    public boolean moveEntities(ObservableMaze maze, Direction direction) {
+    public boolean moveEntities(int playerID, ObservableMaze maze, Direction direction) {
         boolean stmt = true ;
         for (Entity entity : entities) {
-            if (!entity.move(maze, direction)) stmt = false ;
+            if(entity.getEntityType()==EntityType.PLAYER) {
+                PlayerEntity playerEntity = (PlayerEntity) entity ;
+                if(playerEntity.getID()==playerID) {
+                    if (!playerEntity.move(maze, direction)) stmt = false ;
+                }
+            }
+            else {
+                if (!entity.move(maze, direction)) stmt = false ;
+            }
         }
         return stmt ;
     }
