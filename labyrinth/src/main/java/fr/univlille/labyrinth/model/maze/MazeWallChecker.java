@@ -33,4 +33,24 @@ public class  MazeWallChecker {
         //IMPOSSIBLE
         return true;
     }
+
+    /*
+     * La méthode permet de savoir si la position se situe dans le labyrinthe.
+     */
+    public boolean positionCorrecte(Maze maze) {
+        int y=maze.entryPosition.getY();
+        int x=maze.entryPosition.getX();
+        int height=maze.getHeight();
+        int width=maze.getWidth();
+        return y >= 0 && y < height && x >= 0 && x < width;
+    }
+
+    public boolean adjacent(Maze maze) {
+        int y1=maze.entryPosition.getY();
+        int x1=maze.entryPosition.getX();
+        int y2=maze.exitPosition.getY(); 
+        int x2=maze.exitPosition.getX(); 
+        return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
+                || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
+    }
 }
