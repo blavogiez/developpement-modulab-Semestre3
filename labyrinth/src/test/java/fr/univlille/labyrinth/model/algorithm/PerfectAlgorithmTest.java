@@ -27,26 +27,20 @@ public class PerfectAlgorithmTest {
         algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
         //petit labyrinthe de taille avec distance minimale
-        maze1 = new Maze(10,12,10); 
+        maze1 = new Maze(10,12,10, algo); 
         start1 = maze1.getEntryPosition();
         end1 = maze1.getExitPosition();
-        //algo.generateMaze(maze1);
-        //algo.generateExitAndPlayer(maze1);
 
 
         // moyen labyrinthe avec petite distance
-        maze2 = new Maze(40,12,20); 
+        maze2 = new Maze(40,12,20, algo); 
         start2 = maze2.getEntryPosition();
         end2 = maze2.getExitPosition();
-        //algo.generateMaze(maze2);
-        //algo.generateExitAndPlayer(maze2);
 
         //grand labyrinthe avec grande distance
-        maze3 = new Maze(50,32,30); 
+        maze3 = new Maze(50,32,30, algo); 
         start3 = maze3.getEntryPosition();
         end3 = maze3.getExitPosition();
-        //algo.generateMaze(maze3);
-        //algo.generateExitAndPlayer(maze3);
     }
 
     @Test

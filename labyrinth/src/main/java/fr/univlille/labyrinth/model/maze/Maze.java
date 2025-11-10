@@ -44,7 +44,7 @@ public class Maze {
         algo.generateExitAndPlayer(this);
     }
 
-    // cell grid à gérer ?
+    // Surcharge avec algorithme par défaut
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this(width, height, distanceBetweenEntryAndExit, MazeAlgorithmFactory.PERFECT.getAlgorithm());
     }
