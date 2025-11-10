@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.controller.freemode;
 import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
@@ -24,7 +25,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
-        gameMode = new FreeMode();
+        gameMode = new FreeMode(AppState.getInstance().getFreeModeConfig());
         gameMode.createMaze();
 
         labyrinth = new NormalLabyrinthCanvasView(gameMode.getCurrentMaze());
