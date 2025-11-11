@@ -67,21 +67,33 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
-        if (globalX <= 0) return true;
-        Position p1 =new Position(globalY, globalX);
-        Position p2 =new Position(globalY, globalX-1);
-        if (MazeWallChecker.positionCorrecte(p1,currentMaze)) return false;
-        if (MazeWallChecker.positionCorrecte(p2,currentMaze)) return true;
-        return MazeWallChecker.isWall(currentMaze,globalY, globalX - 1, globalY, globalX);
+        Position p1 = new Position(globalY, globalX);
+        Position p2 = new Position(globalY, globalX - 1);
+        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
+        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
+
+        if (!p1Valid && !p2Valid) {
+            return false;
+        }
+        if (!p1Valid || !p2Valid) {
+            return true;
+        }
+        return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
-        if (globalY <= 0) return true;
-        Position p1 =new Position(globalY, globalX);
-        Position p2 =new Position(globalY-1, globalX);
-        if (MazeWallChecker.positionCorrecte(p1,currentMaze)) return false;
-        if (MazeWallChecker.positionCorrecte(p2,currentMaze)) return true;
-        return MazeWallChecker.isWall(currentMaze,globalY - 1, globalX, globalY, globalX);
+        Position p1 = new Position(globalY, globalX);
+        Position p2 = new Position(globalY - 1, globalX);
+        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
+        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
+
+        if (!p1Valid && !p2Valid) {
+            return false;
+        }
+        if (!p1Valid || !p2Valid) {
+            return true;
+        }
+        return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
     private void drawVerticalWallAt(GraphicsContext gc, int localX, int localY) {
