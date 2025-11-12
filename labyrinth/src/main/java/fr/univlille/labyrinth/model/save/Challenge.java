@@ -152,6 +152,9 @@ public class Challenge implements Serializable {
         return this.viewType;
     }
 
+    /** 
+     * @return String
+     */
     public String getEntitiesConfiguration() {
         return entitiesConfiguration;
     }

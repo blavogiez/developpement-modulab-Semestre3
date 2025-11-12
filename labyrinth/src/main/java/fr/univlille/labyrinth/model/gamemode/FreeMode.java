@@ -27,10 +27,16 @@ public class FreeMode extends GameMode {
         getMazeManager().createMaze(config);
     }
 
+    /** 
+     * @return FreeModeConfig
+     */
     public FreeModeConfig getConfig() {
         return config;
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         String info = "Labyrinthe d'algorithme " + config.getAlgorithmFactory().name() + " ; \n";
         info += "Dimensions : " + config.getWidth() + "x" + config.getHeight();

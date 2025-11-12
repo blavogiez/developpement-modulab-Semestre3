@@ -108,3 +108,23 @@
     -fx-border-color: #555555;
     -fx-padding: 10;
 }
+
+.list-view {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 1;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #444444;
+}
+
+.delete-button {
+    -fx-background-color: #ff4444;
+    -fx-text-fill: white;
+}

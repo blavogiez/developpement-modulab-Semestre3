@@ -12,6 +12,14 @@ public class ComponentRenderer {
         this.shapeManager = new ShapeRendererManager();
     }
 
+    /** 
+     * @param gc
+     * @param shape
+     * @param color
+     * @param x
+     * @param y
+     * @param size
+     */
     public void renderComponent(GraphicsContext gc, Shape shape, Color color, double x, double y, double size) {
         if (shape == null) {
             return;
@@ -19,6 +27,15 @@ public class ComponentRenderer {
         shapeManager.render(gc, shape, x, y, size, color);
     }
 
+    /** 
+     * @param gc
+     * @param shape
+     * @param color
+     * @param gridX
+     * @param gridY
+     * @param layout
+     * @param sizeRatio
+     */
     public void renderComponentAt(GraphicsContext gc, Shape shape, Color color, int gridX, int gridY, LabyrinthLayout layout, double sizeRatio) {
         if (shape == null) {
             return;

@@ -14,15 +14,25 @@ public class MonsterEntity extends Entity {
         super(position, moveBehavior);
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     public static Position getInitialPosition(ObservableMaze maze) {
         return maze.getExitPosition();
     }
 
+    /** 
+     * @return EntityType
+     */
     @Override
     public EntityType getEntityType() {
         return EntityType.MONSTER;
     }
 
+    /** 
+     * @return MoveBehavior
+     */
     @Override
     public MoveBehavior getMoveBehavior() {
         return super.getMoveBehavior();

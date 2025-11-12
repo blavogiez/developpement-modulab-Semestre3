@@ -18,6 +18,10 @@ public class TrapManager {
     }
 
 
+    /** 
+     * @param playerID
+     * @param oldPosition
+     */
     public void trapEffect(int playerID, Position oldPosition) {
         PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(playerID);
         if (player == null) return;
@@ -25,6 +29,9 @@ public class TrapManager {
         this.trap[newPosition.getY()][newPosition.getX()].onUse(playerID, newPosition, oldPosition, maze);
     }
 
+    /** 
+     * @return Trap[][]
+     */
     public Trap[][] getTraps() {
         return trap;
     }

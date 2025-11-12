@@ -13,7 +13,6 @@ import java.util.Random;
 public class TrapSetup {
     static Trap[][] traps;
     static Map<TrapFactory, Integer> trapMap;
-    
 
     public static Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
         TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
@@ -25,20 +24,19 @@ public class TrapSetup {
     }
 
     public static Trap[][] generate(Maze maze, String setup){
-        trapMap = new EnumMap<>(TrapFactory.class);
-        String[] separatedTraps = setup.split("_");
-        for (int i = 0; i<separatedTraps.length;i++) {
-            extractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
-            verifyAndAddTrapIfExists(result);
+            trapMap = new EnumMap<>(TrapFactory.class);
+            String[] separatedTraps = setup.split("_");
+            for (int i = 0; i < separatedTraps.length; i++) {
+                extractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
+                verifyAndAddTrapIfExists(result);
+            }
+            return generate(maze, trapMap);
         }
-        return generate(maze,trapMap);
-    }
 
     private static void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
         TrapFactory trapType = TrapFactory.NONE;
         int numberTrap = 0;
         if (result.trap() != null && result.value() != null) {
-
 
             try {
                 trapType = TrapFactory.compactedValueOf(result.trap());
@@ -79,6 +77,9 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param maze
+     */
     public static void generateTraps(Maze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
@@ -89,6 +90,10 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     public static Position getRandomCell(Maze maze){
         Random random = new Random();
         int x, y;
@@ -113,10 +118,20 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @return Trap
+     */
     static Trap getTrap(int y, int x){
         return traps[y][x];
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param trap
+     */
     public static void setTrap(int y, int x, Trap trap){
         traps[y][x] = trap;
     }

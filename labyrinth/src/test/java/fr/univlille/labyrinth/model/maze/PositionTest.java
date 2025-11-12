@@ -112,6 +112,10 @@ class PositionTest {
         assertNotSame(pos, pos2);
     }
 
+    /** 
+     * @param tab
+     * @return boolean
+     */
     private boolean checkAllAreTrue(boolean[][] tab){
         for (boolean[] booleans : tab) {
             for (boolean aBoolean : booleans) {

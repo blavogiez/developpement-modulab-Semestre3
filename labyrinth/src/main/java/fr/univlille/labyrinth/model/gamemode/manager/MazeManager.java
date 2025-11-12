@@ -6,6 +6,9 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 public class MazeManager {
     private ObservableMaze currentMaze;
 
+    /** 
+     * @param config
+     */
     public void createMaze(GameConfig config) {
         if (config.isPerfectAlgorithm()) {
             this.currentMaze = new ObservableMaze(
@@ -28,14 +31,23 @@ public class MazeManager {
         }
     }
 
+    /** 
+     * @return ObservableMaze
+     */
     public ObservableMaze getCurrentMaze() {
         return currentMaze;
     }
 
+    /** 
+     * @param maze
+     */
     public void setCurrentMaze(ObservableMaze maze) {
         this.currentMaze = maze;
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean hasMaze() {
         return currentMaze != null;
     }

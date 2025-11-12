@@ -13,6 +13,16 @@ import java.util.List;
 
 public class ResizeUtil {
 
+    /** 
+     * @param parent
+     * @param cont
+     * @param width
+     * @param height
+     * @param MarginT
+     * @param MarginR
+     * @param MarginB
+     * @param MarginL
+     */
     public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         cont.setMinWidth(width);
         cont.setPrefWidth(width);
@@ -53,6 +63,15 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     * @param width
+     * @param height
+     * @param MarginT
+     * @param MarginR
+     * @param MarginB
+     * @param MarginL
+     */
     public static void resizeControlsInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         ObservableList<Node> childs = parent.getChildren();
         for (Node child : childs) {
@@ -60,6 +79,9 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     */
     public static void resizeControlsInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
@@ -74,6 +96,16 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     * @param pane
+     * @param width
+     * @param height
+     * @param MarginT
+     * @param MarginR
+     * @param MarginB
+     * @param MarginL
+     */
     public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         pane.setMinWidth(width);
         pane.setPrefWidth(width);
@@ -89,6 +121,15 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     * @param width
+     * @param height
+     * @param MarginT
+     * @param MarginR
+     * @param MarginB
+     * @param MarginL
+     */
     public static void resizePanesInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
         ObservableList<Node> childs = parent.getChildren();
         for (Node child : childs) {
@@ -96,6 +137,9 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     */
     public static void resizePanesInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
@@ -110,6 +154,10 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param comboBox
+     * @return int
+     */
     private static int getMaxLengthItemComboBox(ComboBox comboBox){
         int maxLength = 0;
         for (Object item : comboBox.getItems()) {

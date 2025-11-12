@@ -28,60 +28,99 @@ public class FreeModeConfig implements GameConfig {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @return MazeAlgorithm
+     */
     @Override
     public MazeAlgorithm getAlgorithm() {
         return algorithmFactory.getAlgorithm();
     }
 
+    /** 
+     * @return int
+     */
     @Override
     public int getWidth() {
         return width;
     }
 
+    /** 
+     * @return int
+     */
     @Override
     public int getHeight() {
         return height;
     }
 
+    /** 
+     * @return double
+     */
     @Override
     public double getWallPercentage() {
         return wallPercentage;
     }
 
+    /** 
+     * @return int
+     */
     @Override
     public int getDistanceBetweenEntryAndExit() {
         return distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isPerfectAlgorithm() {
         return algorithmFactory.isPerfect();
     }
 
+    /** 
+     * @return MazeAlgorithmFactory
+     */
     public MazeAlgorithmFactory getAlgorithmFactory() {
         return algorithmFactory;
     }
 
+    /** 
+     * @param algorithmFactory
+     */
     public void setAlgorithmFactory(MazeAlgorithmFactory algorithmFactory) {
         this.algorithmFactory = algorithmFactory;
     }
 
+    /** 
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /** 
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /** 
+     * @param wallPercentage
+     */
     public void setWallPercentage(double wallPercentage) {
         this.wallPercentage = wallPercentage;
     }
 
+    /** 
+     * @param distanceBetweenEntryAndExit
+     */
     public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @return String
+     */
     public String getEntitiesConfiguration() {
         return entityConfiguration;
     }
@@ -89,5 +128,10 @@ public class FreeModeConfig implements GameConfig {
     @Override
     public String getTrapsConfiguration() {
         return trapsConfiguration;
+    }
+
+    public void setEntitiesConfiguration(String entityConfiguration) {
+        this.entityConfiguration = entityConfiguration;
+
     }
 }

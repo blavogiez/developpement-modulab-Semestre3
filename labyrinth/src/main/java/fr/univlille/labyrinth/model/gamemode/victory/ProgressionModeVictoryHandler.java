@@ -32,10 +32,16 @@ public class ProgressionModeVictoryHandler implements VictoryHandler {
         PlayerDatabase.savePlayer(player);
     }
 
+    /** 
+     * @param timer
+     */
     public void setTimer(Timer timer) {
         this.timer = timer;
     }
 
+    /** 
+     * @return Player
+     */
     public Player getPlayer() {
         return player;
     }

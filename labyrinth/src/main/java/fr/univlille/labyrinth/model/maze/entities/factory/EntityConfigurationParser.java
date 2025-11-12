@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public class EntityConfigurationParser {
     private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
+    /** 
+     * @param configuration
+     * @return List<EntityConfiguration>
+     */
     //private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
 
     public static List<EntityConfiguration> parse(String configuration) {
@@ -30,6 +34,10 @@ public class EntityConfigurationParser {
         return configurations;
     }
 
+    /** 
+     * @param block
+     * @return EntityConfiguration
+     */
     private static EntityConfiguration parseEntityBlock(String block) {
         Map<String, String> params = new HashMap<>();
         String[] parts = block.split(";");

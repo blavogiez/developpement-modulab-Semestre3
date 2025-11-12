@@ -5,11 +5,20 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 public class FakeTrap extends Trap {
 
+    /** 
+     * @param playerID
+     * @param position
+     * @param oldPosition
+     * @param maze
+     */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
         revealTrap(position,maze.getTrapManager().getTraps());
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String name() {
         return "TRAP_FAKE_EXIT";

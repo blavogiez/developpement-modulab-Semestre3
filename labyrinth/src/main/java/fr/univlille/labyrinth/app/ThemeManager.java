@@ -12,22 +12,37 @@ public class ThemeManager {
     private ThemeManager() {
     }
 
+    /** 
+     * @param darkMode
+     */
     public static void setDarkMode(boolean darkMode) {
         ThemeManager.darkMode = darkMode;
     }
 
+    /** 
+     * @return boolean
+     */
     public static boolean isDarkMode() {
         return darkMode;
     }
 
+    /** 
+     * @return String
+     */
     public static String getThemeCss() {
         return darkMode ? "dark.css" : "light.css";
     }
 
+    /** 
+     * @param scene
+     */
     public static void applyTheme(Scene scene) {
         scene.getStylesheets().add(App.class.getResource(getThemeCss()).toExternalForm());
     }
 
+    /** 
+     * @param scene
+     */
     public static void updateTheme(Scene scene) {
         scene.getStylesheets().set(0, App.class.getResource(getThemeCss()).toExternalForm());
     }

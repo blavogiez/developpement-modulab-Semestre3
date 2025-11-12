@@ -31,6 +31,9 @@ class ProgressionModeTest {
         assertSame(player, progressionMode.getPlayer());
     }
 
+    /** 
+     * @throws Exception
+     */
     @Test
     void testHandleVictoryMarksChallenge() throws Exception {
         assertFalse(challenge.isCompleted());
@@ -42,6 +45,9 @@ class ProgressionModeTest {
         assertTrue(challenge.isCompleted());
     }
 
+    /** 
+     * @throws Exception
+     */
     @Test
     void testHandleVictoryRecordsTime() throws Exception {
         Timer timer = new Timer();
@@ -60,6 +66,9 @@ class ProgressionModeTest {
         assertEquals(recordedTime, challenge.getTimeCompleted());
     }
 
+    /** 
+     * @throws Exception
+     */
     @Test
     void testHandleVictoryKeepsBestTime() throws Exception {
         Timer timer1 = new Timer();

@@ -31,7 +31,7 @@ public class MultiplayerFreeModeLabyrinthController extends FreeModeLabyrinthCon
     }
 
     @Override
-    protected void handleVictory() {
+    public void handleVictory() {
         try {
             App.goTo("freemode/MultiplayerFreeModeLabyrinth.fxml");
         } catch (IOException e) {

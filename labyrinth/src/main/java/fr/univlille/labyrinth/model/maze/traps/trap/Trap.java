@@ -11,10 +11,17 @@ public abstract class Trap {
 
     public abstract void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze);
 
+    /** 
+     * @param positon
+     * @param traps
+     */
     protected void revealTrap(Position positon, Trap[][] traps) {
         traps[positon.getY()][positon.getX()] = TrapFactory.USED.generateTrap();
     }
 
+    /** 
+     * @return String
+     */
     public String name(){
         return "NONE";
     }

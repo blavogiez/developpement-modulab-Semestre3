@@ -66,6 +66,11 @@ public class ObservableMaze extends Maze {
         }
     }
 
+    /** 
+     * @param playerID
+     * @param direction
+     * @return boolean
+     */
     /*
      * Déplace le joueur à la direction souhaitée et avertit toutes les entités de ce déplacement (certaines peuvent être amenéees à bouger)
      * (Le joueur est contenu dans les entités)
@@ -93,6 +98,10 @@ public class ObservableMaze extends Maze {
         return entityManager.checkPlayerOnExit();
     }
 
+    /** 
+     * @param playerID
+     * @param oldPosition
+     */
     /*
      * Surcharge pour ajouter les entités par défaut
      */
@@ -108,14 +117,24 @@ public class ObservableMaze extends Maze {
         notifyObserver();
     }
 
+    /** 
+     * @return TrapManager
+     */
     public TrapManager getTrapManager() {
         return trapManager;
     }
 
+    /** 
+     * @return EntityManager
+     */
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
+    /** 
+     * @param playerID
+     * @param position
+     */
     public void setPlayerPosition(int playerID, Position position) {
         PlayerEntity player = entityManager.getPlayerEntityByID(playerID);
         if (player != null) {

@@ -62,6 +62,9 @@ public class Maze {
         return height;
     }
     
+    /** 
+     * @return int
+     */
     /*
      * Cette méthode renvoie la distance entre l'entrée et la sortie du labyrinthe
      */
@@ -69,6 +72,9 @@ public class Maze {
         return distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @param distanceBetweenEntryAndExit
+     */
     public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
@@ -87,18 +93,30 @@ public class Maze {
         return exitPosition;
     }
 
+    /** 
+     * @return boolean[][]
+     */
     public boolean[][] getMurHorizontaux() {
         return murHorizontaux;
     }
 
+    /** 
+     * @return boolean[][]
+     */
     public boolean[][] getMurVerticaux() {
         return murVerticaux;
     }
 
+    /** 
+     * @param entryPosition
+     */
     public void setEntry(Position entryPosition) {
         this.entryPosition=entryPosition;
     }
 
+    /** 
+     * @param exitPosition
+     */
     public void setExit(Position exitPosition) {
         this.exitPosition=exitPosition;
     }

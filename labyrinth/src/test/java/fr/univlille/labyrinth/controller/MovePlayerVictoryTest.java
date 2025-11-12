@@ -112,6 +112,11 @@ public class MovePlayerVictoryTest {
         assertTrue(observer2.isVictoryTriggered());
     }
 
+    /** 
+     * @param from
+     * @param to
+     * @return Direction
+     */
     // methode helper
     private Direction determineDirectionStep(Position from, Position to) {
         int dx = to.getX() - from.getX();

@@ -10,6 +10,10 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavi
  */
 public class MoveBehaviorFactory {
 
+    /** 
+     * @param name
+     * @return MoveBehavior
+     */
     /*
      * pour info : yield = return en switch
      */
