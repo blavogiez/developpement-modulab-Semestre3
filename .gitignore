@@ -6,8 +6,8 @@
 *.ipr
 
 # IDE - VS Code
-.vscode/
-
+.vscode/*
+**/doc/
 .claude/
 
 # IDE - Eclipse
