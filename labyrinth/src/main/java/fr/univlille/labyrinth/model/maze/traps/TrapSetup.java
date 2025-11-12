@@ -11,23 +11,61 @@ import java.util.Map;
 import java.util.Random;
 
 public class TrapSetup {
-    static private Trap[][] traps;
-    static private Map<TrapFactory, Integer> trapMap;
+    static Trap[][] traps;
+    static Map<TrapFactory, Integer> trapMap;
 
     public static Trap[][] generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
-        TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
+
         trapMap = new EnumMap<>(TrapFactory.class);
         trapMap.put(TrapFactory.RANDOM_TRAP,numberOfRandomTraps);
         trapMap.put(TrapFactory.PUSH_TRAP, numberOfPush);
         trapMap.put(TrapFactory.TELEPORTER_TRAP, numberOfTeleporter);
         trapMap.put(TrapFactory.FAKE_EXIT_TRAP, numberOfFake);
         trapMap.put(TrapFactory.STUN_TRAP, numberOfStun);
+
+        return generate(maze, trapMap);
+    }
+
+    public static Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
+        TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
         fillPath();
         generateTraps(maze);
         randomizeRandomTrap();
 
-
         return traps;
+    }
+
+    public static Trap[][] generate(Maze maze, String setup){
+        trapMap = new EnumMap<>(TrapFactory.class);
+        String[] separatedTraps = setup.split("_");
+        for (int i = 0; i<separatedTraps.length;i++) {
+            String trapandvalue = separatedTraps[i];
+            String trap = null;
+            String value = null;
+            for (int j = 0; j < trapandvalue.length(); j++) {
+                Character car = separatedTraps[i].charAt(j);
+                if (car < '9' && car > '0') {
+                    trap = trapandvalue.substring(0, j);
+                    value = trapandvalue.substring(j);
+                    break;
+                }
+            }
+            TrapFactory trapType = TrapFactory.NONE;
+            int numberTrap = 0;
+            if (trap != null && value != null) {
+
+
+                try {
+                    trapType = TrapFactory.compactedValueOf(trap);
+                    numberTrap = Integer.parseInt(value);
+                } catch (Exception e) {
+                    trapType = TrapFactory.NONE;
+                }
+                if (trapType==null) throw new RuntimeException("What");
+                trapMap.put(trapType, numberTrap);
+            }
+        }
+        return generate(maze,trapMap);
     }
 
     public static Trap[][] generate(Maze maze, int numberOfRandomTraps){
