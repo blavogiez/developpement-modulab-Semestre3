@@ -112,6 +112,11 @@ public class FreeModeController {
         App.goTo("freemode/FreeModeAlgorithmSelection.fxml");
     }
 
+    @FXML
+    private void goToEntityConfiguration() throws IOException {
+        App.goTo("freemode/FreeModeEntityConfiguration.fxml");
+    }
+
     private void resize(){
         menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePanesInPane(menu));
         menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePanesInPane(menu));

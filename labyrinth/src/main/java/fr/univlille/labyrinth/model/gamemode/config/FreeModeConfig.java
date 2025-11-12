@@ -84,4 +84,8 @@ public class FreeModeConfig implements GameConfig {
     public String getEntitiesConfiguration() {
         return entityConfiguration;
     }
+
+    public void setEntitiesConfiguration(String entityConfiguration) {
+        this.entityConfiguration = entityConfiguration;
+    }
 }
