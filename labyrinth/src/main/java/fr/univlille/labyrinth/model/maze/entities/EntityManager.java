@@ -9,9 +9,15 @@ import fr.univlille.labyrinth.model.maze.Maze;
 public class EntityManager {
     private final List<Entity> entities;
 
-    public EntityManager() {
-        this.entities = new ArrayList<>();
+    public EntityManager(List<Entity> entities) {
+        this.entities = entities;
     }
+
+    public EntityManager() {
+        this(new ArrayList<>());
+    }
+
+
 
     public void addEntity(Entity entity) {
         entities.add(entity);
@@ -36,5 +42,19 @@ public class EntityManager {
         }
         return stmt ;
     }
-    
+
+    public PlayerEntity getPlayerEntity() {
+        for (Entity e : this.entities) {
+            if (e.getEntityType()==EntityType.PLAYER) return (PlayerEntity) e ;
+        }
+        return null ;
+    }
+
+    public MonsterEntity getMonsterEntity() {
+        for (Entity e : this.entities) {
+            if (e.getEntityType()==EntityType.MONSTER) return (MonsterEntity) e ;
+        }
+        return null ;
+    }
+
 }

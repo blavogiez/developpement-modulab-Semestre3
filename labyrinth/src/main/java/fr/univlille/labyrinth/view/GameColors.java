@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 public enum GameColors {
     PLAYER ("#FF0000"),
     EXIT("#66BB6A"),
+    MONSTER("#961A00"),
     WALL ("#555555"),
     PATH ("#FFFFFF"),
     TELEPORTER_TRAP("#800080"),

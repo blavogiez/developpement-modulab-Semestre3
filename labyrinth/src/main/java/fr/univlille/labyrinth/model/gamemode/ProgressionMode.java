@@ -1,27 +1,28 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.gamemode.config.ProgressionModeConfig;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
+import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
-import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
-import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
+import fr.univlille.labyrinth.utils.Timer;
 
 public class ProgressionMode extends GameMode {
-    private Player player;
-    private Challenge selectedChallenge ;
+    private ProgressionModeConfig config;
+    private ProgressionModeVictoryHandler victoryHandler;
     public static PlayerProgress defaultProgress;
-    private Timer chrono;
-
-    public ProgressionMode(Player player, Challenge selectedChallenge) {
-        this.player=player;
-        this.selectedChallenge=selectedChallenge;
-    }
 
     // execute at start to init default progress
     static {
         ProgressionMode.initDefaultProgress();
+    }
+
+    public ProgressionMode(Player player, Challenge challenge) {
+        super(new MazeManager(), new ProgressionModeVictoryHandler(player, challenge, null));
+        this.config = new ProgressionModeConfig(challenge);
+        this.victoryHandler = (ProgressionModeVictoryHandler) getVictoryHandler();
     }
 
     // Initialise l'objet defaultProgress à un objet PlayerProgress basé sur le fichier "default_progression.csv", par la classe utilitaire ProgressionLoader
@@ -29,44 +30,33 @@ public class ProgressionMode extends GameMode {
         ProgressionMode.defaultProgress = ProgressionLoader.loadDefaultProgress();
     }
 
-    /** 
-     * Surcharge qui prend les attributs dans le Défi passé en paramètre
-     * @param chosenChallenge
-     */
-    public void createMaze(Challenge chosenChallenge) {
-        MazeAlgorithm algorithm = chosenChallenge.getAlgorithm() ;
-        int width = chosenChallenge.getWidth();
-        int height = chosenChallenge.getHeight();
-        double wallPercentage = chosenChallenge.getWallPercentage();
-        int minPathLength = chosenChallenge.getDistanceBetweenEntryAndExit();
-        //wallPercentage à gérer !
-        createMaze(algorithm, width, height, minPathLength);
+    public void createMaze() {
+        getMazeManager().createMaze(config);
     }
 
     /**
      * @return Player
      */
     public Player getPlayer() {
-        return player;
+        return victoryHandler != null ? victoryHandler.getPlayer() : null;
+    }
+
+    public Challenge getChallenge() {
+        return config.getChallenge();
     }
 
     public void setChronometre(Timer chrono) {
-        this.chrono = chrono;
-    }
-
-    @Override
-    protected void handleVictory() {
-        long completionTime = chrono != null ? chrono.getChrono() : 0;
-        player.getProgress().markChallengeCompleted(selectedChallenge, completionTime);
-        PlayerDatabase.savePlayer(player);
-
-        notifyVictory();
+        if (victoryHandler != null) {
+            victoryHandler.setTimer(chrono);
+        }
     }
 
     public String toString() {
-        String info = "Dimensions : " + selectedChallenge.getWidth() + "x" + selectedChallenge.getHeight() ;
-        info += ", Pourcentage : " + (int)(selectedChallenge.getWallPercentage() * 100) + "%" ;
-        info += ", Distance entrée/sortie : " + selectedChallenge.getDistanceBetweenEntryAndExit();
-        return info ;
+        Challenge challenge = config.getChallenge();
+        String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();
+        info += ", Pourcentage : " + (int) (challenge.getWallPercentage() * 100) + "%";
+        int distance = getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : challenge.getDistanceBetweenEntryAndExit();
+        info += ", Distance entrée/sortie : " + distance;
+        return info;
     }
 }

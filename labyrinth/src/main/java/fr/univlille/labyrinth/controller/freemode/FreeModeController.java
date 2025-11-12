@@ -3,8 +3,9 @@ package fr.univlille.labyrinth.controller.freemode;
 import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
-import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
+import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -58,10 +59,11 @@ public class FreeModeController {
     // mettre par défaut les valeurs des champs aux dernieres valeurs du mode libre (reprise)
     @FXML
     public void initialize() {
-        heightField.setText("" + FreeMode.mazeHeight);
-        widthField.setText("" + FreeMode.mazeWidth);
-        distanceField.setText("" + FreeMode.distanceBetweenEntryAndExit);
-        wallPercentageSlider.setValue(FreeMode.mazeWallPercentage);
+        FreeModeConfig config = AppState.getInstance().getFreeModeConfig();
+        heightField.setText("" + config.getHeight());
+        widthField.setText("" + config.getWidth());
+        distanceField.setText("" + config.getDistanceBetweenEntryAndExit());
+        wallPercentageSlider.setValue(config.getWallPercentage());
         hideUselessFields();
         resize();
     }
@@ -86,12 +88,11 @@ public class FreeModeController {
             return;
         }
 
-        FreeMode.mazeWidth = width;
-        FreeMode.mazeHeight = height;
-        FreeMode.mazeWallPercentage = wallPercentageSlider.getValue();
-
-        int maxPossibleDistance = FreeMode.getMaxDistanceBetweenEntryAndExit() ;
-        FreeMode.distanceBetweenEntryAndExit = distance > maxPossibleDistance ? maxPossibleDistance : distance ;
+        FreeModeConfig config = AppState.getInstance().getFreeModeConfig();
+        config.setWidth(width);
+        config.setHeight(height);
+        config.setWallPercentage(wallPercentageSlider.getValue());
+        config.setDistanceBetweenEntryAndExit(distance);
 
         App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
@@ -123,10 +124,11 @@ public class FreeModeController {
         }
     }
 
-    private void hideUselessFields(){
-        if(FreeMode.algorithm.isPerfect()){      
+    private void hideUselessFields() {
+        FreeModeConfig config = AppState.getInstance().getFreeModeConfig();
+        if (config.isPerfectAlgorithm()) {
             menu.getChildren().remove(wallBox);
-        }else {
+        } else {
             menu.getChildren().remove(distanceBox);
         }
     }

@@ -5,6 +5,7 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MonsterMoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 
@@ -13,11 +14,11 @@ import java.util.List;
 public class MonsterEntity extends Entity {
     protected Position position;
     public MonsterEntity() {
-        super(new Position(2, 2), new PlayerMoveBehavior());
+        super(new Position(2, 2), new MonsterMoveBehavior());
     }
 
     public MonsterEntity(Position position) {
-        super(position, new PlayerMoveBehavior());
+        super(position, new MonsterMoveBehavior());
     }
 
     public MonsterEntity(Position position, MoveBehavior moveBehavior) {
@@ -26,7 +27,7 @@ public class MonsterEntity extends Entity {
 
     @Override
     public EntityType getEntityType() {
-        return EntityType.PLAYER;
+        return EntityType.MONSTER;
     }
 
     @Override

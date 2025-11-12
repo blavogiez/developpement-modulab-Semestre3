@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityManager;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.entities.*;
 import fr.univlille.labyrinth.model.maze.trap.TrapManager;
+import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 /**
  * Implémentation de Maze en version dynamique, observable
@@ -22,7 +21,6 @@ import fr.univlille.labyrinth.model.maze.trap.TrapManager;
  * @since 0.0
  */
 
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavior;
 
 
 public class ObservableMaze extends Maze {
@@ -35,17 +33,17 @@ public class ObservableMaze extends Maze {
 
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
+        this(width, height, distanceBetweenEntryAndExit, "DEFAULT");
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
         super(width, height, distanceBetweenEntryAndExit) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
-        entityManager.addEntity(EntityType.PLAYER.create(getEntryPosition()));
-        Entity exit = EntityType.EXIT.create(getExitPosition(), new MovingStepBehavior()) ;
-        entityManager.addEntity(exit);
+        List<Entity> entities = EntityListFactory.createEntities(entitiesConfiguration, this);
+        entities.forEach(entityManager::addEntity);
         this.trapManager = new TrapManager(this);
     }
-
-
-
 
 
     /**

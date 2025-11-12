@@ -32,9 +32,8 @@ public class MovingStepBehavior implements MoveBehavior {
      * Déplace l'entité de pas MOVING_STEP dans le labyrinthe (modifie sa position)
      */
     private void movingExitByStep(Entity entity, Maze maze) {
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(
-            maze, entity.getPosition(), MOVING_STEP);
-        
+        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(), MOVING_STEP).positions();
+
         if (!candidates.isEmpty()) {
             Position newExitPosition = candidates.get(random.nextInt(candidates.size()));
             entity.setPosition(newExitPosition);

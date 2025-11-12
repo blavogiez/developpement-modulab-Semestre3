@@ -25,12 +25,13 @@ public class PerfectAlgorithm implements MazeAlgorithm {
         Random random = new Random();
         Position entryPosition = new Position(random.nextInt(largeur), random.nextInt(hauteur));
 
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
+        BreadthFirstSearch.DistanceResult distResult = BreadthFirstSearch.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
 
-        Position exitPosition = candidates.get(random.nextInt(candidates.size()));
+        Position exitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
 
         maze.setEntry(entryPosition);
         maze.setExit(exitPosition);
+        maze.setDistanceBetweenEntryAndExit(distResult.actualDistance());
     }
 
     private static void algoProfondeur(int largeur, int hauteur, boolean[][] murHorizontaux, boolean[][] murVerticaux) {

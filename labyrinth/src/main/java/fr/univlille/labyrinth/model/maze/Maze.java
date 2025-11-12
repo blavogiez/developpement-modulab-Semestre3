@@ -109,6 +109,9 @@ public class Maze {
         return distanceBetweenEntryAndExit;
     }
 
+    public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
+        this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
+    }
 
     /**
      * Cette méthode renvoie la position de l'entrée.
