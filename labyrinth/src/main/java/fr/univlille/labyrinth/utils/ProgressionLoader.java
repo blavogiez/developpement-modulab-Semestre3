@@ -23,7 +23,7 @@ import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
 
 public class ProgressionLoader {
     private static final String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
-    private static int EXPECTED_LENGTH=11;
+    private static int EXPECTED_LENGTH=12;
 
     /**
      * Charge la progression par défaut depuis le fichier CSV

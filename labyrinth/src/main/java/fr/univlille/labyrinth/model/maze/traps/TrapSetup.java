@@ -24,12 +24,15 @@ public class TrapSetup {
     }
 
     public static Trap[][] generate(Maze maze, String setup){
+
             trapMap = new EnumMap<>(TrapFactory.class);
+        if (setup!=null) {
             String[] separatedTraps = setup.split("_");
             for (int i = 0; i < separatedTraps.length; i++) {
                 extractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
                 verifyAndAddTrapIfExists(result);
             }
+        }
             return generate(maze, trapMap);
         }
 

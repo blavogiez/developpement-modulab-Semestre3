@@ -134,4 +134,8 @@ public class FreeModeConfig implements GameConfig {
         this.entityConfiguration = entityConfiguration;
 
     }
+
+    public void setTrapsConfiguration(String trapsConfiguration){
+        this.trapsConfiguration=trapsConfiguration;
+    }
 }

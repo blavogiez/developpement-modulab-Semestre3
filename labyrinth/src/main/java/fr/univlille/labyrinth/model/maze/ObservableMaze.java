@@ -38,7 +38,7 @@ public class ObservableMaze extends Maze {
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
-        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"");
+        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"DEFAULT");
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {

@@ -93,6 +93,7 @@ public class FreeModeEntityConfigurationController {
 
         String config = buildConfigurationString();
         AppState.getInstance().getFreeModeConfig().setEntitiesConfiguration(config);
+        AppState.getInstance().getFreeModeConfig().setTrapsConfiguration("DEFAULT");
         App.goTo("freemode/FreeMode.fxml");
     }
 
