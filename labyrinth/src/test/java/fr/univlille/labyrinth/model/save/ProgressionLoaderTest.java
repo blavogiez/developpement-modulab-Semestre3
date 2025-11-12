@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,18 +19,18 @@ import fr.univlille.labyrinth.model.save.PlayerProgress;
 import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 
-/**
- * Tests unitaires pour ProgressionLoaderTestTest
- */
+
 class ProgressionLoaderTest {
-    
-    private static final String TEST_FILE = "res/default_progression.csv";
-    private static final String HEADER = "ScoreFactory,Algorithm,ViewType,Level,ChallengeIndex,Difficulty,Width,Height,WallPercentage,Distance,EntitiesConfig";
+
+    private static final String TEST_FILE = "res/test_progression.csv";
     private File testFile;
+    private String HEADER = "MonHeaderPasImportant";
 
     @BeforeEach
-    void setUp() {
-        new File("res").mkdirs();
+    void setUp() throws IOException {
+        new File(TEST_FILE).mkdirs();
+        Files.copy(Paths.get("res/default_progression.csv"), Paths.get(TEST_FILE), StandardCopyOption.REPLACE_EXISTING);
+        ProgressionLoader.setDefaultProgressPath(TEST_FILE);
         testFile = new File(TEST_FILE);
     }
 
@@ -36,6 +39,7 @@ class ProgressionLoaderTest {
         if (testFile.exists()) {
             testFile.delete();
         }
+        ProgressionLoader.setDefaultProgressPath("res/default_progression.csv");
     }
 
     private void createValidCSV() throws IOException {
@@ -49,6 +53,9 @@ class ProgressionLoaderTest {
 
     @Test
     void testFileNotExists() {
+        if (testFile.exists()) {
+            testFile.delete();
+        }
         assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
     }
 
