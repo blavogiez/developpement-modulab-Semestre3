@@ -7,7 +7,7 @@
 
 # IDE - VS Code
 .vscode/*
-**/doc/
+**/doc/**
 .claude/
 
 # IDE - Eclipse
