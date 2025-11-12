@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.exceptions.maze;
+package fr.univlille.labyrinth.model.exceptions;
 
 public class ProgressionLoaderException extends RuntimeException{
     public ProgressionLoaderException(String message){

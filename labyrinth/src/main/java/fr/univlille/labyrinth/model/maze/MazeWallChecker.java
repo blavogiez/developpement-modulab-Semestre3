@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.maze;
 
-import fr.univlille.labyrinth.model.exceptions.maze.MazeWallAdjacentException;
+import fr.univlille.labyrinth.model.exceptions.MazeWallAdjacentException;
 
 /*
  * Classe helper contenant les vérifications de murs

@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.exceptions.maze;
+package fr.univlille.labyrinth.model.exceptions;
 
 public abstract class PlayerExceptions extends Exception{
     public PlayerExceptions(String message){

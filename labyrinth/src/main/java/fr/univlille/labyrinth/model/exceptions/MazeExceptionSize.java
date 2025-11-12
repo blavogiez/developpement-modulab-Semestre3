@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.exceptions.maze;
+package fr.univlille.labyrinth.model.exceptions;
 
 public class MazeExceptionSize extends MazeException {
     public MazeExceptionSize(String message) {

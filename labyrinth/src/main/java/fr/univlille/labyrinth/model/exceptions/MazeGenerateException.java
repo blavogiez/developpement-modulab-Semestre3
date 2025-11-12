@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.model.exceptions.maze;
+package fr.univlille.labyrinth.model.exceptions;
 
 public class MazeGenerateException extends MazeException{
     public MazeGenerateException(String message) {
