@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.model.gamemode;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
@@ -22,7 +22,7 @@ public abstract class GameMode {
 
     private MazeManager mazeManager;
     private VictoryHandler victoryHandler;
-    private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
+    private List<VictoryObserver<GameMode>> victoryObservers = new ArrayList<>();
 
     public GameMode(MazeManager mazeManager, VictoryHandler victoryHandler) {
         this.mazeManager = mazeManager;
@@ -72,13 +72,16 @@ public abstract class GameMode {
         mazeManager.setCurrentMaze(maze);
     }
 
-    public void addVictoryObserver(Observer<GameMode> observer) {
+    /** 
+     * @param observer
+     */
+    public void addVictoryObserver(VictoryObserver<GameMode> observer) {
         victoryObservers.add(observer);
     }
 
     protected void notifyVictory() {
-        for (Observer<GameMode> observer : victoryObservers) {
-            observer.update(this);
+        for (VictoryObserver<GameMode> observer : victoryObservers) {
+            observer.handleVictory();
         }
     }
 
@@ -92,14 +95,25 @@ public abstract class GameMode {
         notifyVictory();
     }
 
+    /** 
+     * @return MazeManager
+     */
     protected MazeManager getMazeManager() {
         return mazeManager;
     }
 
+    /** 
+     * @return VictoryHandler
+     */
     protected VictoryHandler getVictoryHandler() {
         return victoryHandler;
     }
 
+    /** 
+     * @param width
+     * @param height
+     * @return boolean
+     */
     /* Les dimensions demandées sont-elles possibles ?
     à déplacer (CF fichier SOLID.md)
      * @return boolean

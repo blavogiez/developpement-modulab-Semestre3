@@ -37,6 +37,9 @@ public class SettingsController {
         resize();
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         App.goTo("HomeMenu.fxml");

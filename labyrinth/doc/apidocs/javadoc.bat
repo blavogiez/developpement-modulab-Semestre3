@@ -1,1 +1,0 @@
-cmd.exe /X /D /C ""C:\Program Files\Amazon Corretto\jdk21.0.3_9\bin\javadoc.exe" -J-Duser.language= -J-Duser.country= @options @packages @argfile"

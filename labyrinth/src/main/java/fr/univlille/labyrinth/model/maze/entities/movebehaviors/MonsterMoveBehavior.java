@@ -13,6 +13,11 @@ import java.util.List;
 public class MonsterMoveBehavior implements MoveBehavior {
 
 
+    /** 
+     * @param entity
+     * @param direction
+     * @param maze
+     */
     /*
      * Observable maze à mettre en parametre apres
      */
@@ -35,6 +40,9 @@ public class MonsterMoveBehavior implements MoveBehavior {
         }
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isMoving() {
         return true;
     }

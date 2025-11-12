@@ -17,6 +17,9 @@ public class PlayerStorage {
         }
     }
 
+    /** 
+     * @param players
+     */
     public static void writeAll(List<Player> players) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
             oos.writeObject(players);
@@ -25,6 +28,9 @@ public class PlayerStorage {
         }
     }
 
+    /** 
+     * @return List<Player>
+     */
     public static List<Player> readAll() {
         File file = new File(SAVE_FILE);
         if (!file.exists()) {

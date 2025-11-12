@@ -36,7 +36,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     }
 
     @Override
-    protected void handleVictory() {
+    public void handleVictory() {
         try {
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (IOException e) {

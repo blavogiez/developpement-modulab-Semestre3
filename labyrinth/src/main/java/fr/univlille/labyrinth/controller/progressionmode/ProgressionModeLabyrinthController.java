@@ -1,8 +1,11 @@
 package fr.univlille.labyrinth.controller.progressionmode;
 
+import java.io.IOException;
+
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
+import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
@@ -10,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import java.io.IOException;
 
 /**
  * Classe abstraite pour les controller des labyrinthes du mode progression regroupant les comportements communs
@@ -53,7 +54,7 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     }
 
     @Override
-    protected void handleVictory() {
+    public void handleVictory() {
         try {
             goToProgression();
         } catch (IOException e) {

@@ -25,6 +25,10 @@ public class PlayerEntity extends Entity {
         super(position, moveBehavior);
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     public static Position getInitialPosition(ObservableMaze maze) {
         Position entryPos = maze.getEntryPosition();
         if(!maze.getEntityManager().isEntityOnCell(entryPos)) return entryPos;
@@ -56,24 +60,40 @@ public class PlayerEntity extends Entity {
         return thisPlayerPosition;
     }
 
+    /** 
+     * @param id
+     */
     public void setID(int id) {
         this.ID=id;
     }
 
+    /** 
+     * @return int
+     */
     public int getID() {
         return ID ;
     }
 
+    /** 
+     * @return EntityType
+     */
     @Override
     public EntityType getEntityType() {
         return EntityType.PLAYER;
     }
 
+    /** 
+     * @return MoveBehavior
+     */
     @Override
     public MoveBehavior getMoveBehavior() {
         return super.getMoveBehavior();
     }
 
+    /** 
+     * @param maze
+     * @return boolean
+     */
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }

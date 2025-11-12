@@ -14,6 +14,15 @@ public class TrapSetup {
     static private Trap[][] traps;
     static private Map<TrapFactory, Integer> trapMap;
 
+    /** 
+     * @param maze
+     * @param numberOfRandomTraps
+     * @param numberOfTeleporter
+     * @param numberOfPush
+     * @param numberOfFake
+     * @param numberOfStun
+     * @return Trap[][]
+     */
     public static Trap[][] generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
         TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
         trapMap = new EnumMap<>(TrapFactory.class);
@@ -30,6 +39,11 @@ public class TrapSetup {
         return traps;
     }
 
+    /** 
+     * @param maze
+     * @param numberOfRandomTraps
+     * @return Trap[][]
+     */
     public static Trap[][] generate(Maze maze, int numberOfRandomTraps){
         return generate(maze,numberOfRandomTraps,0,0,0,0);
     }
@@ -45,6 +59,9 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param maze
+     */
     public static void generateTraps(Maze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
@@ -55,6 +72,10 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     public static Position getRandomCell(Maze maze){
         Random random = new Random();
         int x, y;
@@ -79,10 +100,20 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @return Trap
+     */
     static Trap getTrap(int y, int x){
         return traps[y][x];
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param trap
+     */
     public static void setTrap(int y, int x, Trap trap){
         traps[y][x] = trap;
     }

@@ -20,9 +20,12 @@ import fr.univlille.labyrinth.model.maze.Maze;
  */
 public class Benchmark {
     // Nombre de tours que fera le benchmark pour calculer la moyenne
-    public static final int PRECISION = 100; 
+    public static final int PRECISION = 3; 
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
-        Benchmark.csvBench(10, 500, 5);
+        Benchmark.csvBench(5, 500, 5);
     }
 
     /**
@@ -53,19 +56,17 @@ public class Benchmark {
             writer.write("taille,temps(ms)\n");
 
             while (taille < fin) {
-                taille += ecart;
+                
                 long sommeTemps = 0;
-
                 // executer PRECISION fois pour calculer la moyenne
                 for (int i = 0; i < PRECISION; i++) {
                     Timer timer = new Timer();
                     timer.start();
-                    //new Maze(algo, taille, taille * 2, 0.5);
-                    new Maze(taille, taille * 2, taille);
+                    new Maze(taille, taille * 2, taille, algo.getAlgorithm());
                     timer.stop();
                     sommeTemps += timer.getChrono();
                 }
-
+                taille+=ecart ;
                 long tempsMoyen = sommeTemps / PRECISION;
                 writer.write(taille + "," + tempsMoyen + "\n");
                 System.out.println("Algorithme: " + algo.name() + ", Taille: " + taille + ", Temps moyen: " + tempsMoyen + " ms");

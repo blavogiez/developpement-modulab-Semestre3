@@ -37,9 +37,6 @@ public class Maze {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
-        //eventuellement faire la gene ailleurs ?
-        //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateMaze(this);
-        //MazeAlgorithmFactory.PERFECT.getAlgorithm().generateExitAndPlayer(this);
         algo.generateMaze(this);
         algo.generateExitAndPlayer(this);
     }
@@ -49,57 +46,7 @@ public class Maze {
         this(width, height, distanceBetweenEntryAndExit, MazeAlgorithmFactory.PERFECT.getAlgorithm());
     }
 
-
-
-
-    /**
-     *
-     * @param y1 Ordonnée de la cellule de départ
-     * @param x1 Abscisse de la cellule de départ
-     * @param y2 Ordonnée de la cellule d'arrivé
-     * @param x2 Abscisse de la cellule d'arrivé
-     * @return true s'il y a un mur entre la Positionule située entre la Positionule à la
-     *         position (ligne,colonne) et la Positionule à la position
-     *         (ligne1,colonne1), false sinon
-     */
-
-
-    public boolean isWall(int y1, int x1, int y2, int x2) {
-
-        if (!adjacent(y1, x1, y2, x2))
-            throw new RuntimeException();
-
-        if (!positionCorrecte(y1, x1) || !positionCorrecte(y2, x2)) {
-            return true;
-        }
-
-        if (x1 == x2) {
-            return murHorizontaux[Math.min(y1, y2)][x1];
-        }
-        if (y1 == y2) {
-            return murVerticaux[Math.min(x1, x2)][y1];
-        }
-
-
-        //IMPOSSIBLE
-        return true;
-    }
-
-    /*
-     * La méthode permet de savoir si la position se situe dans le labyrinthe.
-     */
-    public boolean positionCorrecte(int y, int x) {
-        return y >= 0 && y < height && x >= 0 && x < width;
-    }
-
-    public boolean positionCorrecte(Position position) {
-        return position.getY() >= 0 && position.getY() < height && position.getX() >= 0 && position.getX() < width;
-    }
-
-    public boolean adjacent(int y1, int x1, int y2, int x2) {
-        return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
-                || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
-    }
+    
 
     /**
      * Cette méthode renvoie la largeur du labyrinthe.
@@ -115,6 +62,9 @@ public class Maze {
         return height;
     }
     
+    /** 
+     * @return int
+     */
     /*
      * Cette méthode renvoie la distance entre l'entrée et la sortie du labyrinthe
      */
@@ -122,6 +72,9 @@ public class Maze {
         return distanceBetweenEntryAndExit;
     }
 
+    /** 
+     * @param distanceBetweenEntryAndExit
+     */
     public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
@@ -140,18 +93,30 @@ public class Maze {
         return exitPosition;
     }
 
+    /** 
+     * @return boolean[][]
+     */
     public boolean[][] getMurHorizontaux() {
         return murHorizontaux;
     }
 
+    /** 
+     * @return boolean[][]
+     */
     public boolean[][] getMurVerticaux() {
         return murVerticaux;
     }
 
+    /** 
+     * @param entryPosition
+     */
     public void setEntry(Position entryPosition) {
         this.entryPosition=entryPosition;
     }
 
+    /** 
+     * @param exitPosition
+     */
     public void setExit(Position exitPosition) {
         this.exitPosition=exitPosition;
     }

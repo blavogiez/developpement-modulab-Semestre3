@@ -13,6 +13,16 @@ public class LocalComponentRenderer extends ComponentRenderer {
         super();
     }
 
+    /** 
+     * @param gc
+     * @param shape
+     * @param color
+     * @param gridX
+     * @param gridY
+     * @param layout
+     * @param sizeRatio
+     * @param playerPos
+     */
     public void renderComponentAtLocal(GraphicsContext gc, Shape shape, Color color, int gridX, int gridY, LabyrinthLayout layout, double sizeRatio, Position playerPos) {
         int dx = Math.abs(gridX - playerPos.getX());
         int dy = Math.abs(gridY - playerPos.getY());

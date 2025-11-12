@@ -6,4 +6,5 @@ public class NormalLabyrinthCanvasView extends LabyrinthCanvasView {
     public NormalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
     }
+
 }

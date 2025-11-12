@@ -13,18 +13,30 @@ public class LabyrinthLayout {
         this.wallThickness = wallThickness;
     }
 
+    /** 
+     * @return double
+     */
     public double getCellSize() {
         return cellSize;
     }
 
+    /** 
+     * @return double
+     */
     public double getOffsetX() {
         return offsetX;
     }
 
+    /** 
+     * @return double
+     */
     public double getOffsetY() {
         return offsetY;
     }
 
+    /** 
+     * @return double
+     */
     public double getWallThickness() {
         return wallThickness;
     }

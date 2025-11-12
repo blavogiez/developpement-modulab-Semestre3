@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Position;
 
 // Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
@@ -45,20 +46,20 @@ public class PerfectAlgorithmTest {
 
     @Test
     public void testStartPosition() {
-        assertTrue(maze1.positionCorrecte(start1.getY(), start1.getX()), "" + start1);
+        assertTrue(MazeWallChecker.positionCorrecte(start1.getY(), start1.getX(), maze1), "" + start1);
 
-        assertTrue(maze2.positionCorrecte(start2.getY(), start2.getX()), "" + start2);
+        assertTrue(MazeWallChecker.positionCorrecte(start2.getY(), start2.getX(), maze2), "" + start2);
 
-        assertTrue(maze3.positionCorrecte(start3.getY(), start3.getX()), "" + start3);
+        assertTrue(MazeWallChecker.positionCorrecte(start3.getY(), start3.getX(), maze3), "" + start3);
     }
 
     @Test
     public void testExitPosition() {
-        assertTrue(maze1.positionCorrecte(end1.getY(), end1.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end1.getY(), end1.getX(), maze1));
 
-        assertTrue(maze2.positionCorrecte(end2.getY(), end2.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end2.getY(), end2.getX(), maze2));
 
-        assertTrue(maze3.positionCorrecte(end3.getY(), end3.getX()));
+        assertTrue(MazeWallChecker.positionCorrecte(end3.getY(), end3.getX(), maze3));
     }
 
     @Test

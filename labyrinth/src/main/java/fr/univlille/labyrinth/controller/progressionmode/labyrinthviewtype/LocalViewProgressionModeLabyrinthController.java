@@ -1,10 +1,9 @@
 package fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype;
 
-import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrinthController;
-
-import fr.univlille.labyrinth.view.labyrinth.LocalLabyrinthCanvasView;
+import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.view.labyrinth.HiddenPlayerNormalLabyrinthCanvasView;
+import fr.univlille.labyrinth.view.labyrinth.LocalLabyrinthCanvasView;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;

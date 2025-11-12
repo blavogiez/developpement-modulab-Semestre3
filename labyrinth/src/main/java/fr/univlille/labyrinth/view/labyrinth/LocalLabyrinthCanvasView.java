@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
@@ -19,6 +21,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         super(maze);
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         this.currentMaze = maze;
@@ -32,6 +37,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         draw();
     }
 
+    /** 
+     * @param gc
+     * @param height
+     * @param width
+     */
     @Override
     protected void dessinerMurs(GraphicsContext gc, int height, int width) {
         gc.setStroke(GameViewConfig.WALL.getColor());
@@ -64,20 +74,51 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param globalY
+     * @param globalX
+     * @return boolean
+     */
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
-        if (globalX <= 0) return true;
-        if (!currentMaze.positionCorrecte(globalY, globalX)) return false;
-        if (!currentMaze.positionCorrecte(globalY, globalX - 1)) return true;
-        return currentMaze.isWall(globalY, globalX - 1, globalY, globalX);
+        Position p1 = new Position(globalY, globalX);
+        Position p2 = new Position(globalY, globalX - 1);
+        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
+        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
+
+        if (!p1Valid && !p2Valid) {
+            return false;
+        }
+        if (!p1Valid || !p2Valid) {
+            return true;
+        }
+        return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
+    /** 
+     * @param globalY
+     * @param globalX
+     * @return boolean
+     */
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
-        if (globalY <= 0) return true;
-        if (!currentMaze.positionCorrecte(globalY, globalX)) return false;
-        if (!currentMaze.positionCorrecte(globalY - 1, globalX)) return true;
-        return currentMaze.isWall(globalY - 1, globalX, globalY, globalX);
+        Position p1 = new Position(globalY, globalX);
+        Position p2 = new Position(globalY - 1, globalX);
+        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
+        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
+
+        if (!p1Valid && !p2Valid) {
+            return false;
+        }
+        if (!p1Valid || !p2Valid) {
+            return true;
+        }
+        return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
+    /** 
+     * @param gc
+     * @param localX
+     * @param localY
+     */
     private void drawVerticalWallAt(GraphicsContext gc, int localX, int localY) {
         double x = layout.getOffsetX() + localX * layout.getCellSize();
         double y1 = layout.getOffsetY() + localY * layout.getCellSize();
@@ -85,6 +126,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.strokeLine(x, y1, x, y2);
     }
 
+    /** 
+     * @param gc
+     * @param localX
+     * @param localY
+     */
     private void drawHorizontalWallAt(GraphicsContext gc, int localX, int localY) {
         double x1 = layout.getOffsetX() + localX * layout.getCellSize();
         double x2 = x1 + layout.getCellSize();
@@ -129,11 +175,19 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param entity
+     * @return boolean
+     */
     @Override
     protected boolean shouldRenderEntity(Entity entity) {
         return entity.getEntityType() != EntityType.PLAYER;
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     @Override
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         PlayerEntity playerEntity = maze.getEntityManager().getPlayerEntityByID(0);
@@ -152,6 +206,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
         System.out.println("Début du dessin des traps");
@@ -169,15 +227,30 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     @Override
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
         dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER0.getColor());
     }
 
+    /** 
+     * @param globalX
+     * @param globalY
+     * @return boolean
+     */
     private boolean isOutOfBounds(int globalX, int globalY) {
-        return !currentMaze.positionCorrecte(globalY, globalX);
+        Position p=new Position(globalX, globalY);
+        return !MazeWallChecker.positionCorrecte(p,currentMaze);
     }
 
+    /** 
+     * @param globalX
+     * @param globalY
+     * @return Position
+     */
     private Position toLocalCoordinates(int globalX, int globalY) {
         PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
         if (playerEntity == null) return null;
@@ -189,4 +262,5 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
         return new Position(localX, localY);
     }
+
 }

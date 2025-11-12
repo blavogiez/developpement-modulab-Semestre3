@@ -7,6 +7,13 @@ public class LabyrinthLayoutCalculator {
     private static final double MARGIN_RATIO = 0.05;
     private static final double WALL_THICKNESS_RATIO = 0.1;
 
+    /** 
+     * @param canvasWidth
+     * @param canvasHeight
+     * @param mazeWidth
+     * @param mazeHeight
+     * @return LabyrinthLayout
+     */
     public LabyrinthLayout calculate(double canvasWidth, double canvasHeight, int mazeWidth, int mazeHeight) {
         double margin = Math.min(canvasWidth, canvasHeight) * MARGIN_RATIO;
         double availableWidth = canvasWidth - 2 * margin;

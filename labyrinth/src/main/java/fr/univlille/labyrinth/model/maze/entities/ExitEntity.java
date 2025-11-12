@@ -18,11 +18,18 @@ public class ExitEntity extends Entity {
         super(position, moveBehavior);
     }
 
+    /** 
+     * @return EntityType
+     */
     @Override
     public EntityType getEntityType() {
         return EntityType.EXIT;
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     /*
      * Si la position n'est pas prise par une sortie, alors on la place ailleurs à la même distance entrée / sortie si possible, sinon on augmente.
      * On évite d'être bloqué pour toujours en changeant une valeur si il n'y a aucune cellule possible / libre à la distance demandée !
