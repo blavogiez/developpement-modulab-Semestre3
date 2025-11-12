@@ -1,7 +1,9 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
+import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
@@ -12,7 +14,7 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
+public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;

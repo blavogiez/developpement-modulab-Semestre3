@@ -39,6 +39,11 @@
                 </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <children>
+                        <Button fx:id="boutonEntites" mnemonicParsing="false" onAction="#goToEntityConfiguration" prefWidth="150" text="Configurer Entités" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <children>
                         <Button fx:id="boutonValider" mnemonicParsing="false" onAction="#goToModeLaby" prefWidth="100" text="Valider" />
                </children>
             </VBox>

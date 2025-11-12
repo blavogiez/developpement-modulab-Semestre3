@@ -1,8 +1,10 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
+
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
+import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;

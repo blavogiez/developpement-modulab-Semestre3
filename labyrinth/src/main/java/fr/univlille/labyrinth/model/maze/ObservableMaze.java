@@ -25,13 +25,13 @@ import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 
 
 
-public class ObservableMaze extends Maze {
+public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
+    private final List<Observer<ObservableMaze>> observers = new ArrayList<>();
     protected EntityManager entityManager ;
      protected TrapManager trapManager ;
     // protected EventManager eventManager ;
 
     protected Position playerPosition;
-    protected final List<Observer<ObservableMaze>> observers;
 
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
@@ -44,27 +44,9 @@ public class ObservableMaze extends Maze {
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
         super(width, height, distanceBetweenEntryAndExit, algo) ;
-        this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
         this.trapManager = new TrapManager(this);
-    }
-
-
-    /**
-     * Cette méthode permet d'ajouter un observateur à Maze, afin qu'il puisse être alerté d'une modification
-     *
-     * @param observer un observateur de Maze.
-     */
-    public boolean add(Observer<ObservableMaze> observer){
-        return observers.add(observer);
-    }
-
-
-    protected void notifyObserver(){
-        for (Observer<ObservableMaze> observer : observers){
-            observer.update(this);
-        }
     }
 
     /** 
@@ -141,5 +123,10 @@ public class ObservableMaze extends Maze {
         if (player != null) {
             player.setPosition(position);
         }
+    }
+    
+    @Override
+    public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
+        return this.observers;
     }
 }

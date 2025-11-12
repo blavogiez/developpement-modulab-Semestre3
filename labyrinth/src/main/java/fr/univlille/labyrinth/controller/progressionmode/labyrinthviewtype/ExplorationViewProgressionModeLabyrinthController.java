@@ -2,12 +2,13 @@ package fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype;
 
 import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrinthController;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.view.labyrinth.ExplorationLabyrinthCanvasView;
 import javafx.scene.layout.Pane;
 
 
 
-public class ExplorationViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController {
+public class ExplorationViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController{
 
     private ExplorationLabyrinthCanvasView labyrinth;
 

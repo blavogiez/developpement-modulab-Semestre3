@@ -5,8 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.exceptions.ProgressionLoaderException;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -22,7 +21,7 @@ import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
  */
 
 public class ProgressionLoader {
-    private static final String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
+    private static String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
     private static int EXPECTED_LENGTH=11;
 
     /**
@@ -33,7 +32,7 @@ public class ProgressionLoader {
     public static PlayerProgress loadDefaultProgress() {
         File file = new File(DEFAULT_PROGRESSION_FILE);
         if (!file.exists()) {
-            throw new RuntimeException("Le fichier de progression par défaut n'existe pas: " + DEFAULT_PROGRESSION_FILE);
+            throw new ProgressionLoaderException("Le fichier de progression par défaut n'existe pas: " + DEFAULT_PROGRESSION_FILE);
         }
 
         int maxLevel = 0;
@@ -49,7 +48,7 @@ public class ProgressionLoader {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Erreur lors de la détection des niveaux: " + e.getMessage(), e);
+            throw new ProgressionLoaderException("Erreur lors de la détection des niveaux: " + e.getMessage(), e);
         }
 
         Level[] levels = new Level[maxLevel];
@@ -98,4 +97,8 @@ public class ProgressionLoader {
             throw new RuntimeException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
         }
     }
+    public static void setDefaultProgressPath(String path) {
+    DEFAULT_PROGRESSION_FILE = path;
+}
+
 }
