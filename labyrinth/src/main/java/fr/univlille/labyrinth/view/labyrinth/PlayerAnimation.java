@@ -24,6 +24,9 @@ public class PlayerAnimation extends AnimationTimer {
         enabled=false;
     }
 
+    /** 
+     * @param now
+     */
     @Override
     public void handle(long now) {
         if (!enabled) return;

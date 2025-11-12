@@ -27,6 +27,9 @@ public class PlayerMoveBehavior implements MoveBehavior {
 
     private boolean moving = false;
 
+    /** 
+     * @return boolean
+     */
     public boolean isMoving() {
         return moving;
     }

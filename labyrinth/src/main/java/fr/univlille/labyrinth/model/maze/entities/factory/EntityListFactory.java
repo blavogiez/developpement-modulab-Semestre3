@@ -17,6 +17,11 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public class EntityListFactory {
 
+    /** 
+     * @param maze
+     * @param configuration
+     * @return List<Entity>
+     */
     public static List<Entity> createEntities(ObservableMaze maze, String configuration) {
         List<EntityConfiguration> configs = EntityConfigurationParser.parse(configuration);
         List<Entity> entities = new ArrayList<>();
@@ -32,6 +37,10 @@ public class EntityListFactory {
         return entities;
     }
 
+    /** 
+     * @param maze
+     * @param configuration
+     */
     /*
      * Cette configuration de remplir au fur et à mesure est utile pour que les entités se positionnent en ayant connaissance des autres déjà présentes, chose impossible si l'on assignait tout à la fois.
      */

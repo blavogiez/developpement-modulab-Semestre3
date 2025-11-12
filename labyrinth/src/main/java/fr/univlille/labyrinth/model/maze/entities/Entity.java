@@ -20,18 +20,32 @@ public abstract class Entity {
 
     public abstract EntityType getEntityType();
 
+    /** 
+     * @return Position
+     */
     public Position getPosition() {
         return position;
     }
 
+    /** 
+     * @return MoveBehavior
+     */
     public MoveBehavior getMoveBehavior() {
         return moveBehavior;
     }
 
+    /** 
+     * @param position
+     */
     public void setPosition(Position position) {
         this.position = position;
     }
 
+    /** 
+     * @param maze
+     * @param direction
+     * @return boolean
+     */
     /*
      * Retourne true si l'action s'est bien déroulée.
      */

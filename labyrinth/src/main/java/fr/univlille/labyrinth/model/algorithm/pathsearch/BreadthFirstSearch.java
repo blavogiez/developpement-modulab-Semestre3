@@ -149,6 +149,12 @@ public class BreadthFirstSearch {
     }
 
 
+    /** 
+     * @param maze
+     * @param start
+     * @param end
+     * @return List<Position>
+     */
     public static List<Position> pathFinder(Maze maze, Position start, Position end){
         Queue<Position> queue = new LinkedList<>();
         Map<Position, Position> previousPos = new HashMap<>();
@@ -176,6 +182,12 @@ public class BreadthFirstSearch {
         return null;
     }
 
+    /** 
+     * @param maze
+     * @param currentPos
+     * @param listedPosition
+     * @return List<Position>
+     */
     public static List<Position> getNextPosition (Maze maze,Position currentPos,Set<Position> listedPosition){
         List<Position> correctNextPositions = new ArrayList<>();
         for (Direction direction : Direction.values()){

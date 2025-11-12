@@ -18,10 +18,16 @@ public class SceneNavigator {
     private SceneNavigator() {
     }
     
+    /** 
+     * @param stage
+     */
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
     
+    /** 
+     * @return Stage
+     */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }

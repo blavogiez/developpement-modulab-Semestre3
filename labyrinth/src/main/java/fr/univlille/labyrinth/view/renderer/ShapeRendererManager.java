@@ -17,6 +17,14 @@ public class ShapeRendererManager {
         this.renderers.put(Shape.TRIANGLE, new TriangleRenderer());
     }
 
+    /** 
+     * @param gc
+     * @param shape
+     * @param x
+     * @param y
+     * @param size
+     * @param color
+     */
     public void render(GraphicsContext gc, Shape shape, double x, double y, double size, Color color) {
         ShapeRenderer renderer = renderers.get(shape);
         if (renderer != null) {

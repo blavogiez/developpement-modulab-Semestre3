@@ -47,16 +47,25 @@ public class ProgressionMode extends GameMode {
         return victoryHandler != null ? victoryHandler.getPlayer() : null;
     }
 
+    /** 
+     * @return Challenge
+     */
     public Challenge getChallenge() {
         return config.getChallenge();
     }
 
+    /** 
+     * @param chrono
+     */
     public void setChronometre(Timer chrono) {
         if (victoryHandler != null) {
             victoryHandler.setTimer(chrono);
         }
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         Challenge challenge = config.getChallenge();
         String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();

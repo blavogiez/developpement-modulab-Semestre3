@@ -22,6 +22,11 @@ public class MovingStepBehavior implements MoveBehavior {
         this.random = new Random();
     }
 
+    /** 
+     * @param entity
+     * @param direction
+     * @param maze
+     */
     @Override
     public void move(Entity entity, Direction direction, ObservableMaze maze) {
         if (random.nextInt(MOVING_PERCENTAGE) == 1) {
@@ -29,6 +34,10 @@ public class MovingStepBehavior implements MoveBehavior {
         }
     }
 
+    /** 
+     * @param entity
+     * @param maze
+     */
     /*
      * Déplace l'entité de pas MOVING_STEP dans le labyrinthe (modifie sa position)
      */

@@ -72,6 +72,9 @@ public abstract class GameMode {
         mazeManager.setCurrentMaze(maze);
     }
 
+    /** 
+     * @param observer
+     */
     public void addVictoryObserver(Observer<GameMode> observer) {
         victoryObservers.add(observer);
     }
@@ -92,14 +95,25 @@ public abstract class GameMode {
         notifyVictory();
     }
 
+    /** 
+     * @return MazeManager
+     */
     protected MazeManager getMazeManager() {
         return mazeManager;
     }
 
+    /** 
+     * @return VictoryHandler
+     */
     protected VictoryHandler getVictoryHandler() {
         return victoryHandler;
     }
 
+    /** 
+     * @param width
+     * @param height
+     * @return boolean
+     */
     /* Les dimensions demandées sont-elles possibles ?
     à déplacer (CF fichier SOLID.md)
      * @return boolean

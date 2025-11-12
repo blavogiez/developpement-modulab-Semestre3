@@ -9,6 +9,9 @@ import java.util.*;
 
 public class PerfectAlgorithm extends MazeAlgorithm {
 
+    /** 
+     * @param maze
+     */
     @Override
     public void generateMaze(Maze maze) {
         super.generateMaze(maze);
@@ -21,6 +24,10 @@ public class PerfectAlgorithm extends MazeAlgorithm {
 
     }
 
+    /** 
+     * @param height
+     * @param width
+     */
     private void algoProfondeur(int height, int width) {
         Random random = new Random();
         boolean[][] visite = new boolean[height][width];
@@ -41,6 +48,11 @@ public class PerfectAlgorithm extends MazeAlgorithm {
     }
 
 
+    /** 
+     * @param peek
+     * @param visite
+     * @return Position
+     */
     private static Position getRandomPositionNotVisited(Position peek, boolean[][] visite) {
         List<Direction> directions = new ArrayList<>(Arrays.asList(Direction.values()));
         Collections.shuffle(directions);
@@ -56,6 +68,11 @@ public class PerfectAlgorithm extends MazeAlgorithm {
         return null;
     }
 
+    /** 
+     * @param positionStack
+     * @param start
+     * @param visite
+     */
     private static void visitePosition(Stack<Position> positionStack, Position start, boolean[][] visite) {
         positionStack.push(start);
         visite[start.getY()][start.getX()] = true;
@@ -66,6 +83,9 @@ public class PerfectAlgorithm extends MazeAlgorithm {
 
     private static PerfectAlgorithm instance;
 
+    /** 
+     * @return PerfectAlgorithm
+     */
     public static PerfectAlgorithm getInstance(){
         if (instance==null){
             instance = new PerfectAlgorithm();
@@ -73,6 +93,9 @@ public class PerfectAlgorithm extends MazeAlgorithm {
         return instance;
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         return "Parfait";
     }

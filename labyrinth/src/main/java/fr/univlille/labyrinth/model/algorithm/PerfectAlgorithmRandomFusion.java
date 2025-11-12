@@ -9,6 +9,9 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
     int[][] grid;
 
+    /** 
+     * @param maze
+     */
     @Override
     public void generateMaze(Maze maze) {
         super.generateMaze(maze);
@@ -22,6 +25,11 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
     }
 
+    /** 
+     * @param height
+     * @param width
+     * @return int[][]
+     */
     int[][] generateNumberGrid(int height, int width){
         int[][] res = new int[height][width];
         int stack = 0;
@@ -35,6 +43,10 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
     }
 
+    /** 
+     * @param position
+     * @param direction
+     */
     void fusionPosition(Position position, Direction direction){
         Position next = position.add(direction.getX(),direction.getY());
         if (positionCorrecte(next,height,width)){
@@ -53,6 +65,10 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
 
 
+    /** 
+     * @param oldint
+     * @param newint
+     */
     void transformAllNumber(int oldint, int newint){
         for (int i = 0; i<grid.length;i++){
             for (int j = 0; j<grid[i].length;j++){
@@ -61,11 +77,19 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
         }
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @return int
+     */
     int getInt(int y, int x){
         return grid[y][x];
     }
 
 
+    /** 
+     * @return boolean
+     */
     boolean isAllTheSameNumber(){
         int number = grid[0][0];
         for (int i = 0; i<grid.length;i++){
@@ -78,6 +102,9 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
     private static PerfectAlgorithmRandomFusion instance;
 
+    /** 
+     * @return PerfectAlgorithmRandomFusion
+     */
     public static PerfectAlgorithmRandomFusion getInstance(){
         if (instance==null){
             instance = new PerfectAlgorithmRandomFusion();
@@ -85,6 +112,9 @@ public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
         return instance;
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         return "Fusion";
     }

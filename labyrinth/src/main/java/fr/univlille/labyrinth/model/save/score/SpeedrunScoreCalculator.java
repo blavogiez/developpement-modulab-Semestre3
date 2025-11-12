@@ -40,6 +40,9 @@ public class SpeedrunScoreCalculator implements ScoreCalculator, Serializable {
         return baseScore;
     }
 
+    /** 
+     * @return String
+     */
     public String name() {
         return "Speedrun";
     }

@@ -75,6 +75,9 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         this.currentMaze = maze;
@@ -91,6 +94,11 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         draw();
     }
 
+    /** 
+     * @param gc
+     * @param height
+     * @param width
+     */
     protected void dessinerMurs(GraphicsContext gc, int height, int width) {
         gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
@@ -100,6 +108,11 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         horizontalsWalls(gc, height, width);
     }
 
+    /** 
+     * @param gc
+     * @param height
+     * @param width
+     */
     protected void horizontalsWalls(GraphicsContext gc, int height, int width) {
         for (int x = 0; x < width; x++) {
             if (shouldDrawHorizontalWall(-1, x, height, width)) {
@@ -120,6 +133,11 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     }
 
 
+    /** 
+     * @param gc
+     * @param height
+     * @param width
+     */
     protected void verticalsWalls(GraphicsContext gc, int height, int width) {
         for (int y = 0; y < height; y++) {
             if (shouldDrawVerticalWall(y, -1, height, width)) {
@@ -140,6 +158,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
         for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
             int id = player.getID();
@@ -153,6 +175,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
         Trap[][] traps = maze.getTrapManager().getTraps();
         for (int y = 0; y < traps.length; y++) {
@@ -166,6 +192,12 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
+    /** 
+     * @param gc
+     * @param y
+     * @param x
+     * @param couleur
+     */
     protected void dessinerMarqueur(GraphicsContext gc, double y, double x, Color couleur) {
         double tailleMarqueur = layout.getCellSize() * 0.6;
         double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
@@ -178,6 +210,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
                 tailleMarqueur);
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     */
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if (shouldRenderEntity(entity)) {
@@ -188,6 +224,13 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         }
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @param maze
+     * @param rayon
+     * @return boolean
+     */
     protected boolean estDansRayon(int x, int y, ObservableMaze maze, int rayon) {
         PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(0);
         if (player == null) return false;
@@ -198,6 +241,9 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return Math.max(dx, dy) <= rayon;
     }
 
+    /** 
+     * @return boolean
+     */
     /*
      * "hook" utile pour le cas de la vue locale (à gauche, on ne dessine pas le joueur)
      */
@@ -205,38 +251,77 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         return true;
     }
 
+    /** 
+     * @param trapFactory
+     * @param x
+     * @param y
+     * @return boolean
+     */
     protected boolean shouldRenderTrap(Trap trapFactory, int x, int y) {
         return true;
     }
 
+    /** 
+     * @param entity
+     * @return boolean
+     */
     protected boolean shouldRenderEntity(Entity entity) {
         return entity.getEntityType() != EntityType.PLAYER;
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param height
+     * @param width
+     * @return boolean
+     */
     protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
         return true;
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param height
+     * @param width
+     * @return boolean
+     */
     protected boolean shouldDrawHorizontalWall(int y, int x, int height, int width) {
         return true;
     }
 
+    /** 
+     * @return Pane
+     */
     public Pane getView() {
         return container;
     }
 
+    /** 
+     * @return ObservableMaze
+     */
     public ObservableMaze getCurrentMaze() {
         return currentMaze;
     }
 
+    /** 
+     * @return HashMap<Integer, Double>
+     */
     public HashMap<Integer, Double> getPlayerXMap() {
         return playerXMap;
     }
 
+    /** 
+     * @return HashMap<Integer, Double>
+     */
     public HashMap<Integer, Double> getPlayerYMap() {
         return playerYMap;
     }
 
+    /** 
+     * @return Canvas
+     */
     public Canvas getCanvas() {
         return canvas;
     }

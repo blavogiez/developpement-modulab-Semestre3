@@ -20,6 +20,9 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         update(maze);
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         if (cellulesExplorees == null ||
@@ -55,6 +58,13 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param height
+     * @param width
+     * @return boolean
+     */
     @Override
     protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
         if (x == -1) {
@@ -63,6 +73,13 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         return cellulesExplorees[y][x] && (x + 1 >= width || cellulesExplorees[y][x + 1]);
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param height
+     * @param width
+     * @return boolean
+     */
     @Override
     protected boolean shouldDrawHorizontalWall(int y, int x, int height, int width) {
         if (y == -1) {
@@ -71,6 +88,9 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         return cellulesExplorees[y][x] && (y + 1 >= height || cellulesExplorees[y + 1][x]);
     }
 
+    /** 
+     * @param maze
+     */
     private void marquerCellulesExplorees(ObservableMaze maze) {
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
@@ -81,6 +101,12 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param hauteur
+     * @param largeur
+     */
     private void dessinerZonesNonExplorees(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
         gc.setFill(Color.BLACK);
 
@@ -95,10 +121,19 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @return boolean
+     */
     private boolean isExplored(int x, int y) {
         return cellulesExplorees[y][x];
     }
 
+    /** 
+     * @param entity
+     * @return boolean
+     */
     /*
      * Ne dessine que les entités dans le rayon 
      */
@@ -107,6 +142,12 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && entity.getEntityType()!=EntityType.PLAYER;
     }
 
+    /** 
+     * @param trap
+     * @param x
+     * @param y
+     * @return boolean
+     */
     /*
      * Ne dessine que les pièges dans le rayon 
      */

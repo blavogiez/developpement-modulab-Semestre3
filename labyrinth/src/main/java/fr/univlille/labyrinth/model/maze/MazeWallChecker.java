@@ -38,6 +38,14 @@ public class MazeWallChecker {
         return true;
     }
 
+    /** 
+     * @param maze
+     * @param y1
+     * @param x1
+     * @param y2
+     * @param x2
+     * @return boolean
+     */
     public static boolean isWall(Maze maze,int y1,int x1,int y2,int x2) {
         if (!adjacent(maze,y1, x1, y2, x2))
             throw new RuntimeException();
@@ -60,6 +68,10 @@ public class MazeWallChecker {
 
     }
 
+    /** 
+     * @param maze
+     * @return boolean
+     */
     /*
      * La méthode permet de savoir si la position se situe dans le labyrinthe.
      */
@@ -71,18 +83,33 @@ public class MazeWallChecker {
         return y >= 0 && y < height && x >= 0 && x < width;
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @param maze
+     * @return boolean
+     */
     public static boolean positionCorrecte(int y, int x, Maze maze) {
         int height=maze.getHeight();
         int width=maze.getWidth();
         return y >= 0 && y < height && x >= 0 && x < width;
     }
 
+    /** 
+     * @param position
+     * @param maze
+     * @return boolean
+     */
     public static boolean positionCorrecte(Position position,Maze maze) {
         int height=maze.getHeight();
         int width=maze.getWidth();
         return position.getY() >= 0 && position.getY() < height && position.getX() >= 0 && position.getX() < width;
     }
 
+    /** 
+     * @param maze
+     * @return boolean
+     */
     public static boolean adjacent(Maze maze) {
         int y1=maze.entryPosition.getY();
         int x1=maze.entryPosition.getX();
@@ -92,6 +119,14 @@ public class MazeWallChecker {
                 || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));
     }
 
+    /** 
+     * @param maze
+     * @param y1
+     * @param x1
+     * @param y2
+     * @param x2
+     * @return boolean
+     */
     public static boolean adjacent(Maze maze,int y1,int x1,int y2,int x2) {
         return (y1 == y2 && (x1 == x2 - 1 || x1 == x2 + 1))
                 || (x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1));

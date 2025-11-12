@@ -21,6 +21,9 @@ import fr.univlille.labyrinth.model.maze.Maze;
 public class Benchmark {
     // Nombre de tours que fera le benchmark pour calculer la moyenne
     public static final int PRECISION = 3; 
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         Benchmark.csvBench(5, 500, 5);
     }
