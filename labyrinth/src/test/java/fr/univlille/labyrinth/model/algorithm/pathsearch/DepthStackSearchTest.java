@@ -13,6 +13,9 @@ import fr.univlille.labyrinth.model.maze.Maze;
 
 class DepthStackSearchTest {
 
+    /** 
+     * @param tab
+     */
     /*
      * helper pour rendre un labyrinthe complet
      */

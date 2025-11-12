@@ -5,8 +5,6 @@ module fr.univlille.labyrinth {
     requires javafx.graphics;
     requires javafx.base;
     requires jdk.compiler;
-    requires fr.univlille.labyrinth;
-
     opens fr.univlille.labyrinth to javafx.fxml, org.junit.platform.commons;
     opens fr.univlille.labyrinth.controller to javafx.fxml;
     opens fr.univlille.labyrinth.controller.freemode to javafx.fxml;
@@ -20,5 +18,6 @@ module fr.univlille.labyrinth {
     exports fr.univlille.labyrinth.model.gamemode;
     exports fr.univlille.labyrinth.model.save;
     exports fr.univlille.labyrinth.model.algorithm;
-    exports fr.univlille.labyrinth.model.maze.trap;
+    exports fr.univlille.labyrinth.model.maze.traps;
+    exports fr.univlille.labyrinth.model.maze.traps.trap;
 }

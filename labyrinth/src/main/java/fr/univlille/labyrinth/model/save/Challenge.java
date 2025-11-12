@@ -3,6 +3,8 @@ package fr.univlille.labyrinth.model.save;
 import java.io.Serializable;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.save.score.ScoreCalculator;
 import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
@@ -21,7 +23,9 @@ public class Challenge implements Serializable {
     private final int height;
     private final double wallPercentage;
     private final int distanceBetweenEntryAndExit;
-    private final MazeAlgorithm algorithm ;
+
+    private final String algorithm ;
+
     private final ViewType viewType ;
     private final String entitiesConfiguration;
     private long timeCompleted;
@@ -42,7 +46,7 @@ public class Challenge implements Serializable {
      * @param entitiesConfiguration Configuration des entités du challenge.
      * @param scoreCalculator Stratégie de calcul de score à utiliser
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator, String entitiesConfiguration) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator, String entitiesConfiguration) {
         this.algorithm=algorithm;
         this.viewType=viewType;
         this.difficulty=difficulty;
@@ -57,29 +61,29 @@ public class Challenge implements Serializable {
     /**
      * Génère un challenge avec injection de la stratégie de calcul de score et entitiesConfiguration par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
+    public Challenge(String  algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, scoreCalculator,"DEFAULT");
     }
 
     /**
      * Génère un challenge avec la distance minimale par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, scoreCalculator,"DEFAULT");
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
         this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, new StandardScoreCalculator(),"DEFAULT");
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring et la distance minimale par défaut
      */
-    public Challenge(MazeAlgorithm algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, new StandardScoreCalculator(),"DEFAULT");
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, new StandardScoreCalculator(), "DEFAULT");
     }
 
     /**
@@ -106,9 +110,16 @@ public class Challenge implements Serializable {
     /** 
      * @return algorithm
      */
-    public MazeAlgorithm getAlgorithm() {
+    public String getAlgorithmName() {
         return algorithm;
     }
+    /**
+     * @return algorithm
+     */
+    public MazeAlgorithm getAlgorithm() {
+        return MazeAlgorithmFactory.valueOf(algorithm).getAlgorithm();
+    }
+
 
     /** 
      * @return int
@@ -139,6 +150,9 @@ public class Challenge implements Serializable {
         return this.viewType;
     }
 
+    /** 
+     * @return String
+     */
     public String getEntitiesConfiguration() {
         return entitiesConfiguration;
     }
@@ -201,7 +215,6 @@ public class Challenge implements Serializable {
     /**
      * Formate un challenge en chaîne de caractères lisible
      *
-     * @param challenge le challenge à formater
      * @return String représentation textuelle du challenge
      */
     public String toString() {

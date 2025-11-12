@@ -1,8 +1,12 @@
 package fr.univlille.labyrinth.model.gamemode;
 
+
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.config.ProgressionModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
+
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -30,8 +34,10 @@ public class ProgressionMode extends GameMode {
         ProgressionMode.defaultProgress = ProgressionLoader.loadDefaultProgress();
     }
 
+
     public void createMaze() {
         getMazeManager().createMaze(config);
+
     }
 
     /**
@@ -41,16 +47,25 @@ public class ProgressionMode extends GameMode {
         return victoryHandler != null ? victoryHandler.getPlayer() : null;
     }
 
+    /** 
+     * @return Challenge
+     */
     public Challenge getChallenge() {
         return config.getChallenge();
     }
 
+    /** 
+     * @param chrono
+     */
     public void setChronometre(Timer chrono) {
         if (victoryHandler != null) {
             victoryHandler.setTimer(chrono);
         }
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         Challenge challenge = config.getChallenge();
         String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();

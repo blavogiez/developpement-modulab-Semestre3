@@ -76,10 +76,17 @@ public class Player implements Serializable , Comparable<Player>{
         return progress;
     }
 
+    /** 
+     * @param other
+     * @return int
+     */
     public int compareTo(Player other) {
         return Integer.compare(other.getScore(),this.calculateScore());
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return name + " avec un score de : " + getScore() ;

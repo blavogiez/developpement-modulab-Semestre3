@@ -30,6 +30,9 @@ public class StandardScoreCalculator implements ScoreCalculator, Serializable {
         return score;
     }
 
+    /** 
+     * @return String
+     */
     public String name() {
         return "Standard" ;
     }

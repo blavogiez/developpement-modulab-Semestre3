@@ -2,7 +2,7 @@ package fr.univlille.labyrinth.controller;
 
 import java.io.IOException;
 
-import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.utils.Timer;
@@ -22,7 +22,7 @@ import javafx.scene.layout.BorderPane;
  * @version 0.0
  * @since 0.0
  */
-public abstract class LabyrinthController<T extends GameMode> implements Observer<GameMode> {
+public abstract class LabyrinthController<T extends GameMode> implements VictoryObserver<GameMode> {
     
     @FXML
     protected BorderPane pane1;
@@ -80,7 +80,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
         else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
 
         if (direction != null) {
-            gameMode.movePlayerPosition(direction);
+            gameMode.movePlayerPosition(0,direction);
             e.consume();
         }
     }
@@ -93,8 +93,9 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
         if (chronoTimeline != null) chronoTimeline.stop();
     }
 
+    /* Arrête le chrono lors de la victoire */
     @Override
-    public void update(GameMode gameMode) {
+    public void onVictory() {
         stopChrono();
         handleVictory();
     }
@@ -102,5 +103,5 @@ public abstract class LabyrinthController<T extends GameMode> implements Observe
     /**
      * Méthode abstraite à implémenter pour gérer la victoire
      */
-    protected abstract void handleVictory();
+    public abstract void handleVictory();
 }

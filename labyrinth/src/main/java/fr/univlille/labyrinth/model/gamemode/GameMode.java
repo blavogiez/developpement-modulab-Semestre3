@@ -3,14 +3,12 @@ package fr.univlille.labyrinth.model.gamemode;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.univlille.labyrinth.model.Observer;
+import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.MonsterEntity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**
@@ -24,7 +22,7 @@ public abstract class GameMode {
 
     private MazeManager mazeManager;
     private VictoryHandler victoryHandler;
-    private List<Observer<GameMode>> victoryObservers = new ArrayList<>();
+    private List<VictoryObserver<GameMode>> victoryObservers = new ArrayList<>();
 
     public GameMode(MazeManager mazeManager, VictoryHandler victoryHandler) {
         this.mazeManager = mazeManager;
@@ -36,31 +34,28 @@ public abstract class GameMode {
      *
      * @param direction la direction du déplacement.
      */
-    public void movePlayerPosition(Direction direction) {
+    public void movePlayerPosition(int playerID, Direction direction) {
         if (!mazeManager.hasMaze()) return;
 
         ObservableMaze maze = mazeManager.getCurrentMaze();
-        if (maze.getPlayerPosition() == null) return;
+        PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(playerID);
+        if (player == null) return;
 
-        Position playerPosition = maze.getPlayerPosition();
-        if (maze.movePlayer(direction)) {
-            if (isPlayerAtEnd()) {
+        Position oldPosition = player.getPosition().copy();
+        if (maze.movePlayer(playerID, direction)) {
+            if (maze.isPlayerAtExit()) {
                 handleVictory();
-            } else if(chekIfMonsterOnPlayer(maze)) {
-                handleLoose();
             } else {
-                maze.trapEffect(playerPosition);
+                int deadPlayers = maze.getEntityManager().checkMonsterOnPlayer();
+                if (deadPlayers > 0) {
+                    if (maze.getEntityManager().getPlayerEntities().isEmpty()) {
+                        handleLoose();
+                    }
+                } else {
+                    maze.trapEffect(playerID, oldPosition);
+                }
             }
         }
-    }
-
-    /**
-     * @return boolean
-     */
-    public boolean isPlayerAtEnd() {
-        if (!mazeManager.hasMaze()) return false;
-        ObservableMaze maze = mazeManager.getCurrentMaze();
-        return maze.getPlayerPosition().equals(maze.getExitPosition());
     }
 
     /**
@@ -77,13 +72,16 @@ public abstract class GameMode {
         mazeManager.setCurrentMaze(maze);
     }
 
-    public void addVictoryObserver(Observer<GameMode> observer) {
+    /** 
+     * @param observer
+     */
+    public void addVictoryObserver(VictoryObserver<GameMode> observer) {
         victoryObservers.add(observer);
     }
 
     protected void notifyVictory() {
-        for (Observer<GameMode> observer : victoryObservers) {
-            observer.update(this);
+        for (VictoryObserver<GameMode> observer : victoryObservers) {
+            observer.handleVictory();
         }
     }
 
@@ -97,24 +95,30 @@ public abstract class GameMode {
         notifyVictory();
     }
 
+    /** 
+     * @return MazeManager
+     */
     protected MazeManager getMazeManager() {
         return mazeManager;
     }
 
+    /** 
+     * @return VictoryHandler
+     */
     protected VictoryHandler getVictoryHandler() {
         return victoryHandler;
     }
 
+    /** 
+     * @param width
+     * @param height
+     * @return boolean
+     */
     /* Les dimensions demandées sont-elles possibles ?
+    à déplacer (CF fichier SOLID.md)
      * @return boolean
      */
     public static boolean areDimensionsCorrect(int width, int height) {
         return width >= 1 && height >= 1 ;
-    }
-
-    protected  boolean chekIfMonsterOnPlayer(ObservableMaze maze) {
-        MonsterEntity monster = maze.getEntityManager().getMonsterEntity();
-        Position playerPosition =  maze.getPlayerPosition();
-        return  monster != null && monster.getPosition().equals(playerPosition);
     }
 }

@@ -1,6 +1,6 @@
 # Organisation
 
-Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démonstration (petite phrase, ou screen) à chaque commit
+Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démonstration (petite phrase, ou screen) à chaque commit.
 
 # Membres de l'équipe
 
@@ -108,14 +108,9 @@ Création de la classe "PlayerDatabase"
 |--------------|---------|-------------|
 | Implémentation de la vue à visibilité restreinte autour du joueur (conformément aux spécifications des diapositives) pour la troisième étape | Rédaction du rapport d'analyse | Implémentation du parcours en profondeur/largeur du labyrinthe (Package parcours) pour les tests |
 | Collecte et validation des paramètres saisis par l'utilisateur pour la génération en mode libre | | |
-| Intégration des fichiers FXML et de leurs contrôleurs respectifs afin de respecter la maquette d'interface établie | | |
-| Intégration du composant chronomètre développé par Romain pour son affichage dans la vue du labyrinthe | | |
+| Utilisation du composant chronomètre de Romain dans la vue |
 | Implémentation de la suite de tests pour les algorithmes de génération / labyrinthe | | |
 | Implémentation du singleton AppState pour simplifier les traitements (attributs du joueur accessibles aux controlleurs plutot que du static) | | |
-
-(On peut noter qu'une approche TDD fut particulièrement pertinente pour le cas d'un labyrinthe)
-
-En parallèle, j'ai remis en question et simplifié le code que j'ai produit, avec les bonnes pratiques, pour permettre une meilleure compréhension par les autres.
 
 ### **Romain** :
 - création du fxml pour un joueur déjà existant
@@ -154,17 +149,10 @@ En parallèle, j'ai remis en question et simplifié le code que j'ai produit, av
 | Développement| Algorithmie |
 |--------------|-------------|
 |Implémentation d'une fonctionnalité de "tooltip" quand on survole un bouton, affichant ses informations|Test de la distance entrée/sortie correcte et debug du placement adéquat de la case de départ|
-|Contrôle de saisie du mode libre (Avertissement de 2 secondes si erreur)|
-|Contrôle de saisie du mode progression (saisie des noms vérifiée)||
-|Couverture de tests pour les controlleurs / la distance entrée/sortie ||
-|Amélioration de la qualité de code globale du projet (petits refactor, faire respecter la logique métier...)||
+|Contrôle de saisie des modes de jeu (Avertissement de 2 secondes si erreur)||
 |Script bash pour créer la javadoc et la placer dans `doc` ||
 |Création des UML à différentes granularités et explication dans README ||
 |Ajout d'une suite de tests complète pour ProgressionMode afin de garantir une couverture maximale avant le rendu ||
-|Renommage de tous les fichiers en anglais avec des noms explicites et restructuration des packages selon les conventions Java ||
-
-La qualité du code est extrêmement importante et au rendu du jalon 1, notre dette technique est très faible. Je fais tout pour la réduire au maximum, en l'assurant par la non-régression des tests.
-
 
 ### **Romain** :
 - J'ai fait de la javadoc
@@ -180,6 +168,7 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 ## **Semaine du 27/10 au 2/11**
 
 **Sujet du jalon 2 rendu disponible**
+
 **Semaine de vacances**
 
 ### **Antonin** :
@@ -194,14 +183,11 @@ La qualité du code est extrêmement importante et au rendu du jalon 1, notre de
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Refactor de la sélection de défis pour permettre une initialisation dynamique (autant de défis que dans le CSV)| |
+| Amélioration de la sélection de défis pour permettre une initialisation dynamique (autant de défis que dans le CSV)|  |
 | Refactor du controlleur de mode de jeu pour simplifier le code | |
-| Strategy Pattern pour le score des défis (speedrun, temps) | |
-| Couverture de tests augmentée pour les controlleurs | |
+| Petite couverture de tests pour les controlleurs | |
+| Fonctionnalité originale : Strategy Pattern pour permettre différents calculs de score pour les défis (speedrun, temps...) | |
 
-J'ai profité de cette semaine de vacances pour faire des petites retouches sur le code afin de faciliter les futures implémentations, en les communiquant sur le groupe.
-
-Comme c'était une semaine de vacances et que l'objectif n'était pas de travailler au maximum, je n'ai pas touché aux nouvelles *features* ni à l'algorithme pour ne pas prendre des tâches aux autres.
 
 ### **Romain** :
 
@@ -224,20 +210,59 @@ Comme c'était une semaine de vacances et que l'objectif n'était pas de travail
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Avec Victor, refactor des vues pour correspondre au nouvel algorithme (mur entre les cases)| |
-| Implémentation de la vue Exploration (Étape 6) | |
-| Refactor de la classe Maze en deux parties : Maze et ObservableMaze pour mieux respecter le DIP et SRP.*   | |
-| Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
-
-*(Un `Maze` est un labyrinthe qui contient uniquement les murs et position entrée / sortie (L'algorithme ne voit que les Maze) ; un ObservableMaze hérite du labyrinthe et gère les positions d'entités )
-
-**Le système d'entités a emergé après la volonté de chacun d'implémenter des modes de jeux originaux ; Antonin a pensé à un mode à deux joueurs, Angèl à un monstre (Minotaure-like), Romain à une sortie qui bouge... J'ai implémenté ce système pour que tout le monde puisse rapidement créer l'entité qu'il veut. De plus, elles peuvent s'assembler (on peut mettre 15 monstres, 4 sorties...)
+| Avec Victor, refactor des vues en Canvas + responsive pour correspondre au nouvel algorithme (murs entre les cases)| Début du rapport d'algorithmie|
+| Implémentation de la vue Exploration (Étape 6) | Algorithme pour la distance entrée / sortie |
+| Création de ObservableMaze héritant de Maze | Création de la classe `Benchmark` pour mesurer le temps d'exécution des différents algorithmes avec résultats dans un fichier CSV + modélisation `matplotlib`|
+| Fonctionnalité originale : Implémentation d'un système d'entités pour permettre des composants dynamiques **| |
+| Fonctionnalité originale : Implémentation d'une Factory de liste d'entités par chaine textuelle depuis le CSV des défis pour une configuration facile | |
+| Fonctionnalité originale : Gestion de plusieurs sorties de labyrinthe (Accepter n'importe quelle sortie en vérifiant la liste d'entités) | |
+| Fonctionnalité originale : Implémentation d'une gestion de Formes / Couleurs dans la vue pour dessiner et configurer facilement les composants du labyrinthe (Pièges, entités) | |
 
 
 ### **Romain** :
 
 -code du classement
 -ajout mode movingexit
+-ajout d'un movement fluide pour le joueur
 
 ### **Victor** :
 
+## **Semaine du 10/11 au 16/11**
+
+
+### **Antonin** :
+
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+| Développement | Algorithmie |
+|--------------|-------------|
+| Fonctionnalité originale : Avec Antonin, implémentation du mode multijoueur (gestion des ID joueur et touches) | |
+
+
+### **Romain** :
+
+
+### **Victor** :
+
+
+## **Semaine du 17/11 au 21/11**
+
+
+### **Antonin** :
+
+
+### **Angèl** :
+
+
+### **Baptiste** :
+
+
+### **Romain** :
+
+
+### **Victor** :

@@ -1,13 +1,14 @@
 package fr.univlille.labyrinth.model.maze.entities.factory;
 
-import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 /*
  * Factory simple de liste d'entités
@@ -16,17 +17,19 @@ import java.util.List;
 
 public class EntityListFactory {
 
-    public static List<Entity> createEntities(String configuration, Maze maze) {
+    /** 
+     * @param maze
+     * @param configuration
+     * @return List<Entity>
+     */
+    public static List<Entity> createEntities(ObservableMaze maze, String configuration) {
         List<EntityConfiguration> configs = EntityConfigurationParser.parse(configuration);
         List<Entity> entities = new ArrayList<>();
 
         for (EntityConfiguration config : configs) {
             for (int i = 0; i < config.quantity(); i++) {
-                Position position = determinePosition(config.type(), i, maze);
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
-
-                Entity entity = moveBehavior == null ? config.type().create(position) : config.type().create(position, moveBehavior);
-
+                Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
                 entities.add(entity);
             }
         }
@@ -34,12 +37,28 @@ public class EntityListFactory {
         return entities;
     }
 
-    // à bouger après (je sais que ça doit pas etre la c pour test)
-    private static Position determinePosition(EntityType type, int index, Maze maze) {
-        return switch (type) {
-            case PLAYER -> index == 0 ? maze.getEntryPosition() : new Position(index, 0);
-            case EXIT -> index == 0 ? maze.getExitPosition() : new Position(index, index);
-            case MONSTER -> index == 0 ? maze.getExitPosition() : new Position(5,5 );
-        };
+    /** 
+     * @param maze
+     * @param configuration
+     */
+    /*
+     * Cette configuration de remplir au fur et à mesure est utile pour que les entités se positionnent en ayant connaissance des autres déjà présentes, chose impossible si l'on assignait tout à la fois.
+     */
+    public static void fillMazeEntities(ObservableMaze maze, String configuration) {
+        List<EntityConfiguration> configs = EntityConfigurationParser.parse(configuration);
+        EntityManager entityManager = maze.getEntityManager();
+
+        for (EntityConfiguration config : configs) {
+            for (int i = 0; i < config.quantity(); i++) {
+                MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
+                Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
+                if(entity.getEntityType()== EntityType.PLAYER) {
+                    PlayerEntity playerEntity = (PlayerEntity) entity ;
+                    playerEntity.setID(entityManager.getCptPlayerID());
+                    entityManager.addCptPlayerID();
+                }
+                entityManager.addEntity(entity);
+            }
+        }
     }
 }
