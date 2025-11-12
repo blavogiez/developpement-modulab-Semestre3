@@ -18,6 +18,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
+    private final double SIZE_RATIO = 0.6;
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
@@ -202,7 +203,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
                 if (localX >= 0 && localX < VIEW_SIZE && localY >= 0 && localY < VIEW_SIZE) {
                     GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
-                        localX, localY, layout, 0.6);
+                        localX, localY, layout, SIZE_RATIO);
                 }
             }
         }
@@ -223,7 +224,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
                     System.out.println(trapFactories[globalY][globalX].name());
                     GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
-                        local.getX(), local.getY(), layout, 0.6);
+                        local.getX(), local.getY(), layout, SIZE_RATIO);
                 }
             }
         }
