@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;

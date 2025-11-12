@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.gamemode.manager;
 
 import fr.univlille.labyrinth.model.gamemode.config.GameConfig;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.WallRemover;
 
 public class MazeManager {
     private ObservableMaze currentMaze;
@@ -48,5 +49,8 @@ public class MazeManager {
      */
     public boolean hasMaze() {
         return currentMaze != null;
+    }
+    public void randomWallRemoval(double pourcentage) {
+        WallRemover.randomWallRemoval(pourcentage,currentMaze);
     }
 }
