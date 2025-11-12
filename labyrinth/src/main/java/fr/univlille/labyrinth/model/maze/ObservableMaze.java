@@ -24,7 +24,8 @@ import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 
 
 
-public class ObservableMaze extends Maze implements Observable {
+public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
+    private final List<Observer<ObservableMaze>> observers = new ArrayList<>();
     protected EntityManager entityManager ;
      protected TrapManager trapManager ;
     // protected EventManager eventManager ;
@@ -121,5 +122,10 @@ public class ObservableMaze extends Maze implements Observable {
         if (player != null) {
             player.setPosition(position);
         }
+    }
+    
+    @Override
+    public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
+        return this.observers;
     }
 }
