@@ -16,7 +16,6 @@ Ce fichier répertorie ici toutes les améliorations SOLID possibles
 
 - Créer l'interface Observable (simple avec notify) et la faire implémenter par ObservableMaze
 
-- Créer VictoryObserver<T extends GameMode> avec la méthode onVictory(bouger les controlleurs)
 
 # D
 
