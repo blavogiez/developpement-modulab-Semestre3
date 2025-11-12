@@ -46,11 +46,9 @@ public abstract class GameMode {
             if (maze.isPlayerAtExit()) {
                 handleVictory();
             } else {
-                int deadPlayers = maze.getEntityManager().checkMonsterOnPlayer();
-                if (deadPlayers > 0) {
-                    if (maze.getEntityManager().getPlayerEntities().isEmpty()) {
-                        handleLoose();
-                    }
+                maze.getEntityManager().checkMonsterOnPlayer();
+                if (maze.getEntityManager().getPlayerEntities().isEmpty()) {
+                    handleLoose();
                 } else {
                     maze.trapEffect(playerID, oldPosition);
                 }
