@@ -77,6 +77,7 @@ public class ProgressionLoader {
                 double wallPercentage = Double.parseDouble(parts[8]);
                 int distanceBetweenEntryAndExit = Integer.parseInt(parts[9]);
                 String entitiesConfiguration = parts[10];
+                String trapsConfiguration = parts[11];
 
                 Challenge challenge = new Challenge(
                     algorithm,
@@ -87,7 +88,9 @@ public class ProgressionLoader {
                     wallPercentage,
                     distanceBetweenEntryAndExit,
                     scoreFactory.create(),
-                    entitiesConfiguration
+                    entitiesConfiguration,
+                        trapsConfiguration
+
                 );
                 levels[levelNumber - 1].getChallenges()[challengeIndex] = challenge;
             }

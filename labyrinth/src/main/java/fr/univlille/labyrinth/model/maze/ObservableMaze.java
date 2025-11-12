@@ -38,15 +38,15 @@ public class ObservableMaze extends Maze {
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
-        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+        this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"");
     }
 
-    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         super(width, height, distanceBetweenEntryAndExit, algo) ;
         this.observers = new ArrayList<>();
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
-        this.trapManager = new TrapManager(this);
+        this.trapManager = new TrapManager(this, trapsConfiguration);
     }
 
 

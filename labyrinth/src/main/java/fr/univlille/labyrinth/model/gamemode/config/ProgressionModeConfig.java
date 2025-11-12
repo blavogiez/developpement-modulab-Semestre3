@@ -45,6 +45,11 @@ public class ProgressionModeConfig implements GameConfig {
     }
 
     @Override
+    public String getTrapsConfiguration(){
+        return challenge.getTrapsConfiguration();
+    }
+
+    @Override
     public boolean isPerfectAlgorithm() {
         return true;
     }

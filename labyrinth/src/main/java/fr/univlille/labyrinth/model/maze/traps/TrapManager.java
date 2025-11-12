@@ -11,9 +11,9 @@ public class TrapManager {
     private final ObservableMaze maze;
     private final Trap[][] trap;
 
-    public TrapManager(ObservableMaze maze){
+    public TrapManager(ObservableMaze maze, String trapsConfiguration){
         this.maze=maze;
-        this.trap = TrapSetup.generate(maze,0,5,10,3,0);
+        this.trap = TrapSetup.generate(maze,trapsConfiguration);
 
     }
 

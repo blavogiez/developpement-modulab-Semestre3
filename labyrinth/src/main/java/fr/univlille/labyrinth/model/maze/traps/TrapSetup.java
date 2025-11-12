@@ -13,18 +13,7 @@ import java.util.Random;
 public class TrapSetup {
     static Trap[][] traps;
     static Map<TrapFactory, Integer> trapMap;
-
-    public static Trap[][] generate(Maze maze, int numberOfRandomTraps, int numberOfTeleporter, int numberOfPush, int numberOfFake, int numberOfStun) {
-
-        trapMap = new EnumMap<>(TrapFactory.class);
-        trapMap.put(TrapFactory.RANDOM_TRAP,numberOfRandomTraps);
-        trapMap.put(TrapFactory.PUSH_TRAP, numberOfPush);
-        trapMap.put(TrapFactory.TELEPORTER_TRAP, numberOfTeleporter);
-        trapMap.put(TrapFactory.FAKE_EXIT_TRAP, numberOfFake);
-        trapMap.put(TrapFactory.STUN_TRAP, numberOfStun);
-
-        return generate(maze, trapMap);
-    }
+    
 
     public static Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
         TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
@@ -39,38 +28,45 @@ public class TrapSetup {
         trapMap = new EnumMap<>(TrapFactory.class);
         String[] separatedTraps = setup.split("_");
         for (int i = 0; i<separatedTraps.length;i++) {
-            String trapandvalue = separatedTraps[i];
-            String trap = null;
-            String value = null;
-            for (int j = 0; j < trapandvalue.length(); j++) {
-                Character car = separatedTraps[i].charAt(j);
-                if (car < '9' && car > '0') {
-                    trap = trapandvalue.substring(0, j);
-                    value = trapandvalue.substring(j);
-                    break;
-                }
-            }
-            TrapFactory trapType = TrapFactory.NONE;
-            int numberTrap = 0;
-            if (trap != null && value != null) {
-
-
-                try {
-                    trapType = TrapFactory.compactedValueOf(trap);
-                    numberTrap = Integer.parseInt(value);
-                } catch (Exception e) {
-                    trapType = TrapFactory.NONE;
-                }
-                if (trapType==null) throw new RuntimeException("What");
-                trapMap.put(trapType, numberTrap);
-            }
+            extractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
+            verifyAndAddTrapIfExists(result);
         }
         return generate(maze,trapMap);
     }
 
-    public static Trap[][] generate(Maze maze, int numberOfRandomTraps){
-        return generate(maze,numberOfRandomTraps,0,0,0,0);
+    private static void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
+        TrapFactory trapType = TrapFactory.NONE;
+        int numberTrap = 0;
+        if (result.trap() != null && result.value() != null) {
+
+
+            try {
+                trapType = TrapFactory.compactedValueOf(result.trap());
+                numberTrap = Integer.parseInt(result.value());
+            } catch (Exception e) {
+                trapType = TrapFactory.NONE;
+            }
+            trapMap.put(trapType, numberTrap);
+        }
     }
+
+    private static extractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
+        String trap = null;
+        String value = null;
+        for (int j = 0; j < trapandvalue.length(); j++) {
+            char car = trapandvalue.charAt(j);
+            if (car < '9' && car > '0') {
+                trap = trapandvalue.substring(0, j);
+                value = trapandvalue.substring(j);
+                break;
+            }
+        }
+        return new extractTrapAndValueFromConfiguration(trap, value);
+    }
+
+    private record extractTrapAndValueFromConfiguration(String trap, String value) {
+    }
+
 
     private static void randomizeRandomTrap() {
         Random random = new Random();
