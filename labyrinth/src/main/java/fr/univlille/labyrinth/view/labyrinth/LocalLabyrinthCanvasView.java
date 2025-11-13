@@ -82,17 +82,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
      * @return boolean
      */
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
-        Position p1 = new Position(globalY, globalX);
-        Position p2 = new Position(globalY, globalX - 1);
-        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
-        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
-
-        if (!p1Valid && !p2Valid) {
-            return false;
-        }
-        if (!p1Valid || !p2Valid) {
-            return true;
-        }
         return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
@@ -102,17 +91,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
      * @return boolean
      */
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
-        Position p1 = new Position(globalY, globalX);
-        Position p2 = new Position(globalY - 1, globalX);
-        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
-        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
-
-        if (!p1Valid && !p2Valid) {
-            return false;
-        }
-        if (!p1Valid || !p2Valid) {
-            return true;
-        }
         return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
@@ -143,9 +121,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
     @Override
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
         if (playerEntity == null) return;

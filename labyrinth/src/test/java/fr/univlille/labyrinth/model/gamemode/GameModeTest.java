@@ -23,15 +23,12 @@ public class GameModeTest {
     private static class MockVictoryObserver implements VictoryObserver<GameMode> {
         private boolean victoryTriggered = false;
 
-        @Override
         public void onVictory() {
-            System.out.println("youpi");
-            
-        }
 
+        }
+        
         public void handleVictory() {
             this.victoryTriggered=true;
-            onVictory();
         }
 
         public boolean isVictoryTriggered() {

@@ -40,7 +40,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         playerAnimation.start();
 
         container = new Pane();
-        canvas = new Canvas(800, 800);
+        canvas = new Canvas(900, 900);
         container.getChildren().add(canvas);
 
         container.setMinSize(0, 0);
@@ -58,9 +58,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();
