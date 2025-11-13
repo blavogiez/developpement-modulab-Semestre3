@@ -46,6 +46,19 @@ public class RandomAlgorithm extends PerfectAlgorithm {
         }
     }
 
+    /**
+     * Applique la suppression aléatoire de murs sur un maze existant (pour les tests)
+     * @param maze Le labyrinthe sur lequel appliquer la suppression
+     * @param targetPercentage Le pourcentage de murs à conserver
+     */
+    void applyRandomRemoval(Maze maze, double targetPercentage) {
+        this.horizontalsWalls = maze.getMurHorizontaux();
+        this.verticalsWalls = maze.getMurVerticaux();
+        this.width = maze.getWidth();
+        this.height = maze.getHeight();
+        randomlyRemoveWalls(targetPercentage);
+    }
+
     private static RandomAlgorithm instance;
 
     /**

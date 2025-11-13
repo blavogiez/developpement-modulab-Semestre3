@@ -52,7 +52,7 @@ public class Maze {
     }
 
     public Maze(int width, int height, double wallPercentage) {
-        this(width, height, wallPercentage, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+        this(width, height, wallPercentage, MazeAlgorithmFactory.RANDOM.getAlgorithm());
     }
 
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
