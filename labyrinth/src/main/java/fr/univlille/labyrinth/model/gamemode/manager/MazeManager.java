@@ -8,6 +8,7 @@ public class MazeManager {
     private ObservableMaze currentMaze;
 
     /** 
+     * Crée un labyrinthe selon le type d'algorithme (Spécifier la distance si c'est un parfait, sinon spécifier le pourcentage de murs)
      * @param config
      */
     public void createMaze(GameConfig config) {
@@ -23,7 +24,8 @@ public class MazeManager {
             this.currentMaze = new ObservableMaze(
                 config.getWidth(),
                 config.getHeight(),
-                1000,
+                config.getWallPercentage(),
+                config.getDistanceBetweenEntryAndExit(),
                 config.getEntitiesConfiguration(),
                     config.getAlgorithm()
             );

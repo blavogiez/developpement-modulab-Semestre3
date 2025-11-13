@@ -19,7 +19,9 @@ import fr.univlille.labyrinth.model.save.PlayerProgress;
 import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 
-
+/*
+ * Test pour la progression par défaut (csv) et son chargement 
+ */
 class ProgressionLoaderTest {
 
     private static final String TEST_FILE = "res/test_progression.csv";
