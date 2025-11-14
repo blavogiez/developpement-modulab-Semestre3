@@ -4,6 +4,10 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityConfiguration;
+import fr.univlille.labyrinth.model.maze.entities.factory.TrapConfiguration;
+import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
+import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +25,9 @@ import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FreeModeEntityConfigurationController {
     @FXML
@@ -35,11 +42,34 @@ public class FreeModeEntityConfigurationController {
     private ComboBox<String> comboBox2;
     @FXML
     private Label errorLabel;
+    @FXML
+    private ListView<TrapConfiguration> listView2;
+    @FXML
+    private TextField textField2;
+    @FXML
+    private Button buttonAdd2;
+    @FXML
+    private ComboBox<TrapFactory> comboBox3;
+    @FXML
+    private Label errorLabel2;
+
 
     private ObservableList<EntityConfiguration> entities;
 
+    private ObservableList<TrapConfiguration> traps;
+
+
     @FXML
     public void initialize() {
+        initializeEntityMenu();
+        initializeTrapMenu();
+        String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
+        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
+            loadConfiguration(existingConfig);
+        }
+    }
+
+    public void initializeEntityMenu(){
         entities = FXCollections.observableArrayList();
         listView.setItems(entities);
         listView.setCellFactory(lv -> new EntityConfigCell());
@@ -53,11 +83,18 @@ public class FreeModeEntityConfigurationController {
         textField.setText("1");
 
         buttonAdd.setOnAction(e -> onAddEntity());
+    }
 
-        String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
-        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
-            loadConfiguration(existingConfig);
-        }
+    public void initializeTrapMenu(){
+        entities = FXCollections.observableArrayList();
+        listView2.setItems(traps);
+        listView2.setCellFactory(lv -> new TrapConfigCell());
+        comboBox3.getItems().setAll(TrapFactory.values());
+        comboBox3.getSelectionModel().selectFirst();
+
+        textField.setText("1");
+
+        buttonAdd.setOnAction(e -> onAddTrap());
     }
 
     @FXML
@@ -83,6 +120,29 @@ public class FreeModeEntityConfigurationController {
         } catch (NumberFormatException ex) {
         }
     }
+
+    private void onAddTrap() {
+        TrapFactory selectedType = comboBox3.getValue();
+        String quantityText = textField.getText();
+
+        if (selectedType == null || quantityText.isEmpty()) {
+            return;
+        }
+
+        try {
+            int quantity = Integer.parseInt(quantityText);
+            if (quantity <= 0) {
+                return;
+            }
+
+            TrapConfiguration config = new TrapConfiguration(selectedType,Integer.parseInt(quantityText));
+            traps.add(config);
+
+            textField.setText("1");
+        } catch (NumberFormatException ex) {
+        }
+    }
+
 
     @FXML
     private void onValidate() throws IOException {
@@ -211,6 +271,43 @@ public class FreeModeEntityConfigurationController {
                 setGraphic(null);
             } else {
                 label.setText(String.format("%s x%d (%s)", item.type(), item.quantity(), item.moveBehaviorName()));
+                setGraphic(content);
+            }
+        }
+    }
+
+    private class TrapConfigCell extends ListCell<TrapFactory> {
+        private final HBox content;
+        private final Label label;
+        private final Button deleteButton;
+
+        public TrapConfigCell() {
+            label = new Label();
+            deleteButton = new Button("X");
+            deleteButton.getStyleClass().add("delete-button");
+
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            content = new HBox(10, label, spacer, deleteButton);
+            content.setAlignment(Pos.CENTER_LEFT);
+
+            deleteButton.setOnAction(e -> {
+                int index = getIndex();
+                if (index >= 0 && index < entities.size()) {
+                    entities.remove(index);
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(TrapConfiguration item, boolean empty) {
+            super.updateItem(item.trap(), empty);
+
+            if (empty || item == null) {
+                setGraphic(null);
+            } else {
+                label.setText(String.format("%s x%d (%s)", item, item.quantity()));
                 setGraphic(content);
             }
         }

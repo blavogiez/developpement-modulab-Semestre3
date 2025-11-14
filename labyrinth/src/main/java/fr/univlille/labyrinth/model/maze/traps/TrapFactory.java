@@ -39,6 +39,4 @@ public enum TrapFactory {
         return trap.get();
     }
 
-
-
 }
