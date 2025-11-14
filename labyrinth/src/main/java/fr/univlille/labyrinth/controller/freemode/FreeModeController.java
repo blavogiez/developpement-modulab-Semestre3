@@ -113,8 +113,8 @@ public class FreeModeController {
     }
 
     @FXML
-    private void goToEntityConfiguration() throws IOException {
-        App.goTo("freemode/FreeModeEntityConfiguration.fxml");
+    private void goToComponentConfiguration() throws IOException {
+        App.goTo("freemode/FreeModeComponentConfiguration.fxml");
     }
 
     private void resize(){

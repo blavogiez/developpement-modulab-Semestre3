@@ -137,7 +137,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
      */
     @Override
     protected boolean shouldRenderEntity(Entity entity) {
-        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && entity.getEntityType()!=EntityType.PLAYER;
+        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && super.shouldRenderEntity(entity);
     }
 
     /** 

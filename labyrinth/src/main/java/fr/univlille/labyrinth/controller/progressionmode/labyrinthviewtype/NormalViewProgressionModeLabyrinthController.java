@@ -1,10 +1,6 @@
 package fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype;
 
-import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
-
-import java.io.IOException;
-
 import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrinthController;
 import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
 import javafx.scene.layout.Pane;

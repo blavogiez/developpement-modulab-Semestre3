@@ -53,8 +53,8 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         canvas = new Canvas(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT);
         container.getChildren().add(canvas);
 
-        container.setMinSize(CANVAS_MIN_WIDTH, CANVAS_MIN_HEIGHT);
-        container.setMaxSize(canvas.getWidth(), canvas.getHeight());
+        container.setMinSize(0, 0);
+        container.setMaxSize(850, 850);
         container.setPrefSize(canvas.getWidth(), canvas.getHeight());
 
         canvas.widthProperty().bind(container.widthProperty());
