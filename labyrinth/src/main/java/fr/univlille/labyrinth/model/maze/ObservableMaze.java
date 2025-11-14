@@ -42,6 +42,19 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"DEFAULT");
     }
 
+
+
+    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        this(width,height,wallPercentage,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
+    }
+
+    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
+        super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
+        this.entityManager = new EntityManager();
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
+        this.trapManager = new TrapManager(this, trapsConfiguration);
+    }
+
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         super(width, height, distanceBetweenEntryAndExit, algo) ;
 
@@ -50,18 +63,8 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this.trapManager = new TrapManager(this, trapsConfiguration);
     }
 
-    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
-        super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
-        this.entityManager = new EntityManager();
-        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
-        this.trapManager = new TrapManager(this, "DEFAULT");
-    }
-
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
-        super(width, height, distanceBetweenEntryAndExit, algo) ;
-        this.entityManager = new EntityManager();
-        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
-        this.trapManager = new TrapManager(this, "DEFAULT");
+        this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
     /** 
