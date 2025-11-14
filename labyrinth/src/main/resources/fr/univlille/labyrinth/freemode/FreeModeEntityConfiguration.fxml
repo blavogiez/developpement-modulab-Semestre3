@@ -15,7 +15,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Configuration des Entités">
+            <Label prefHeight="39.0" prefWidth="421.0" text="Configuration des éléments">
                <font>
                   <Font size="30.0" />
                </font>
@@ -24,43 +24,81 @@
       </HBox>
    </top>
    <center>
-      <VBox spacing="15" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-         </padding>
+      <HBox fx:id="menu" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <VBox VBox.vgrow="ALWAYS">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="15">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
                <children>
-                  <ListView fx:id="listView" prefHeight="250.0" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
-
-            <VBox spacing="10">
-               <children>
-                  <HBox alignment="CENTER" spacing="10">
+                  <VBox VBox.vgrow="ALWAYS">
                      <children>
-                        <ComboBox fx:id="comboBox1" prefWidth="150.0" />
-                        <TextField fx:id="textField" prefWidth="80.0" />
-                        <ComboBox fx:id="comboBox2" prefWidth="150.0" />
-                        <Button fx:id="buttonAdd" text="Ajouter" />
-                     </children>
-                  </HBox>
-
-                  <VBox alignment="CENTER" spacing="5">
-                     <children>
-                        <Label fx:id="errorLabel" style="-fx-text-fill: red;" text="Au moins 1 PLAYER et 1 EXIT requis" visible="false" />
+                        <ListView fx:id="listView" prefHeight="277.0" prefWidth="272.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-
-                  <HBox alignment="CENTER" spacing="10">
+      
+                        <VBox spacing="10">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onValidate" prefWidth="100.0" text="Valider" />
-                        <Button mnemonicParsing="false" onAction="#goToRetour" prefWidth="100.0" text="Retour" />
+                        <HBox alignment="CENTER" spacing="10">
+                           <children>
+                              <ComboBox fx:id="comboBox1" prefWidth="150.0" />
+                              <TextField fx:id="textField" prefWidth="80.0" />
+                              <ComboBox fx:id="comboBox2" prefWidth="150.0" />
+                              <Button fx:id="buttonAdd" text="Ajouter" />
+                           </children>
+                        </HBox>
+      
+                              <VBox alignment="CENTER" spacing="5">
+                           <children>
+                              <Label fx:id="errorLabel" style="-fx-text-fill: red;" text="Au moins 1 PLAYER et 1 EXIT requis" visible="false" />
+                           </children>
+                        </VBox>
+      
+                              <HBox alignment="CENTER" spacing="10">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onValidate" prefWidth="100.0" text="Valider" />
+                              <Button mnemonicParsing="false" onAction="#goToRetour" prefWidth="100.0" text="Retour" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="439.0" prefWidth="491.0" spacing="15">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <children>
+                  <VBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <ListView fx:id="listView1" prefHeight="277.0" prefWidth="272.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="10">
+                     <children>
+                        <VBox alignment="CENTER" spacing="5">
+                           <children>
+                              <HBox alignment="CENTER" spacing="10">
+                                 <children>
+                                    <ComboBox fx:id="comboBox111" prefWidth="150.0" />
+                                    <TextField fx:id="textField11" prefWidth="80.0" />
+                                    <Button fx:id="buttonAdd11" text="Ajouter" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="errorLabel1" style="-fx-text-fill: red;" text="Au moins 1 PLAYER et 1 EXIT requis" visible="false" />
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER" spacing="10">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onValidate" prefWidth="100.0" text="Valider" />
+                              <Button mnemonicParsing="false" onAction="#goToRetour" prefWidth="100.0" text="Retour" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
-      </VBox>
+      </HBox>
    </center>
 </BorderPane>
