@@ -17,6 +17,10 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 
+/*
+ * Test de GameMode, où un "mock" d'observer est créé.
+ * La sortie est cherchée, puis remontée et nous testons si l'observeur est prévenu.
+ */
 public class GameModeTest {
 
     //mock rapide d'un observer

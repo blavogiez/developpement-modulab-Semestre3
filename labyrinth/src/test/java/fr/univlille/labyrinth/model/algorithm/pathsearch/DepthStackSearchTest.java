@@ -25,6 +25,19 @@ class DepthStackSearchTest {
         }
     }
 
+
+        /** 
+     * @param tab
+     */
+    /*
+     * helper pour rendre un labyrinthe vide
+     */
+    private static void allAreFalse(boolean[][] tab) {
+        for (int i = 0; i < tab.length; i++) {
+            Arrays.fill(tab[i], false);
+        }
+    }
+
     @Test
     void shouldNotFindPathInFullMaze() {
         Maze maze = new Maze(10, 10, 12);
@@ -37,6 +50,8 @@ class DepthStackSearchTest {
     @Test
     void shouldFindPathInEmptyMaze() {
         Maze maze = new Maze(15, 10, 15);
+        allAreFalse(maze.getMurHorizontaux());
+        allAreFalse(maze.getMurVerticaux());
 
         assertTrue(DepthStackSearch.isExitPossible(maze));
     }
