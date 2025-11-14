@@ -7,14 +7,20 @@ from io import BytesIO
 d = "res/benchmarks"
 files = [f for f in os.listdir(d) if f.endswith(".csv")]
 for i,f in enumerate(files): print(i,f)
-i = int(input("Choix: "))
 
-df = pd.read_csv(os.path.join(d, files[i]))
+choices = input("Choix (indices séparés par espace): ").split()
+indices = [int(c) for c in choices]
 
-plt.plot(df["taille"], df["temps(ms)"])
+plt.figure()
+for idx in indices:
+    df = pd.read_csv(os.path.join(d, files[idx]))
+    plt.plot(df["taille"], df["temps(ms)"], label=files[idx].replace(".csv", ""))
+
 plt.xlabel("taille")
 plt.ylabel("temps (ms)")
-plt.title(files[i])
+plt.title("Comparaison" if len(indices) > 1 else files[indices[0]])
+if len(indices) > 1:
+    plt.legend()
 plt.tight_layout()
 
 buf = BytesIO()
@@ -25,4 +31,5 @@ plt.close()
 buf.seek(0)
 img = Image.open(buf)
 os.makedirs(d+"/modelisations", exist_ok=True)
-img.save(os.path.join(d+"/modelisations", files[i].replace(".csv", ".png")))
+output_name = "_vs_".join([files[idx].replace(".csv", "") for idx in indices]) + ".png"
+img.save(os.path.join(d+"/modelisations", output_name))

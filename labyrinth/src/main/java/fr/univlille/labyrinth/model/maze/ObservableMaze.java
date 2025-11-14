@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
@@ -39,6 +40,20 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
         this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+    }
+
+    public ObservableMaze(int width, int height, double wallPercentage, String entitiesConfiguration, MazeAlgorithm algo) {
+        super(width, height, wallPercentage, algo) ;
+        this.entityManager = new EntityManager();
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
+        this.trapManager = new TrapManager(this);
+    }
+
+    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
+        this.entityManager = new EntityManager();
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
+        this.trapManager = new TrapManager(this);
     }
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {

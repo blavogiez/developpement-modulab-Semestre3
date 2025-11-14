@@ -37,7 +37,6 @@ public class ProgressionMode extends GameMode {
 
     public void createMaze() {
         getMazeManager().createMaze(config);
-
     }
 
     /**
