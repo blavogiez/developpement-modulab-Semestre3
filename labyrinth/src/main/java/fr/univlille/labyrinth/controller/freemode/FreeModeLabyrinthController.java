@@ -5,6 +5,7 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
+import fr.univlille.labyrinth.controller.PopupVictoryController;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.view.labyrinth.NormalLabyrinthCanvasView;
 import javafx.fxml.FXML;
@@ -38,8 +39,10 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
+            PopupVictoryController popupVictoryController = new PopupVictoryController();
+            popupVictoryController.openPopup();
             App.goTo("freemode/FreeModeLabyrinth.fxml");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

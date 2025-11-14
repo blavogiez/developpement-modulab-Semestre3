@@ -5,6 +5,7 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
+import fr.univlille.labyrinth.controller.PopupVictoryController;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.model.save.Challenge;
@@ -56,8 +57,10 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     @Override
     public void handleVictory() {
         try {
+            PopupVictoryController popupVictoryController = new PopupVictoryController();
+            popupVictoryController.openPopup();
             goToProgression();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
