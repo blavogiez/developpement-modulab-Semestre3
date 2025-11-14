@@ -27,6 +27,10 @@ public class PlayerAnimation extends AnimationTimer {
         enabled = false;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void handle(long now) {
         if (!enabled)
             return;
