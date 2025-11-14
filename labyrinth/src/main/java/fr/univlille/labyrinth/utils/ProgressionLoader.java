@@ -22,7 +22,8 @@ import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
 
 public class ProgressionLoader {
     private static String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
-    private static int EXPECTED_LENGTH=11;
+    private static int EXPECTED_LENGTH=12;
+
 
     /**
      * Charge la progression par défaut depuis le fichier CSV
@@ -76,6 +77,7 @@ public class ProgressionLoader {
                 double wallPercentage = Double.parseDouble(parts[8]);
                 int distanceBetweenEntryAndExit = Integer.parseInt(parts[9]);
                 String entitiesConfiguration = parts[10];
+                String trapsConfiguration = parts[11];
 
                 Challenge challenge = new Challenge(
                     algorithm,
@@ -86,7 +88,9 @@ public class ProgressionLoader {
                     wallPercentage,
                     distanceBetweenEntryAndExit,
                     scoreFactory.create(),
-                    entitiesConfiguration
+                    entitiesConfiguration,
+                        trapsConfiguration
+
                 );
                 levels[levelNumber - 1].getChallenges()[challengeIndex] = challenge;
             }

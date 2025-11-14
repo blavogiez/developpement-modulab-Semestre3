@@ -10,6 +10,7 @@ public class FreeModeConfig implements GameConfig {
     private double wallPercentage;
     private int distanceBetweenEntryAndExit;
     private String entityConfiguration ;
+    private String trapsConfiguration;
 
     /*
      * Constructeur par défaut
@@ -124,7 +125,17 @@ public class FreeModeConfig implements GameConfig {
         return entityConfiguration;
     }
 
+    @Override
+    public String getTrapsConfiguration() {
+        return trapsConfiguration;
+    }
+
     public void setEntitiesConfiguration(String entityConfiguration) {
         this.entityConfiguration = entityConfiguration;
+
+    }
+
+    public void setTrapsConfiguration(String trapsConfiguration){
+        this.trapsConfiguration=trapsConfiguration;
     }
 }

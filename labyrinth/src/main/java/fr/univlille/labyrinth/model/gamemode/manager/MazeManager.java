@@ -18,7 +18,8 @@ public class MazeManager {
                 config.getHeight(),
                 config.getDistanceBetweenEntryAndExit(),
                 config.getEntitiesConfiguration(),
-                    config.getAlgorithm()
+                    config.getAlgorithm(),
+                    config.getTrapsConfiguration()
             );
         } else {
             this.currentMaze = new ObservableMaze(
@@ -27,7 +28,8 @@ public class MazeManager {
                 config.getWallPercentage(),
                 config.getDistanceBetweenEntryAndExit(),
                 config.getEntitiesConfiguration(),
-                    config.getAlgorithm()
+                    config.getAlgorithm(),
+                    config.getTrapsConfiguration()
             );
         }
     }

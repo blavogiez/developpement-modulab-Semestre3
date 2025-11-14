@@ -10,4 +10,5 @@ public interface GameConfig {
     int getDistanceBetweenEntryAndExit();
     boolean isPerfectAlgorithm();
     String getEntitiesConfiguration();
+    String getTrapsConfiguration();
 }

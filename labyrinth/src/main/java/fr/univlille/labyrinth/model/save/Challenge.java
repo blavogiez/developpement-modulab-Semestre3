@@ -28,6 +28,7 @@ public class Challenge implements Serializable {
 
     private final ViewType viewType ;
     private final String entitiesConfiguration;
+    private final String trapsConfiguration;
     private long timeCompleted;
     private boolean completed;
     private ScoreCalculator scoreCalculator;
@@ -46,7 +47,7 @@ public class Challenge implements Serializable {
      * @param entitiesConfiguration Configuration des entités du challenge.
      * @param scoreCalculator Stratégie de calcul de score à utiliser
      */
-    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator, String entitiesConfiguration) {
+    public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator, String entitiesConfiguration, String trapsConfiguration) {
         this.algorithm=algorithm;
         this.viewType=viewType;
         this.difficulty=difficulty;
@@ -56,34 +57,35 @@ public class Challenge implements Serializable {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
         this.scoreCalculator = scoreCalculator;
         this.entitiesConfiguration = entitiesConfiguration;
+        this.trapsConfiguration = trapsConfiguration;
     }
 
     /**
      * Génère un challenge avec injection de la stratégie de calcul de score et entitiesConfiguration par défaut
      */
     public Challenge(String  algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, ScoreCalculator scoreCalculator) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, scoreCalculator,"DEFAULT");
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, scoreCalculator,"DEFAULT","");
     }
 
     /**
      * Génère un challenge avec la distance minimale par défaut
      */
     public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, ScoreCalculator scoreCalculator) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, scoreCalculator,"DEFAULT");
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, scoreCalculator,"DEFAULT","");
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring par défaut
      */
     public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage, int distanceBetweenEntryAndExit) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, new StandardScoreCalculator(),"DEFAULT");
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, distanceBetweenEntryAndExit, new StandardScoreCalculator(),"DEFAULT","");
     }
 
     /**
      * Génère un challenge avec la stratégie de scoring et la distance minimale par défaut
      */
     public Challenge(String algorithm, ViewType viewType, String difficulty, int width, int height, double wallPercentage) {
-        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, new StandardScoreCalculator(), "DEFAULT");
+        this(algorithm, viewType, difficulty, width, height, wallPercentage, 10, new StandardScoreCalculator(), "DEFAULT","");
     }
 
     /**
@@ -156,6 +158,8 @@ public class Challenge implements Serializable {
     public String getEntitiesConfiguration() {
         return entitiesConfiguration;
     }
+
+    public String getTrapsConfiguration() { return  trapsConfiguration;}
 
     /**
      * @return long
