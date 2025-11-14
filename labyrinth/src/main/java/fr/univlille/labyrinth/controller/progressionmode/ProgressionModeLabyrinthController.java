@@ -57,8 +57,7 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     @Override
     public void handleVictory() {
         try {
-            PopupVictoryController popupVictoryController = new PopupVictoryController();
-            popupVictoryController.openPopup();
+            PopupVictoryController.openPopup(gameMode.getPlayer().getName());
             goToProgression();
         } catch (Exception e) {
             e.printStackTrace();

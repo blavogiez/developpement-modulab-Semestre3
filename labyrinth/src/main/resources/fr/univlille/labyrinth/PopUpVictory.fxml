@@ -3,11 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml">
-
-    <Label text="Le joueur "++"a trouvé la sortie en premier" />
-    <Button text="Fermer" onAction="#closePopup"/>
-
-</VBox>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.univlille.labyrinth.controller.PopupVictoryController">
+    <children>
+        <Label fx:id="winnerLabel" layoutX="20" layoutY="20" text="Le gagnant est : "/>
+        <Button text="Fermer" layoutX="20" layoutY="60" onAction="#closePopup"/>
+    </children>
+</AnchorPane>

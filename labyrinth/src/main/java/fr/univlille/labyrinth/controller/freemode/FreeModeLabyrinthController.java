@@ -39,8 +39,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
-            PopupVictoryController popupVictoryController = new PopupVictoryController();
-            popupVictoryController.openPopup();
+            PopupVictoryController.openPopup("toi");
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (Exception e) {
             e.printStackTrace();
