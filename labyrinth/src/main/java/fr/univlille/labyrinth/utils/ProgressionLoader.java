@@ -101,6 +101,9 @@ public class ProgressionLoader {
             throw new RuntimeException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
         }
     }
+    /** 
+     * @param path
+     */
     public static void setDefaultProgressPath(String path) {
     DEFAULT_PROGRESSION_FILE = path;
 }
