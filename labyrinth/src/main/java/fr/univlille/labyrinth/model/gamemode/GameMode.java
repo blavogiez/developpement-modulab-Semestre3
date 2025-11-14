@@ -19,7 +19,6 @@ import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
  * @since 0.0
  */
 public abstract class GameMode {
-
     private MazeManager mazeManager;
     private VictoryHandler victoryHandler;
     private List<VictoryObserver<GameMode>> victoryObservers = new ArrayList<>();

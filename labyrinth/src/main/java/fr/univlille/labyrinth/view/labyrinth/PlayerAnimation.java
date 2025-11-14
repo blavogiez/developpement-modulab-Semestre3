@@ -1,65 +1,86 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import javafx.animation.AnimationTimer;
 
 public class PlayerAnimation extends AnimationTimer {
 
-    private boolean enabled = true ;
+    private boolean enabled = true;
     private LabyrinthCanvasView view;
     private double speed;
+    private long lastUpdate = 0;
 
-    public PlayerAnimation(LabyrinthCanvasView view,double speed) {
+    public PlayerAnimation(LabyrinthCanvasView view, double speed) {
         this.view = view;
-        this.speed=speed;
+        this.speed = speed;
     }
 
     public PlayerAnimation(LabyrinthCanvasView view) {
-        this(view,0.2);
+        this(view, 6.0);
     }
 
     public void disable() {
-        enabled=false;
+        enabled = false;
     }
 
-    /** 
-     * @param now
-     */
-    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void handle(long now) {
-        if (!enabled) return;
+        if (!enabled)
+            return;
+
+        if (lastUpdate == 0) {
+            lastUpdate = now;
+            return;
+        }
+
+        double delta = (now - lastUpdate) / 1_000_000_000.0;
+        lastUpdate = now;
+
         ObservableMaze maze = view.getCurrentMaze();
 
-        HashMap<Integer, Double> xMap = view.getPlayerXMap();
-        HashMap<Integer, Double> yMap = view.getPlayerYMap();
+        Map<Integer, Double> xMap = view.getPlayerXMap();
+        Map<Integer, Double> yMap = view.getPlayerYMap();
+
         boolean hasMoved = false;
 
         for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+
             int id = player.getID();
-            int targetX = player.getPosition().getX();
-            int targetY = player.getPosition().getY();
+            double targetX = player.getPosition().getX();
+            double targetY = player.getPosition().getY();
 
-            double currentX = xMap.getOrDefault(id, (double) targetX);
-            double currentY = yMap.getOrDefault(id, (double) targetY);
+            double currentX = xMap.getOrDefault(id, targetX);
+            double currentY = yMap.getOrDefault(id, targetY);
 
-            double newX = currentX + (targetX - currentX) * speed;
-            double newY = currentY + (targetY - currentY) * speed;
+            double maxStep = speed * delta;
 
-            if (Math.abs(newX - targetX) < 0.01) newX = targetX;
-            if (Math.abs(newY - targetY) < 0.01) newY = targetY;
+            double newX = interpolate(currentX, targetX, maxStep);
+            double newY = interpolate(currentY, targetY, maxStep);
 
             xMap.put(id, newX);
             yMap.put(id, newY);
 
-            if (Math.abs(currentX - newX) > 0.01 || Math.abs(currentY - newY) > 0.01) {
+            if (Math.abs(newX - currentX) > 0.001 || Math.abs(newY - currentY) > 0.001)
                 hasMoved = true;
-            }
         }
 
-        if (hasMoved) {
+        if (hasMoved)
             view.draw();
-        }
+    }
+
+    private double interpolate(double current, double target, double maxStep) {
+        double diff = target - current;
+
+        if (Math.abs(diff) <= maxStep)
+            return target;
+
+        return current + Math.signum(diff) * maxStep;
     }
 }

@@ -4,32 +4,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Random;
-
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.DepthStackSearch;
 
-class MazeTest {
+/*
+ * Test vis-à-vis de la substitusion de Liskov dans le cas du labyrinthe
+ * ici nous testons si un ObservableMaze répond effectivement aux mêmes spécifications que sa classe parent, maze
+ * Cela garantit la liaison entre les deux classes.
+ * 
+ * les tests sont les mêmes que pour Maze.
+ */
+
+class LiskovMazeTest {
 
     @Test
     void shouldStoreWidth() {
-        Maze maze = new Maze(15, 10, 15);
+        ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertEquals(15, maze.getWidth());
     }
 
     @Test
     void shouldStoreHeight() {
-        Maze maze = new Maze(15, 20, 15);
+        ObservableMaze maze = new ObservableMaze(15, 20, 15);
 
         assertEquals(20, maze.getHeight());
     }
 
     @Test
     void shouldVerticalArrayStoreHeight() {
-        Maze maze = new Maze(15, 20, 15);
+        ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertEquals(maze.getWidth() - 1, maze.getMurVerticaux().length);
         assertEquals(14, maze.getMurVerticaux().length);
@@ -37,7 +42,7 @@ class MazeTest {
 
     @Test
     void shouldHorizontalArrayStoreWidth() {
-        Maze maze = new Maze(15, 20, 15);
+        ObservableMaze maze = new ObservableMaze(15, 20, 15);
 
         assertEquals(maze.getHeight() - 1, maze.getMurHorizontaux().length);
         assertEquals(19, maze.getMurHorizontaux().length);
@@ -45,7 +50,7 @@ class MazeTest {
 
     @Test
     void shouldHaveEntryAndExitPositions() {
-        Maze maze = new Maze(10, 10, 12);
+        ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertNotNull(maze.getEntryPosition());
         assertNotNull(maze.getExitPosition());
@@ -53,7 +58,8 @@ class MazeTest {
 
     @Test
     void shouldHavePathBetweenEntryAndExit() {
-        Maze maze = new Maze(12, 10, 12);
+        ObservableMaze maze = new ObservableMaze(15, 20, 15);
         assertTrue(DepthStackSearch.isExitPossible(maze));
     }
 }
+

@@ -4,10 +4,7 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityConfiguration;
-import fr.univlille.labyrinth.model.maze.entities.factory.TrapConfiguration;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
-import fr.univlille.labyrinth.model.maze.traps.TrapManager;
-import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,11 +22,10 @@ import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.StringJoiner;
 
-public class FreeModeEntityConfigurationController {
+public class FreeModeComponentConfigurationController {
     @FXML
     private ListView<EntityConfiguration> listView;
     @FXML
@@ -39,110 +35,95 @@ public class FreeModeEntityConfigurationController {
     @FXML
     private ComboBox<EntityType> comboBox1;
     @FXML
-    private ComboBox<String> comboBox2;
-    @FXML
     private Label errorLabel;
     @FXML
-    private ListView<TrapConfiguration> listView2;
+    private ListView<TrapConfig> trapListView;
     @FXML
-    private TextField textField2;
+    private TextField trapTextField;
     @FXML
-    private Button buttonAdd2;
+    private Button buttonAddTrap;
     @FXML
-    private ComboBox<TrapFactory> comboBox3;
-    @FXML
-    private Label errorLabel2;
-
+    private ComboBox<TrapFactory> trapComboBox;
 
     private ObservableList<EntityConfiguration> entities;
-
-    private ObservableList<TrapConfiguration> traps;
-
+    private ObservableList<TrapConfig> traps;
 
     @FXML
     public void initialize() {
-        initializeEntityMenu();
-        initializeTrapMenu();
-        String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
-        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
-            loadConfiguration(existingConfig);
-        }
+        initializeEntitySection();
+        initializeTrapSection();
     }
 
-    public void initializeEntityMenu(){
+    private void initializeEntitySection() {
         entities = FXCollections.observableArrayList();
         listView.setItems(entities);
         listView.setCellFactory(lv -> new EntityConfigCell());
 
         comboBox1.getItems().setAll(EntityType.values());
         comboBox1.getSelectionModel().selectFirst();
-
-        comboBox2.getItems().setAll("PLAYER", "MOVING", "MONSTER", "DEFAULT");
-        comboBox2.getSelectionModel().selectFirst();
-
         textField.setText("1");
-
         buttonAdd.setOnAction(e -> onAddEntity());
+
+        String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
+        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
+            loadEntityConfiguration(existingConfig);
+        }
     }
 
-    public void initializeTrapMenu(){
-        entities = FXCollections.observableArrayList();
-        listView2.setItems(traps);
-        listView2.setCellFactory(lv -> new TrapConfigCell());
-        comboBox3.getItems().setAll(TrapFactory.values());
-        comboBox3.getSelectionModel().selectFirst();
+    /*
+     * tous les pièges sauf none / used 
+     */
+    private void initializeTrapSection() {
+        traps = FXCollections.observableArrayList();
+        trapListView.setItems(traps);
+        trapListView.setCellFactory(lv -> new TrapConfigCell());
 
-        textField.setText("1");
+        trapComboBox.getItems().setAll(Arrays.stream(TrapFactory.values())
+                .filter(t -> !t.getCompactedName().isEmpty() && t != TrapFactory.NONE && t != TrapFactory.USED)
+                .toArray(TrapFactory[]::new));
+        if (!trapComboBox.getItems().isEmpty()) {
+            trapComboBox.getSelectionModel().selectFirst();
+        }
 
-        buttonAdd.setOnAction(e -> onAddTrap());
+        trapTextField.setText("1");
+        buttonAddTrap.setOnAction(e -> onAddTrap());
+
+        String existingTrapConfig = AppState.getInstance().getFreeModeConfig().getTrapsConfiguration();
+        if (existingTrapConfig != null && !existingTrapConfig.isEmpty() && !existingTrapConfig.equals("DEFAULT")) {
+            loadTrapConfiguration(existingTrapConfig);
+        }
     }
 
     @FXML
     private void onAddEntity() {
         EntityType selectedType = comboBox1.getValue();
-        String selectedBehavior = comboBox2.getValue();
-        String quantityText = textField.getText();
-
-        if (selectedType == null || selectedBehavior == null || quantityText.isEmpty()) {
-            return;
-        }
+        if (selectedType == null) return;
 
         try {
-            int quantity = Integer.parseInt(quantityText);
-            if (quantity <= 0) {
-                return;
-            }
+            int quantity = Integer.parseInt(textField.getText());
+            if (quantity <= 0) return;
 
-            EntityConfiguration config = new EntityConfiguration(selectedType, quantity, selectedBehavior);
-            entities.add(config);
-
+            entities.add(new EntityConfiguration(selectedType, quantity, "DEFAULT"));
             textField.setText("1");
         } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
     private void onAddTrap() {
-        TrapFactory selectedType = comboBox3.getValue();
-        String quantityText = textField.getText();
-
-        if (selectedType == null || quantityText.isEmpty()) {
-            return;
-        }
+        TrapFactory selectedTrap = trapComboBox.getValue();
+        if (selectedTrap == null) return;
 
         try {
-            int quantity = Integer.parseInt(quantityText);
-            if (quantity <= 0) {
-                return;
-            }
+            int quantity = Integer.parseInt(trapTextField.getText());
+            if (quantity <= 0) return;
 
-            TrapConfiguration config = new TrapConfiguration(selectedType,Integer.parseInt(quantityText));
-            traps.add(config);
-
-            textField.setText("1");
+            traps.add(new TrapConfig(selectedTrap, quantity));
+            trapTextField.setText("1");
         } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
         }
     }
-
 
     @FXML
     private void onValidate() throws IOException {
@@ -151,9 +132,8 @@ public class FreeModeEntityConfigurationController {
             return;
         }
 
-        String config = buildConfigurationString();
-        AppState.getInstance().getFreeModeConfig().setEntitiesConfiguration(config);
-        AppState.getInstance().getFreeModeConfig().setTrapsConfiguration("DEFAULT");
+        AppState.getInstance().getFreeModeConfig().setEntitiesConfiguration(buildConfigurationString());
+        AppState.getInstance().getFreeModeConfig().setTrapsConfiguration(buildTrapConfigurationString());
         App.goTo("freemode/FreeMode.fxml");
     }
 
@@ -163,43 +143,40 @@ public class FreeModeEntityConfigurationController {
     }
 
     /*
-     * de la liste d'objets de configuration, on créé un String pour être interprété par la Factory d'entités plus tard
+     * joiner utile pour compacter code
      */
     private String buildConfigurationString() {
-        if (entities.isEmpty()) {
-            return "DEFAULT";
-        }
+        if (entities.isEmpty()) return "DEFAULT";
 
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < entities.size(); i++) {
-            EntityConfiguration e = entities.get(i);
-            result.append(String.format("t=%s;q=%d;m=%s", e.type(), e.quantity(), e.moveBehaviorName()));
-            if (i < entities.size() - 1) {
-                result.append("|");
-            }
+        StringJoiner joiner = new StringJoiner("|");
+        for (EntityConfiguration e : entities) {
+            joiner.add(String.format("t=%s;q=%d;m=%s", e.type(), e.quantity(), e.moveBehaviorName()));
         }
-        return result.toString();
+        return joiner.toString();
+    }
+
+    private String buildTrapConfigurationString() {
+        if (traps.isEmpty()) return "DEFAULT";
+
+        StringJoiner joiner = new StringJoiner("_");
+        for (TrapConfig t : traps) {
+            joiner.add(t.type().getCompactedName() + t.quantity());
+        }
+        return joiner.toString();
     }
 
     /*
-     * Un labyrinthe doit avoir au moins 1 joueur, au moins 1 sortie.
+     * au moins 1 joueur / 1 sortie
      */
     private boolean isValid() {
-        boolean hasPlayer = false;
-        boolean hasExit = false;
-
-        for (EntityConfiguration e : entities) {
-            if (e.type() == EntityType.PLAYER) {
-                hasPlayer = true;
-            }
-            if (e.type() == EntityType.EXIT) {
-                hasExit = true;
-            }
-        }
-
+        boolean hasPlayer = entities.stream().anyMatch(e -> e.type() == EntityType.PLAYER);
+        boolean hasExit = entities.stream().anyMatch(e -> e.type() == EntityType.EXIT);
         return hasPlayer && hasExit;
     }
 
+    /*
+     * avertissement si non valid 
+     */
     private void showError() {
         errorLabel.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
@@ -207,7 +184,7 @@ public class FreeModeEntityConfigurationController {
         pause.play();
     }
 
-    private void loadConfiguration(String config) {
+    private void loadEntityConfiguration(String config) {
         String[] parts = config.split("\\|");
         for (String part : parts) {
             String[] params = part.split(";");
@@ -236,9 +213,23 @@ public class FreeModeEntityConfigurationController {
         }
     }
 
-    /*
-     * petit objet pour faire apparaître une cellule d'entité de configuratoin
-     */
+    private void loadTrapConfiguration(String config) {
+        String[] parts = config.split("_");
+        for (String part : parts) {
+            String compactedName = part.replaceAll("\\d+$", "");
+            String quantityStr = part.replaceAll("^\\D+", "");
+
+            try {
+                TrapFactory type = TrapFactory.compactedValueOf(compactedName);
+                int quantity = Integer.parseInt(quantityStr);
+                traps.add(new TrapConfig(type, quantity));
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private record TrapConfig(TrapFactory type, int quantity) {}
+
     private class EntityConfigCell extends ListCell<EntityConfiguration> {
         private final HBox content;
         private final Label label;
@@ -270,13 +261,13 @@ public class FreeModeEntityConfigurationController {
             if (empty || item == null) {
                 setGraphic(null);
             } else {
-                label.setText(String.format("%s x%d (%s)", item.type(), item.quantity(), item.moveBehaviorName()));
+                label.setText(String.format("%s x%d", item.type(), item.quantity()));
                 setGraphic(content);
             }
         }
     }
 
-    private class TrapConfigCell extends ListCell<TrapFactory> {
+    private class TrapConfigCell extends ListCell<TrapConfig> {
         private final HBox content;
         private final Label label;
         private final Button deleteButton;
@@ -294,20 +285,20 @@ public class FreeModeEntityConfigurationController {
 
             deleteButton.setOnAction(e -> {
                 int index = getIndex();
-                if (index >= 0 && index < entities.size()) {
-                    entities.remove(index);
+                if (index >= 0 && index < traps.size()) {
+                    traps.remove(index);
                 }
             });
         }
 
         @Override
-        protected void updateItem(TrapConfiguration item, boolean empty) {
-            super.updateItem(item.trap(), empty);
+        protected void updateItem(TrapConfig item, boolean empty) {
+            super.updateItem(item, empty);
 
             if (empty || item == null) {
                 setGraphic(null);
             } else {
-                label.setText(String.format("%s x%d (%s)", item, item.quantity()));
+                label.setText(String.format("%s x%d", item.type().name(), item.quantity()));
                 setGraphic(content);
             }
         }

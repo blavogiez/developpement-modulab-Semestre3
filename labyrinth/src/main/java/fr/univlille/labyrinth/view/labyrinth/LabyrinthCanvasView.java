@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
 
+import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Observable;
@@ -42,14 +43,18 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         this.layoutCalculator = new LabyrinthLayoutCalculator();
         this.componentRenderer = new ComponentRenderer();
         this.playerAnimation = new PlayerAnimation(this);
-        playerAnimation.start();
+        if (SettingsManager.get().isAnimationEnabled()) {
+            playerAnimation.start();
+        } else {
+            playerAnimation.disable();
+        }
 
         container = new Pane();
         canvas = new Canvas(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT);
         container.getChildren().add(canvas);
 
-        container.setMinSize(CANVAS_MIN_WIDTH, CANVAS_MIN_HEIGHT);
-        container.setMaxSize(canvas.getWidth(), canvas.getHeight());
+        container.setMinSize(0, 0);
+        container.setMaxSize(850, 850);
         container.setPrefSize(canvas.getWidth(), canvas.getHeight());
 
         canvas.widthProperty().bind(container.widthProperty());
@@ -253,7 +258,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
      * "hook" utile pour le cas de la vue locale (à gauche, on ne dessine pas le joueur)
      */
     protected boolean shouldDrawPlayer() {
-        return true;
+        return playerAnimation.isEnabled();
     }
 
     /** 
@@ -271,7 +276,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
      * @return boolean
      */
     protected boolean shouldRenderEntity(Entity entity) {
-        return entity.getEntityType() != EntityType.PLAYER;
+        if (entity.getEntityType() == EntityType.PLAYER) {
+            return !playerAnimation.isEnabled();
+        }
+        return true;
     }
 
     /** 

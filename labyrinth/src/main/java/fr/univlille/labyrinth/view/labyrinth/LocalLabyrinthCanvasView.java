@@ -155,15 +155,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
     }
 
     /** 
-     * @param entity
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldRenderEntity(Entity entity) {
-        return entity.getEntityType() != EntityType.PLAYER;
-    }
-
-    /** 
      * @param gc
      * @param maze
      */
