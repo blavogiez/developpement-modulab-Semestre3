@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.gamemode.config;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 
 /*
@@ -72,7 +73,7 @@ public class ProgressionModeConfig implements GameConfig {
 
     @Override
     public boolean isPerfectAlgorithm() {
-        return true;
+        return MazeAlgorithmFactory.valueOf(challenge.getAlgorithmName()).isPerfect();
     }
 
     /** 

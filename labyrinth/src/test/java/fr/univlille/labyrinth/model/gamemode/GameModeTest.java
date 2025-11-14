@@ -1,49 +1,48 @@
-package fr.univlille.labyrinth.controller;
+package fr.univlille.labyrinth.model.gamemode;
 
-import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.gamemode.FreeMode;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import fr.univlille.labyrinth.model.VictoryObserver;
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
-import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class MovePlayerVictoryTest {
+public class GameModeTest {
 
     //mock rapide d'un observer
-    private static class VictoryObserver implements Observer<GameMode> {
+    private static class MockVictoryObserver implements VictoryObserver<GameMode> {
         private boolean victoryTriggered = false;
-        private GameMode notifiedGameMode = null;
 
-        @Override
-        public void update(GameMode gameMode) {
-            victoryTriggered = true;
-            notifiedGameMode = gameMode;
+        public void onVictory() {
+
+        }
+        
+        public void handleVictory() {
+            this.victoryTriggered=true;
         }
 
         public boolean isVictoryTriggered() {
             return victoryTriggered;
         }
-
-        public GameMode getNotifiedGameMode() {
-            return notifiedGameMode;
-        }
     }
 
     @Test
     public void testMovePlayerToExitTriggersVictory() {
-        FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 30);
+        FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 31);
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();
 
-        VictoryObserver observer = new VictoryObserver();
+        MockVictoryObserver observer = new MockVictoryObserver();
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
@@ -54,8 +53,8 @@ public class MovePlayerVictoryTest {
         Position exit = maze.getExitPosition();
 
         List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
-        assertNotNull(path, "A path should be found from start to exit.");
-        assertFalse(path.isEmpty(), "Path should not be empty.");
+        assertNotNull(path);
+        assertFalse(path.isEmpty());
         path.add(0, start);
 
         for (Position targetPosition : path) {
@@ -75,7 +74,6 @@ public class MovePlayerVictoryTest {
 
         assertTrue(observer.isVictoryTriggered());
         assertTrue(gameMode.getCurrentMaze().isPlayerAtExit());
-        assertEquals(gameMode, observer.getNotifiedGameMode());
     }
 
     @Test
@@ -84,8 +82,8 @@ public class MovePlayerVictoryTest {
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();
 
-        VictoryObserver observer1 = new VictoryObserver();
-        VictoryObserver observer2 = new VictoryObserver();
+        MockVictoryObserver observer1 = new MockVictoryObserver();
+        MockVictoryObserver observer2 = new MockVictoryObserver();
         gameMode.addVictoryObserver(observer1);
         gameMode.addVictoryObserver(observer2);
 

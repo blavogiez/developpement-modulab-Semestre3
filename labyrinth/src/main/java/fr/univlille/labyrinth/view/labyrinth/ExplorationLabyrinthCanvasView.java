@@ -1,9 +1,9 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
@@ -36,9 +36,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     @Override
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();

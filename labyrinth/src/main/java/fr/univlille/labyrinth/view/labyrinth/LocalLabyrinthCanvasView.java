@@ -1,7 +1,9 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
+import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
@@ -12,10 +14,11 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
+public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
+    private final double SIZE_RATIO = 0.6;
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
@@ -80,17 +83,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
      * @return boolean
      */
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
-        Position p1 = new Position(globalY, globalX);
-        Position p2 = new Position(globalY, globalX - 1);
-        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
-        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
-
-        if (!p1Valid && !p2Valid) {
-            return false;
-        }
-        if (!p1Valid || !p2Valid) {
-            return true;
-        }
         return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
@@ -100,17 +92,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
      * @return boolean
      */
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
-        Position p1 = new Position(globalY, globalX);
-        Position p2 = new Position(globalY - 1, globalX);
-        boolean p1Valid = MazeWallChecker.positionCorrecte(p1, currentMaze);
-        boolean p2Valid = MazeWallChecker.positionCorrecte(p2, currentMaze);
-
-        if (!p1Valid && !p2Valid) {
-            return false;
-        }
-        if (!p1Valid || !p2Valid) {
-            return true;
-        }
         return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
@@ -141,9 +122,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
     @Override
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
         if (playerEntity == null) return;
@@ -200,7 +179,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                 if (localX >= 0 && localX < VIEW_SIZE && localY >= 0 && localY < VIEW_SIZE) {
                     GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
-                        localX, localY, layout, 0.6);
+                        localX, localY, layout, SIZE_RATIO);
                 }
             }
         }
@@ -221,7 +200,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                     System.out.println(trapFactories[globalY][globalX].name());
                     GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
-                        local.getX(), local.getY(), layout, 0.6);
+                        local.getX(), local.getY(), layout, SIZE_RATIO);
                 }
             }
         }

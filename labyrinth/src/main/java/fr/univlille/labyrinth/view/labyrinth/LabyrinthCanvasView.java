@@ -1,8 +1,10 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
+
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
+import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
@@ -18,6 +20,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class LabyrinthCanvasView implements Observer<ObservableMaze> {
+
+    private final int CANVAS_DEFAULT_WIDTH = 800 ;
+    private final int CANVAS_DEFAULT_HEIGHT = 800 ;
+    private final int CANVAS_MIN_WIDTH = 800 ;
+    private final int CANVAS_MIN_HEIGHT = 800 ;
 
     protected Pane container;
     protected Canvas canvas;
@@ -38,10 +45,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         playerAnimation.start();
 
         container = new Pane();
-        canvas = new Canvas(800, 800);
+        canvas = new Canvas(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT);
         container.getChildren().add(canvas);
 
-        container.setMinSize(0, 0);
+        container.setMinSize(CANVAS_MIN_WIDTH, CANVAS_MIN_HEIGHT);
         container.setMaxSize(canvas.getWidth(), canvas.getHeight());
         container.setPrefSize(canvas.getWidth(), canvas.getHeight());
 
@@ -56,9 +63,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();

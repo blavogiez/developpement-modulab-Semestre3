@@ -3,7 +3,6 @@ package fr.univlille.labyrinth.model.algorithm;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 
 import java.util.*;
 
@@ -15,13 +14,7 @@ public class PerfectAlgorithm extends MazeAlgorithm {
     @Override
     public void generateMaze(Maze maze) {
         super.generateMaze(maze);
-
-
-
-
         algoProfondeur(height, width);
-
-
     }
 
     /** 
