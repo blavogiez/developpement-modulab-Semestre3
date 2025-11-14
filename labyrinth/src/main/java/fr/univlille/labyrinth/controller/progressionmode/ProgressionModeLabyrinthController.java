@@ -31,9 +31,17 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     @FXML
     protected Label challengeInfoLabel;
 
+    /** 
+     * @param initializeGameMode(
+     * @return Node
+     */
     // Initialise les vues de labyrinthe nécessaires (abstrait car différents comportements possibles)
     protected abstract Node setupViews(ProgressionMode gameMode);
 
+    /** 
+     * @param initializeGameMode(
+     * @return String
+     */
     // Dans les informations (Label), on ajoute le suffixe correspondant au type de vue (donc, abstrait)
     protected abstract String getViewSuffix();
 
@@ -64,6 +72,9 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     public void goToProgression() throws IOException {
         App.goTo("progressionmode/LevelSelection.fxml");

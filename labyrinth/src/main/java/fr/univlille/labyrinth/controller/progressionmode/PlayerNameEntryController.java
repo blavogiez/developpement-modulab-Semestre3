@@ -28,6 +28,9 @@ public class PlayerNameEntryController {
         menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgression() throws IOException {
         String name = nameField.getText().trim();
