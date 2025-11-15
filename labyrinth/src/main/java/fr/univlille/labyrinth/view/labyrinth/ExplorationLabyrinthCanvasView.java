@@ -34,7 +34,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void draw() {
+    public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 

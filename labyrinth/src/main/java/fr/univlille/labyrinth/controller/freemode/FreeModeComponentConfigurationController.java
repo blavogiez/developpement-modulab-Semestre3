@@ -67,6 +67,8 @@ public class FreeModeComponentConfigurationController {
         String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
         if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
             loadEntityConfiguration(existingConfig);
+        } else {
+            addDefaultEntities();
         }
     }
 
@@ -103,7 +105,19 @@ public class FreeModeComponentConfigurationController {
             int quantity = Integer.parseInt(textField.getText());
             if (quantity <= 0) return;
 
-            entities.add(new EntityConfiguration(selectedType, quantity, "DEFAULT"));
+            EntityConfiguration existing = findEntityByType(selectedType);
+
+            if (existing != null) {
+                int index = entities.indexOf(existing);
+                int newQuantity = existing.quantity() + quantity;
+                entities.set(index, new EntityConfiguration(
+                    selectedType,
+                    newQuantity,
+                    existing.moveBehaviorName()
+                ));
+            } else {
+                entities.add(new EntityConfiguration(selectedType, quantity, "DEFAULT"));
+            }
             textField.setText("1");
         } catch (NumberFormatException ex) {
             System.out.println(ex.getMessage());
@@ -118,7 +132,15 @@ public class FreeModeComponentConfigurationController {
             int quantity = Integer.parseInt(trapTextField.getText());
             if (quantity <= 0) return;
 
-            traps.add(new TrapConfig(selectedTrap, quantity));
+            TrapConfig existing = findTrapByType(selectedTrap);
+
+            if (existing != null) {
+                int index = traps.indexOf(existing);
+                int newQuantity = existing.quantity() + quantity;
+                traps.set(index, new TrapConfig(selectedTrap, newQuantity));
+            } else {
+                traps.add(new TrapConfig(selectedTrap, quantity));
+            }
             trapTextField.setText("1");
         } catch (NumberFormatException ex) {
             System.out.println(ex.getMessage());
@@ -182,6 +204,25 @@ public class FreeModeComponentConfigurationController {
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> errorLabel.setVisible(false));
         pause.play();
+    }
+
+    private EntityConfiguration findEntityByType(EntityType type) {
+        return entities.stream()
+                .filter(e -> e.type() == type)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private TrapConfig findTrapByType(TrapFactory type) {
+        return traps.stream()
+                .filter(t -> t.type() == type)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private void addDefaultEntities() {
+        entities.add(new EntityConfiguration(EntityType.PLAYER, 1, "DEFAULT"));
+        entities.add(new EntityConfiguration(EntityType.EXIT, 1, "DEFAULT"));
     }
 
     private void loadEntityConfiguration(String config) {
