@@ -10,6 +10,10 @@ import javafx.scene.text.Font;
 
 public class ResizeUtil {
 
+    private static final double FONT_PERCENTAGE_WIDTH = 0.55;
+    private static final double DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN = 0.5;
+    private static final double DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN = 0.15;
+
     /** 
      * @param parent
      * @param cont
@@ -29,26 +33,26 @@ public class ResizeUtil {
         cont.setMaxHeight(height);
 
         if(cont instanceof Button button){
-            button.setFont(new Font(height * 0.60));
+            button.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
             button.setPadding(new Insets(0, 0, 0, 0));
-            if(button.getText().length() * height * 0.60 < width){
-                button.setFont(new Font(height*0.60));
+            if(button.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
+                button.setFont(new Font(height*FONT_PERCENTAGE_WIDTH));
             }else{
                 button.setFont(new Font(width/button.getText().length()));
             }
         } else if(cont instanceof Label label){
-            if(label.getText().length() * height * 0.60 < width){
-                label.setFont(new Font(height * 0.60));
+            if(label.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
+                label.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
             }else{
                 label.setFont(new Font(width/label.getText().length()));
             }
         } else if(cont instanceof TextField textField){
-            textField.setFont(new Font(height * 0.60));
+            textField.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
         }else if(cont instanceof ComboBox combo) {
 
             int maxItemLength = getMaxLengthItemComboBox(combo);
-            if ( maxItemLength * height * 0.60 < width) {
-                combo.setStyle("-fx-font-size: " + (height * 0.60) + "px;");
+            if ( maxItemLength * height * FONT_PERCENTAGE_WIDTH < width) {
+                combo.setStyle("-fx-font-size: " + (height * FONT_PERCENTAGE_WIDTH) + "px;");
             } else {
                 combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
             }
@@ -84,9 +88,9 @@ public class ResizeUtil {
         ObservableList<Node> childs = parent.getChildren();
         int nbChilds = childs.size();
         if(isHBox){
-            resizeControlsInPane( parent,(width/nbChilds)*percentageWidth,height*percentageHeight, 0, 0, 0, (width/nbChilds)*0.05);
+            resizeControlsInPane( parent,(width/nbChilds)*percentageWidth,height*percentageHeight, 0, 0, 0, (width/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
         }else{
-            resizeControlsInPane( parent,width*percentageWidth,(height/nbChilds)*percentageHeight, 0, 0, (height/nbChilds)*0.15, 0);
+            resizeControlsInPane( parent,width*percentageWidth,(height/nbChilds)*percentageHeight, 0, 0, (height/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
         }
     }
 
@@ -101,9 +105,9 @@ public class ResizeUtil {
         ObservableList<Node> childs = parent.getChildren();
         int nbChilds = childs.size();
         if(isHBox){
-            resizeControlsInPane( parent,(width/nbChilds)*0.40,height*0.50, 0, 0, 0, (width/nbChilds)*0.05);
+            resizeControlsInPane( parent,(width/nbChilds)*0.40,height*0.50, 0, 0, 0, (width/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
         }else{
-            resizeControlsInPane( parent,width*0.50,(height/nbChilds)*0.40, 0, 0, (height/nbChilds)*0.15, 0);
+            resizeControlsInPane( parent,width*0.50,(height/nbChilds)*0.40, 0, 0, (height/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
         }
     }
 
