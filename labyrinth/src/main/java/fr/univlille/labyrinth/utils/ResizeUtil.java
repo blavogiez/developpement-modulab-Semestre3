@@ -74,23 +74,28 @@ public class ResizeUtil {
      * @param MarginL
      */
     public static void resizeControlsInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
-        ObservableList<Node> childs = parent.getChildren();
-        for (Node child : childs) {
+        ObservableList<Node> children = parent.getChildren();
+        for (Node child : children) {
             resizeControlInPane( parent, (Control)child,width,height, height*MarginT, MarginR, MarginB, MarginL);
         }
     }
 
+    /**
+     * @param parent
+     * @param percentageWidth
+     * @param percentageHeight
+     */
     public static void resizeControlsToParentSize(Pane parent, double percentageWidth, double percentageHeight ){
         double width = parent.getWidth();
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
 
-        ObservableList<Node> childs = parent.getChildren();
-        int nbChilds = childs.size();
+        ObservableList<Node> children = parent.getChildren();
+        int nbChildren = children.size();
         if(isHBox){
-            resizeControlsInPane( parent,(width/nbChilds)*percentageWidth,height*percentageHeight, 0, 0, 0, (width/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
+            resizeControlsInPane( parent,(width/nbChildren)*percentageWidth,height*percentageHeight, 0, 0, 0, (width/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
         }else{
-            resizeControlsInPane( parent,width*percentageWidth,(height/nbChilds)*percentageHeight, 0, 0, (height/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
+            resizeControlsInPane( parent,width*percentageWidth,(height/nbChildren)*percentageHeight, 0, 0, (height/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
         }
     }
 
@@ -102,12 +107,12 @@ public class ResizeUtil {
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
 
-        ObservableList<Node> childs = parent.getChildren();
-        int nbChilds = childs.size();
+        ObservableList<Node> children = parent.getChildren();
+        int nbChildren = children.size();
         if(isHBox){
-            resizeControlsInPane( parent,(width/nbChilds)*0.40,height*0.50, 0, 0, 0, (width/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
+            resizeControlsInPane( parent,(width/nbChildren)*0.40,height*0.50, 0, 0, 0, (width/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
         }else{
-            resizeControlsInPane( parent,width*0.50,(height/nbChilds)*0.40, 0, 0, (height/nbChilds)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
+            resizeControlsInPane( parent,width*0.50,(height/nbChildren)*0.40, 0, 0, (height/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
         }
     }
 
@@ -146,8 +151,8 @@ public class ResizeUtil {
      * @param MarginL
      */
     public static void resizePanesInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
-        ObservableList<Node> childs = parent.getChildren();
-        for (Node child : childs) {
+        ObservableList<Node> children = parent.getChildren();
+        for (Node child : children) {
             resizePaneInPane( parent, (Pane) child,width,height, height*MarginT, MarginR, MarginB, MarginL);
         }
     }
@@ -160,12 +165,12 @@ public class ResizeUtil {
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
 
-        ObservableList<Node> childs = parent.getChildren();
-        int nbChilds = childs.size();
+        ObservableList<Node> children = parent.getChildren();
+        int nbChildren = children.size();
         if(isHBox){
-            resizePanesInPane( parent,(width/nbChilds)*0.90,height*0.90, 0, 0, 0, 0);
+            resizePanesInPane( parent,(width/nbChildren)*0.90,height*0.90, 0, 0, 0, 0);
         }else{
-            resizePanesInPane( parent,width*0.90,(height/nbChilds)*0.80, 0, 0, 0, 0);
+            resizePanesInPane( parent,width*0.90,(height/nbChildren)*0.80, 0, 0, 0, 0);
         }
     }
 
