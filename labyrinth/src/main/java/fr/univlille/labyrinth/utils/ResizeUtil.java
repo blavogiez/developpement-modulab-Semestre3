@@ -50,8 +50,8 @@ public class ResizeUtil {
         }else if(cont instanceof ComboBox combo) {
 
             int maxItemLength = getMaxLengthItemComboBox(combo);
-            if ( maxItemLength * height * 0.60 < width) {
-                combo.setStyle("-fx-font-size: " + (height * 0.60) + "px;");
+            if ( maxItemLength * height * 0.50 < width) {
+                combo.setStyle("-fx-font-size: " + (height * 0.50) + "px;");
             } else {
                 combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
             }
@@ -76,6 +76,13 @@ public class ResizeUtil {
         ObservableList<Node> childs = parent.getChildren();
         for (Node child : childs) {
             resizeControlInPane( parent, (Control)child,width,height, height*MarginT, MarginR, MarginB, MarginL);
+        }
+    }
+
+    public static void resizeControlsInPane(Pane parent, double width, double height){
+        ObservableList<Node> childs = parent.getChildren();
+        for (Node child : childs) {
+            resizeControlInPane( parent, (Control)child,width,height, 0,0,0,0);
         }
     }
 
