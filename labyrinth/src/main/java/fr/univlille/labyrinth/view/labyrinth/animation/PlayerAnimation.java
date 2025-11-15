@@ -1,25 +1,28 @@
-package fr.univlille.labyrinth.view.labyrinth;
+package fr.univlille.labyrinth.view.labyrinth.animation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import javafx.animation.AnimationTimer;
 
+/*
+ * Redessine les joueurs plus fréquemment pour permettre une animation
+ * Peut être désactivé dans les paramètres
+ */
 public class PlayerAnimation extends AnimationTimer {
 
     private boolean enabled = true;
-    private LabyrinthCanvasView view;
+    private AnimatableView view;
     private double speed;
     private long lastUpdate = 0;
 
-    public PlayerAnimation(LabyrinthCanvasView view, double speed) {
+    public PlayerAnimation(AnimatableView view, double speed) {
         this.view = view;
         this.speed = speed;
     }
 
-    public PlayerAnimation(LabyrinthCanvasView view) {
+    public PlayerAnimation(AnimatableView view) {
         this(view, 6.0);
     }
 

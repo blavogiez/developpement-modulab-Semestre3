@@ -3,7 +3,6 @@ package fr.univlille.labyrinth.model.algorithm;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-import javafx.geometry.Pos;
 
 public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 

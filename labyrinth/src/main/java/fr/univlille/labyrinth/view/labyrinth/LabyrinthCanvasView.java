@@ -12,6 +12,8 @@ import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
+import fr.univlille.labyrinth.view.labyrinth.animation.AnimatableView;
+import fr.univlille.labyrinth.view.labyrinth.animation.PlayerAnimation;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
 import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
@@ -20,7 +22,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class LabyrinthCanvasView implements Observer<ObservableMaze> {
+public class LabyrinthCanvasView implements Observer<ObservableMaze>, AnimatableView {
 
     private final int CANVAS_DEFAULT_WIDTH = 800 ;
     private final int CANVAS_DEFAULT_HEIGHT = 800 ;
@@ -38,12 +40,12 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
 
-    public LabyrinthCanvasView(ObservableMaze maze) {
+    public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator, ComponentRenderer componentRenderer, boolean animationEnabled) {
         this.currentMaze = maze;
-        this.layoutCalculator = new LabyrinthLayoutCalculator();
-        this.componentRenderer = new ComponentRenderer();
+        this.layoutCalculator = layoutCalculator;
+        this.componentRenderer = componentRenderer;
         this.playerAnimation = new PlayerAnimation(this);
-        if (SettingsManager.get().isAnimationEnabled()) {
+        if (animationEnabled) {
             playerAnimation.start();
         } else {
             playerAnimation.disable();
@@ -62,11 +64,15 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
         container.widthProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
         container.heightProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
-        
+
         update(maze);
     }
 
-    protected void draw() {
+    public LabyrinthCanvasView(ObservableMaze maze) {
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+    }
+
+    public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -194,7 +200,6 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 if (shouldRenderTrap(traps[y][x], x, y)) {
-                    //System.out.println(traps[y][x].name());
                     GameViewConfig config = GameViewConfig.valueOf(traps[y][x].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
@@ -227,7 +232,13 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if (shouldRenderEntity(entity)) {
-                GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                GameViewConfig config;
+                if (entity.getEntityType() == EntityType.PLAYER) {
+                    int id = ((PlayerEntity) entity).getID();
+                    config = GameViewConfig.valueOf("PLAYER" + id);
+                } else {
+                    config = GameViewConfig.valueOf(entity.getEntityType().name());
+                }
                 componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                     entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6);
             }

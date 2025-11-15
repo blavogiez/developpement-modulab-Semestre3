@@ -15,8 +15,8 @@ public class PlayerInputConfig {
     private static final Map<KeyCode, Direction> keyToDirection = new HashMap<>();
 
     static {
-        initializePlayer(0, KeyCode.Z, KeyCode.Q, KeyCode.S, KeyCode.D);
-        initializePlayer(1, KeyCode.UP, KeyCode.LEFT, KeyCode.DOWN, KeyCode.RIGHT);
+        initializePlayer(0, KeyCode.UP, KeyCode.LEFT, KeyCode.DOWN, KeyCode.RIGHT);
+        initializePlayer(1, KeyCode.Z, KeyCode.Q, KeyCode.S, KeyCode.D);
         initializePlayer(2, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L);
     }
 

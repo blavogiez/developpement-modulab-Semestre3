@@ -120,7 +120,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
     }
 
     @Override
-    protected void draw() {
+    public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -182,13 +182,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
      */
     @Override
     protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        System.out.println("Début du dessin des traps");
         Trap[][] trapFactories = maze.getTrapManager().getTraps();
         for (int globalY = 0; globalY < trapFactories.length; globalY++) {
             for (int globalX = 0; globalX < trapFactories[globalY].length; globalX++) {
                 Position local = toLocalCoordinates(globalX, globalY);
                 if (local != null) {
-                    System.out.println(trapFactories[globalY][globalX].name());
                     GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         local.getX(), local.getY(), layout, SIZE_RATIO);
