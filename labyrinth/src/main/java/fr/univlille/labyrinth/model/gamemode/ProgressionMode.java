@@ -6,6 +6,7 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.config.ProgressionModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
+import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
@@ -14,7 +15,7 @@ import fr.univlille.labyrinth.utils.ProgressionLoader;
 import fr.univlille.labyrinth.utils.Timer;
 
 public class ProgressionMode extends GameMode {
-    private ProgressionModeConfig config;
+    private Challenge challenge;
     private ProgressionModeVictoryHandler victoryHandler;
     public static PlayerProgress defaultProgress;
 
@@ -23,10 +24,26 @@ public class ProgressionMode extends GameMode {
         ProgressionMode.initDefaultProgress();
     }
 
+    /**
+     * Constructeur principal avec injection complète des dépendances (respecte le DIP)
+     * @param mazeManager le gestionnaire de labyrinthe
+     * @param victoryHandler le gestionnaire de victoire
+     * @param player le joueur
+     * @param challenge le défi
+     */
+    public ProgressionMode(MazeManager mazeManager, ProgressionModeVictoryHandler victoryHandler, Player player, Challenge challenge) {
+        super(mazeManager, victoryHandler, new ProgressionModeConfig(challenge));
+        this.challenge = challenge;
+        this.victoryHandler = victoryHandler;
+    }
+
+    /**
+     * Constructeur de compatibilité avec création des dépendances
+     * @param player le joueur
+     * @param challenge le défi
+     */
     public ProgressionMode(Player player, Challenge challenge) {
-        super(new MazeManager(), new ProgressionModeVictoryHandler(player, challenge, null));
-        this.config = new ProgressionModeConfig(challenge);
-        this.victoryHandler = (ProgressionModeVictoryHandler) getVictoryHandler();
+        this(new MazeManager(), new ProgressionModeVictoryHandler(player, challenge, null), player, challenge);
     }
 
     // Initialise l'objet defaultProgress à un objet PlayerProgress basé sur le fichier "default_progression.csv", par la classe utilitaire ProgressionLoader
@@ -46,14 +63,14 @@ public class ProgressionMode extends GameMode {
         return victoryHandler != null ? victoryHandler.getPlayer() : null;
     }
 
-    /** 
+    /**
      * @return Challenge
      */
     public Challenge getChallenge() {
-        return config.getChallenge();
+        return challenge;
     }
 
-    /** 
+    /**
      * @param chrono
      */
     public void setChronometre(Timer chrono) {
@@ -62,14 +79,13 @@ public class ProgressionMode extends GameMode {
         }
     }
 
-    /** 
+    /**
      * @return String
      */
     public String toString() {
-        Challenge challenge = config.getChallenge();
-        String info = "Dimensions : " + challenge.getWidth() + "x" + challenge.getHeight();
-        info += ", Pourcentage : " + (int) (challenge.getWallPercentage() * 100) + "%";
-        int distance = getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : challenge.getDistanceBetweenEntryAndExit();
+        String info = "Dimensions : " + config.getWidth() + "x" + config.getHeight();
+        info += ", Pourcentage : " + (int) (config.getWallPercentage() * 100) + "%";
+        int distance = getCurrentMaze()!=null ? getCurrentMaze().getDistanceBetweenEntryAndExit() : config.getDistanceBetweenEntryAndExit();
         info += ", Distance entrée/sortie : " + distance;
         return info;
     }

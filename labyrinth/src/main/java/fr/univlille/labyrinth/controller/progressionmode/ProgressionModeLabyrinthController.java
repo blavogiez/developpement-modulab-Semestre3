@@ -8,6 +8,8 @@ import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.controller.PopupVictoryController;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
+import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import javafx.fxml.FXML;
@@ -46,7 +48,11 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
 
         challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
 
-        gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
+        // Injection des dépendances (DIP)
+        MazeManager mazeManager = new MazeManager();
+        ProgressionModeVictoryHandler victoryHandler = new ProgressionModeVictoryHandler(currentPlayer, selectedChallenge, null);
+
+        gameMode = new ProgressionMode(mazeManager, victoryHandler, currentPlayer, selectedChallenge);
         gameMode.createMaze();
 
         pane1.setCenter(setupViews(gameMode));

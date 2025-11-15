@@ -7,6 +7,8 @@ import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.controller.PopupVictoryController;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
+import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
 import fr.univlille.labyrinth.view.labyrinth.LabyrinthCanvasView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,7 +28,10 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
-        gameMode = new FreeMode(AppState.getInstance().getFreeModeConfig());
+        MazeManager mazeManager = new MazeManager();
+        FreeModeVictoryHandler victoryHandler = new FreeModeVictoryHandler();
+
+        gameMode = new FreeMode(mazeManager, victoryHandler, AppState.getInstance().getFreeModeConfig());
         gameMode.createMaze();
 
         labyrinth = new LabyrinthCanvasView(gameMode.getCurrentMaze());
