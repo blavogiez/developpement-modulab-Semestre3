@@ -13,10 +13,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.save.Level;
-import fr.univlille.labyrinth.model.save.PlayerProgress;
-import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.utils.ProgressionLoader;
 
 /*
@@ -47,9 +43,9 @@ class ProgressionLoaderTest {
     private void createValidCSV() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
-            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1\n");
-            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2\n");
-            writer.write("STANDARD,PERFECT,EXPLORATION,2,0,HARD,20,20,0.4,10,config3\n");
+            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1,DEFAULT\n");
+            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2,DEFAULT\n");
+            writer.write("STANDARD,PERFECT,EXPLORATION,2,0,HARD,20,20,0.4,10,config3,DEFAULT\n");
         }
     }
 
@@ -99,10 +95,10 @@ class ProgressionLoaderTest {
     void testEmptyLinesIgnored() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
-            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1\n");
+            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1,DEFAULT\n");
             writer.write("\n");
             writer.write("   \n");
-            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2\n");
+            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2,DEFAULT\n");
         }
         PlayerProgress progress = ProgressionLoader.loadDefaultProgress();
         assertNotNull(progress.getLevelProgress()[0].getChallenges()[0]);
@@ -114,7 +110,7 @@ class ProgressionLoaderTest {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
             writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY\n");
-            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2\n");
+            writer.write("SPEEDRUN,FUSION,LOCAL,1,1,MEDIUM,15,15,0.3,7,config2,DEFAULT\n");
         }
         PlayerProgress progress = ProgressionLoader.loadDefaultProgress();
         assertNull(progress.getLevelProgress()[0].getChallenges()[0]);
@@ -125,7 +121,7 @@ class ProgressionLoaderTest {
     void testInvalidNumberFormat() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
-            writer.write("STANDARD,PERFECT,NORMAL,abc,0,EASY,10,10,0.2,5,config1\n");
+            writer.write("STANDARD,PERFECT,NORMAL,abc,0,EASY,10,10,0.2,5,config1,DEFAULT\n");
         }
         assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
     }
@@ -134,8 +130,8 @@ class ProgressionLoaderTest {
     void testMaxLevelDetection() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
-            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1\n");
-            writer.write("STANDARD,PERFECT,NORMAL,5,0,EASY,10,10,0.2,5,config2\n");
+            writer.write("STANDARD,PERFECT,NORMAL,1,0,EASY,10,10,0.2,5,config1,DEFAULT\n");
+            writer.write("STANDARD,PERFECT,NORMAL,5,0,EASY,10,10,0.2,5,config2,DEFAULT\n");
         }
         PlayerProgress progress = ProgressionLoader.loadDefaultProgress();
         assertEquals(5, progress.getLevelProgress().length);

@@ -22,7 +22,7 @@ public class DepthStackSearch {
 
        Stack<Position> stack = new Stack<>();
 
-       Position start = new Position(maze.getEntryPosition().getY(), maze.getEntryPosition().getX());
+       Position start = maze.getEntryPosition();
        stack.push(start);
 
        marked.add(start);
@@ -41,7 +41,7 @@ public class DepthStackSearch {
                    if (neighbor != null && !neighborFound) {
                        if (isValid(neighbor, maze)) {
                            if (!marked.contains(neighbor) && !MazeWallChecker.isWall(maze,current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
-                               System.out.println(neighbor.getY() + "," + neighbor.getY());
+                               System.out.println(neighbor.getY() + "," + neighbor.getX());
                                marked.add(neighbor);
                                stack.push(neighbor);
                                neighborFound = true;

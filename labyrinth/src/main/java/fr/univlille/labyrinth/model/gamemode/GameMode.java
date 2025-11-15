@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univlille.labyrinth.model.VictoryObserver;
+import fr.univlille.labyrinth.model.gamemode.config.GameConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
@@ -21,11 +22,13 @@ import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 public abstract class GameMode {
     private MazeManager mazeManager;
     private VictoryHandler victoryHandler;
+    protected GameConfig config;
     private List<VictoryObserver<GameMode>> victoryObservers = new ArrayList<>();
 
-    public GameMode(MazeManager mazeManager, VictoryHandler victoryHandler) {
+    public GameMode(MazeManager mazeManager, VictoryHandler victoryHandler, GameConfig config) {
         this.mazeManager = mazeManager;
         this.victoryHandler = victoryHandler;
+        this.config = config;
     }
 
     /**
@@ -69,7 +72,14 @@ public abstract class GameMode {
         mazeManager.setCurrentMaze(maze);
     }
 
-    /** 
+    /**
+     * @return GameConfig
+     */
+    public GameConfig getConfig() {
+        return config;
+    }
+
+    /**
      * @param observer
      */
     public void addVictoryObserver(VictoryObserver<GameMode> observer) {

@@ -1,10 +1,8 @@
 package fr.univlille.labyrinth.model.maze.traps;
 
-import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
-import fr.univlille.labyrinth.model.maze.entities.movebehaviors.PlayerMoveBehavior;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 
 public class TrapManager {
