@@ -124,8 +124,8 @@ public class FreeModeController {
 
         for (Node ligne : menu.getChildren()) {
             if(ligne instanceof Pane pane){
-                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane( pane,pane.getWidth()*0.4,pane.getHeight()*0.4));
-                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane( pane,pane.getWidth()*0.4,pane.getHeight()*0.4));
+                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize( pane,0.8,0.5));
+                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize( pane,0.8,0.5));
             }
         }
     }

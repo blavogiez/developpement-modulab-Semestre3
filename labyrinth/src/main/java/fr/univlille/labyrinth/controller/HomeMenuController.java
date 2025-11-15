@@ -60,7 +60,7 @@ public class HomeMenuController {
     }
 
     public void resize(){
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menuBoutons));
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
     }
 }

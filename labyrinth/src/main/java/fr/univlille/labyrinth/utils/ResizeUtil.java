@@ -4,12 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-
-import java.util.List;
 
 public class ResizeUtil {
 
@@ -32,7 +29,7 @@ public class ResizeUtil {
         cont.setMaxHeight(height);
 
         if(cont instanceof Button button){
-            button.setFont(new Font(height * 0.50));
+            button.setFont(new Font(height * 0.60));
             button.setPadding(new Insets(0, 0, 0, 0));
             if(button.getText().length() * height * 0.60 < width){
                 button.setFont(new Font(height*0.60));
@@ -50,8 +47,8 @@ public class ResizeUtil {
         }else if(cont instanceof ComboBox combo) {
 
             int maxItemLength = getMaxLengthItemComboBox(combo);
-            if ( maxItemLength * height * 0.50 < width) {
-                combo.setStyle("-fx-font-size: " + (height * 0.50) + "px;");
+            if ( maxItemLength * height * 0.60 < width) {
+                combo.setStyle("-fx-font-size: " + (height * 0.60) + "px;");
             } else {
                 combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
             }
@@ -79,17 +76,24 @@ public class ResizeUtil {
         }
     }
 
-    public static void resizeControlsInPane(Pane parent, double width, double height){
+    public static void resizeControlsToParentSize(Pane parent, double percentageWidth, double percentageHeight ){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        boolean isHBox = parent instanceof HBox;
+
         ObservableList<Node> childs = parent.getChildren();
-        for (Node child : childs) {
-            resizeControlInPane( parent, (Control)child,width,height, 0,0,0,0);
+        int nbChilds = childs.size();
+        if(isHBox){
+            resizeControlsInPane( parent,(width/nbChilds)*percentageWidth,height*percentageHeight, 0, 0, 0, (width/nbChilds)*0.05);
+        }else{
+            resizeControlsInPane( parent,width*percentageWidth,(height/nbChilds)*percentageHeight, 0, 0, (height/nbChilds)*0.15, 0);
         }
     }
 
     /** 
      * @param parent
      */
-    public static void resizeControlsInPane(Pane parent){
+    public static void resizeControlsToParentSize(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;

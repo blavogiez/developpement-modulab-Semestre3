@@ -48,7 +48,7 @@ public class PlayerNameEntryController {
     }
 
     public void resize(){
-        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menu));
     }
 }
