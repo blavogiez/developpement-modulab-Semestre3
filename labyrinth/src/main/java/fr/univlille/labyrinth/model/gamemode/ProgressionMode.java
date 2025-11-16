@@ -1,13 +1,10 @@
 package fr.univlille.labyrinth.model.gamemode;
 
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.gamemode.config.ProgressionModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
-import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
-
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
@@ -79,9 +76,11 @@ public class ProgressionMode extends GameMode {
         }
     }
 
-    /**
-     * @return String
-     */
+    @Override
+    public PlayerEntity getWinner() {
+        return null;
+    }
+
     public String toString() {
         String info = "Dimensions : " + config.getWidth() + "x" + config.getHeight();
         info += ", Pourcentage : " + (int) (config.getWallPercentage() * 100) + "%";

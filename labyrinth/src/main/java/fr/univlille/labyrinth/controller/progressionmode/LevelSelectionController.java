@@ -68,9 +68,9 @@ public class LevelSelectionController {
         scoreLabel.setText("Score : " + currentPlayer.getScore());
         resize();
 
-        String winner = VictoryNotification.getPendingWinner();
-        if (winner != null) {
-            VictoryNotification.show(fond, winner);
+        String message = VictoryNotification.getPendingWinner();
+        if (message != null) {
+            VictoryNotification.show(fond, message, VictoryNotification.getPendingIsVictory());
         }
     }
 

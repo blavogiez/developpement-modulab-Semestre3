@@ -16,26 +16,31 @@ import javafx.util.Duration;
 
 public class VictoryNotification {
 
-    private static String pendingWinner = null;
-
-    public static void setPendingWinner(String winner) {
-        pendingWinner = winner;
+    public static void setPendingWinner(String message, boolean isVictory) {
+        AppState state = AppState.getInstance();
+        state.setPendingNotificationMessage(message);
+        state.setPendingNotificationIsVictory(isVictory);
     }
 
     public static String getPendingWinner() {
-        String winner = pendingWinner;
-        pendingWinner = null;
-        return winner;
+        return AppState.getInstance().getPendingNotificationMessage();
     }
 
-    public static void show(Pane parent, String winner) {
+    public static boolean getPendingIsVictory() {
+        return AppState.getInstance().isPendingNotificationVictory();
+    }
+
+    public static void show(Pane parent, String message, boolean isVictory) {
         Platform.runLater(() -> {
+            String color = isVictory ? "#4CAF50" : "#F44336";
+            String text = isVictory ? "Le gagnant est : " + message : message;
+
             HBox notification = new HBox();
             notification.setAlignment(Pos.CENTER);
-            notification.setStyle("-fx-background-color: #4CAF50; -fx-padding: 20px; -fx-background-radius: 5px;");
+            notification.setStyle("-fx-background-color: " + color + "; -fx-padding: 20px; -fx-background-radius: 5px;");
             notification.setMaxWidth(400);
 
-            Label label = new Label("Le gagnant est : " + winner);
+            Label label = new Label(text);
             label.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
             notification.getChildren().add(label);
 

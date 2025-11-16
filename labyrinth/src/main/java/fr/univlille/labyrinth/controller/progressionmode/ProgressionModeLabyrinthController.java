@@ -71,16 +71,25 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     @Override
     public void handleVictory() {
         try {
-            VictoryNotification.setPendingWinner(gameMode.getPlayer().getName());
+            String playerName = gameMode.getPlayer() != null ? gameMode.getPlayer().getName() : "Joueur";
+            VictoryNotification.setPendingWinner(playerName, true);
             goToProgression();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /** 
-     * @throws IOException
-     */
+    @Override
+    public void handleDefeat() {
+        try {
+            String playerName = gameMode.getPlayer() != null ? gameMode.getPlayer().getName() : "Joueur";
+            VictoryNotification.setPendingWinner(playerName + " - Défaite !", false);
+            goToProgression();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void goToProgression() throws IOException {
         App.goTo("progressionmode/LevelSelection.fxml");

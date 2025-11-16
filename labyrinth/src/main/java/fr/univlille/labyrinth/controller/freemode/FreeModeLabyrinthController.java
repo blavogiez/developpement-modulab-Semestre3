@@ -29,9 +29,9 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void initialize() {
         super.initialize();
-        String winner = VictoryNotification.getPendingWinner();
-        if (winner != null) {
-            VictoryNotification.show(pane1, winner);
+        String message = VictoryNotification.getPendingWinner();
+        if (message != null) {
+            VictoryNotification.show(pane1, message, VictoryNotification.getPendingIsVictory());
         }
     }
 
@@ -53,16 +53,24 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
-            VictoryNotification.setPendingWinner("toi");
+            String message = "Joueur " + (gameMode.getWinner().getID() + 1);
+            VictoryNotification.setPendingWinner(message, true);
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * @throws IOException Renvoie une IOException si la scène est inaccessible.
-     */
+    @Override
+    public void handleDefeat() {
+        try {
+            VictoryNotification.setPendingWinner("Défaite !", false);
+            App.goTo("freemode/FreeModeLabyrinth.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");

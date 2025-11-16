@@ -46,14 +46,18 @@ public abstract class GameMode {
 
         Position oldPosition = player.getPosition().copy();
         if (maze.movePlayer(playerID, direction)) {
-            if (maze.isPlayerAtExit()) {
-                handleVictory();
+            PlayerEntity winner = maze.getPlayerAtExit();
+            if (winner != null) {
+                handleVictory(winner);
             } else {
                 maze.getEntityManager().checkMonsterOnPlayer();
                 if (maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty()) {
                     handleLoose();
                 } else {
                     maze.trapEffect(playerID, oldPosition);
+                    if (maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty()) {
+                        handleLoose();
+                    }
                 }
             }
         }
@@ -89,19 +93,27 @@ public abstract class GameMode {
 
     protected void notifyVictory() {
         for (VictoryObserver<GameMode> observer : victoryObservers) {
-            observer.handleVictory();
+            observer.onVictory();
         }
     }
 
-    protected void handleVictory() {
-        victoryHandler.handleVictory();
+    protected void notifyDefeat() {
+        for (VictoryObserver<GameMode> observer : victoryObservers) {
+            observer.onDefeat(this);
+        }
+    }
+
+    protected void handleVictory(PlayerEntity winner) {
+        victoryHandler.handleVictory(winner);
         notifyVictory();
     }
 
     protected void handleLoose() {
         victoryHandler.handleLoose();
-        notifyVictory();
+        notifyDefeat();
     }
+
+    public abstract PlayerEntity getWinner();
 
     /** 
      * @return MazeManager

@@ -4,15 +4,10 @@ import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
-/**
- * Freemode est une extension de GameMode pour le mode libre (la plus simple possible).
- *
- * @author Antonin, Angel, Baptise, Romain, Victor
- * @version 0.0
- * @since 0.0
- */
 public class FreeMode extends GameMode {
+    private PlayerEntity lastWinner;
 
     /**
      * Constructeur principal avec injection complète des dépendances (respecte le DIP)
@@ -43,9 +38,17 @@ public class FreeMode extends GameMode {
         getMazeManager().createMaze(config);
     }
 
-    /**
-     * @return String
-     */
+    @Override
+    protected void handleVictory(PlayerEntity winner) {
+        this.lastWinner = winner;
+        super.handleVictory(winner);
+    }
+
+    @Override
+    public PlayerEntity getWinner() {
+        return lastWinner;
+    }
+
     public String toString() {
         String info = "Labyrinthe d'algorithme " + config.getAlgorithm().getClass().getSimpleName() + " ; \n";
         info += "Dimensions : " + config.getWidth() + "x" + config.getHeight();

@@ -150,24 +150,19 @@ public class EntityManager {
         entities.remove(entity);
     }
 
-
-
-    /** 
-     * @return boolean
-     */
-    public boolean checkPlayerOnExit() {
+    public PlayerEntity checkPlayerOnExit() {
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER) {
                 for (Entity exit : this.entities) {
                     if (exit.getEntityType() == EntityType.EXIT) {
                         if (player.getPosition().equals(exit.getPosition())) {
-                            return true;
+                            return (PlayerEntity) player;
                         }
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
 
     /** 
