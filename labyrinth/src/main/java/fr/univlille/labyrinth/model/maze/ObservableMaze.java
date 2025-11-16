@@ -31,8 +31,6 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
      protected TrapManager trapManager ;
     // protected EventManager eventManager ;
 
-    protected Position playerPosition;
-
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
         this(width, height, distanceBetweenEntryAndExit, "DEFAULT");
@@ -112,7 +110,6 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
 //    MoveBehavoirHandler
 
 
-    @Override
     public void trapEffect(int playerID, Position oldPosition) {
         trapManager.trapEffect(playerID, oldPosition);
         notifyObserver();

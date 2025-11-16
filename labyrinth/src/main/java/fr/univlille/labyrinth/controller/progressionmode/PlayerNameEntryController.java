@@ -24,8 +24,7 @@ public class PlayerNameEntryController {
      */
     @FXML
     public void initialize(){
-        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menu));
-        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menu));
+        resize();
     }
 
     /** 
@@ -49,5 +48,10 @@ public class PlayerNameEntryController {
     @FXML
     private void goToAccueil() throws IOException {
         App.goTo("GameModeSelection.fxml");
+    }
+
+    public void resize(){
+        menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menu));
+        menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menu));
     }
 }

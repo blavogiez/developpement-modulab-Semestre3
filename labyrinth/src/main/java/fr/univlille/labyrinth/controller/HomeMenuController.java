@@ -35,8 +35,7 @@ public class HomeMenuController {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menuBoutons));
+        resize();
     }
 
     /**
@@ -58,5 +57,10 @@ public class HomeMenuController {
     @FXML
     private void goToParametres() throws IOException {
         App.goTo("Settings.fxml");
+    }
+
+    public void resize(){
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
     }
 }

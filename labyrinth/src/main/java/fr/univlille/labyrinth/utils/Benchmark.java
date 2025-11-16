@@ -71,8 +71,8 @@ public class Benchmark {
                 // executer PRECISION fois pour calculer la moyenne
                 for (int i = 0; i < PRECISION; i++) {
                     Timer timer = new Timer();
-                    timer.start();
                     int distance = showDistance ? taille : 0 ;
+                    timer.start();
                     new Maze(taille, taille * 2, 0.5, distance, algo.getAlgorithm());
                     timer.stop();
                     sommeTemps += timer.getChrono();

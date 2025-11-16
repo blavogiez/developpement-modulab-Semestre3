@@ -19,6 +19,7 @@ public enum GameViewConfig {
     TRAP_TELEPORT("#800080", Shape.SQUARE),
     TRAP_FAKE_EXIT("#78A821", Shape.SQUARE),
     TRAP_PUSH,
+    TRAP_GENERATE,
     TRAP_STUN,
     TRAP_HIDE_WALL,
     TRAP_TELEPORT_EXIT,

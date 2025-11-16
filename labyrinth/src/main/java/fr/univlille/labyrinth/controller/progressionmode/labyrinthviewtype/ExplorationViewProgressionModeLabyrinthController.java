@@ -2,29 +2,37 @@ package fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype;
 
 import fr.univlille.labyrinth.controller.progressionmode.ProgressionModeLabyrinthController;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
-import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.view.labyrinth.ExplorationLabyrinthCanvasView;
-import javafx.scene.layout.Pane;
+import fr.univlille.labyrinth.view.labyrinth.LocalLabyrinthCanvasView;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 
 
 
 public class ExplorationViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController{
+    private final int HBOX_SPACING=150;
 
-    private ExplorationLabyrinthCanvasView labyrinth;
+    private ExplorationLabyrinthCanvasView explorationView;
+    private LocalLabyrinthCanvasView localView;
 
-    /**
-     * Renvoie la gridPane du labyrinthe
-     */
     @Override
-    protected Pane setupViews(ProgressionMode gameMode) {
-        labyrinth = new ExplorationLabyrinthCanvasView(gameMode.getCurrentMaze());
-        gameMode.getCurrentMaze().add(labyrinth);
-        labyrinth.update(gameMode.getCurrentMaze());
-        return labyrinth.getView();
+    protected Node setupViews(ProgressionMode gameMode) {
+        explorationView = new ExplorationLabyrinthCanvasView(gameMode.getCurrentMaze());
+        localView = new LocalLabyrinthCanvasView(gameMode.getCurrentMaze());
+
+        gameMode.getCurrentMaze().add(explorationView);
+        gameMode.getCurrentMaze().add(localView);
+
+        HBox viewContainer = new HBox(HBOX_SPACING);
+        viewContainer.setAlignment(Pos.CENTER);
+        viewContainer.getChildren().addAll(explorationView.getView(), localView.getView());
+
+        return viewContainer;
     }
 
     @Override
     protected String getViewSuffix() {
-        return ", vue d'exploration";
+        return ", vue limitée";
     }
 }

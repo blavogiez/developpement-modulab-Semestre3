@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.controller;
 
+import fr.univlille.labyrinth.app.ThemeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,11 @@ public class PopupVictoryController {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setAlwaysOnTop(true);
-        stage.setScene(new Scene(pane));
+        Scene scene = new Scene(pane);
+
+        ThemeManager.applyTheme(scene);
+
+        stage.setScene(scene);
         stage.show();
     }
 

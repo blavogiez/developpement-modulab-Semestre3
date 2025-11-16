@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze.traps;
 
 
 import fr.univlille.labyrinth.model.maze.Maze;
-import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

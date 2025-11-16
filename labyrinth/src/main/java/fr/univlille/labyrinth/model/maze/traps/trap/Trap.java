@@ -7,8 +7,6 @@ import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 public abstract class Trap {
     Position position;
 
-
-
     public abstract void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze);
 
     /** 
