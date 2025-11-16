@@ -242,6 +242,7 @@ Création de la classe "PlayerDatabase"
 | Développement | Algorithmie |
 |--------------|-------------|
 | Fonctionnalité originale : Avec Antonin, implémentation du mode multijoueur (gestion des ID joueur et touches) | |
+| Fonctionnalité originale : Algorithmes de positionnement initial d'entité | |
 
 
 ### **Romain** :

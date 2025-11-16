@@ -4,17 +4,16 @@ import fr.univlille.labyrinth.model.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Observable {
+public interface Observable<T extends Observable<T>> {
+    List<Observer<T>> getObservers();
 
-    List<Observer<Observable>> observers = new ArrayList<>();
-
-    public default boolean add(Observer<Observable> observer) {
-        return observers.add(observer);
+    default boolean add(Observer<T> observer) {
+        return getObservers().add(observer);
     }
 
-    public default void notifyObserver() {
-        for (Observer<Observable> observer : observers) {
-            observer.update(this);
+    default void notifyObserver() {
+        for (Observer<T> observer : getObservers()) {
+            observer.update((T) this);
         }
     }
 }

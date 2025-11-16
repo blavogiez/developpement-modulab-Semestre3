@@ -36,9 +36,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     @Override
     protected void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();

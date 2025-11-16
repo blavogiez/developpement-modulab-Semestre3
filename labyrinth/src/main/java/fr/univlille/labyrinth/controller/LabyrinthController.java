@@ -2,15 +2,14 @@ package fr.univlille.labyrinth.controller;
 
 import java.io.IOException;
 
+import fr.univlille.labyrinth.controller.input.PlayerMovementHandler;
 import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
-import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.utils.Timer;
 import fr.univlille.labyrinth.utils.TimerFX;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -36,6 +35,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
     protected T gameMode;
     protected Timer chrono;
     protected Timeline chronoTimeline;
+    protected PlayerMovementHandler movementHandler;
 
     /**
      * Méthode d'initialisation commune à tous les contrôleurs de labyrinthe
@@ -45,6 +45,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         chrono = new Timer();
         chrono.start();
         chronoTimeline = TimerFX.initChrono(chrono, chronoLabel);
+        movementHandler = new PlayerMovementHandler();
         initializeGameMode();
         
         mazeInfoLabel.setText(gameMode.toString());
@@ -66,23 +67,9 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
      */
     protected abstract void initializeGameMode();
 
-    /**
-     * Déplace le joueur en fonction de la touche pressée
-     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
-        Direction direction = null;
-        KeyCode code = e.getCode();
-
-        if (code == KeyCode.S || code == KeyCode.DOWN) direction = Direction.DOWN;
-        else if (code == KeyCode.Z || code == KeyCode.UP) direction = Direction.UP;
-        else if (code == KeyCode.Q || code == KeyCode.LEFT) direction = Direction.LEFT;
-        else if (code == KeyCode.D || code == KeyCode.RIGHT) direction = Direction.RIGHT;
-
-        if (direction != null) {
-            gameMode.movePlayerPosition(0,direction);
-            e.consume();
-        }
+        movementHandler.handleMovement(e, gameMode);
     }
 
     /**

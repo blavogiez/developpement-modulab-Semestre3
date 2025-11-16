@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class TriangleRenderer implements ShapeRenderer {
+
+    private final int NPOINTS=3;
     /** 
      * @param gc
      * @param x
@@ -16,6 +18,6 @@ public class TriangleRenderer implements ShapeRenderer {
         gc.setFill(color);
         double[] xPoints = {x + size / 2, x, x + size};
         double[] yPoints = {y, y + size, y + size};
-        gc.fillPolygon(xPoints, yPoints, 3);
+        gc.fillPolygon(xPoints, yPoints, NPOINTS);
     }
 }

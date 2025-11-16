@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
@@ -24,7 +25,8 @@ import fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory;
 
 
 
-public class ObservableMaze extends Maze implements Observable {
+public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
+    private final List<Observer<ObservableMaze>> observers = new ArrayList<>();
     protected EntityManager entityManager ;
      protected TrapManager trapManager ;
     // protected EventManager eventManager ;
@@ -40,11 +42,29 @@ public class ObservableMaze extends Maze implements Observable {
         this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"DEFAULT");
     }
 
-    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
-        super(width, height, distanceBetweenEntryAndExit, algo) ;
+
+
+    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        this(width,height,wallPercentage,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
+    }
+
+    public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
+        super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
         this.entityManager = new EntityManager();
         EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
         this.trapManager = new TrapManager(this, trapsConfiguration);
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
+        super(width, height, distanceBetweenEntryAndExit, algo) ;
+
+        this.entityManager = new EntityManager();
+        EntityListFactory.fillMazeEntities(this, entitiesConfiguration);
+        this.trapManager = new TrapManager(this, trapsConfiguration);
+    }
+
+    public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
+        this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
     /** 
@@ -121,5 +141,10 @@ public class ObservableMaze extends Maze implements Observable {
         if (player != null) {
             player.setPosition(position);
         }
+    }
+    
+    @Override
+    public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
+        return this.observers;
     }
 }

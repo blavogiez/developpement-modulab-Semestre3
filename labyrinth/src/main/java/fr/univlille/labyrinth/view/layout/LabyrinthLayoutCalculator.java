@@ -4,7 +4,7 @@ package fr.univlille.labyrinth.view.layout;
  * Classe utilitaire qui gère le calcul des dimensions de la vue (Responsive)
  */
 public class LabyrinthLayoutCalculator {
-    private static final double MARGIN_RATIO = 0.05;
+    private static final double MARGIN_RATIO = 0.0;
     private static final double WALL_THICKNESS_RATIO = 0.1;
 
     /** 
