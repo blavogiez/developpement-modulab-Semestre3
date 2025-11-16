@@ -56,18 +56,19 @@ public class TrapSetupTest {
 
     @Test
     public void generateTrapsWithStringTest(){
-        TrapSetup.generate(new Maze(10,10,10),"R5_F3_P10_L2_S3");
-        assertEquals(map1, TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"T5_TE3_L2_S3");
-        assertEquals(map2,TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"SGL18");
-        assertEquals(map4,TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"S5_T3_P10_TE2_L3");
-        assertEquals(map3,TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"S1A8");
-        assertEquals(map4,TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"");
-        assertEquals(new EnumMap<>(TrapFactory.class),TrapSetup.trapMap);
+        TrapSetup trapSetup = TrapSetup.getInstance();
+        trapSetup.generate(new Maze(10,10,10),"R5_F3_P10_L2_S3");
+        assertEquals(map1, trapSetup.trapMap);
+        trapSetup.generate(new Maze(10,10,10),"T5_TE3_L2_S3");
+        assertEquals(map2,trapSetup.trapMap);
+        trapSetup.generate(new Maze(10,10,10),"SGL18");
+        assertEquals(map4,trapSetup.trapMap);
+        trapSetup.generate(new Maze(10,10,10),"S5_T3_P10_TE2_L3");
+        assertEquals(map3,trapSetup.trapMap);
+        trapSetup.generate(new Maze(10,10,10),"S1A8");
+        assertEquals(map4,trapSetup.trapMap);
+        trapSetup.generate(new Maze(10,10,10),"");
+        assertEquals(new EnumMap<>(TrapFactory.class),trapSetup.trapMap);
     }
 
     @Test
