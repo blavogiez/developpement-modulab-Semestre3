@@ -27,6 +27,9 @@ public class PlayerNameEntryController {
         resize();
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToProgression() throws IOException {
         String name = nameField.getText().trim();

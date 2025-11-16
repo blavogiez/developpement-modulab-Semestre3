@@ -83,6 +83,10 @@ public class LevelSelectionController {
         }
     }
 
+    /** 
+     * @param levelIndex
+     * @return VBox
+     */
     private VBox createEtapeVBox(int levelIndex) {
         VBox etapeVBox = new VBox();
         etapeVBox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -95,10 +99,17 @@ public class LevelSelectionController {
         return etapeVBox;
     }
 
+    /** 
+     * @param challengeIndex
+     * @return Button
+     */
     private Button createChallengeButton(int challengeIndex) {
         return new Button(String.valueOf(challengeIndex + 1));
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToAccueil() throws IOException {
         App.goTo("GameModeSelection.fxml");
@@ -145,6 +156,10 @@ public class LevelSelectionController {
         textProgressBar.setText(String.format("%.2f%%", completedCount / totalChallenges * 100));
     }
 
+    /** 
+     * @param challenge
+     * @return Tooltip
+     */
     private Tooltip createTooltip(Challenge challenge) {
         Tooltip tooltip = new Tooltip(challenge.toString());
         tooltip.setShowDelay(Duration.millis(200));
@@ -154,6 +169,12 @@ public class LevelSelectionController {
         return tooltip;
     }
 
+    /** 
+     * @param levelIndex
+     * @param challengeIndex
+     * @param viewType
+     * @throws IOException
+     */
     /* fonction déterminant la page où mènera le bouton ; cela sera selon son type de vue, avec une page donnée par une Factory
     /* le défi sélectionné sera marqué dans AppState afin que le mode de progression puisse le retrouver facilement
      * 
@@ -169,6 +190,9 @@ public class LevelSelectionController {
         App.goTo(ViewTypeFactory.getCorrespondingPage(viewType));
     }
 
+    /** 
+     * @throws IOException
+     */
     public void goToPlayerRanking() throws IOException {
         App.goTo("progressionmode/PlayerRanking.fxml");
     }
@@ -183,6 +207,9 @@ public class LevelSelectionController {
         }
     }
 
+    /** 
+     * @param parent
+     */
     public static void resizeEtapeControlsInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
@@ -194,6 +221,9 @@ public class LevelSelectionController {
         ResizeUtil.resizeControlsInPane( parent,boutonSize,boutonSize, 0, 0, (height/nbChilds)*0.2, 0);
     }
 
+    /** 
+     * @param parent
+     */
     public static void resizeEtapePanesInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
