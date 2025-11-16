@@ -16,10 +16,8 @@
 \tabledematieres
 
 \section{Introduction}
-
-Ce rapport présente la partie algorithmique du projet \textbf{SAÉ S3.02 - Labyrinthe}, une application avec génération de divers labyrinthes.
-
-L'objectif est de décrire notre solution, dogmatisée par l'efficacité d'exécution et les demandes du sujet.
+Ce rapport présente la partie algorithmique du projet \textbf{SAÉ S3.02 - Labyrinthe}, une application permettant la génération de labyrinthes variés.
+L'objectif est de décrire notre solution et de démontrer sa pertinence, guidée par l'efficacité d'exécution et les exigences du sujet.
 
 \section{Investissement dans le projet}
 \textbf{Groupe G3.3}
@@ -55,12 +53,19 @@ Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Da
 
 \tsec{Angèl}
 
+Algorithme de déplacement de monstre.
+
 \tsec{Baptiste}
 
+\begin{itemize}
+\item Algorithme distance entrée / sortie.
+\item Algorithme pour les labyrinthes aléatoires.
+\item Benchmarks de performance des labyrinthes et modélisation.
+\end{itemize}
 
 \tsecnonum{Le groupe}
 
-\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
+Chaque section est écrite par la personne l'ayant réalisée, et éventuellement relue par le groupe.
 
 \section{Structures de données pour les labyrinthes}
 
@@ -74,7 +79,7 @@ Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Da
 
 \textbf{Cet algorithme sera utilisé dans les algorithmes à venir.}
 
-Le placement d'une distance entrée / sortie sera ici considéré comme un algorithme à part. Le respect strict de la distance nécessite en effet de devoir associer à chaque position du labyrinthe, depuis l'entrée, la distance les séparant.
+Le placement d'une distance entrée / sortie sera ici considéré comme un algorithme à part. Le respect strict de la distance nécessite en effet de réaliser un parcours intelligent vers la sortie, depuis l'entrée, la distance les séparant.
 
 \subsubsection{Algorithme utilisé}
 
@@ -116,10 +121,10 @@ tant que la file n'est pas vide :
     pour i de 0 à tailleNiveau :
     positionCourante = retirer premier élément de la file
     pour chaque direction {haut, bas, gauche, droite} :
-    prochaine = calculer position adjacente selon direction
-    si prochaine valide et prochaine non visitée et pas de mur :
-        ajouter (prochaine, niveauActuel + 1) à distances
-        ajouter prochaine à la file
+        prochaine = calculer position adjacente selon direction
+        si prochaine valide et prochaine non visitée et pas de mur :
+            ajouter (prochaine, niveauActuel + 1) à distances
+            ajouter prochaine à la file
     
     distanceReelle = niveauActuel
     niveauActuel = niveauActuel + 1
@@ -141,7 +146,26 @@ La mise à jour de la distance effective permet, entre autres, de prévenir la s
 
 \subsubsection{Structures de données utilisées}
 
+Pendant l'exécution, l'algorithme utilise principalement une file et un dictionnaire.
+
+\begin{itemize}
+\item La file est indispensable puisqu'il s'agit d'un parcours en largeur. Elle nous permet d'explorer plusieurs niveaux à la fois (logique plus efficace).
+\item Le dictionnaire sert à associer une position à sa distance. Elle permet 
+\end{itemize}
+  
+Quant au retour, l'algorithme utilise un objet "distanceResultat" contenant :
+  
+\begin{itemize}
+\item Une liste de positions.
+\item La distance effective.
+\end{itemize}
+
+Puis, il choisit aléatoirement une position parmi la liste.
+Sera attribuée au labyrinthe la distance effective, afin d'avertir de l'impossibilité de celle initialement voulue.
+
 \subsubsection{Pertinence}
+
+La motivation principale quant au choix des structures est l'efficacité. La structure choisie dans ce cas est minimale et comporte uniquement ce dont nous avons besoin pour déterminer une position aléatoire respectant la distance demandée (ou maximum si impossible).
 
 \subsection{Labyrinthes parfaits : Version TP}
 
@@ -184,19 +208,19 @@ faire tata
 
 L'algorithme de génération de labyrinthe aléatoire héritant de l'algorithme parfait, cette sous-section est détaillée après la précédente.
 
-L'objectif sera ici de partir d'un labyrinthe parfait et de le rendre imparfait. Cette solution permet un respect acquis de propriétés
+L'objectif sera de partir d'un labyrinthe parfait et de le rendre imparfait. Cette solution permet un respect des propriétés "parfaites" par héritage.
 
 Le chemin entre l'entrée et la sortie est, par définition, garanti, puisqu'un labyrinthe parfait est un graphe connexe.
 
 La propriété connexe demeure inchangée tant qu'aucun mur n'est ajouté.
 
-Cet algorithme n'ajoute aucun mur, il ne fait qu'un enlever.
+Cet algorithme n'ajoute aucun mur, il ne fait qu'en enlever.
 
 Puisqu'un labyrinthe aléatoire est ici un graphe connexe, il existe toujours un chemin entre l'entrée et la sortie.
 
 \subsubsection{Algorithme utilisé}
 
-L'algorithme consiste à 
+L'algorithme consiste à, pour un pourcentage de murs noté \( p \), parcourir les murs, et, en enlever par un tirage de probabilité (1 - \( p \)).
 
 Concernant la distance entrée / sortie, puisque sans paramètre dans le sujet, elle sera ramenée au maximum possible du labyrinthe, comme prévu par l'algorithme de placement.
 
@@ -209,25 +233,25 @@ On note :
 \end{itemize}
 
 \begin{codeboxlang}{pseudocode}
-créer un fichier csv de nom "a_n_e_f"
-tant que n < f :
-    t1 = mesurer le temps actuel
-    générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n)
-    t2 = mesurer le temps actuel
-    écrire sur la ligne actuelle (n, t2 - t1)
-    n = n + e
-    passer à la ligne suivante
-\end{codeboxlang}
-
-\begin{codeboxlang}{pseudocode}
-toto titi
-tant que toto
-faire tata
+pour y allant de 0 à hauteur - 1
+  pour x allant de 0 à largeur
+    si mur horizontal à [y][x]
+      si valeur aléatoire entre (0,1) inférieure à (1 - p)
+        enlever mur horizontal à [y][x]
+pour y allant de 0 à largeur - 1
+  pour x allant de 0 à hauteur
+    si mur vertical à [y][x]
+      si valeur aléatoire entre (0,1) inférieure à (1 - p)
+        enlever mur vertical à [y][x]
 \end{codeboxlang}
 
 \subsubsection{Structures de données utilisées}
 
+Les structures utilisées sont identiques à celle de l'algorithme parfait utlisé, que ce soit celui de \textit{TP ou Fusion}.
+
 \subsubsection{Pertinence}
+
+La pertinence est donc identique.
 
 \section{Efficacité}
 
@@ -292,39 +316,7 @@ tant que n < f :
 
 \subsubsection{Modélisation}
 
-Ces fichiers requièrent alors une analyse par un script concis en \textit{matplotlib}.
-
-\begin{codeboxlang}{python}
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
-from PIL import Image
-from io import BytesIO
-
-d = "res/benchmarks"
-files = [f for f in os.listdir(d) if f.endswith(".csv")]
-for i,f in enumerate(files): print(i,f)
-i = int(input("Choix: "))
-
-df = pd.read_csv(os.path.join(d, files[i]))
-
-plt.plot(df["taille"], df["temps(ms)"])
-plt.xlabel("taille")
-plt.ylabel("temps (ms)")
-plt.title(files[i])
-plt.tight_layout()
-
-buf = BytesIO()
-plt.savefig(buf, format="png")
-plt.show()
-plt.close()
-
-buf.seek(0)
-img = Image.open(buf)
-os.makedirs(d+"/modelisations", exist_ok=True)
-img.save(os.path.join(d+"/modelisations", files[i].replace(".csv", ".png")))
-\end{codeboxlang}
-
+Ces fichiers sont modélisés, seul ou à plusieurs, par un script (python, matplotlib). 
 
 \begin{figure}[h!]
 \centering
@@ -343,23 +335,27 @@ Seront uniquement présentés en résultat ces modélisations graphiques.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_aléatoires/fig_1.png}
+    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_parfaits/fig_1.png}
     \caption{$a = \text{RANDOM}, n = 5, e = 5, f = 500$}
     \label{fig:efficacité_résultats_1}
 \end{figure}
 
+
 \subsubsection{Labyrinthes parfaits}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_parfaits/fig_2.png}
+    \caption{$a = \text{PERFECT}, n = 5, e = 5, f = 500$}
+    \label{fig:efficacité_résultats_2}
+\end{figure}
+
 
 \newpage
 
 \textbf{Algorithme vu en TP}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_parfaits/fig_1.png}
-    \caption{$a = \text{PERFECT}, n = 5, e = 5, f = 500$}
-    \label{fig:efficacité_résultats_1}
-\end{figure}
 
 \newpage
 
@@ -395,14 +391,20 @@ Les performances de l'algorithme parfait ont été multipliées par 10 après ap
 
 \subsection{Placement des entités}
 
-Notre projet comporte des \textbf{entités} (\emph{joueurs, monstres, sorties...}) qui doivent être placées initialement selon des stratégies. Le problème étant très similaire à celui du placement de l'entrée et de la sortie, un algorithme très similaire a été implémenté pour le calcul de leurs positions de départ.
+Notre projet comporte des \textbf{entités} (\emph{joueurs, monstres, sorties...}) qui doivent être placées initialement selon des stratégies. Le problème étant très similaire à celui du placement de l'entrée et de la sortie, un algorithme de la sorte a été implémenté pour le calcul de leurs positions de départ.
 
-La différence étant que le placement vérifie l'absence d'entités sur cette case. L'algorithme enlève alors les positions occupées pour le niveau exploré. Si le niveau demandé ne comporte aucune position valide, alors 
+La différence étant que le placement vérifie l'absence d'entités sur cette case. L'algorithme enlève alors les positions occupées pour le niveau exploré. Si le niveau demandé ne comporte aucune position valide, alors nous explorons un niveau supérieur.
+
+\subsection{Déplacement des monstres}
+
+Section Angèl :
 
 
 \section{Conclusion}
 
 \end{document}
+
+
 
 
 
