@@ -4,14 +4,19 @@ import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
+import fr.univlille.labyrinth.model.maze.entities.ExitEntity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
+import javafx.geometry.Pos;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrapTest {
     boolean[][] verticalsWalls;
@@ -141,6 +146,45 @@ public class TrapTest {
         playerMoving(Direction.RIGHT);
         Assertions.assertFalse(areEqualMatrices(initialVerticalWalls, maze.getMurVerticaux()) && areEqualMatrices(initialHorizontalsWalls, maze.getMurVerticaux()));
     }
+
+    @Test
+    public void teleport_exit_trap_should_teleport_exit_and_be_used(){
+        maze.getTrapManager().getTraps()[0][1] = TrapFactory.TELEPORT_EXIT_TRAP.generateTrap();
+        Assertions.assertEquals("TRAP_TELEPORT_EXIT", maze.getTrapManager().getTraps()[0][1].name());
+        List<Position> exitOldPositions = maze.getEntityManager().getEntitiesByType(ExitEntity.class).parallelStream().map(x -> x.getPosition().copy()).toList();
+        playerMoving(Direction.RIGHT);
+        Assertions.assertEquals("TRAP_USED", maze.getTrapManager().getTraps()[0][1].name());
+        List<Position> exitNewPositions = maze.getEntityManager().getEntitiesByType(ExitEntity.class).parallelStream().map(x -> x.getPosition().copy()).toList();
+
+
+        for (int i = 0; i < exitOldPositions.size(); i++) {
+            Position oldPos = exitOldPositions.get(i);
+            Position newPos = exitNewPositions.get(i);
+
+            Assertions.assertNotEquals(oldPos, newPos,
+                    "L'exit n°" + i + " n'a pas été téléportée.");
+        }
+    }
+
+    @Test
+    public void stunt_trap_should_paralyze_player_for_5_turns(){
+        maze.getTrapManager().getTraps()[0][1] = TrapFactory.STUN_TRAP.generateTrap();
+        for (int i = 0; i<6; i++){
+            playerMoving(Direction.RIGHT);
+            Assertions.assertEquals(new Position(1, 0), player.getPosition());
+        }
+        playerMoving(Direction.RIGHT);
+        Assertions.assertEquals(new Position(2, 0), player.getPosition());
+    }
+
+    @Test
+    public void lava_trap_should_kill_player(){
+        maze.getTrapManager().getTraps()[0][1] = TrapFactory.LAVA_TRAP.generateTrap();
+        playerMoving(Direction.RIGHT);
+        Assertions.assertTrue(maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty());
+    }
+
+
 
     private void playerMoving(Direction direction) {
         playerPosition = player.getPosition().copy();

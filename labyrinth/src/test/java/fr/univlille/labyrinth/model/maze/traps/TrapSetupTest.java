@@ -1,7 +1,14 @@
 package fr.univlille.labyrinth.model.maze.traps;
 
 
+import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.traps.trap.NoneTrap;
+import fr.univlille.labyrinth.model.maze.traps.trap.RandomTrap;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.trap.UsedTrap;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -63,4 +70,41 @@ public class TrapSetupTest {
         TrapSetup.generate(new Maze(10,10,10),"");
         assertEquals(new EnumMap<>(TrapFactory.class),TrapSetup.trapMap);
     }
+
+    @Test
+    public void trap_setup_random_should_generate_one_real_random_trap() {
+        for (int i = 0;i<1000;i++){
+        ObservableMaze maze = new ObservableMaze(2, 2, 2,"DEFAULT", MazeAlgorithmFactory.PERFECT.getAlgorithm(),"R1");
+        Trap[][] traps = maze.getTrapManager().getTraps();
+
+        int noneCount = 0;
+        int realTrapCount = 0;
+
+            for (int y = 0; y < traps.length; y++) {
+                for (int x = 0; x < traps[y].length; x++) {
+
+                    Trap t = traps[y][x];
+
+                    if (t instanceof NoneTrap) {
+                        noneCount++;
+                    }
+                    else if (
+                            !(t instanceof UsedTrap) && !(t instanceof RandomTrap)
+                    ) {
+                        realTrapCount++;
+                    }
+                }
+            }
+
+            Assertions.assertEquals(3, noneCount,
+                    "Il doit y avoir exactement 3 NoneTrap dans une grille 2x2.");
+
+            Assertions.assertEquals(1, realTrapCount,
+                    "Il doit y avoir exactement 1 trap généré aléatoirement, " +
+                            "ni NoneTrap, ni UsedTrap, ni RandomTrap.");
+        }
+
+    }
+
+
 }

@@ -131,24 +131,26 @@ public class EntityManager {
     /**
      * @return int
      */
-    public int checkMonsterOnPlayer() {
-        int deadCount = 0;
+    public void checkMonsterOnPlayer() {
+
         List<Entity> toRemove = new ArrayList<>();
         List<Position> monstersPositions = getMonstersPositions();
 
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER && monstersPositions.contains(player.getPosition())) {
-                deadCount++;
                 toRemove.add(player);
             }
         }
-
         for (Entity e : toRemove) {
-            entities.remove(e);
+            kill(e);
         }
-
-        return deadCount;
     }
+
+    public void kill(Entity entity){
+        entities.remove(entity);
+    }
+
+
 
     /** 
      * @return boolean
