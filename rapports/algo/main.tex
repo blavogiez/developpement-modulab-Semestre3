@@ -210,7 +210,11 @@ L’algorithme utilisé est celui du parcours en profondeur. L’objectif est de
 
 \subsubsection{Structures de données utilisées}
 
+Pendant l'exécution, l'algorithme utilise principalement une pile et un tableau de booléens.
+
 \subsubsection{Pertinence}
+
+La pile est essentielle pour le parcours en profondeur, permettant de revenir en arrière lorsque nécessaire. Le tableau de booléens permet de suivre les cellules déjà visitées, évitant ainsi les cycles et garantissant que chaque cellule est visitée une seule fois.
 
 \subsection{Labyrinthes parfaits : Version originale - Fusion}
 
@@ -239,7 +243,11 @@ génère une grille de numéro différents
 
 \subsubsection{Structures de données utilisées}
 
+Pendant l'exécution, l'algorithme utilise principalement une matrice d'entiers pour les numéros des cellules.
+
 \subsubsection{Pertinence}
+
+La matrice d'entiers est essentielle pour suivre les numéros des cellules, permettant de déterminer rapidement si deux cellules peuvent être fusionnées. Cette structure est simple et efficace pour l'objectif de l'algorithme.
 
 \newpage
 \subsection{Labyrinthes aléatoires}
