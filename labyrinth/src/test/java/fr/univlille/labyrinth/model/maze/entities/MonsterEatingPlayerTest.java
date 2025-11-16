@@ -28,6 +28,6 @@ public class MonsterEatingPlayerTest {
         }
         maze.getEntityManager().checkMonsterOnPlayer();
 
-        assertEquals(0, maze.getEntityManager().getPlayerEntities().size()) ;
+        assertEquals(0, maze.getEntityManager().getEntitiesByType(PlayerEntity.class).size()) ;
     }
 }

@@ -10,6 +10,7 @@ import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**
@@ -49,7 +50,7 @@ public abstract class GameMode {
                 handleVictory();
             } else {
                 maze.getEntityManager().checkMonsterOnPlayer();
-                if (maze.getEntityManager().getPlayerEntities().isEmpty()) {
+                if (maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty()) {
                     handleLoose();
                 } else {
                     maze.trapEffect(playerID, oldPosition);

@@ -6,7 +6,6 @@ import java.util.List;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.save.Player;
 
 public class EntityManager {
     private int cptPlayerID;
@@ -59,13 +58,12 @@ public class EntityManager {
         entities.clear();
     }
 
-    /** 
+    /**
      * @param playerID
      * @param maze
      * @param direction
-     * @return boolean
      */
-    public boolean moveEntities(int playerID, ObservableMaze maze, Direction direction) {
+    public void moveEntities(int playerID, ObservableMaze maze, Direction direction) {
         boolean stmt = true ;
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
@@ -78,7 +76,6 @@ public class EntityManager {
                 if (!entity.move(maze, direction)) stmt = false ;
             }
         }
-        return stmt ;
     }
 
     /** 
@@ -92,24 +89,25 @@ public class EntityManager {
     }
 
     /** 
-     * @return List<PlayerEntity>
+     * @return List<T extends Entity>
      */
-    public List<PlayerEntity> getPlayerEntities() {
-        List<PlayerEntity> players = new ArrayList<>();
+    public <T extends Entity> List<T> getEntitiesByType(Class<T> clas) {
+        List<T> result = new ArrayList<>();
         for (Entity e : this.entities) {
-            if (e.getEntityType() == EntityType.PLAYER) {
-                players.add((PlayerEntity) e);
+            if (clas.isInstance(e)) {
+                result.add(clas.cast(e));
             }
         }
-        return players;
+        return result;
     }
+
 
     /** 
      * @param playerID
      * @return PlayerEntity
      */
     public PlayerEntity getPlayerEntityByID(int playerID) {
-        for (PlayerEntity player : getPlayerEntities()) {
+        for (PlayerEntity player : getEntitiesByType(PlayerEntity.class)) {
             if (player.getID() == playerID) {
                 return player;
             }

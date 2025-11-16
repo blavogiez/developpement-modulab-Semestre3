@@ -23,7 +23,7 @@ public class MonsterMoveBehavior implements MoveBehavior {
      */
     public void move(Entity entity, Direction direction, ObservableMaze maze) {
         Position position = entity.getPosition();
-        List<PlayerEntity> players = maze.getEntityManager().getPlayerEntities();
+        List<PlayerEntity> players = maze.getEntityManager().getEntitiesByType(PlayerEntity.class);
         if (players.isEmpty()) return;
 
         List<Position> shortestPath = null;
