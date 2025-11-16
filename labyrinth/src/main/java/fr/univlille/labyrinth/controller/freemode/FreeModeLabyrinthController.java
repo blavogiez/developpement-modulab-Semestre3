@@ -5,7 +5,7 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
-import fr.univlille.labyrinth.controller.PopupVictoryController;
+import fr.univlille.labyrinth.controller.VictoryNotification;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
@@ -27,6 +27,15 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     private LabyrinthCanvasView labyrinth;
 
     @Override
+    public void initialize() {
+        super.initialize();
+        String winner = VictoryNotification.getPendingWinner();
+        if (winner != null) {
+            VictoryNotification.show(pane1, winner);
+        }
+    }
+
+    @Override
     protected void initializeGameMode() {
         MazeManager mazeManager = new MazeManager();
         FreeModeVictoryHandler victoryHandler = new FreeModeVictoryHandler();
@@ -44,7 +53,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
-            PopupVictoryController.openPopup("toi");
+            VictoryNotification.setPendingWinner("toi");
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (Exception e) {
             e.printStackTrace();

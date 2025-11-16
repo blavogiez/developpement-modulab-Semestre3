@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
+import fr.univlille.labyrinth.controller.VictoryNotification;
 import fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype.ViewTypeFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Level;
@@ -32,6 +33,8 @@ public class LevelSelectionController {
     private static final double ETAPE_PREF_HEIGHT = 300.0;
     private static final double ETAPE_PREF_WIDTH = 200.0;
 
+    @FXML
+    private javafx.scene.layout.BorderPane fond;
     @FXML
     private Text playerNameLabel;
     @FXML
@@ -64,6 +67,11 @@ public class LevelSelectionController {
         playerNameLabel.setText(currentPlayer.getName());
         scoreLabel.setText("Score : " + currentPlayer.getScore());
         resize();
+
+        String winner = VictoryNotification.getPendingWinner();
+        if (winner != null) {
+            VictoryNotification.show(fond, winner);
+        }
     }
 
     private void generateLevelUI() {
