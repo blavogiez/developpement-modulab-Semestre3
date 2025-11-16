@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model.gamemode;
 
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.utils.Timer;
@@ -30,23 +31,17 @@ class ProgressionModeTest {
         assertSame(player, progressionMode.getPlayer());
     }
 
-    /** 
-     * @throws Exception
-     */
     @Test
     void testHandleVictoryMarksChallenge() throws Exception {
         assertFalse(challenge.isCompleted());
 
-        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory", PlayerEntity.class);
         handleVictory.setAccessible(true);
-        handleVictory.invoke(progressionMode);
+        handleVictory.invoke(progressionMode, (PlayerEntity) null);
 
         assertTrue(challenge.isCompleted());
     }
 
-    /** 
-     * @throws Exception
-     */
     @Test
     void testHandleVictoryRecordsTime() throws Exception {
         Timer timer = new Timer();
@@ -57,17 +52,14 @@ class ProgressionModeTest {
         progressionMode.setChronometre(timer);
         long recordedTime = timer.getChrono();
 
-        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory", PlayerEntity.class);
         handleVictory.setAccessible(true);
-        handleVictory.invoke(progressionMode);
+        handleVictory.invoke(progressionMode, (PlayerEntity) null);
 
         assertTrue(challenge.getTimeCompleted() > 0);
         assertEquals(recordedTime, challenge.getTimeCompleted());
     }
 
-    /** 
-     * @throws Exception
-     */
     @Test
     void testHandleVictoryKeepsBestTime() throws Exception {
         Timer timer1 = new Timer();
@@ -76,9 +68,9 @@ class ProgressionModeTest {
         timer1.stop();
 
         progressionMode.setChronometre(timer1);
-        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory");
+        Method handleVictory = GameMode.class.getDeclaredMethod("handleVictory", PlayerEntity.class);
         handleVictory.setAccessible(true);
-        handleVictory.invoke(progressionMode);
+        handleVictory.invoke(progressionMode, (PlayerEntity) null);
 
         long firstTime = challenge.getTimeCompleted();
         assertTrue(firstTime >= 200);
@@ -89,7 +81,7 @@ class ProgressionModeTest {
         timer2.stop();
 
         progressionMode.setChronometre(timer2);
-        handleVictory.invoke(progressionMode);
+        handleVictory.invoke(progressionMode, (PlayerEntity) null);
 
         assertTrue(challenge.getTimeCompleted() < firstTime);
         assertTrue(challenge.getTimeCompleted() >= 50);

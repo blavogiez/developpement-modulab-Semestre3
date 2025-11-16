@@ -5,7 +5,7 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
-import fr.univlille.labyrinth.controller.PopupVictoryController;
+import fr.univlille.labyrinth.controller.VictoryNotification;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
@@ -42,6 +42,15 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     private LabyrinthCanvasView labyrinth;
 
     @Override
+    public void initialize() {
+        super.initialize();
+        String message = VictoryNotification.getPendingWinner();
+        if (message != null) {
+            VictoryNotification.show(pane1, message, VictoryNotification.getPendingIsVictory());
+        }
+    }
+
+    @Override
     protected void initializeGameMode() {
         colSymbole.getStyleClass().add("Symbole"); //TODO a fix
         //colDef.getStyleClass().add("Def"); //TODO a fix
@@ -76,16 +85,24 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
-            PopupVictoryController.openPopup("toi");
+            String message = "Joueur " + (gameMode.getWinner().getID() + 1);
+            VictoryNotification.setPendingWinner(message, true);
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * @throws IOException Renvoie une IOException si la scène est inaccessible.
-     */
+    @Override
+    public void handleDefeat() {
+        try {
+            VictoryNotification.setPendingWinner("Défaite !", false);
+            App.goTo("freemode/FreeModeLabyrinth.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");

@@ -141,4 +141,15 @@ public class Maze {
     public void setExit(Position exitPosition) {
         this.exitPosition=exitPosition;
     }
+
+    public void trapEffect(int playerID, Position oldPosition) {}
+
+    public void setMurHorizontaux(boolean[][] murHorizontaux) {
+        this.murHorizontaux = murHorizontaux;
+    }
+
+    public void setMurVerticaux(boolean[][] murVerticaux) {
+        this.murVerticaux = murVerticaux;
+    }
+
 }

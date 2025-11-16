@@ -11,11 +11,18 @@ import java.util.Map;
 import java.util.Random;
 
 public class TrapSetup {
-    static Trap[][] traps;
-    static Map<TrapFactory, Integer> trapMap;
+    private static TrapSetup instance;
 
-    public static Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
-        TrapSetup.traps = new Trap[maze.getHeight()][maze.getWidth()];
+    public static TrapSetup getInstance() {
+        if (instance==null) instance=new TrapSetup();
+        return instance;
+    }
+
+    Trap[][] traps;
+    Map<TrapFactory, Integer> trapMap;
+
+    public Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
+        traps = new Trap[maze.getHeight()][maze.getWidth()];
         fillPath();
         generateTraps(maze);
         randomizeRandomTrap();
@@ -23,7 +30,7 @@ public class TrapSetup {
         return traps;
     }
 
-    public static Trap[][] generate(Maze maze, String setup){
+    public Trap[][] generate(Maze maze, String setup){
 
             trapMap = new EnumMap<>(TrapFactory.class);
         if (setup!=null) {
@@ -36,7 +43,7 @@ public class TrapSetup {
             return generate(maze, trapMap);
         }
 
-    private static void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
+    private void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
         TrapFactory trapType = TrapFactory.NONE;
         int numberTrap = 0;
         if (result.trap() != null && result.value() != null) {
@@ -51,7 +58,7 @@ public class TrapSetup {
         }
     }
 
-    private static extractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
+    private extractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
         String trap = null;
         String value = null;
         for (int j = 0; j < trapandvalue.length(); j++) {
@@ -69,7 +76,7 @@ public class TrapSetup {
     }
 
 
-    private static void randomizeRandomTrap() {
+    private void randomizeRandomTrap() {
         Random random = new Random();
         for (int x = 0; x < traps.length; x++) {
             for (int y = 0; y < traps[x].length; y++) {
@@ -83,7 +90,7 @@ public class TrapSetup {
     /** 
      * @param maze
      */
-    public static void generateTraps(Maze maze) {
+    public void generateTraps(Maze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
             for (int i = 0; i < value; i++){
@@ -97,7 +104,7 @@ public class TrapSetup {
      * @param maze
      * @return Position
      */
-    public static Position getRandomCell(Maze maze){
+    public Position getRandomCell(Maze maze){
         Random random = new Random();
         int x, y;
         Position position;
@@ -111,7 +118,7 @@ public class TrapSetup {
         return position;
     }
 
-    public static void fillPath(){
+    public void fillPath(){
         for (int i = 0; i< traps.length; i++){
             for (int j = 0; j< traps[i].length; j++){
                 if (traps[i][j]==null){
@@ -126,7 +133,7 @@ public class TrapSetup {
      * @param x
      * @return Trap
      */
-    static Trap getTrap(int y, int x){
+    Trap getTrap(int y, int x){
         return traps[y][x];
     }
 
@@ -135,7 +142,7 @@ public class TrapSetup {
      * @param x
      * @param trap
      */
-    public static void setTrap(int y, int x, Trap trap){
+    public void setTrap(int y, int x, Trap trap){
         traps[y][x] = trap;
     }
 

@@ -1,13 +1,13 @@
 package fr.univlille.labyrinth.model.gamemode.victory;
 
-/*
- * Rien ne se produit, puisqu'on rejoue à l'infini.
- */
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+
 public class FreeModeVictoryHandler implements VictoryHandler {
 
     @Override
-    public void handleVictory() {
+    public void handleVictory(PlayerEntity winner) {
     }
+
     @Override
     public void handleLoose() {
     }

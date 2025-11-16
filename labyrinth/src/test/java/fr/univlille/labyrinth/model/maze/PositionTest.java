@@ -59,15 +59,14 @@ class PositionTest {
     @Test
     public void randomPositionTest(){
         for (int heigth = 10; heigth<15;heigth++){
-            for (int width = 0; width<15; width++){
+            for (int width = 10; width<15; width++){
                 boolean[][] wasGenerated = new boolean[heigth][width];
-
                 int i = 0;
                 do {
                     Position position = Position.getRandomPosition(heigth,width);
                     wasGenerated[position.getY()][position.getX()]=true;
                     i++;
-                } while (i<10000 || checkAllAreTrue(wasGenerated));
+                } while (i<10000 && !checkAllAreTrue(wasGenerated));
 
                 assertTrue(checkAllAreTrue(wasGenerated));
             }

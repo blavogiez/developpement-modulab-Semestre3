@@ -13,7 +13,6 @@ public enum TrapFactory {
     PUSH_TRAP(PushTrap::new,"P"),
     GENERATE_TRAP(GenerateTrap::new,"G"),
     STUN_TRAP(StunTrap::new,"S"),
-    HIDE_WALL_TRAP(HideWallTrap::new,"H"),
     TELEPORT_EXIT_TRAP(TeleportExitTrap::new,"TE"),
     LAVA_TRAP(LavaTrap::new,"L");
 

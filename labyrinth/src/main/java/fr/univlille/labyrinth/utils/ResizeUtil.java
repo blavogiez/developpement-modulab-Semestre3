@@ -64,6 +64,20 @@ public class ResizeUtil {
         }
     }
 
+    /**
+     * @param parent
+     * @param cont
+     * @param percentageWidth
+     * @param percentageHeight
+     */
+    public static void resizeControlToParentSize(Pane parent, Control cont, double percentageWidth, double percentageHeight){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        ObservableList<Node> children = parent.getChildren();
+        int nbChildren = children.size();
+        resizeControlInPane(parent, cont,(width/nbChildren)*percentageWidth,height*percentageHeight, 0, 0, 0, 0);
+    }
+
     /** 
      * @param parent
      * @param width
@@ -80,12 +94,7 @@ public class ResizeUtil {
         }
     }
 
-    /**
-     * @param parent
-     * @param percentageWidth
-     * @param percentageHeight
-     */
-    public static void resizeControlsToParentSize(Pane parent, double percentageWidth, double percentageHeight ){
+    public static void resizeControlsToParentSize(Pane parent,  double percentageWidth, double percentageHeight, double MarginT, double MarginR, double MarginB, double MarginL ){
         double width = parent.getWidth();
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
@@ -99,20 +108,30 @@ public class ResizeUtil {
         }
     }
 
+    /**
+     * @param parent
+     * @param percentageWidth
+     * @param percentageHeight
+     */
+    public static void resizeControlsToParentSize(Pane parent, double percentageWidth, double percentageHeight ){
+        boolean isHBox = parent instanceof HBox;
+        if(isHBox){
+            resizeControlsInPane( parent,percentageWidth,percentageHeight, 0, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
+        }else{
+            resizeControlsInPane( parent,percentageWidth,percentageHeight, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
+        }
+    }
+
     /** 
      * @param parent
      */
     public static void resizeControlsToParentSize(Pane parent){
-        double width = parent.getWidth();
-        double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
 
-        ObservableList<Node> children = parent.getChildren();
-        int nbChildren = children.size();
         if(isHBox){
-            resizeControlsInPane( parent,(width/nbChildren)*0.40,height*0.50, 0, 0, 0, (width/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
+            resizeControlsToParentSize( parent,0.5,0.4, 0, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
         }else{
-            resizeControlsInPane( parent,width*0.50,(height/nbChildren)*0.40, 0, 0, (height/nbChildren)*DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
+            resizeControlsToParentSize( parent,0.4,0.5, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
         }
     }
 

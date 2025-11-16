@@ -53,7 +53,7 @@ public class PlayerAnimation extends AnimationTimer {
 
         boolean hasMoved = false;
 
-        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+        for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
 
             int id = player.getID();
             double targetX = player.getPosition().getX();

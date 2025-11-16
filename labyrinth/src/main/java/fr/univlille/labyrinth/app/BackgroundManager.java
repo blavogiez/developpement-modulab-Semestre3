@@ -9,8 +9,11 @@ import javafx.util.Duration;
 
 /*
  * Vidéo animée en fond, restant en dessous de toutes les scènes.
+ * gaussian blur = niveau de flou
  */
 public class BackgroundManager {
+    private final static int GAUSSIAN_BLUR_VALUE=40;
+
     private final MediaView mediaView;
     private final MediaPlayer mediaPlayer;
 
@@ -25,7 +28,7 @@ public class BackgroundManager {
         mediaView.setPreserveRatio(false);
         mediaView.fitWidthProperty().bind(stage.widthProperty());
         mediaView.fitHeightProperty().bind(stage.heightProperty());
-        mediaView.setEffect(new GaussianBlur(15));
+        mediaView.setEffect(new GaussianBlur(GAUSSIAN_BLUR_VALUE));
     }
 
     public MediaView getMediaView() {

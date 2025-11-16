@@ -179,7 +179,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
      * @param maze
      */
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+        for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
             int id = player.getID();
             Double x = playerXMap.get(id);
             Double y = playerYMap.get(id);

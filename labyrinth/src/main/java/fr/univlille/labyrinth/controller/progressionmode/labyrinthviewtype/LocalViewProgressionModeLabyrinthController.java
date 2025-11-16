@@ -26,9 +26,7 @@ public class LocalViewProgressionModeLabyrinthController extends ProgressionMode
         fullMazeView = new HiddenPlayerNormalLabyrinthCanvasView(gameMode.getCurrentMaze());
         localView = new LocalLabyrinthCanvasView(gameMode.getCurrentMaze());
 
-        // pas besoin de la mettre en observeur car elle ne se fait qu'une fois (pas de pos du joueur affichée !)
-        fullMazeView.update(gameMode.getCurrentMaze());
-        //gameMode.getCurrentMaze().add(fullMazeView);
+        gameMode.getCurrentMaze().add(fullMazeView);
         gameMode.getCurrentMaze().add(localView);
 
         HBox viewContainer = new HBox(HBOX_SPACING);
