@@ -10,176 +10,291 @@
 
 
 \begin{document}
-	
-	\fairepagedegarde
-	\fairemarges
-	\tabledematieres
-	
-	\section{Introduction}
-	
-	Ce rapport présente la partie algorithmique du projet \textbf{SAÉ S3.02 - Labyrinthe}, une application avec génération de divers labyrinthes.
-	
-	\begin{enumerate}
-		\item Diagrammes de cas d'utilisation
-		\item Fiches descriptives
-		\item Prototype d'interface
-		\item Diagramme de classe
-	\end{enumerate}
-	
-	\section{Investissement dans le projet}
-	\textbf{Groupe G3.3}
-	
-	\begin{itemize}
-		\item Victor Bredelle
-		\item Antonin Marouze
-		\item Romain Harlaut
-		\item Angèl Zheng
-		\item Baptiste Lavogiez 
-	\end{itemize}
-	
-	\begin{table}[h]
-		\centering
-		\begin{tblr}{
-				colspec = {ccccccc},
-				hlines, vlines,
-				row{1} = {bg=red!20},
-				column{1}= {bg=red!60}
-			}
-			Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
-			Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Data 2.5⟩ & 100\% \\
-		\end{tblr}
-		\caption{Répartition de l'investissement}
-		\label{tab:repartition}
-	\end{table}
-	
-	\tsec{Victor}
-	
-	Rédaction de trois fiches descriptives avec Baptiste : Charger profil, Afficher progression, Lancer mode progression.
-	
-	\tsec{Antonin}
-	
-	Réalisation de la maquette \textit{Figma} avec Angèl et Romain.
-	
-	\tsec{Romain}
-	
-	Réalisation de la fiche descriptive "Déplacer joueur" et aide à la maquette \textit{Figma}.
-	
-	\tsec{Angèl}
-	
-	Réalisation de la maquette \textit{Figma} avec Antonin et Romain.
-	
-	\tsec{Baptiste}
-	
-	Rédaction de trois fiches descriptives avec Victor et rédaction du rapport.
-	
-	\tsecnonum{Le groupe}
-	
-	\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
-	
-	\section{Structures de données pour les labyrinthes}
-	
-	\subsection{Labyrinthes aléatoires}
-	
-	\subsection{Labyrinthes parfaits}
-	
-	\section{Algorithmes de génération}
-	
-	\subsection{Labyrinthes aléatoires}
-	
-	\subsubsection{Algorithme utilisé}
-	
-	\subsubsection{Pseudo-code}
-	
-	\begin{codeboxlang}{pseudocode}
-		toto titi
-		tant que toto
-		faire tata
-	\end{codeboxlang}
-	
-	\subsubsection{Structures de données utilisées}
-	
-	\subsubsection{Pertinence}
-	
-	\subsection{Labyrinthes parfaits}
-	
-	\subsubsection{Algorithme utilisé}
-	
-	\subsubsection{Pseudo-code}
-	
-	\begin{codeboxlang}{pseudocode}
-		toto titi
-		tant que toto
-		faire tata
-	\end{codeboxlang}
-	
-	\subsubsection{Structures de données utilisées}
-	
-	\subsubsection{Pertinence}
-	
-	\section{Efficacité}
-	
-	\subsection{Méthode}
-	
-	La présente sous-section expose notre méthodologie de manière théorique, divisée en deux parties distinctes.
-	
-	\begin{enumerate}
-		\item Test de performance
-		\item Modélisation
-	\end{enumerate}
-	
-	\subsubsection{Test de performance}
-	
-	On note :
-	\begin{itemize}
-		\item \( a \) : l'algorithme du labyrinthe,
-		\item \( n \) : la taille initiale du labyrinthe,
-		\item \( e \) : l'écart entre deux tests successifs,
-		\item \( f \) : la taille maximale (fin du test).
-	\end{itemize}
-	
-	\[
-	\forall n > 2, \, n \in \mathbb{N}, \forall e \in \mathbb{N} :
-	\]
-	
-	\begin{codeboxlang}{pseudocode}
+
+\fairepagedegarde
+\fairemarges
+\tabledematieres
+
+\section{Introduction}
+
+Ce rapport présente la partie algorithmique du projet \textbf{SAÉ S3.02 - Labyrinthe}, une application avec génération de divers labyrinthes.
+
+L'objectif est de décrire notre solution, dogmatisée par l'efficacité d'exécution et les demandes du sujet.
+
+\section{Investissement dans le projet}
+\textbf{Groupe G3.3}
+
+\begin{itemize}
+\item Victor Bredelle
+\item Antonin Marouze
+\item Romain Harlaut
+\item Angèl Zheng
+\item Baptiste Lavogiez 
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tblr}{
+colspec = {ccccccc},
+hlines, vlines,
+row{1} = {bg=red!20},
+column{1}= {bg=red!60}
+}
+Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
+Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Data 2.5⟩ & 100\% \\
+\end{tblr}
+\caption{Répartition de l'investissement}
+\label{tab:repartition}
+\end{table}
+
+\tsec{Victor}
+
+\tsec{Antonin}
+
+\tsec{Romain}
+
+\tsec{Angèl}
+
+\tsec{Baptiste}
+
+
+\tsecnonum{Le groupe}
+
+\info{\textbf{L'ensemble des contributeurs a collaboré à l'élaboration du diagramme de classes.}}
+
+\section{Structures de données pour les labyrinthes}
+
+\subsection{Labyrinthes aléatoires}
+
+\subsection{Labyrinthes parfaits}
+
+\section{Algorithmes de génération}
+
+\subsection{Distance entrée / sortie}
+
+\textbf{Cet algorithme sera utilisé dans les algorithmes à venir.}
+
+Le placement d'une distance entrée / sortie sera ici considéré comme un algorithme à part. Le respect strict de la distance nécessite en effet de devoir associer à chaque position du labyrinthe, depuis l'entrée, la distance les séparant.
+
+\subsubsection{Algorithme utilisé}
+
+Une approche par niveaux sera utilisée ici. L'algorithme sera un \textbf{parcours en largeur}.
+
+\newpage
+
+\subsubsection{Pseudo-code}
+
+On note :
+\begin{itemize}
+\item \( d \) : la distance cible entre l'entrée et la sortie.
+\end{itemize}
+
+\begin{codeboxlang}{pseudocode}
+créer une position aléatoire entrée dans le labyrinthe
+
+créer une file vide
+créer une map distances vide
+créer une liste positionsResultat vide
+ajouter entrée à la file
+ajouter (entrée, 0) à distances
+niveauActuel = 0
+distanceReelle = 0
+
+tant que la file n'est pas vide :
+    tailleNiveau = taille de la file
+    
+    si niveauActuel > d :
+        arrêter le parcours
+    
+    si niveauActuel = d :
+        pour i de 0 à tailleNiveau :
+            position = retirer premier élément de la file
+            ajouter position à positionsResultat
+            distanceReelle = niveauActuel
+            arrêter le parcours
+    
+    pour i de 0 à tailleNiveau :
+    positionCourante = retirer premier élément de la file
+    pour chaque direction {haut, bas, gauche, droite} :
+    prochaine = calculer position adjacente selon direction
+    si prochaine valide et prochaine non visitée et pas de mur :
+        ajouter (prochaine, niveauActuel + 1) à distances
+        ajouter prochaine à la file
+    
+    distanceReelle = niveauActuel
+    niveauActuel = niveauActuel + 1
+
+si positionsResultat est vide :
+    pour chaque (position, distance) dans distances :
+    si distance = distanceReelle :
+    ajouter position à positionsResultat
+
+sortie = choisir aléatoirement une position dans positionsResultat
+définir entrée dans le labyrinthe
+définir sortie dans le labyrinthe
+mettre à jour la distance effective avec distanceReelle
+\end{codeboxlang}
+
+Notre solution permet alors un strict respect de la distance entrée / sortie, et surtout, un calcul de la distance maximale possible afin de ramener la distance voulue à celle maximale si celle voulue était impossible dans ce labyrinthe. Cette notion est \textbf{importante pour la suite}.
+
+La mise à jour de la distance effective permet, entre autres, de prévenir la structure de labyrinthes que la distance voulue a changé, permettant un retour utilisateur.
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\subsection{Labyrinthes parfaits : Version TP}
+
+\subsubsection{Algorithme utilisé}
+
+\newpage
+
+\subsubsection{Pseudo-code}
+
+\begin{codeboxlang}{pseudocode}
+toto titi
+tant que toto
+faire tata
+\end{codeboxlang}
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\subsection{Labyrinthes parfaits : Version originale - Fusion}
+
+\subsubsection{Algorithme utilisé}
+
+\newpage
+
+\subsubsection{Pseudo-code}
+
+\begin{codeboxlang}{pseudocode}
+toto titi
+tant que toto
+faire tata
+\end{codeboxlang}
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\newpage
+\subsection{Labyrinthes aléatoires}
+
+L'algorithme de génération de labyrinthe aléatoire héritant de l'algorithme parfait, cette sous-section est détaillée après la précédente.
+
+L'objectif sera ici de partir d'un labyrinthe parfait et de le rendre imparfait. Cette solution permet un respect acquis de propriétés
+
+Le chemin entre l'entrée et la sortie est, par définition, garanti, puisqu'un labyrinthe parfait est un graphe connexe.
+
+La propriété connexe demeure inchangée tant qu'aucun mur n'est ajouté.
+
+Cet algorithme n'ajoute aucun mur, il ne fait qu'un enlever.
+
+Puisqu'un labyrinthe aléatoire est ici un graphe connexe, il existe toujours un chemin entre l'entrée et la sortie.
+
+\subsubsection{Algorithme utilisé}
+
+L'algorithme consiste à 
+
+Concernant la distance entrée / sortie, puisque sans paramètre dans le sujet, elle sera ramenée au maximum possible du labyrinthe, comme prévu par l'algorithme de placement.
+
+\subsubsection{Pseudo-code}
+
+On note :
+\begin{itemize}
+\item \( m \) : un labyrinthe parfait
+\item \( p \) : le pourcentage de murs souhaité
+\end{itemize}
+
+\begin{codeboxlang}{pseudocode}
 créer un fichier csv de nom "a_n_e_f"
 tant que n < f :
-	t1 = mesurer le temps actuel
-	générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n)
-	t2 = mesurer le temps actuel
-	écrire sur la ligne actuelle (n, t2 - t1)
-	n = n + e
-	passer à la ligne suivante
-	\end{codeboxlang}
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{|c|c|}
-			\hline
-			\textbf{Taille (n)} & \textbf{Temps de génération (ms)} \\
-			\hline
-			10  & 12   \\
-			15  & 18   \\
-			20  & 25   \\
-			25  & 30   \\
-			30  & 38   \\
-			35  & 45   \\
-			\vdots & \vdots \\
-			495 & 1200 \\
-			500 & 1250 \\
-			\hline
-		\end{tabular}
-		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
-		\label{tab:output_example}
-	\end{table}
-	
-	\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Benchmark.java?ref_type=heads}{Implémentation Java}
-	
-	\subsubsection{Modélisation}
-	
-	Ces fichiers requièrent alors une analyse par un script concis en \textit{matplotlib}.
-	
-	\begin{codeboxlang}{python}
+    t1 = mesurer le temps actuel
+    générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n)
+    t2 = mesurer le temps actuel
+    écrire sur la ligne actuelle (n, t2 - t1)
+    n = n + e
+    passer à la ligne suivante
+\end{codeboxlang}
+
+\begin{codeboxlang}{pseudocode}
+toto titi
+tant que toto
+faire tata
+\end{codeboxlang}
+
+\subsubsection{Structures de données utilisées}
+
+\subsubsection{Pertinence}
+
+\section{Efficacité}
+
+\subsection{Méthode}
+
+La présente sous-section expose notre méthodologie de manière théorique, divisée en deux parties distinctes.
+
+\begin{enumerate}
+\item Test de performance
+\item Modélisation
+\end{enumerate}
+
+\subsubsection{Test de performance}
+
+On note :
+\begin{itemize}
+\item \( a \) : l'algorithme du labyrinthe,
+\item \( n \) : la taille initiale du labyrinthe,
+\item \( e \) : l'écart entre deux tests successifs,
+\item \( f \) : la taille maximale (fin du test).
+\end{itemize}
+
+\[
+\forall n > 2, \, n \in \mathbb{N}, \forall e \in \mathbb{N} :
+\]
+
+\begin{codeboxlang}{pseudocode}
+créer un fichier csv de nom "a_n_e_f"
+tant que n < f :
+    t1 = mesurer le temps actuel
+    générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n, distance = n)
+    t2 = mesurer le temps actuel
+    écrire sur la ligne actuelle (n, t2 - t1)
+    n = n + e
+    passer à la ligne suivante
+\end{codeboxlang}
+
+\info{Lorsque la distance entrée est de 0, l'algorithme de distance entrée/sortie ne s'exécute pas. Cela permet d'observer le coût brut de la génération ou de la distance entrée/sortie, plutôt qu'une limitation à une combinaison des deux. Cette idée sera appliquée dans certaines analyses.}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Taille (n)} & \textbf{Temps de génération (ms)} \\
+\hline
+10  & 12   \\
+15  & 18   \\
+20  & 25   \\
+25  & 30   \\
+30  & 38   \\
+35  & 45   \\
+\vdots & \vdots \\
+495 & 1200 \\
+500 & 1250 \\
+\hline
+\end{tabular}
+\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
+\label{tab:output_example}
+\end{table}
+
+\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Benchmark.java?ref_type=heads}{Implémentation Java}
+
+\subsubsection{Modélisation}
+
+Ces fichiers requièrent alors une analyse par un script concis en \textit{matplotlib}.
+
+\begin{codeboxlang}{python}
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -208,59 +323,87 @@ buf.seek(0)
 img = Image.open(buf)
 os.makedirs(d+"/modelisations", exist_ok=True)
 img.save(os.path.join(d+"/modelisations", files[i].replace(".csv", ".png")))
-	\end{codeboxlang}
-	
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{figures/efficacité/méthode/modélisation/fig_1.png}
-		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
-		\label{fig:efficacité_méthode_1}
-	\end{figure}
-	
-	\newpage
-	
-	\subsection{Résultats}
-	
-	\subsubsection{Labyrinthes aléatoires}
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{|c|c|}
-			\hline
-			\textbf{Taille (n)} & \textbf{Temps de génération (ms)} \\
-			\hline
-			10  & 12   \\
-			15  & 18   \\
-			20  & 25   \\
-			25  & 30   \\
-			30  & 38   \\
-			35  & 45   \\
-			\vdots & \vdots \\
-			495 & 1200 \\
-			500 & 1250 \\
-			\hline
-		\end{tabular}
-		\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
-		\label{tab:output_example}
-	\end{table}
-	
-	\subsubsection{Labyrinthes parfaits}
+\end{codeboxlang}
 
-        \textbf{Algorithme vu en TP}
 
-        \textbf{Algorithme original : Fusion}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/efficacité/méthode/modélisation/fig_1.png}
+\caption{Exemple de sortie pour $a = \text{STANDARDLARGEUR}, n = 10, e = 5, f = 500$}
+\label{fig:efficacité_méthode_1}
+\end{figure}
 
-        \subsubsection{Distance entrée / sortie}
+Seront uniquement présentés en résultat ces modélisations graphiques.
 
-Le placement d'une distance entrée / sortie peut être considéré comme un algorithme puisqu'il implique un parcours en largeur. Le respect strict de la distance nécessite en effet de devoir associer à chaque position du labyrinthe, depuis l'entrée, la distance les séparant.
-	
-	\subsection{Conclusion}
-	
-	\section{Complément et Bilan}
-	
-	\section{Conclusion}
-	
+\newpage
+
+\subsection{Résultats}
+
+\subsubsection{Labyrinthes aléatoires}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_aléatoires/fig_1.png}
+    \caption{$a = \text{RANDOM}, n = 5, e = 5, f = 500$}
+    \label{fig:efficacité_résultats_1}
+\end{figure}
+
+\subsubsection{Labyrinthes parfaits}
+
+\newpage
+
+\textbf{Algorithme vu en TP}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/labyrinthes_parfaits/fig_1.png}
+    \caption{$a = \text{PERFECT}, n = 5, e = 5, f = 500$}
+    \label{fig:efficacité_résultats_1}
+\end{figure}
+
+\newpage
+
+\subsubsection{Comparaison parfaits / aléatoires}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/efficacité/résultats/comparaison_parfaits__aléatoires/fig_1.png}
+    \caption{Enter image caption...}
+    \label{fig:efficacité_résultats_1}
+\end{figure}
+
+
+\textbf{Algorithme original : Fusion}
+
+\subsection{Conclusion}
+
+\section{Complément et Bilan}
+
+\subsection{Distance entrée / sortie}
+
+Notre solution actuelle est optimisée, mais elle n'est apparue qu'après plusieurs tentatives. En effet, notre première solution consistait à :
+
+\begin{itemize}
+\item Faire un dictionnaire (clé : Position, valeur : Distance) de toutes les positions depuis la position en paramètre par parcours en largeur. 
+\item Puis, choisir toutes les positions satisfaisant 
+\end{itemize}
+
+En réalité, cette approche est inefficace puisqu'elle implique de parcourir absolument tout le labyrinthe. Elle avait été imaginée pour provisionner une solution simple au problème du maximum de la distance entrée / sortie.
+
+Les performances de l'algorithme parfait ont été multipliées par 10 après application de la nouvelle solution.
+
+\subsection{Placement des entités}
+
+Notre projet comporte des \textbf{entités} (\emph{joueurs, monstres, sorties...}) qui doivent être placées initialement selon des stratégies. Le problème étant très similaire à celui du placement de l'entrée et de la sortie, un algorithme très similaire a été implémenté pour le calcul de leurs positions de départ.
+
+La différence étant que le placement vérifie l'absence d'entités sur cette case. L'algorithme enlève alors les positions occupées pour le niveau exploré. Si le niveau demandé ne comporte aucune position valide, alors 
+
+
+\section{Conclusion}
+
 \end{document}
+
+
 
 

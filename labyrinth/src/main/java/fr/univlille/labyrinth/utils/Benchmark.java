@@ -19,12 +19,19 @@ import fr.univlille.labyrinth.model.maze.Maze;
  * @since 0.0
  */
 public class Benchmark {
+    // Pourcentage de murs par défaut
+    public static final double WALL_PERCENTAGE = 0.5 ;
+
+    // Nilpotence du programme vis-à-vis des fichiers CSV
+    public static final boolean delete = false ;
+
     // Nombre de tours que fera le benchmark pour calculer la moyenne
-    public static final int PRECISION = 3; 
+    public static final int PRECISION = 10; 
     /** 
      * @param args
      */
     public static void main(String[] args) {
+        if(delete) deleteAllCsvFiles();
         Benchmark.csvBench(5, 500, 5);
     }
 
@@ -33,14 +40,16 @@ public class Benchmark {
      */
     public static void csvBench(int taille, int fin, int ecart) {
         for (MazeAlgorithmFactory algo : MazeAlgorithmFactory.values()) {
-            Benchmark.csvBench(algo, taille, fin, ecart);
+            Benchmark.csvBench(algo, taille, fin, ecart, false);
+            Benchmark.csvBench(algo, taille, fin, ecart, true);
         }
     }
 
     /**
      * Enregistre les données mesurées dans un fichier au nom de l'algorithme.
+     * showDistance détermine si nous comptons l'exécution de la distance entrée / sortie.
      */
-    public static void csvBench(MazeAlgorithmFactory algo, int taille, int fin, int ecart) {
+    public static void csvBench(MazeAlgorithmFactory algo, int taille, int fin, int ecart, boolean showDistance) {
         if ((fin < 0 || fin < taille) || taille < 2) {
             throw new IndexOutOfBoundsException("Fin supérieure à la taille ou taille impossible");
         }
@@ -50,7 +59,8 @@ public class Benchmark {
 
         File dir = new File("res/benchmarks");
         dir.mkdir();
-        String filename = "res/benchmarks/" + algo.name() + "_TAILLE_" + taille + "_A_" + fin + "_ECART_" + ecart + ".csv";
+        String distanceText = showDistance ? "_DISTANCE" : "_NO_DISTANCE";
+        String filename = "res/benchmarks/" + algo.name() + "_TAILLE_" + taille + "_A_" + fin + "_ECART_" + ecart + distanceText + ".csv";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write("taille,temps(ms)\n");
@@ -61,8 +71,9 @@ public class Benchmark {
                 // executer PRECISION fois pour calculer la moyenne
                 for (int i = 0; i < PRECISION; i++) {
                     Timer timer = new Timer();
+                    int distance = showDistance ? taille : 0 ;
                     timer.start();
-                    new Maze(taille, taille * 2, taille, algo.getAlgorithm());
+                    new Maze(taille, taille * 2, 0.5, distance, algo.getAlgorithm());
                     timer.stop();
                     sommeTemps += timer.getChrono();
                 }
@@ -75,6 +86,18 @@ public class Benchmark {
             System.out.println("Fichier créé: " + filename);
         } catch (IOException e) {
             System.err.println("Erreur lors de l'écriture du fichier: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Supprime tous les fichiers CSV du dossier res/benchmarks
+     */
+    public static void deleteAllCsvFiles() {
+        File dir = new File("res/benchmarks");
+        if (dir.exists()) {
+            for (File file : dir.listFiles((d, name) -> name.endsWith(".csv"))) {
+                file.delete();
+            }
         }
     }
 }

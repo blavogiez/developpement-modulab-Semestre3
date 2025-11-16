@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
+import fr.univlille.labyrinth.model.exceptions.MazeWallAdjacentException;
+
 /*
  * Classe helper contenant les vérifications de murs
  * Sert à ne pas surcharger la classe Maze de méthodes en réalité plus static.
@@ -20,7 +22,7 @@ public class MazeWallChecker {
         int y2=maze.exitPosition.getY(); 
         int x2=maze.exitPosition.getX(); 
         if (!adjacent(maze))
-            throw new RuntimeException();
+            throw new MazeWallAdjacentException("Les positions d’entrée et de sortie ne sont pas adjacentes !");
 
         if (!positionCorrecte(y1, x1, maze) || !positionCorrecte(y2, x2, maze)) {
             return true;
@@ -48,7 +50,7 @@ public class MazeWallChecker {
      */
     public static boolean isWall(Maze maze,int y1,int x1,int y2,int x2) {
         if (!adjacent(maze,y1, x1, y2, x2))
-            throw new RuntimeException();
+            throw new MazeWallAdjacentException("Les positions("+y1+","+x1+") et ("+y2+","+x2+") ne sont pas adjacentes");
         Position p1 =new Position(x1, y1);
         Position p2 =new Position(x2, y2);
         if (!positionCorrecte(p1,maze) || !positionCorrecte(p2,maze)) {

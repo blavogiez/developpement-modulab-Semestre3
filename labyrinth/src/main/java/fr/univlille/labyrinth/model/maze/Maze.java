@@ -27,13 +27,15 @@ public class Maze {
     protected Position entryPosition;
     protected Position exitPosition;
     protected int distanceBetweenEntryAndExit;
+    protected double wallPercentage;
     protected boolean[][] murVerticaux;
     protected boolean[][] murHorizontaux;
 
 
-    public Maze(int width, int height, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
+    public Maze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
         this.width = width;
         this.height = height;
+        this.wallPercentage = wallPercentage;
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit ;
         this.murHorizontaux = new boolean[height - 1][width];
         this.murVerticaux = new boolean[width - 1][height];
@@ -41,9 +43,24 @@ public class Maze {
         algo.generateExitAndPlayer(this);
     }
 
-    // Surcharge avec algorithme par défaut
+    public Maze(int width, int height, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
+        this(width, height, 1.0, distanceBetweenEntryAndExit, algo);
+    }
+
+    public Maze(int width, int height, double wallPercentage, MazeAlgorithm algo) {
+        this(width, height, wallPercentage, Integer.MAX_VALUE, algo);
+    }
+
+    public Maze(int width, int height, double wallPercentage) {
+        this(width, height, wallPercentage, MazeAlgorithmFactory.RANDOM.getAlgorithm());
+    }
+
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this(width, height, distanceBetweenEntryAndExit, MazeAlgorithmFactory.PERFECT.getAlgorithm());
+    }
+
+    public Maze(int width, int height) {
+        this(width, height, Integer.MAX_VALUE);
     }
 
     
@@ -60,6 +77,10 @@ public class Maze {
      */
     public int getHeight() {
         return height;
+    }
+
+    public double getWallPercentage() {
+        return this.wallPercentage;
     }
     
     /** 
@@ -120,10 +141,4 @@ public class Maze {
     public void setExit(Position exitPosition) {
         this.exitPosition=exitPosition;
     }
-
-    public void trapEffect(int playerID, Position oldPosition) {}
-
-
-
-
 }

@@ -120,31 +120,28 @@ public class EntityManager {
     /** 
      * @return MonsterEntity
      */
-    public MonsterEntity getMonsterEntity() {
+    public List<Position> getMonstersPositions() {
+        List<Position> positions = new ArrayList<Position>();
         for (Entity e : this.entities) {
-            if (e.getEntityType()==EntityType.MONSTER) return (MonsterEntity) e ;
+            if (e.getEntityType() == EntityType.MONSTER){
+                positions.add(e.getPosition());
+            }
         }
-        return null ;
+        return positions ;
     }
 
-    /** 
+    /**
      * @return int
      */
     public int checkMonsterOnPlayer() {
         int deadCount = 0;
         List<Entity> toRemove = new ArrayList<>();
+        List<Position> monstersPositions = getMonstersPositions();
 
         for (Entity player : this.entities) {
-            if (player.getEntityType() == EntityType.PLAYER) {
-                for (Entity monster : this.entities) {
-                    if (monster.getEntityType() == EntityType.MONSTER) {
-                        if (monster.getPosition().equals(player.getPosition())) {
-                            toRemove.add(player);
-                            deadCount++;
-                            break;
-                        }
-                    }
-                }
+            if (player.getEntityType() == EntityType.PLAYER && monstersPositions.contains(player.getPosition())) {
+                deadCount++;
+                toRemove.add(player);
             }
         }
 
