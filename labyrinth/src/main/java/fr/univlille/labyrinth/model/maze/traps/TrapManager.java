@@ -29,7 +29,7 @@ public class TrapManager {
     /** 
      * @return Trap[][]
      */
-    Trap[][] getTraps() {
+    public Trap[][] getTraps() {
         return trap;
     }
 }
