@@ -112,6 +112,7 @@ public class TrapTest {
     }
 
 
+
     @Test
     public void random_teleport_trap_should_teleport_to_free_cell_test() {
         maze.getTrapManager().getTraps()[0][1] = TrapFactory.TELEPORTER_TRAP.generateTrap();

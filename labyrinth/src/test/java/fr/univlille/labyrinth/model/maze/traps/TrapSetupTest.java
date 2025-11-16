@@ -38,7 +38,6 @@ public class TrapSetupTest {
         map2 = new EnumMap<>(TrapFactory.class);
         map2.put(TrapFactory.TELEPORTER_TRAP,5);
         map2.put(TrapFactory.TELEPORT_EXIT_TRAP,3);
-        map2.put(TrapFactory.HIDE_WALL_TRAP,10);
         map2.put(TrapFactory.LAVA_TRAP,2);
         map2.put(TrapFactory.STUN_TRAP,3);
 
@@ -59,7 +58,7 @@ public class TrapSetupTest {
     public void generateTrapsWithStringTest(){
         TrapSetup.generate(new Maze(10,10,10),"R5_F3_P10_L2_S3");
         assertEquals(map1, TrapSetup.trapMap);
-        TrapSetup.generate(new Maze(10,10,10),"T5_TE3_H10_L2_S3");
+        TrapSetup.generate(new Maze(10,10,10),"T5_TE3_L2_S3");
         assertEquals(map2,TrapSetup.trapMap);
         TrapSetup.generate(new Maze(10,10,10),"SGL18");
         assertEquals(map4,TrapSetup.trapMap);
