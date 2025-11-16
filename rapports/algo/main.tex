@@ -68,6 +68,11 @@ Part & ⟨Data 2.1⟩ & ⟨Data 2.2⟩ & ⟨Data 2.3⟩ & ⟨Data 2.4⟩ & ⟨Da
 
 \subsection{Labyrinthes parfaits}
 
+Les labyrinthes parfaits peuvent être représentés à l’aide de structures de données simples :
+* Un tableau de booléens représentant les murs verticaux
+* Un tableau de booléens représentant les murs horizontaux
+
+L’objectif est de conserver uniquement les informations essentielles dans la structure de données la plus simple possible, composée uniquement de variables primitives, tout en minimisant au maximum la redondance.
 \section{Algorithmes de génération}
 
 \subsection{Distance entrée / sortie}
@@ -147,14 +152,36 @@ La mise à jour de la distance effective permet, entre autres, de prévenir la s
 
 \subsubsection{Algorithme utilisé}
 
+L’algorithme utilisé est celui du parcours en profondeur. L’objectif est de placer des murs partout dans le labyrinthe, puis de le parcourir en supprimant les murs gênants au passage. Cela garantit que le résultat sera un labyrinthe parfait.
+
 \newpage
 
 \subsubsection{Pseudo-code}
 
 \begin{codeboxlang}{pseudocode}
-toto titi
-tant que toto
-faire tata
+1. Créer une position aléatoire comme entrée dans le labyrinthe
+2. Créer une pile vide de positions
+3. Créer un tableau de booléens "visitée" initialisé à false
+4. Ajouter l'entrée à la pile
+5. Marquer l'entrée comme visitée
+
+6. Tant que la pile n'est pas vide :
+    a. oldPosition = sommet de la pile (peek)
+    b. directions = [haut, bas, gauche, droite]
+    c. Mélanger l'ordre des directions aléatoirement
+    d. positionValideTrouvée = false
+
+    e. Pour chaque direction dans directions :
+        i. position = oldPosition + direction
+        ii. Si position est dans le labyrinthe ET pas encore visitée :
+            - Marquer position comme visitée
+            - Ajouter position à la pile
+            - Supprimer le mur entre oldPosition et position
+            - positionValideTrouvée = true
+            - Break (sortir de la boucle des directions)
+
+    f. Si positionValideTrouvée == false :
+        - Retirer oldPosition de la pile (pop)
 \end{codeboxlang}
 
 \subsubsection{Structures de données utilisées}
@@ -165,14 +192,25 @@ faire tata
 
 \subsubsection{Algorithme utilisé}
 
+L’algorithme utilisé est celui de la fusion aléatoire. Son objectif est d’attribuer un numéro différent à chaque case. Tant que toutes les cases n’ont pas le même numéro, on choisit deux cases adjacentes et on fusionne leurs numéros. Cela génère un labyrinthe parfait, mais avec une apparence différente de celle obtenue par le parcours en profondeur.
+
 \newpage
 
 \subsubsection{Pseudo-code}
 
 \begin{codeboxlang}{pseudocode}
-toto titi
-tant que toto
-faire tata
+génère une grille de numéro différents
+
+1. Générer une grille où chaque cellule a un numéro unique
+2. Tant que la grille contient au moins deux numéros différents :
+    a. Choisir une position aléatoire (pos)
+    b. Choisir une direction aléatoire (dir)
+    c. positionVoisine = pos + dir
+
+    d. Si positionVoisine est dans le labyrinthe ET que les numéros de pos et positionVoisine sont différents :
+        i. Supprimer le mur entre pos et positionVoisine
+        ii. Fusionner les cellules : toutes les cases ayant le numéro de positionVoisine prennent le numéro de pos
+
 \end{codeboxlang}
 
 \subsubsection{Structures de données utilisées}
