@@ -151,4 +151,5 @@ public class Maze {
     public void setMurVerticaux(boolean[][] murVerticaux) {
         this.murVerticaux = murVerticaux;
     }
+
 }

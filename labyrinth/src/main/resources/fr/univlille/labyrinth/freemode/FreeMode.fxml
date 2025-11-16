@@ -39,7 +39,7 @@
                 </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                        <Button fx:id="boutonEntites" mnemonicParsing="false" onAction="#goToEntityConfiguration" prefWidth="150" text="Configurer Entités" />
+                        <Button fx:id="boutonEntites" mnemonicParsing="false" onAction="#goToComponentConfiguration" prefWidth="150" text="Configurer Composants" />
                </children>
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">

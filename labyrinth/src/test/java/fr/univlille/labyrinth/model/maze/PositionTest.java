@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.maze;
 
-import javafx.geometry.Pos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

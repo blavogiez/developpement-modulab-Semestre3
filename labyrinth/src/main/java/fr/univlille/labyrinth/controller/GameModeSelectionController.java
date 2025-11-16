@@ -31,8 +31,7 @@ public class GameModeSelectionController  {
     @FXML
     public void initialize()
     {
-        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsInPane(menuBoutons));
-        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsInPane(menuBoutons));
+        resize();
     }
 
     /**
@@ -57,5 +56,10 @@ public class GameModeSelectionController  {
     @FXML
     private void goToQuitter() throws IOException {
         App.goTo("HomeMenu.fxml");
+    }
+
+    public void resize(){
+        menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
+        menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
     }
 }

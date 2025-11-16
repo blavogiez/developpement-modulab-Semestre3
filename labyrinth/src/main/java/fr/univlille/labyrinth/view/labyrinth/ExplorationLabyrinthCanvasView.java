@@ -34,7 +34,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     }
 
     @Override
-    protected void draw() {
+    public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -137,7 +137,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
      */
     @Override
     protected boolean shouldRenderEntity(Entity entity) {
-        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && entity.getEntityType()!=EntityType.PLAYER;
+        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && super.shouldRenderEntity(entity);
     }
 
     /** 

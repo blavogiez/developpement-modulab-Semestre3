@@ -4,23 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Random;
-
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.DepthStackSearch;
 
 class MazeTest {
-
-//    @Test //TODO ObservableMaze
-//    void shouldInitializeGridWithCorrectDimensions() {
-//        Maze maze = new Maze(10, 10, 12);
-//
-//        assertNotNull(maze.getGrid());
-//        assertEquals(10, maze.getGrid().length);
-//        assertEquals(10, maze.getGrid()[0].length);
-//    }
 
     @Test
     void shouldStoreWidth() {
