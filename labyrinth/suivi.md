@@ -177,7 +177,8 @@ Création de la classe "PlayerDatabase"
 - Fxml choix type d'algo freeMode
 
 ### **Angèl** :
-
+- Amélioration de resizeUtil, application du resize sur toutes les pages qui en ont besoin.
+- Fixe de plusieurs fxml.
 
 ### **Baptiste** :
 
@@ -205,6 +206,10 @@ Création de la classe "PlayerDatabase"
 - Ajout Classement TableView
 
 ### **Angèl** :
+
+- Refactor de certaines fonctions dans ResizeUtil pour plus de clareté et de modularité.
+- Ajout de la fonction pathFinder dans classe BreadthFirstSearch.
+- Début ajout de MonsterEntity.
 
 
 ### **Baptiste** :
@@ -235,6 +240,9 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Angèl** :
+
+- Développement et intégration de MonsterEntity.
+- Refactor de certaines parties du codes pour respecter les principes SOLID
 
 
 ### **Baptiste** :
