@@ -35,6 +35,10 @@ public class RandomAlgorithmTest {
         assertTrue(Math.abs(actualPercentage - targetPercentage) < seuilOuCestOk);
     }
 
+    /** 
+     * @param maze
+     * @return int
+     */
     //helper pour wall percentage
     private int getTotalWalls(Maze maze) {
         int walls = 0 ;

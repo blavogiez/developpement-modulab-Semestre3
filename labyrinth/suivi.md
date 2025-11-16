@@ -190,6 +190,7 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Romain** :
+- animation
 
 
 ### **Victor** :
@@ -246,6 +247,9 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Romain** :
+- popup de victoire
+- SOLID (Observable victory et mazewallchecker et magic number)
+- javadoc
 
 
 ### **Victor** :
