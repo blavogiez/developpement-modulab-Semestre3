@@ -6,6 +6,9 @@ import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 
+/*
+ * Filtre pour la vue d'exploration : les positions explorées sont stockées dans un tableau
+ */
 public class ExplorationFilter implements RenderingFilter {
 
     private static final int EXPLORATION_RADIUS = 5;

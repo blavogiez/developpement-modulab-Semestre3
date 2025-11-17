@@ -3,7 +3,8 @@ package fr.univlille.labyrinth.model.algorithm;
 import java.util.Arrays;
 import java.util.Random;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.DistanceResult;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -34,7 +35,7 @@ public abstract class MazeAlgorithm{
         Random random = new Random();
         Position entryPosition = new Position(random.nextInt(width), random.nextInt(height));
 
-        BreadthFirstSearch.DistanceResult distResult = BreadthFirstSearch.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
+        DistanceResult distResult = MazeDistance.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
 
         Position exitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
 

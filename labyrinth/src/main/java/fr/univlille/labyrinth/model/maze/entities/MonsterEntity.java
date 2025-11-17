@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.DistanceResult;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MonsterMoveBehavior;
@@ -27,7 +28,7 @@ public class MonsterEntity extends Entity {
         Position normalPos = maze.getExitPosition();
         if(!maze.getEntityManager().isEntityOnCell(normalPos))return normalPos;
 
-        BreadthFirstSearch.DistanceResult distResult;
+        DistanceResult distResult;
         int cpt = 0 ;
         boolean stuckToMaximum = false ;
         do {
@@ -36,7 +37,7 @@ public class MonsterEntity extends Entity {
             Position entryPosition = maze.getEntryPosition();
 
             List<Position> positionsWithEntities = new ArrayList<>();
-            distResult = BreadthFirstSearch.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
+            distResult = MazeDistance.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
             for(Position positionCheck : distResult.positions()) {
                 if(maze.getEntityManager().isEntityOnCell(positionCheck)) positionsWithEntities.add(positionCheck);
             }

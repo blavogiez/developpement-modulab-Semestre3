@@ -17,6 +17,6 @@ class BreadthFirstSearchTest {
     void shouldFindDistance() {
         Maze maze = new Maze(10, 10, 12);
 
-        assertEquals(12, BreadthFirstSearch.calculateDistance(maze, maze.getEntryPosition(), maze.getExitPosition()));
+        assertEquals(12, MazeDistance.calculateDistance(maze, maze.getEntryPosition(), maze.getExitPosition()));
     }
 }

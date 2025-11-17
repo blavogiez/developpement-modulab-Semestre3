@@ -24,6 +24,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 
+/*
+ * Classe parent des vues de labyrinthe
+ * Permet une implémentation facile grâce à des filtres (similaires à des hooks) injectables
+ * Architecture SOLID
+ */
 public class LabyrinthCanvasView implements Observer<ObservableMaze>, AnimatableView {
 
     private static final int CANVAS_DEFAULT_SIZE = 800;
@@ -92,6 +97,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
         update(maze);
     }
 
+    // Injection par défaut
     public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
                                ComponentRenderer componentRenderer, boolean animationEnabled) {
         this(maze, layoutCalculator, componentRenderer, animationEnabled,

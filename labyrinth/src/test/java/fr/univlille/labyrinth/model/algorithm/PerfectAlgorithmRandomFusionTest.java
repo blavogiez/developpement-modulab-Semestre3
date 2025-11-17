@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -117,28 +117,28 @@ public class PerfectAlgorithmRandomFusionTest {
         // Il doit exister un chemin (PATH = true) entre start et end
 
         //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
-        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
+        Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
 
-        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
+        Integer distance2 = MazeDistance.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2, "Un chemin doit exister entre start et end dans maze2");
 
-        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
+        Integer distance3 = MazeDistance.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3, "Un chemin doit exister entre start et end dans maze3");
     }
 
     @Test
     public void testMinimumPathLength() {
         // la distance BFS reelle entre start et end doit etre >= pathLength demande
-        Integer distance1 = BreadthFirstSearch.calculateDistance(maze1, start1, end1);
+        Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
         assertEquals(distance1,10, "Distance dans maze1 devrait être = 10, mais est " + distance1);
 
-        Integer distance2 = BreadthFirstSearch.calculateDistance(maze2, start2, end2);
+        Integer distance2 = MazeDistance.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2);
         assertEquals(distance2,20, "Distance dans maze2 devrait être = 20, mais est " + distance2);
 
-        Integer distance3 = BreadthFirstSearch.calculateDistance(maze3, start3, end3);
+        Integer distance3 = MazeDistance.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3);
         assertEquals(distance3,30, "Distance dans maze3 devrait être = 30, mais est " + distance3);
     }
@@ -158,7 +158,7 @@ public class PerfectAlgorithmRandomFusionTest {
             Position start = maze.getEntryPosition();
             Position end = maze.getExitPosition();
 
-            Integer distance = BreadthFirstSearch.calculateDistance(maze, start, end);
+            Integer distance = MazeDistance.calculateDistance(maze, start, end);
             if (distance == null || distance < minDistance) {
                 failCount++;
             }

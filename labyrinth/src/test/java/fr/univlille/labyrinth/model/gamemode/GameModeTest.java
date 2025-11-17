@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazePath;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -55,7 +55,7 @@ public class GameModeTest {
         Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
-        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        List<Position> path = MazePath.pathFinder(maze, start, exit);
         assertNotNull(path);
         assertFalse(path.isEmpty());
         path.add(0, start);
@@ -94,7 +94,7 @@ public class GameModeTest {
         Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
-        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        List<Position> path = MazePath.pathFinder(maze, start, exit);
         assertNotNull(path);
         assertFalse(path.isEmpty());
         
