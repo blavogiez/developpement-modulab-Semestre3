@@ -94,6 +94,15 @@ public class ResizeUtil {
         }
     }
 
+    /** 
+     * @param parent
+     * @param percentageWidth
+     * @param percentageHeight
+     * @param MarginT
+     * @param MarginR
+     * @param MarginB
+     * @param MarginL
+     */
     public static void resizeControlsToParentSize(Pane parent,  double percentageWidth, double percentageHeight, double MarginT, double MarginR, double MarginB, double MarginL ){
         double width = parent.getWidth();
         double height = parent.getHeight();

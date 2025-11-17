@@ -42,6 +42,9 @@ public class PlayerMoveBehavior implements MoveBehavior {
     }
 
 
+    /** 
+     * @param stuntDuration
+     */
     public void setStuntDuration(int stuntDuration) {
         this.stuntDuration = stuntDuration;
     }

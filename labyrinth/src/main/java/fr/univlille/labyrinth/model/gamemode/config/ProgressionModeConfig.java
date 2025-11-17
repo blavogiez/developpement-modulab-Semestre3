@@ -71,6 +71,9 @@ public class ProgressionModeConfig implements GameConfig {
         return challenge.getTrapsConfiguration();
     }
 
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isPerfectAlgorithm() {
         return MazeAlgorithmFactory.valueOf(challenge.getAlgorithmName()).isPerfect();

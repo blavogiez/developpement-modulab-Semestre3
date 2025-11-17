@@ -125,16 +125,25 @@ public class FreeModeConfig implements GameConfig {
         return entityConfiguration;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String getTrapsConfiguration() {
         return trapsConfiguration;
     }
 
+    /** 
+     * @param entityConfiguration
+     */
     public void setEntitiesConfiguration(String entityConfiguration) {
         this.entityConfiguration = entityConfiguration;
 
     }
 
+    /** 
+     * @param trapsConfiguration
+     */
     public void setTrapsConfiguration(String trapsConfiguration){
         this.trapsConfiguration=trapsConfiguration;
     }

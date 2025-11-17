@@ -10,6 +10,11 @@ import javafx.util.Duration;
 public class SceneTransition {
     private static final double FADE_DURATION_MS = 200;
 
+    /** 
+     * @param currentContent
+     * @param newContent
+     * @param onComplete
+     */
     public void transitionTo(Parent currentContent, Parent newContent, Runnable onComplete) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(FADE_DURATION_MS), currentContent);
         fadeOut.setFromValue(1.0);

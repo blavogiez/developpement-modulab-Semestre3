@@ -9,9 +9,15 @@ import fr.univlille.labyrinth.controller.VictoryNotification;
 import fr.univlille.labyrinth.model.gamemode.FreeMode;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.view.labyrinth.LabyrinthCanvasView;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Controller des labyrinthes spécifiquement du mode libre
@@ -23,6 +29,15 @@ import javafx.scene.control.Button;
 public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @FXML
     private Button bouttonRetour;
+
+    @FXML
+    private TableView<Entity> tableView;
+
+    @FXML
+    private TableColumn<Entity, EntityType> colSymbole;
+
+    @FXML
+    private TableColumn<Entity, String> colDef;
 
     private LabyrinthCanvasView labyrinth;
 
@@ -37,7 +52,22 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
+        colSymbole.getStyleClass().add("Symbole");
+        colDef.getStyleClass().add("Def");
+
+        colSymbole.setCellValueFactory(new PropertyValueFactory<>("entityType"));
+
+        colDef.setCellValueFactory(new PropertyValueFactory<>("defType"));
+
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        colSymbole.prefWidthProperty().bind(tableView.widthProperty().multiply(0.5));
+        colDef.prefWidthProperty().bind(tableView.widthProperty().multiply(0.5));
+
         MazeManager mazeManager = new MazeManager();
+
+        
+
         FreeModeVictoryHandler victoryHandler = new FreeModeVictoryHandler();
 
         gameMode = new FreeMode(mazeManager, victoryHandler, AppState.getInstance().getFreeModeConfig());
@@ -48,6 +78,8 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
         pane1.setCenter(labyrinth.getView());
         labyrinth.update(gameMode.getCurrentMaze());
+
+        tableView.setItems(FXCollections.observableArrayList(gameMode.getCurrentMaze().getEntityManager().getEntities()));
     }
 
     @Override
@@ -71,6 +103,9 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");

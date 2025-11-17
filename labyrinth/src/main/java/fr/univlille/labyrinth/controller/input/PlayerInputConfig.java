@@ -20,6 +20,13 @@ public class PlayerInputConfig {
         initializePlayer(2, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L);
     }
 
+    /** 
+     * @param playerId
+     * @param up
+     * @param left
+     * @param down
+     * @param right
+     */
     private static void initializePlayer(int playerId, KeyCode up, KeyCode left, KeyCode down, KeyCode right) {
         keyToPlayer.put(up, playerId);
         keyToPlayer.put(left, playerId);
@@ -32,14 +39,26 @@ public class PlayerInputConfig {
         keyToDirection.put(right, Direction.RIGHT);
     }
 
+    /** 
+     * @param keyCode
+     * @return Integer
+     */
     public static Integer getPlayerIdForKey(KeyCode keyCode) {
         return keyToPlayer.get(keyCode);
     }
 
+    /** 
+     * @param keyCode
+     * @return Direction
+     */
     public static Direction getDirectionForKey(KeyCode keyCode) {
         return keyToDirection.get(keyCode);
     }
 
+    /** 
+     * @param keyCode
+     * @return boolean
+     */
     public static boolean isValidKey(KeyCode keyCode) {
         return keyToPlayer.containsKey(keyCode);
     }

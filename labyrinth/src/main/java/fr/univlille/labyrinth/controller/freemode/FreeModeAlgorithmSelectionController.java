@@ -23,11 +23,17 @@ public class FreeModeAlgorithmSelectionController {
         freeModeComboBox.getSelectionModel().select(AppState.getInstance().getFreeModeConfig().getAlgorithmFactory());
         resize();
     }
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToJouer() throws IOException {
         AppState.getInstance().getFreeModeConfig().setAlgorithmFactory(freeModeComboBox.getSelectionModel().getSelectedItem());
         App.goTo("freemode/FreeMode.fxml");
     }
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToRetour()throws IOException {
         App.goTo("GameModeSelection.fxml");

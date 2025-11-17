@@ -14,14 +14,23 @@ public class NavigationContext {
         this.backgroundManager = backgroundManager;
     }
 
+    /** 
+     * @return Stage
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /** 
+     * @return StackPane
+     */
     public StackPane getRootPane() {
         return rootPane;
     }
 
+    /** 
+     * @return BackgroundManager
+     */
     public BackgroundManager getBackgroundManager() {
         return backgroundManager;
     }

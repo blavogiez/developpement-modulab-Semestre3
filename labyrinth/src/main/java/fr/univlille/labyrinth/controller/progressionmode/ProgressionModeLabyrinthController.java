@@ -37,9 +37,17 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
      * @param initializeGameMode(
      * @return Node
      */
+    /** 
+     * @param initializeGameMode(
+     * @return Node
+     */
     // Initialise les vues de labyrinthe nécessaires (abstrait car différents comportements possibles)
     protected abstract Node setupViews(ProgressionMode gameMode);
 
+    /** 
+     * @param initializeGameMode(
+     * @return String
+     */
     /** 
      * @param initializeGameMode(
      * @return String
@@ -90,6 +98,9 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     public void goToProgression() throws IOException {
         App.goTo("progressionmode/LevelSelection.fxml");

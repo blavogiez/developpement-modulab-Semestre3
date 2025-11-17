@@ -17,6 +17,10 @@ import java.io.IOException;
  * elle délègue la gestion du thème et de la navigation à des classes spécialisées (single responsibility principle)
  */
 public class App extends Application {
+    /** 
+     * @param page
+     * @throws IOException
+     */
     public static void goTo(String page) throws IOException {
         SceneNavigator.goTo(page);
     }

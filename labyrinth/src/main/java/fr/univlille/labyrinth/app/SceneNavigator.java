@@ -10,14 +10,24 @@ public class SceneNavigator {
     private static final SceneLoader sceneLoader = new SceneLoader();
     private static final SceneTransition sceneTransition = new SceneTransition();
 
+    /** 
+     * @param navigationContext
+     */
     public static void setContext(NavigationContext navigationContext) {
         context = navigationContext;
     }
 
+    /** 
+     * @return Stage
+     */
     public static Stage getPrimaryStage() {
         return context != null ? context.getPrimaryStage() : null;
     }
 
+    /** 
+     * @param page
+     * @throws IOException
+     */
     /*
      * Change de scène pour aller à la page FXML dont le chemin est spécifié en paramètre.
      */

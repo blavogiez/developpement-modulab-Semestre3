@@ -17,6 +17,9 @@ public class ProgressionModeVictoryHandler implements VictoryHandler {
         this.timer = timer;
     }
 
+    /** 
+     * @param winner
+     */
     @Override
     public void handleVictory(PlayerEntity winner) {
         long completionTime = timer != null ? timer.getChrono() : 0;
