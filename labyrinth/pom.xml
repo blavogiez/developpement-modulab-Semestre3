@@ -124,6 +124,23 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <version>3.6.3</version>
+    <configuration>
+        <doclint>all</doclint> <!-- Active la vérification stricte -->
+        <failOnError>true</failOnError> <!-- Le build échoue en cas de Javadoc manquante -->
+    </configuration>
+    <executions>
+        <execution>
+            <phase>verify</phase>
+            <goals>
+                <goal>javadoc</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
     </plugins>
   </build>
   <repositories>
