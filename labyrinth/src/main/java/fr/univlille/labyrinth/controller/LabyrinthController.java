@@ -80,15 +80,18 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         if (chronoTimeline != null) chronoTimeline.stop();
     }
 
-    /* Arrête le chrono lors de la victoire */
     @Override
     public void onVictory() {
         stopChrono();
         handleVictory();
     }
 
-    /**
-     * Méthode abstraite à implémenter pour gérer la victoire
-     */
+    @Override
+    public void onDefeat(GameMode observable) {
+        stopChrono();
+        handleDefeat();
+    }
+
     public abstract void handleVictory();
+    public abstract void handleDefeat();
 }

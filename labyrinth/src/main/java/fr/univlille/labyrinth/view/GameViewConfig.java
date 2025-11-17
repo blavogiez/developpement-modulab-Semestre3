@@ -23,7 +23,7 @@ public enum GameViewConfig {
     TRAP_STUN,
     TRAP_HIDE_WALL,
     TRAP_TELEPORT_EXIT,
-    TRAP_LAVA;
+    TRAP_LAVA("#cf1020", Shape.SQUARE);
 
     private final String colorCode;
     private final Shape shape;

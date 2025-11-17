@@ -42,6 +42,7 @@ public class MazeAlgorithmTest {
         assertFalse(algo.horizontalsWalls[0][0]);
 
         algo.removeWall(new Position(0,0), Direction.UP);
+
         algo.removeWall(new Position(0,0), Direction.LEFT);
     }
 

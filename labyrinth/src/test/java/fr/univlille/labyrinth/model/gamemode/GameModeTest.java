@@ -28,11 +28,10 @@ public class GameModeTest {
         private boolean victoryTriggered = false;
 
         public void onVictory() {
-
+            this.victoryTriggered = true;
         }
-        
-        public void handleVictory() {
-            this.victoryTriggered=true;
+
+        public void onDefeat(GameMode observable) {
         }
 
         public boolean isVictoryTriggered() {
@@ -50,7 +49,7 @@ public class GameModeTest {
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
-        assertFalse(gameMode.getCurrentMaze().isPlayerAtExit());
+        assertFalse(gameMode.getCurrentMaze().getPlayerAtExit() != null);
 
         ObservableMaze maze = gameMode.getCurrentMaze();
         Position start = maze.getEntryPosition();
@@ -77,7 +76,7 @@ public class GameModeTest {
         }
 
         assertTrue(observer.isVictoryTriggered());
-        assertTrue(gameMode.getCurrentMaze().isPlayerAtExit());
+        assertTrue(gameMode.getCurrentMaze().getPlayerAtExit() != null);
     }
 
     @Test

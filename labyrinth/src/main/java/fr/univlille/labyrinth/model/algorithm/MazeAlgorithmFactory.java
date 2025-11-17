@@ -3,8 +3,7 @@ package fr.univlille.labyrinth.model.algorithm;
 public enum MazeAlgorithmFactory {
     PERFECT(PerfectAlgorithm.getInstance()),
     FUSION(PerfectAlgorithmRandomFusion.getInstance()),
-    RANDOM(RandomAlgorithm.getInstance()),
-    OTHER(null);
+    RANDOM(RandomAlgorithm.getInstance());
 
     private MazeAlgorithmFactory(MazeAlgorithm MazeAlgorithm) {
         this.MazeAlgorithm = MazeAlgorithm;
@@ -17,7 +16,7 @@ public enum MazeAlgorithmFactory {
     }
 
     public boolean isPerfect() {
-        return this.name().toUpperCase().contains("PERFECT");
+        return this.name().toUpperCase().contains("PERFECT") || this.name().toUpperCase().contains("FUSION");
     }
 
 }

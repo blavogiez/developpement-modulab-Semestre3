@@ -89,11 +89,7 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
      */
 
 
-    /**
-     * Cette méthode renvoie true si le joueur se situe à la sortie.
-     * Délègue à l'encapsulation EntityManager
-     */
-    public boolean isPlayerAtExit() {
+    public PlayerEntity getPlayerAtExit() {
         return entityManager.checkPlayerOnExit();
     }
 

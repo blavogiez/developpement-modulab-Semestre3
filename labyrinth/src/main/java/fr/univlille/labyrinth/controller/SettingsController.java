@@ -7,6 +7,7 @@ import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.app.ThemeManager;
 import fr.univlille.labyrinth.utils.ResizeUtil;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -22,6 +23,12 @@ public class SettingsController {
     @FXML
     private VBox menu;
 
+    @FXML
+    private Button themeButton;
+
+    @FXML
+    private Button animationButton;
+
     /**
      * Change de thème si le button est cliqué.
      */
@@ -30,6 +37,7 @@ public class SettingsController {
         ThemeManager.setDarkMode(!ThemeManager.isDarkMode());
         ThemeManager.updateTheme(SceneNavigator.getPrimaryStage().getScene());
         SettingsManager.save();
+        updateButtonTexts();
     }
 
     @FXML
@@ -37,6 +45,7 @@ public class SettingsController {
         Settings settings = SettingsManager.get();
         settings.setAnimationEnabled(!settings.isAnimationEnabled());
         SettingsManager.save();
+        updateButtonTexts();
     }
 
     /**
@@ -45,6 +54,7 @@ public class SettingsController {
     @FXML
     private void initialize(){
         resize();
+        updateButtonTexts();
     }
 
     /** 
@@ -58,5 +68,20 @@ public class SettingsController {
     private void resize(){
         menu.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menu));
         menu.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menu));
+    }
+
+    private void updateButtonTexts() {
+        if (ThemeManager.isDarkMode()) {
+            themeButton.setText("Mode Nuit: ON");
+        } else {
+            themeButton.setText("Mode Jour: ON");
+        }
+
+        Settings settings = SettingsManager.get();
+        if (settings.isAnimationEnabled()) {
+            animationButton.setText("Animations: ON");
+        } else {
+            animationButton.setText("Animations: OFF");
+        }
     }
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.save.Player;
 
 public class EntityManager {
     private int cptPlayerID;
@@ -59,13 +58,12 @@ public class EntityManager {
         entities.clear();
     }
 
-    /** 
+    /**
      * @param playerID
      * @param maze
      * @param direction
-     * @return boolean
      */
-    public boolean moveEntities(int playerID, ObservableMaze maze, Direction direction) {
+    public void moveEntities(int playerID, ObservableMaze maze, Direction direction) {
         boolean stmt = true ;
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
@@ -78,7 +76,6 @@ public class EntityManager {
                 if (!entity.move(maze, direction)) stmt = false ;
             }
         }
-        return stmt ;
     }
 
     /** 
@@ -92,24 +89,25 @@ public class EntityManager {
     }
 
     /** 
-     * @return List<PlayerEntity>
+     * @return List<T extends Entity>
      */
-    public List<PlayerEntity> getPlayerEntities() {
-        List<PlayerEntity> players = new ArrayList<>();
+    public <T extends Entity> List<T> getEntitiesByType(Class<T> clas) {
+        List<T> result = new ArrayList<>();
         for (Entity e : this.entities) {
-            if (e.getEntityType() == EntityType.PLAYER) {
-                players.add((PlayerEntity) e);
+            if (clas.isInstance(e)) {
+                result.add(clas.cast(e));
             }
         }
-        return players;
+        return result;
     }
+
 
     /** 
      * @param playerID
      * @return PlayerEntity
      */
     public PlayerEntity getPlayerEntityByID(int playerID) {
-        for (PlayerEntity player : getPlayerEntities()) {
+        for (PlayerEntity player : getEntitiesByType(PlayerEntity.class)) {
             if (player.getID() == playerID) {
                 return player;
             }
@@ -133,41 +131,38 @@ public class EntityManager {
     /**
      * @return int
      */
-    public int checkMonsterOnPlayer() {
-        int deadCount = 0;
+    public void checkMonsterOnPlayer() {
+
         List<Entity> toRemove = new ArrayList<>();
         List<Position> monstersPositions = getMonstersPositions();
 
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER && monstersPositions.contains(player.getPosition())) {
-                deadCount++;
                 toRemove.add(player);
             }
         }
-
         for (Entity e : toRemove) {
-            entities.remove(e);
+            kill(e);
         }
-
-        return deadCount;
     }
 
-    /** 
-     * @return boolean
-     */
-    public boolean checkPlayerOnExit() {
+    public void kill(Entity entity){
+        entities.remove(entity);
+    }
+
+    public PlayerEntity checkPlayerOnExit() {
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER) {
                 for (Entity exit : this.entities) {
                     if (exit.getEntityType() == EntityType.EXIT) {
                         if (player.getPosition().equals(exit.getPosition())) {
-                            return true;
+                            return (PlayerEntity) player;
                         }
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
 
     /** 
