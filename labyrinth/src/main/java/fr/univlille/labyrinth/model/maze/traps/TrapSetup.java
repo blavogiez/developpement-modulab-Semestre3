@@ -45,7 +45,7 @@ public class TrapSetup {
      */
     public Trap[][] generate(Maze maze, String setup){
 
-            trapMap = new EnumMap<>(TrapFactory.class);
+        trapMap = new EnumMap<>(TrapFactory.class);
         if (setup!=null) {
             String[] separatedTraps = setup.split("_");
             for (int i = 0; i < separatedTraps.length; i++) {
@@ -113,12 +113,20 @@ public class TrapSetup {
     public void generateTraps(Maze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
-            for (int i = 0; i < value; i++){
+            int i = 0;
+            int count = 0;
+            final int MAX = maze.getHeight()*maze.getWidth();
+            while (count<MAX-1 && i<value){
                 Position position = getRandomCell(maze);
                 setTrap(position.getY(),  position.getX(), entry.getKey().generateTrap());
+                i++;
+                count++;
             }
+
         }
     }
+
+
 
     /** 
      * @param maze
