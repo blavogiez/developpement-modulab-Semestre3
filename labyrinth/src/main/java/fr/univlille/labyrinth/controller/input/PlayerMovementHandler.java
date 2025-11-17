@@ -10,6 +10,10 @@ import javafx.scene.input.KeyEvent;
  */
 public class PlayerMovementHandler {
 
+    /** 
+     * @param event
+     * @param gameMode
+     */
     /*
      * Pour une touche pressée, cherche le joueur associé.
      * Puis, si il y a correspondance, le joueur est déplacé dans le mode de jeu passé en paramètre.

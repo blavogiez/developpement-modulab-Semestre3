@@ -146,10 +146,16 @@ public class EntityManager {
         }
     }
 
+    /** 
+     * @param entity
+     */
     public void kill(Entity entity){
         entities.remove(entity);
     }
 
+    /** 
+     * @return PlayerEntity
+     */
     public PlayerEntity checkPlayerOnExit() {
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER) {

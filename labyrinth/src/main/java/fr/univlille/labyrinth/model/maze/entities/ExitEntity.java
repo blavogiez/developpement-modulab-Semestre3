@@ -65,6 +65,9 @@ public class ExitEntity extends Entity {
         
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String getDefType() {
         return "carre vert";

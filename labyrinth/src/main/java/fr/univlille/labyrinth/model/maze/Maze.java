@@ -79,6 +79,9 @@ public class Maze {
         return height;
     }
 
+    /** 
+     * @return double
+     */
     public double getWallPercentage() {
         return this.wallPercentage;
     }
@@ -144,10 +147,16 @@ public class Maze {
 
     public void trapEffect(int playerID, Position oldPosition) {}
 
+    /** 
+     * @param murHorizontaux
+     */
     public void setMurHorizontaux(boolean[][] murHorizontaux) {
         this.murHorizontaux = murHorizontaux;
     }
 
+    /** 
+     * @param murVerticaux
+     */
     public void setMurVerticaux(boolean[][] murVerticaux) {
         this.murVerticaux = murVerticaux;
     }

@@ -52,12 +52,12 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
-        colSymbole.getStyleClass().add("Symbole"); //TODO a fix
-        colDef.getStyleClass().add("Def"); //TODO a fix
+        colSymbole.getStyleClass().add("Symbole");
+        colDef.getStyleClass().add("Def");
 
-        colSymbole.setCellValueFactory(new PropertyValueFactory<>("entityType"));//TODO 
+        colSymbole.setCellValueFactory(new PropertyValueFactory<>("entityType"));
 
-        colDef.setCellValueFactory(new PropertyValueFactory<>("defType")); //TODO recup dessin
+        colDef.setCellValueFactory(new PropertyValueFactory<>("defType"));
 
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -103,6 +103,9 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");

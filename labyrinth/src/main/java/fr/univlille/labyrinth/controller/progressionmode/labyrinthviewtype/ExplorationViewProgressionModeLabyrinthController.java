@@ -16,6 +16,10 @@ public class ExplorationViewProgressionModeLabyrinthController extends Progressi
     private ExplorationLabyrinthCanvasView explorationView;
     private LocalLabyrinthCanvasView localView;
 
+    /** 
+     * @param gameMode
+     * @return Node
+     */
     @Override
     protected Node setupViews(ProgressionMode gameMode) {
         explorationView = new ExplorationLabyrinthCanvasView(gameMode.getCurrentMaze());
@@ -31,6 +35,9 @@ public class ExplorationViewProgressionModeLabyrinthController extends Progressi
         return viewContainer;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     protected String getViewSuffix() {
         return ", vue limitée";

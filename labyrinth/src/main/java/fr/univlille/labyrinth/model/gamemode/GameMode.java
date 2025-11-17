@@ -103,6 +103,9 @@ public abstract class GameMode {
         }
     }
 
+    /** 
+     * @param winner
+     */
     protected void handleVictory(PlayerEntity winner) {
         victoryHandler.handleVictory(winner);
         notifyVictory();

@@ -13,6 +13,9 @@ import java.util.Random;
 public class TrapSetup {
     private static TrapSetup instance;
 
+    /** 
+     * @return TrapSetup
+     */
     public static TrapSetup getInstance() {
         if (instance==null) instance=new TrapSetup();
         return instance;
@@ -21,6 +24,11 @@ public class TrapSetup {
     Trap[][] traps;
     Map<TrapFactory, Integer> trapMap;
 
+    /** 
+     * @param maze
+     * @param trapMap
+     * @return Trap[][]
+     */
     public Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
         traps = new Trap[maze.getHeight()][maze.getWidth()];
         fillPath();
@@ -30,6 +38,11 @@ public class TrapSetup {
         return traps;
     }
 
+    /** 
+     * @param maze
+     * @param setup
+     * @return Trap[][]
+     */
     public Trap[][] generate(Maze maze, String setup){
 
             trapMap = new EnumMap<>(TrapFactory.class);
@@ -43,6 +56,9 @@ public class TrapSetup {
             return generate(maze, trapMap);
         }
 
+    /** 
+     * @param result
+     */
     private void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
         TrapFactory trapType = TrapFactory.NONE;
         int numberTrap = 0;
@@ -58,6 +74,10 @@ public class TrapSetup {
         }
     }
 
+    /** 
+     * @param trapandvalue
+     * @return extractTrapAndValueFromConfiguration
+     */
     private extractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
         String trap = null;
         String value = null;
