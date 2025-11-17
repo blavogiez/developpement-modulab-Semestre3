@@ -12,7 +12,7 @@ import javafx.util.Duration;
  * gaussian blur = niveau de flou
  */
 public class BackgroundManager {
-    private final static int GAUSSIAN_BLUR_VALUE=40;
+    private final static int GAUSSIAN_BLUR_VALUE=0;
 
     private final MediaView mediaView;
     private final MediaPlayer mediaPlayer;
