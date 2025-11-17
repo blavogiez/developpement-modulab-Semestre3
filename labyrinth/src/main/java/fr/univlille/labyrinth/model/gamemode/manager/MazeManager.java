@@ -26,7 +26,6 @@ public class MazeManager {
                 config.getWidth(),
                 config.getHeight(),
                 config.getWallPercentage(),
-                config.getDistanceBetweenEntryAndExit(),
                 config.getEntitiesConfiguration(),
                     config.getAlgorithm(),
                     config.getTrapsConfiguration()

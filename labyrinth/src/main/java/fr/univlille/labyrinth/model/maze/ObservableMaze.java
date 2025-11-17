@@ -46,6 +46,10 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this(width,height,wallPercentage,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
+    public ObservableMaze(int width, int height, double wallPercentage, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
+        this(width, height, wallPercentage, Integer.MAX_VALUE, entitiesConfiguration, algo, trapsConfiguration);
+    }
+
     public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
         this.entityManager = new EntityManager();
