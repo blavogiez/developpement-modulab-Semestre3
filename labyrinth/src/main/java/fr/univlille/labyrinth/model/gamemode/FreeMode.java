@@ -38,17 +38,26 @@ public class FreeMode extends GameMode {
         getMazeManager().createMaze(config);
     }
 
+    /** 
+     * @param winner
+     */
     @Override
     protected void handleVictory(PlayerEntity winner) {
         this.lastWinner = winner;
         super.handleVictory(winner);
     }
 
+    /** 
+     * @return PlayerEntity
+     */
     @Override
     public PlayerEntity getWinner() {
         return lastWinner;
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         String info = "Labyrinthe d'algorithme " + config.getAlgorithm().getClass().getSimpleName() + " ; \n";
         info += "Dimensions : " + config.getWidth() + "x" + config.getHeight();

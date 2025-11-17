@@ -30,6 +30,9 @@ public class SettingsManager {
         }
     }
 
+    /** 
+     * @return Settings
+     */
     public static Settings get() {
         return settings;
     }

@@ -27,6 +27,10 @@ public abstract class Trap {
         return "NONE";
     }
 
+    /** 
+     * @param maze
+     * @return Position
+     */
     protected static Position getRandomCell(ObservableMaze maze){
         Random random = new Random();
         Trap[][] traps = maze.getTrapManager().getTraps();
@@ -41,6 +45,12 @@ public abstract class Trap {
         return position;
     }
 
+    /** 
+     * @param traps
+     * @param entitymanager
+     * @param position
+     * @return boolean
+     */
     private static boolean isFree(Trap[][] traps, EntityManager entitymanager, Position position){
         return traps[position.getY()][position.getX()] instanceof NoneTrap && !entitymanager.isEntityOnCell(position);
     }

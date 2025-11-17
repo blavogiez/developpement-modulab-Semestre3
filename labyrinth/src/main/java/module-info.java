@@ -11,6 +11,8 @@ module fr.univlille.labyrinth {
     opens fr.univlille.labyrinth.controller.freemode to javafx.fxml;
     opens fr.univlille.labyrinth.controller.progressionmode to javafx.fxml;
     opens fr.univlille.labyrinth.controller.progressionmode.labyrinthviewtype to javafx.fxml;
+    opens fr.univlille.labyrinth.model.maze.entities to javafx.base;
+
     exports fr.univlille.labyrinth;
     exports fr.univlille.labyrinth.view;
     exports fr.univlille.labyrinth.model;

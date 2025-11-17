@@ -96,28 +96,46 @@ public class AppState {
         this.selectedChallenge = selectedChallenge;
     }
 
+    /** 
+     * @return FreeModeConfig
+     */
     public FreeModeConfig getFreeModeConfig() {
         return freeModeConfig;
     }
 
+    /** 
+     * @param freeModeConfig
+     */
     public void setFreeModeConfig(FreeModeConfig freeModeConfig) {
         this.freeModeConfig = freeModeConfig;
     }
 
+    /** 
+     * @return String
+     */
     public String getPendingNotificationMessage() {
         String message = pendingNotificationMessage;
         pendingNotificationMessage = null;
         return message;
     }
 
+    /** 
+     * @param message
+     */
     public void setPendingNotificationMessage(String message) {
         this.pendingNotificationMessage = message;
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isPendingNotificationVictory() {
         return pendingNotificationIsVictory;
     }
 
+    /** 
+     * @param isVictory
+     */
     public void setPendingNotificationIsVictory(boolean isVictory) {
         this.pendingNotificationIsVictory = isVictory;
     }

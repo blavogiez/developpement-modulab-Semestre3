@@ -187,22 +187,36 @@ public class TrapTest {
 
 
 
+    /** 
+     * @param direction
+     */
     private void playerMoving(Direction direction) {
         playerPosition = player.getPosition().copy();
         player.move(maze, direction);
         maze.trapEffect(player.getID(), playerPosition);
     }
 
+    /** 
+     * @param from
+     */
     private void teleportPlayerFrom(Position from) {
         TrapFactory.TELEPORTER_TRAP
                 .generateTrap()
                 .onUse(player.getID(), from, playerPosition, maze);
     }
 
+    /** 
+     * @param grid
+     * @param pos
+     */
     private void markVisited(boolean[][] grid, Position pos) {
         grid[pos.getY()][pos.getX()] = true;
     }
 
+    /** 
+     * @param maze
+     * @return boolean[][]
+     */
     private boolean[][] expectedFreeCells(ObservableMaze maze) {
         boolean[][] free = new boolean[3][3];
         Trap[][] traps = maze.getTrapManager().getTraps();
@@ -218,11 +232,21 @@ public class TrapTest {
         return free;
     }
 
+    /** 
+     * @param traps
+     * @param em
+     * @param pos
+     * @return boolean
+     */
     private boolean isCellFree(Trap[][] traps, EntityManager em, Position pos) {
         return traps[pos.getY()][pos.getX()] instanceof NoneTrap
                 && !em.isEntityOnCell(pos);
     }
 
+    /** 
+     * @param matrix
+     * @return boolean[][]
+     */
     private boolean[][] cloneMatrix(boolean[][] matrix) {
         if (matrix == null) return null;
         boolean[][] copy = new boolean[matrix.length][];
@@ -232,6 +256,11 @@ public class TrapTest {
         return copy;
     }
 
+    /** 
+     * @param a
+     * @param b
+     * @return boolean
+     */
     private boolean areEqualMatrices(boolean[][] a, boolean[][] b) {
         if (a == b) return true;
         if (a == null || b == null) return false;

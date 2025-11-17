@@ -69,4 +69,12 @@ public class MonsterEntity extends Entity {
         return super.getMoveBehavior();
     }
 
+    /** 
+     * @return String
+     */
+    @Override
+    public String getDefType() {
+        return"triangle marron";
+    }
+
 }

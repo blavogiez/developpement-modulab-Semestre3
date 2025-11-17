@@ -147,6 +147,9 @@ public class FreeModeComponentConfigurationController {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void onValidate() throws IOException {
         if (!isValid()) {
@@ -159,11 +162,17 @@ public class FreeModeComponentConfigurationController {
         App.goTo("freemode/FreeMode.fxml");
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");
     }
 
+    /** 
+     * @return String
+     */
     /*
      * joiner utile pour compacter code
      */
@@ -177,6 +186,9 @@ public class FreeModeComponentConfigurationController {
         return joiner.toString();
     }
 
+    /** 
+     * @return String
+     */
     private String buildTrapConfigurationString() {
         if (traps.isEmpty()) return "DEFAULT";
 
@@ -187,6 +199,9 @@ public class FreeModeComponentConfigurationController {
         return joiner.toString();
     }
 
+    /** 
+     * @return boolean
+     */
     /*
      * au moins 1 joueur / 1 sortie
      */
@@ -206,6 +221,10 @@ public class FreeModeComponentConfigurationController {
         pause.play();
     }
 
+    /** 
+     * @param type
+     * @return EntityConfiguration
+     */
     private EntityConfiguration findEntityByType(EntityType type) {
         return entities.stream()
                 .filter(e -> e.type() == type)
@@ -213,6 +232,10 @@ public class FreeModeComponentConfigurationController {
                 .orElse(null);
     }
 
+    /** 
+     * @param type
+     * @return TrapConfig
+     */
     private TrapConfig findTrapByType(TrapFactory type) {
         return traps.stream()
                 .filter(t -> t.type() == type)
@@ -225,6 +248,9 @@ public class FreeModeComponentConfigurationController {
         entities.add(new EntityConfiguration(EntityType.EXIT, 1, "DEFAULT"));
     }
 
+    /** 
+     * @param config
+     */
     private void loadEntityConfiguration(String config) {
         String[] parts = config.split("\\|");
         for (String part : parts) {
@@ -254,6 +280,9 @@ public class FreeModeComponentConfigurationController {
         }
     }
 
+    /** 
+     * @param config
+     */
     private void loadTrapConfiguration(String config) {
         String[] parts = config.split("_");
         for (String part : parts) {

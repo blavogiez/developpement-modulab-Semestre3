@@ -31,14 +31,24 @@ public class BackgroundManager {
         mediaView.setEffect(new GaussianBlur(GAUSSIAN_BLUR_VALUE));
     }
 
+    /** 
+     * @return MediaView
+     */
     public MediaView getMediaView() {
         return mediaView;
     }
 
+    /** 
+     * @param visible
+     */
     public void setVisible(boolean visible) {
         mediaView.setVisible(visible);
     }
 
+    /** 
+     * @param page
+     * @return boolean
+     */
     public boolean shouldShowBackground(String page) {
         return !page.contains("Labyrinth");
     }

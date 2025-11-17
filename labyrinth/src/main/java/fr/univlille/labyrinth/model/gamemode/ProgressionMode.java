@@ -76,11 +76,17 @@ public class ProgressionMode extends GameMode {
         }
     }
 
+    /** 
+     * @return PlayerEntity
+     */
     @Override
     public PlayerEntity getWinner() {
         return null;
     }
 
+    /** 
+     * @return String
+     */
     public String toString() {
         String info = "Dimensions : " + config.getWidth() + "x" + config.getHeight();
         info += ", Pourcentage : " + (int) (config.getWallPercentage() * 100) + "%";

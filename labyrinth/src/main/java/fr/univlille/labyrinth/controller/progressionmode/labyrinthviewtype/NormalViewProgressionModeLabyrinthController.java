@@ -22,6 +22,9 @@ public class NormalViewProgressionModeLabyrinthController extends ProgressionMod
         return labyrinth.getView();
     }
 
+    /** 
+     * @return String
+     */
     @Override
     protected String getViewSuffix() {
         return "";

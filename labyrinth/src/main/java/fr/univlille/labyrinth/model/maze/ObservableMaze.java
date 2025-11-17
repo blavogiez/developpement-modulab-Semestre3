@@ -140,6 +140,9 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         }
     }
     
+    /** 
+     * @return List<Observer<ObservableMaze>>
+     */
     @Override
     public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
         return this.observers;
