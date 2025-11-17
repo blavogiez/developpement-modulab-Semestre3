@@ -99,6 +99,14 @@ public class PlayerEntity extends Entity {
         return this.position.equals(maze.getExitPosition());
     }
 
+    /** 
+     * @return String
+     */
+    @Override
+    public String getDefType() {
+        return "rond"; //TODO recup couleur joueur
+    }
+
 
 
 }

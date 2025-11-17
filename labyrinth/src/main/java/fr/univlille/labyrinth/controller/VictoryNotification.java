@@ -16,20 +16,35 @@ import javafx.util.Duration;
 
 public class VictoryNotification {
 
+    /** 
+     * @param message
+     * @param isVictory
+     */
     public static void setPendingWinner(String message, boolean isVictory) {
         AppState state = AppState.getInstance();
         state.setPendingNotificationMessage(message);
         state.setPendingNotificationIsVictory(isVictory);
     }
 
+    /** 
+     * @return String
+     */
     public static String getPendingWinner() {
         return AppState.getInstance().getPendingNotificationMessage();
     }
 
+    /** 
+     * @return boolean
+     */
     public static boolean getPendingIsVictory() {
         return AppState.getInstance().isPendingNotificationVictory();
     }
 
+    /** 
+     * @param parent
+     * @param message
+     * @param isVictory
+     */
     public static void show(Pane parent, String message, boolean isVictory) {
         Platform.runLater(() -> {
             String color = isVictory ? "#4CAF50" : "#F44336";

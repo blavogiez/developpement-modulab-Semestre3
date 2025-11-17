@@ -24,6 +24,9 @@ class ProgressionLoaderTest {
     private File testFile;
     private String HEADER = "MonHeaderPasImportant";
 
+    /** 
+     * @throws IOException
+     */
     @BeforeEach
     void setUp() throws IOException {
         new File(TEST_FILE).mkdirs();
@@ -40,6 +43,9 @@ class ProgressionLoaderTest {
         ProgressionLoader.setDefaultProgressPath("res/default_progression.csv");
     }
 
+    /** 
+     * @throws IOException
+     */
     private void createValidCSV() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
             writer.write(HEADER + "\n");
@@ -57,6 +63,9 @@ class ProgressionLoaderTest {
         assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testLoadValidFile() throws IOException {
         createValidCSV();
@@ -65,6 +74,9 @@ class ProgressionLoaderTest {
         assertEquals(2, progress.getLevelProgress().length);
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testLevelsInitialized() throws IOException {
         createValidCSV();
@@ -77,6 +89,9 @@ class ProgressionLoaderTest {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testChallengesLoaded() throws IOException {
         createValidCSV();
@@ -91,6 +106,9 @@ class ProgressionLoaderTest {
         assertFalse(challenge.isCompleted());
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testEmptyLinesIgnored() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -105,6 +123,9 @@ class ProgressionLoaderTest {
         assertNotNull(progress.getLevelProgress()[0].getChallenges()[1]);
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testInvalidLineLengthSkipped() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -117,6 +138,9 @@ class ProgressionLoaderTest {
         assertNotNull(progress.getLevelProgress()[0].getChallenges()[1]);
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testInvalidNumberFormat() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -126,6 +150,9 @@ class ProgressionLoaderTest {
         assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testMaxLevelDetection() throws IOException {
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -137,6 +164,9 @@ class ProgressionLoaderTest {
         assertEquals(5, progress.getLevelProgress().length);
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testAllViewTypes() throws IOException {
         createValidCSV();
@@ -146,6 +176,9 @@ class ProgressionLoaderTest {
         assertEquals(ViewType.LOCAL, challenges[1].getViewType());
     }
 
+    /** 
+     * @throws IOException
+     */
     @Test
     void testScoreCalculatorSet() throws IOException {
         createValidCSV();

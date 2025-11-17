@@ -62,11 +62,19 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         gameMode.addVictoryObserver(this);
     }
 
+    /** 
+     * @param e
+     * @throws IOException
+     */
     /**
      * Méthode abstraite pour initialiser le mode de jeu spécifique
      */
     protected abstract void initializeGameMode();
 
+    /** 
+     * @param e
+     * @throws IOException
+     */
     @FXML
     public void movement(KeyEvent e) throws IOException {
         movementHandler.handleMovement(e, gameMode);
@@ -86,6 +94,9 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         handleVictory();
     }
 
+    /** 
+     * @param observable
+     */
     @Override
     public void onDefeat(GameMode observable) {
         stopChrono();

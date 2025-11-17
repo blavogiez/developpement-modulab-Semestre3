@@ -21,6 +21,10 @@ public class LocalViewProgressionModeLabyrinthController extends ProgressionMode
     private HiddenPlayerNormalLabyrinthCanvasView fullMazeView;
     private LocalLabyrinthCanvasView localView;
 
+    /** 
+     * @param gameMode
+     * @return Node
+     */
     @Override
     protected Node setupViews(ProgressionMode gameMode) {
         fullMazeView = new HiddenPlayerNormalLabyrinthCanvasView(gameMode.getCurrentMaze());
@@ -36,6 +40,9 @@ public class LocalViewProgressionModeLabyrinthController extends ProgressionMode
         return viewContainer;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     protected String getViewSuffix() {
         return ", vue limitée";

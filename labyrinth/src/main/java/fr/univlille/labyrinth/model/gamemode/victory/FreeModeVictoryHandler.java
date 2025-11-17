@@ -4,6 +4,9 @@ import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 public class FreeModeVictoryHandler implements VictoryHandler {
 
+    /** 
+     * @param winner
+     */
     @Override
     public void handleVictory(PlayerEntity winner) {
     }

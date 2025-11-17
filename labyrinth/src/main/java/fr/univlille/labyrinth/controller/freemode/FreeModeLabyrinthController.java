@@ -37,7 +37,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     private TableColumn<Entity, EntityType> colSymbole;
 
     @FXML
-    //private TableColumn<Entity, EntityType> colDef;
+    private TableColumn<Entity, String> colDef;
 
     private LabyrinthCanvasView labyrinth;
 
@@ -52,17 +52,17 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
-        colSymbole.getStyleClass().add("Symbole"); //TODO a fix
-        //colDef.getStyleClass().add("Def"); //TODO a fix
+        colSymbole.getStyleClass().add("Symbole");
+        colDef.getStyleClass().add("Def");
 
-        colSymbole.setCellValueFactory(new PropertyValueFactory<>("entityType"));//TODO 
+        colSymbole.setCellValueFactory(new PropertyValueFactory<>("entityType"));
 
-        //colDef.setCellValueFactory(new PropertyValueFactory<>("def")); //TODO
+        colDef.setCellValueFactory(new PropertyValueFactory<>("defType"));
 
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        colSymbole.prefWidthProperty().bind(tableView.widthProperty().multiply(1));
-        //colDef.prefWidthProperty().bind(tableView.widthProperty().multiply(0.5));
+        colSymbole.prefWidthProperty().bind(tableView.widthProperty().multiply(0.5));
+        colDef.prefWidthProperty().bind(tableView.widthProperty().multiply(0.5));
 
         MazeManager mazeManager = new MazeManager();
 
@@ -103,6 +103,9 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
         }
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToRetour() throws IOException {
         App.goTo("freemode/FreeMode.fxml");

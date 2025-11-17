@@ -30,10 +30,16 @@ public class PlayerAnimation extends AnimationTimer {
         enabled = false;
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /** 
+     * @param now
+     */
     public void handle(long now) {
         if (!enabled)
             return;
@@ -78,6 +84,12 @@ public class PlayerAnimation extends AnimationTimer {
             view.draw();
     }
 
+    /** 
+     * @param current
+     * @param target
+     * @param maxStep
+     * @return double
+     */
     private double interpolate(double current, double target, double maxStep) {
         double diff = target - current;
 

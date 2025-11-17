@@ -20,6 +20,7 @@
         <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
             <columns>
                 <TableColumn fx:id="colSymbole" text="Symbole" />
+                <TableColumn fx:id="colDef" text="Def" />
 
             </columns>
             <columnResizePolicy>

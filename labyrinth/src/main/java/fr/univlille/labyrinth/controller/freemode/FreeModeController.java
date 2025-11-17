@@ -113,6 +113,9 @@ public class FreeModeController {
         App.goTo("freemode/FreeModeAlgorithmSelection.fxml");
     }
 
+    /** 
+     * @throws IOException
+     */
     @FXML
     private void goToComponentConfiguration() throws IOException {
         App.goTo("freemode/FreeModeComponentConfiguration.fxml");
