@@ -5,7 +5,8 @@ import fr.univlille.labyrinth.model.save.database.PlayerStorage;
 import java.util.List;
 
 /**
- * PlayerDatabase gère la persistance des données. Elle permet de load/save une progression par un nom.
+ * PlayerDatabase gère la persistance des données. Elle permet de load/save une
+ * progression par un nom.
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
@@ -14,7 +15,8 @@ import java.util.List;
 public class PlayerDatabase {
 
     /**
-     * Sauvegarde, ou remplace automatiquement une progression dans le dossier associé
+     * Sauvegarde, ou remplace automatiquement une progression dans le dossier
+     * associé
      *
      * @param player progression sauvegardée.
      */
@@ -41,7 +43,7 @@ public class PlayerDatabase {
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getName().equals(player.getName())) {
                 players.set(i, player);
-                return ;
+                return;
             }
         }
     }
@@ -62,7 +64,8 @@ public class PlayerDatabase {
     }
 
     /**
-     * Renvoie true si la progression du joueur au nom existe dans le dossier externe.
+     * Renvoie true si la progression du joueur au nom existe dans le dossier
+     * externe.
      *
      * @param name nom de la progression recherché.
      */
@@ -77,24 +80,28 @@ public class PlayerDatabase {
     }
 
     /**
-     * Surcharge ; renvoie true si le joueur existe dans le dossier externe en vérifiant son nom.
+     * Surcharge ; renvoie true si le joueur existe dans le dossier externe en
+     * vérifiant son nom.
      *
-     * @param name nom de la progression recherché.
+     * @param player nom de la progression recherché.
      */
     public static boolean playerExists(Player player) {
         return playerExists(player.getName());
     }
 
     /**
-     * Cette méthode renvoie la liste de tous les joueurs présents dans la base de donnée
-     * @return List<Player> la liste des joueurs de la base des données
-     */
+ * Retourne la liste de tous les joueurs présents dans la base de données.
+ *
+ * @return la {@link java.util.List} des {@link Player} présents dans la base de données
+ */
+
     public static List<Player> loadAllPlayers() {
         return PlayerStorage.readAll();
     }
 
     /**
-     * Cette méthode supprime les données dans la base de donnée (pour tests uniquement !)
+     * Cette méthode supprime les données dans la base de donnée (pour tests
+     * uniquement !)
      */
     public static void clear() {
         PlayerStorage.deleteFile();
