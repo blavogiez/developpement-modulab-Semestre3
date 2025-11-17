@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -12,7 +11,7 @@ import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Observer<ObservableMaze> {
+public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
@@ -132,7 +131,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
                 int localY = y - playerPos.getY() + VIEW_RADIUS;
 
                 if (localX >= 0 && localX < VIEW_SIZE && localY >= 0 && localY < VIEW_SIZE) {
-                    GameViewConfig config = configResolver.getConfigForEntity(entity);
+                    GameViewConfig config = GameViewConfig.forEntity(entity);
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         localX, localY, layout, SIZE_RATIO);
                 }
@@ -146,7 +145,7 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
             for (int globalX = 0; globalX < traps[globalY].length; globalX++) {
                 Position local = toLocalCoordinates(globalX, globalY, playerPos);
                 if (local != null) {
-                    GameViewConfig config = configResolver.getConfigForTrap(traps[globalY][globalX]);
+                    GameViewConfig config = GameViewConfig.forTrap(traps[globalY][globalX]);
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         local.getX(), local.getY(), layout, SIZE_RATIO);
                 }

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
@@ -17,12 +16,10 @@ public class EntityRenderer {
 
     private final ComponentRenderer componentRenderer;
     private final RenderingFilter renderingFilter;
-    private final ViewConfigResolver configResolver;
 
-    public EntityRenderer(ComponentRenderer componentRenderer, RenderingFilter renderingFilter, ViewConfigResolver configResolver) {
+    public EntityRenderer(ComponentRenderer componentRenderer, RenderingFilter renderingFilter) {
         this.componentRenderer = componentRenderer;
         this.renderingFilter = renderingFilter;
-        this.configResolver = configResolver;
     }
 
     public void drawEntities(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
@@ -31,7 +28,7 @@ public class EntityRenderer {
             int y = entity.getPosition().getY();
 
             if (renderingFilter.shouldRenderEntity(entity, x, y)) {
-                GameViewConfig config = configResolver.getConfigForEntity(entity);
+                GameViewConfig config = GameViewConfig.forEntity(entity);
                 componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
             }
         }
@@ -44,7 +41,7 @@ public class EntityRenderer {
             Double y = playerYMap.get(id);
 
             if (x != null && y != null) {
-                Color color = configResolver.getConfigForPlayer(id).getColor();
+                Color color = GameViewConfig.forPlayer(id).getColor();
                 dessinerMarqueur(gc, y, x, color, layout);
             }
         }

@@ -12,12 +12,10 @@ public class TrapRenderer {
 
     private final ComponentRenderer componentRenderer;
     private final RenderingFilter renderingFilter;
-    private final ViewConfigResolver configResolver;
 
-    public TrapRenderer(ComponentRenderer componentRenderer, RenderingFilter renderingFilter, ViewConfigResolver configResolver) {
+    public TrapRenderer(ComponentRenderer componentRenderer, RenderingFilter renderingFilter) {
         this.componentRenderer = componentRenderer;
         this.renderingFilter = renderingFilter;
-        this.configResolver = configResolver;
     }
 
     public void dessinerTrap(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
@@ -25,7 +23,7 @@ public class TrapRenderer {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 if (renderingFilter.shouldRenderTrap(traps[y][x], x, y)) {
-                    GameViewConfig config = configResolver.getConfigForTrap(traps[y][x]);
+                    GameViewConfig config = GameViewConfig.forTrap(traps[y][x]);
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
             }

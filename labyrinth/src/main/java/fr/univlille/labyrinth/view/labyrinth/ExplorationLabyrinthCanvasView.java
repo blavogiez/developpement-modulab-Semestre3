@@ -1,11 +1,15 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.labyrinth.filter.ExplorationFilter;
 import fr.univlille.labyrinth.view.labyrinth.filter.ExplorationWallFilter;
-import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
-import fr.univlille.labyrinth.view.labyrinth.filter.WallFilter;
+import fr.univlille.labyrinth.view.labyrinth.renderer.EntityRenderer;
+import fr.univlille.labyrinth.view.labyrinth.renderer.TrapRenderer;
+import fr.univlille.labyrinth.view.labyrinth.renderer.WallRenderer;
+import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
+import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -14,34 +18,28 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     private ExplorationFilter explorationFilter;
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze) {
-        super(maze);
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
     }
 
-    @Override
-    protected RenderingFilter createRenderingFilter(boolean animationEnabled) {
-        explorationFilter = new ExplorationFilter(currentMaze, animationEnabled);
-        return explorationFilter;
+    public ExplorationLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                                          ComponentRenderer componentRenderer, boolean animationEnabled) {
+        this(maze, layoutCalculator, componentRenderer, animationEnabled, new ExplorationFilter(maze, animationEnabled));
     }
 
-    @Override
-    protected WallFilter createWallFilter() {
-        return new ExplorationWallFilter(explorationFilter);
+    private ExplorationLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                                           ComponentRenderer componentRenderer, boolean animationEnabled,
+                                           ExplorationFilter filter) {
+        super(maze, layoutCalculator, componentRenderer, animationEnabled,
+              filter, new ExplorationWallFilter(filter),
+              new WallRenderer(new ExplorationWallFilter(filter)),
+              new EntityRenderer(componentRenderer, filter),
+              new TrapRenderer(componentRenderer, filter),
+              null);
+        this.explorationFilter = filter;
     }
 
     @Override
     public void update(ObservableMaze maze) {
-        this.currentMaze = maze;
-
-        if (explorationFilter == null ||
-            explorationFilter.getCellulesExplorees().length != maze.getHeight() ||
-            explorationFilter.getCellulesExplorees()[0].length != maze.getWidth()) {
-            this.renderingFilter = createRenderingFilter(playerAnimation.isEnabled());
-            this.wallFilter = createWallFilter();
-            this.wallRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.WallRenderer(wallFilter);
-            this.entityRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.EntityRenderer(componentRenderer, renderingFilter, configResolver);
-            this.trapRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.TrapRenderer(componentRenderer, renderingFilter, configResolver);
-        }
-
         super.update(maze);
     }
 

@@ -16,7 +16,6 @@ import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
 import fr.univlille.labyrinth.view.labyrinth.filter.WallFilter;
 import fr.univlille.labyrinth.view.labyrinth.renderer.EntityRenderer;
 import fr.univlille.labyrinth.view.labyrinth.renderer.TrapRenderer;
-import fr.univlille.labyrinth.view.labyrinth.renderer.ViewConfigResolver;
 import fr.univlille.labyrinth.view.labyrinth.renderer.WallRenderer;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
@@ -41,31 +40,39 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
 
+    // Renderers utilitaires pour déléguer le dessin
     protected WallRenderer wallRenderer;
     protected EntityRenderer entityRenderer;
     protected TrapRenderer trapRenderer;
-    protected ViewConfigResolver configResolver;
+
+    // Filtres pour décider de dessiner certaines parties dans les implémentations
     protected RenderingFilter renderingFilter;
     protected WallFilter wallFilter;
 
-    public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator, ComponentRenderer componentRenderer, boolean animationEnabled) {
+    /*
+     * Constructeur propre avec injections de dépendance (D de SOLID)
+     */
+    public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                               ComponentRenderer componentRenderer, boolean animationEnabled,
+                               RenderingFilter renderingFilter, WallFilter wallFilter,
+                               WallRenderer wallRenderer, EntityRenderer entityRenderer,
+                               TrapRenderer trapRenderer, PlayerAnimation playerAnimation) {
         this.currentMaze = maze;
         this.layoutCalculator = layoutCalculator;
         this.componentRenderer = componentRenderer;
 
-        this.configResolver = new ViewConfigResolver();
-        this.renderingFilter = createRenderingFilter(animationEnabled);
-        this.wallFilter = createWallFilter();
+        this.renderingFilter = renderingFilter;
+        this.wallFilter = wallFilter;
 
-        this.wallRenderer = new WallRenderer(wallFilter);
-        this.entityRenderer = new EntityRenderer(componentRenderer, renderingFilter, configResolver);
-        this.trapRenderer = new TrapRenderer(componentRenderer, renderingFilter, configResolver);
+        this.wallRenderer = wallRenderer;
+        this.entityRenderer = entityRenderer;
+        this.trapRenderer = trapRenderer;
 
-        this.playerAnimation = new PlayerAnimation(this);
+        this.playerAnimation = playerAnimation != null ? playerAnimation : new PlayerAnimation(this);
         if (animationEnabled) {
-            playerAnimation.start();
+            this.playerAnimation.start();
         } else {
-            playerAnimation.disable();
+            this.playerAnimation.disable();
         }
 
         container = new Pane();
@@ -85,16 +92,18 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
         update(maze);
     }
 
+    public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                               ComponentRenderer componentRenderer, boolean animationEnabled) {
+        this(maze, layoutCalculator, componentRenderer, animationEnabled,
+             new NormalFilter(animationEnabled), new NormalWallFilter(),
+             new WallRenderer(new NormalWallFilter()),
+             new EntityRenderer(componentRenderer, new NormalFilter(animationEnabled)),
+             new TrapRenderer(componentRenderer, new NormalFilter(animationEnabled)),
+             null);
+    }
+
     public LabyrinthCanvasView(ObservableMaze maze) {
         this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
-    }
-
-    protected RenderingFilter createRenderingFilter(boolean animationEnabled) {
-        return new NormalFilter(animationEnabled);
-    }
-
-    protected WallFilter createWallFilter() {
-        return new NormalWallFilter();
     }
 
     public void draw() {
@@ -141,11 +150,11 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     }
 
     public Map<Integer, Double> getPlayerXMap() {
-        return Collections.unmodifiableMap(playerXMap);
+        return playerXMap;
     }
 
     public Map<Integer, Double> getPlayerYMap() {
-        return Collections.unmodifiableMap(playerYMap);
+        return playerYMap;
     }
 
     public Canvas getCanvas() {
