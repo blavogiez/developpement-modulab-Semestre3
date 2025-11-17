@@ -1,40 +1,54 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
+import fr.univlille.labyrinth.view.labyrinth.filter.ExplorationFilter;
+import fr.univlille.labyrinth.view.labyrinth.filter.ExplorationWallFilter;
+import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
+import fr.univlille.labyrinth.view.labyrinth.filter.WallFilter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
-    private static final int EXPLORATION_RADIUS = 5;
 
-    private boolean[][] cellulesExplorees;
+    private ExplorationFilter explorationFilter;
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
-        cellulesExplorees = new boolean[maze.getHeight()][maze.getWidth()];
-        update(maze);
     }
 
-    /** 
-     * @param maze
-     */
+    @Override
+    protected RenderingFilter createRenderingFilter(boolean animationEnabled) {
+        explorationFilter = new ExplorationFilter(currentMaze, animationEnabled);
+        return explorationFilter;
+    }
+
+    @Override
+    protected WallFilter createWallFilter() {
+        return new ExplorationWallFilter(explorationFilter);
+    }
+
     @Override
     public void update(ObservableMaze maze) {
-        if (cellulesExplorees == null ||
-            cellulesExplorees.length != maze.getHeight() ||
-            cellulesExplorees[0].length != maze.getWidth()) {
-            cellulesExplorees = new boolean[maze.getHeight()][maze.getWidth()];
+        this.currentMaze = maze;
+
+        if (explorationFilter == null ||
+            explorationFilter.getCellulesExplorees().length != maze.getHeight() ||
+            explorationFilter.getCellulesExplorees()[0].length != maze.getWidth()) {
+            this.renderingFilter = createRenderingFilter(playerAnimation.isEnabled());
+            this.wallFilter = createWallFilter();
+            this.wallRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.WallRenderer(wallFilter);
+            this.entityRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.EntityRenderer(componentRenderer, renderingFilter, configResolver);
+            this.trapRenderer = new fr.univlille.labyrinth.view.labyrinth.renderer.TrapRenderer(componentRenderer, renderingFilter, configResolver);
         }
+
         super.update(maze);
     }
 
     @Override
     public void draw() {
+        explorationFilter.marquerCellulesExplorees();
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -44,73 +58,23 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.setFill(GameViewConfig.PATH.getColor());
         gc.fillRect(layout.getOffsetX(), layout.getOffsetY(), largeur * layout.getCellSize(), hauteur * layout.getCellSize());
 
-        marquerCellulesExplorees(currentMaze);
-        dessinerZonesNonExplorees(gc, currentMaze, hauteur, largeur);
-        
-        dessinerMurs(gc, hauteur, largeur);
-        dessinerTrap(gc, currentMaze);
-        drawEntities(gc, currentMaze);
+        dessinerZonesNonExplorees(gc, hauteur, largeur);
 
-        if (shouldDrawPlayer()) {
-            dessinerJoueur(gc, currentMaze);
+        wallRenderer.dessinerMurs(gc, currentMaze, layout, hauteur, largeur);
+        trapRenderer.dessinerTrap(gc, currentMaze, layout);
+        entityRenderer.drawEntities(gc, currentMaze, layout);
+
+        if (renderingFilter.shouldDrawPlayer()) {
+            entityRenderer.dessinerJoueur(gc, currentMaze, layout, playerXMap, playerYMap);
         }
     }
 
-    /** 
-     * @param y
-     * @param x
-     * @param height
-     * @param width
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldDrawVerticalWall(int y, int x, int height, int width) {
-        if (x == -1) {
-            return cellulesExplorees[y][0];
-        }
-        return cellulesExplorees[y][x] && (x + 1 >= width || cellulesExplorees[y][x + 1]);
-    }
-
-    /** 
-     * @param y
-     * @param x
-     * @param height
-     * @param width
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldDrawHorizontalWall(int y, int x, int height, int width) {
-        if (y == -1) {
-            return cellulesExplorees[0][x];
-        }
-        return cellulesExplorees[y][x] && (y + 1 >= height || cellulesExplorees[y + 1][x]);
-    }
-
-    /** 
-     * @param maze
-     */
-    private void marquerCellulesExplorees(ObservableMaze maze) {
-        for (int i = 0; i < maze.getHeight(); i++) {
-            for (int j = 0; j < maze.getWidth(); j++) {
-                if (estDansRayon(j, i, maze, EXPLORATION_RADIUS)) {
-                    cellulesExplorees[i][j] = true;
-                }
-            }
-        }
-    }
-
-    /** 
-     * @param gc
-     * @param maze
-     * @param hauteur
-     * @param largeur
-     */
-    private void dessinerZonesNonExplorees(GraphicsContext gc, ObservableMaze maze, int hauteur, int largeur) {
+    private void dessinerZonesNonExplorees(GraphicsContext gc, int hauteur, int largeur) {
         gc.setFill(Color.BLACK);
 
         for (int y = 0; y < hauteur; y++) {
             for (int x = 0; x < largeur; x++) {
-                if (!cellulesExplorees[y][x]) {
+                if (!explorationFilter.isExplored(x, y)) {
                     double xCoord = layout.getOffsetX() + x * layout.getCellSize();
                     double yCoord = layout.getOffsetY() + y * layout.getCellSize();
                     gc.fillRect(xCoord, yCoord, layout.getCellSize(), layout.getCellSize());
@@ -118,40 +82,4 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
             }
         }
     }
-
-    /** 
-     * @param x
-     * @param y
-     * @return boolean
-     */
-    private boolean isExplored(int x, int y) {
-        return cellulesExplorees[y][x];
-    }
-
-    /** 
-     * @param entity
-     * @return boolean
-     */
-    /*
-     * Ne dessine que les entités dans le rayon 
-     */
-    @Override
-    protected boolean shouldRenderEntity(Entity entity) {
-        return isExplored(entity.getPosition().getX(),entity.getPosition().getY()) && super.shouldRenderEntity(entity);
-    }
-
-    /** 
-     * @param trap
-     * @param x
-     * @param y
-     * @return boolean
-     */
-    /*
-     * Ne dessine que les pièges dans le rayon 
-     */
-    @Override
-    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
-        return isExplored(x,y);
-    }
-
 }
