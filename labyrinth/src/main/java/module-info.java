@@ -21,4 +21,5 @@ module fr.univlille.labyrinth {
     exports fr.univlille.labyrinth.model.algorithm;
     exports fr.univlille.labyrinth.model.maze.traps;
     exports fr.univlille.labyrinth.model.maze.traps.trap;
+    exports fr.univlille.labyrinth.view.utils;
 }

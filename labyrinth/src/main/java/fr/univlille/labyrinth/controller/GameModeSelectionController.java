@@ -2,7 +2,7 @@ package fr.univlille.labyrinth.controller;
 
 import fr.univlille.labyrinth.App;
 
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

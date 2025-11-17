@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.view.utils;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

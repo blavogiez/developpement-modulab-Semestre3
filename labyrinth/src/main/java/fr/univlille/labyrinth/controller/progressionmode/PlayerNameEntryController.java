@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.controller.progressionmode;
 
 import fr.univlille.labyrinth.App;
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 
 import javafx.fxml.FXML;

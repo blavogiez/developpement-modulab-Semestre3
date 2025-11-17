@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.app.SceneNavigator;
 import fr.univlille.labyrinth.app.Settings;
 import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.app.ThemeManager;
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
