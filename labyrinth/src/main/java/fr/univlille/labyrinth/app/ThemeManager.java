@@ -7,30 +7,29 @@ import javafx.scene.Scene;
  * ThemeManager gère les fonctionnalités de thème de l'application séparément de la classe principale
  */
 public class ThemeManager {
-    private static boolean darkMode = true;
 
     private ThemeManager() {
     }
 
-    /** 
+    /**
      * @param darkMode
      */
     public static void setDarkMode(boolean darkMode) {
-        ThemeManager.darkMode = darkMode;
+        SettingsManager.get().setDarkMode(darkMode);
     }
 
-    /** 
+    /**
      * @return boolean
      */
     public static boolean isDarkMode() {
-        return darkMode;
+        return SettingsManager.get().isDarkMode();
     }
 
-    /** 
+    /**
      * @return String
      */
     public static String getThemeCss() {
-        return darkMode ? "dark.css" : "light.css";
+        return isDarkMode() ? "dark.css" : "light.css";
     }
 
     /** 

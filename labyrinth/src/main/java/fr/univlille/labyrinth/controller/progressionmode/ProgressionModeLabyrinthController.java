@@ -5,9 +5,11 @@ import java.io.IOException;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
-import fr.univlille.labyrinth.controller.PopupVictoryController;
+import fr.univlille.labyrinth.controller.VictoryNotification;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
+import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import javafx.fxml.FXML;
@@ -54,7 +56,11 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
 
         challengeInfoLabel.setText("Étape " + (selectedLevelIndex + 1) + ", Défi " + (selectedChallengeIndex + 1) + getViewSuffix());
 
-        gameMode = new ProgressionMode(currentPlayer, selectedChallenge);
+        // Injection des dépendances (DIP)
+        MazeManager mazeManager = new MazeManager();
+        ProgressionModeVictoryHandler victoryHandler = new ProgressionModeVictoryHandler(currentPlayer, selectedChallenge, null);
+
+        gameMode = new ProgressionMode(mazeManager, victoryHandler, currentPlayer, selectedChallenge);
         gameMode.createMaze();
 
         pane1.setCenter(setupViews(gameMode));
@@ -65,16 +71,25 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     @Override
     public void handleVictory() {
         try {
-            PopupVictoryController.openPopup(gameMode.getPlayer().getName());
+            String playerName = gameMode.getPlayer() != null ? gameMode.getPlayer().getName() : "Joueur";
+            VictoryNotification.setPendingWinner(playerName, true);
             goToProgression();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /** 
-     * @throws IOException
-     */
+    @Override
+    public void handleDefeat() {
+        try {
+            String playerName = gameMode.getPlayer() != null ? gameMode.getPlayer().getName() : "Joueur";
+            VictoryNotification.setPendingWinner(playerName + " - Défaite !", false);
+            goToProgression();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void goToProgression() throws IOException {
         App.goTo("progressionmode/LevelSelection.fxml");

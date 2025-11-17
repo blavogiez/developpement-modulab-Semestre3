@@ -26,7 +26,7 @@ public class BreadthFirstSearch {
     // cette version s'arrete des qu'on atteint la targetDistance (exploration par niveaux)
     // si targetDistance depasse la distance maximale possible, elle est automatiquement limitee a cette distance maximale
     // retourne toutes les positions situees a la distance cible (ou maximale si targetDistance est trop grande)
-    // Je commente cette méthode car assez complexe
+    // méthode commentée car assez complexe
     public static DistanceResult calculateAllDistances(Maze maze, Position start, int targetDistance) {
         Queue<Position> queue = new LinkedList<>();
         Map<Position, Integer> distances = new HashMap<>();

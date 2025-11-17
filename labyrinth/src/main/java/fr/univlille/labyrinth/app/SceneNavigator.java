@@ -1,61 +1,42 @@
 package fr.univlille.labyrinth.app;
 
 import java.io.IOException;
-import java.net.URL;
 
-import fr.univlille.labyrinth.App;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * SceneNavigator gère la navigation entre différentes scènes de l'application
- */
 public class SceneNavigator {
-    private static Stage primaryStage;
-    
-    private SceneNavigator() {
+    private static NavigationContext context;
+    private static final SceneLoader sceneLoader = new SceneLoader();
+    private static final SceneTransition sceneTransition = new SceneTransition();
+
+    public static void setContext(NavigationContext navigationContext) {
+        context = navigationContext;
     }
-    
-    /** 
-     * @param stage
-     */
-    public static void setPrimaryStage(Stage stage) {
-        primaryStage = stage;
-    }
-    
-    /** 
-     * @return Stage
-     */
+
     public static Stage getPrimaryStage() {
-        return primaryStage;
+        return context != null ? context.getPrimaryStage() : null;
     }
-    
-    /**
-     * navigue vers une nouvelle page en chargeant le fichier FXML spécifié
-     * 
-     * @param page Le chemin vers le fichier FXML (a la racine es ressources)
-     * @throws IOException Si le fichier FXML n'est pas trouvé ou ne peut pas être chargéd
+
+    /*
+     * Change de scène pour aller à la page FXML dont le chemin est spécifié en paramètre.
      */
     public static void goTo(String page) throws IOException {
-        if (primaryStage == null) {
-            throw new IllegalStateException("Primary stage absent");
+        if (context == null) {
+            throw new IllegalStateException("Navigation context absent");
         }
 
-        double width = primaryStage.getScene().getWidth();
-        double height = primaryStage.getScene().getHeight();
-        page = "/fr/univlille/labyrinth/" + page;
-        URL url = SceneNavigator.class.getResource(page);
+        Parent newContent = sceneLoader.load(page);
 
-        if (url == null) {
-            throw new IOException("fichier FXML absent : " + page);
+        if (context.getRootPane().getChildren().size() > 1) {
+            Parent currentContent = (Parent) context.getRootPane().getChildren().get(1);
+
+            sceneTransition.transitionTo(currentContent, newContent, () -> {
+                context.getRootPane().getChildren().remove(1);
+                context.getRootPane().getChildren().add(newContent);
+                context.getBackgroundManager().setVisible(context.getBackgroundManager().shouldShowBackground(page));
+                ThemeManager.applyTheme(context.getPrimaryStage().getScene());
+            });
         }
-
-        Parent root = FXMLLoader.load(url);
-        Scene scene = new Scene(root, width, height);
-
-        ThemeManager.applyTheme(scene);
-        primaryStage.setScene(scene);
     }
 }

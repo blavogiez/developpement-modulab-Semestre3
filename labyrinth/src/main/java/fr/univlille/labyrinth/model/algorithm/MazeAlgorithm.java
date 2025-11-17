@@ -1,16 +1,12 @@
 package fr.univlille.labyrinth.model.algorithm;
 
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-import javafx.geometry.Pos;
-
 
 
 public abstract class MazeAlgorithm{
@@ -122,6 +118,7 @@ public abstract class MazeAlgorithm{
      */
     protected void removeWall(Position start, Position next, Direction direction){
         Position min = start.min(next);
+        if (min.getX()<0 || min.getY()<0) return;
 
         switch (direction) {
             case LEFT, RIGHT -> {

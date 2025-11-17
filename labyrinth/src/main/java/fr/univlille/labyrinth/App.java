@@ -1,10 +1,13 @@
 package fr.univlille.labyrinth;
 
+import fr.univlille.labyrinth.app.BackgroundManager;
+import fr.univlille.labyrinth.app.NavigationContext;
 import fr.univlille.labyrinth.app.SceneNavigator;
 import fr.univlille.labyrinth.app.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,16 +17,7 @@ import java.io.IOException;
  * elle délègue la gestion du thème et de la navigation à des classes spécialisées (single responsibility principle)
  */
 public class App extends Application {
-    private static Stage primaryStage;
-
-    /**
-     * navigue vers une nouvelle page en chargeant le fichier FXML spécifié
-     * 
-     * @param page Le chemin vers le fichier FXML (a la racine es ressources)
-     * @throws IOException Si le fichier FXML n'est pas trouvé ou ne peut pas être chargéd
-     */
     public static void goTo(String page) throws IOException {
-        SceneNavigator.setPrimaryStage(primaryStage);
         SceneNavigator.goTo(page);
     }
 
@@ -34,10 +28,16 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-        SceneNavigator.setPrimaryStage(stage);
+        BackgroundManager backgroundManager = new BackgroundManager("/fr/univlille/labyrinth/images/background.mp4", stage);
+        StackPane rootPane = new StackPane();
+
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("HomeMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        rootPane.getChildren().addAll(backgroundManager.getMediaView(), fxmlLoader.load());
+
+        NavigationContext context = new NavigationContext(stage, rootPane, backgroundManager);
+        SceneNavigator.setContext(context);
+
+        Scene scene = new Scene(rootPane);
         ThemeManager.applyTheme(scene);
         stage.setTitle("Labyrinth");
         stage.setMaximized(true);

@@ -12,6 +12,8 @@ public class AppState {
     private int selectedChallengeIndex;
     private Challenge selectedChallenge;
     private FreeModeConfig freeModeConfig;
+    private String pendingNotificationMessage;
+    private boolean pendingNotificationIsVictory = true;
 
     private AppState() {
         this.freeModeConfig = new FreeModeConfig();
@@ -34,6 +36,8 @@ public class AppState {
         selectedChallengeIndex = 0;
         selectedChallenge = null;
         freeModeConfig = new FreeModeConfig();
+        pendingNotificationMessage = null;
+        pendingNotificationIsVictory = true;
     }
 
     /** 
@@ -98,5 +102,23 @@ public class AppState {
 
     public void setFreeModeConfig(FreeModeConfig freeModeConfig) {
         this.freeModeConfig = freeModeConfig;
+    }
+
+    public String getPendingNotificationMessage() {
+        String message = pendingNotificationMessage;
+        pendingNotificationMessage = null;
+        return message;
+    }
+
+    public void setPendingNotificationMessage(String message) {
+        this.pendingNotificationMessage = message;
+    }
+
+    public boolean isPendingNotificationVictory() {
+        return pendingNotificationIsVictory;
+    }
+
+    public void setPendingNotificationIsVictory(boolean isVictory) {
+        this.pendingNotificationIsVictory = isVictory;
     }
 }

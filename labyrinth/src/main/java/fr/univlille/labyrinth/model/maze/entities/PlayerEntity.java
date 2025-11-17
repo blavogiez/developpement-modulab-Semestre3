@@ -17,6 +17,7 @@ OCP mieux respecté de ce fait
  */
 public class PlayerEntity extends Entity {
     private int ID;
+
     public PlayerEntity(Position position) {
         this(position, new PlayerMoveBehavior());
     }
@@ -97,5 +98,7 @@ public class PlayerEntity extends Entity {
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }
+
+
 
 }

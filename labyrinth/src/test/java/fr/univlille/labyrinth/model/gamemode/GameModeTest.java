@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.gamemode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +19,7 @@ import fr.univlille.labyrinth.model.maze.Position;
 /*
  * Test de GameMode, où un "mock" d'observer est créé.
  * La sortie est cherchée, puis remontée et nous testons si l'observeur est prévenu.
+ * C'est donc également un test implicite pour les controllers, puisqu'ils sont des victory observer.
  */
 public class GameModeTest {
 
@@ -28,11 +28,10 @@ public class GameModeTest {
         private boolean victoryTriggered = false;
 
         public void onVictory() {
-
+            this.victoryTriggered = true;
         }
-        
-        public void handleVictory() {
-            this.victoryTriggered=true;
+
+        public void onDefeat(GameMode observable) {
         }
 
         public boolean isVictoryTriggered() {
@@ -41,7 +40,7 @@ public class GameModeTest {
     }
 
     @Test
-    public void testMovePlayerToExitTriggersVictory() {
+    public void should_player_move_to_exit_trigger_victory() {
         FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 31);
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();
@@ -50,7 +49,7 @@ public class GameModeTest {
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
-        assertFalse(gameMode.getCurrentMaze().isPlayerAtExit());
+        assertFalse(gameMode.getCurrentMaze().getPlayerAtExit() != null);
 
         ObservableMaze maze = gameMode.getCurrentMaze();
         Position start = maze.getEntryPosition();
@@ -77,11 +76,11 @@ public class GameModeTest {
         }
 
         assertTrue(observer.isVictoryTriggered());
-        assertTrue(gameMode.getCurrentMaze().isPlayerAtExit());
+        assertTrue(gameMode.getCurrentMaze().getPlayerAtExit() != null);
     }
 
     @Test
-    public void testMultipleObserversAreNotified() {
+    public void should_multiple_observers_be_notified() {
         FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 30);
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();

@@ -11,8 +11,8 @@ public enum TrapFactory {
     TELEPORTER_TRAP(TeleportTrap::new,"T"),
     FAKE_EXIT_TRAP(FakeTrap::new,"F"),
     PUSH_TRAP(PushTrap::new,"P"),
+    GENERATE_TRAP(GenerateTrap::new,"G"),
     STUN_TRAP(StunTrap::new,"S"),
-    HIDE_WALL_TRAP(HideWallTrap::new,"H"),
     TELEPORT_EXIT_TRAP(TeleportExitTrap::new,"TE"),
     LAVA_TRAP(LavaTrap::new,"L");
 
@@ -38,7 +38,5 @@ public enum TrapFactory {
     public Trap generateTrap(){
         return trap.get();
     }
-
-
 
 }

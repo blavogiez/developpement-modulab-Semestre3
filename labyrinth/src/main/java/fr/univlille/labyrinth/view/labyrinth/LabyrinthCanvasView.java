@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.view.labyrinth;
 
 import java.util.HashMap;
 
+import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Observable;
@@ -11,6 +12,8 @@ import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
+import fr.univlille.labyrinth.view.labyrinth.animation.AnimatableView;
+import fr.univlille.labyrinth.view.labyrinth.animation.PlayerAnimation;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
 import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
@@ -19,7 +22,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class LabyrinthCanvasView implements Observer<ObservableMaze> {
+public class LabyrinthCanvasView implements Observer<ObservableMaze>, AnimatableView {
 
     private final int CANVAS_DEFAULT_WIDTH = 800 ;
     private final int CANVAS_DEFAULT_HEIGHT = 800 ;
@@ -37,19 +40,23 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected LabyrinthLayoutCalculator layoutCalculator;
     protected ComponentRenderer componentRenderer;
 
-    public LabyrinthCanvasView(ObservableMaze maze) {
+    public LabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator, ComponentRenderer componentRenderer, boolean animationEnabled) {
         this.currentMaze = maze;
-        this.layoutCalculator = new LabyrinthLayoutCalculator();
-        this.componentRenderer = new ComponentRenderer();
+        this.layoutCalculator = layoutCalculator;
+        this.componentRenderer = componentRenderer;
         this.playerAnimation = new PlayerAnimation(this);
-        playerAnimation.start();
+        if (animationEnabled) {
+            playerAnimation.start();
+        } else {
+            playerAnimation.disable();
+        }
 
         container = new Pane();
         canvas = new Canvas(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT);
         container.getChildren().add(canvas);
 
-        container.setMinSize(CANVAS_MIN_WIDTH, CANVAS_MIN_HEIGHT);
-        container.setMaxSize(canvas.getWidth(), canvas.getHeight());
+        container.setMinSize(0, 0);
+        container.setMaxSize(850, 850);
         container.setPrefSize(canvas.getWidth(), canvas.getHeight());
 
         canvas.widthProperty().bind(container.widthProperty());
@@ -57,11 +64,15 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
 
         container.widthProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
         container.heightProperty().addListener((obs, oldVal, newVal) -> update(currentMaze));
-        
+
         update(maze);
     }
 
-    protected void draw() {
+    public LabyrinthCanvasView(ObservableMaze maze) {
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+    }
+
+    public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -168,7 +179,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
      * @param maze
      */
     protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        for (PlayerEntity player : maze.getEntityManager().getPlayerEntities()) {
+        for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
             int id = player.getID();
             Double x = playerXMap.get(id);
             Double y = playerYMap.get(id);
@@ -189,7 +200,6 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
         for (int y = 0; y < traps.length; y++) {
             for (int x = 0; x < traps[y].length; x++) {
                 if (shouldRenderTrap(traps[y][x], x, y)) {
-                    //System.out.println(traps[y][x].name());
                     GameViewConfig config = GameViewConfig.valueOf(traps[y][x].name());
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
@@ -222,7 +232,13 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
     protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             if (shouldRenderEntity(entity)) {
-                GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                GameViewConfig config;
+                if (entity.getEntityType() == EntityType.PLAYER) {
+                    int id = ((PlayerEntity) entity).getID();
+                    config = GameViewConfig.valueOf("PLAYER" + id);
+                } else {
+                    config = GameViewConfig.valueOf(entity.getEntityType().name());
+                }
                 componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                     entity.getPosition().getX(), entity.getPosition().getY(), layout, 0.6);
             }
@@ -253,7 +269,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
      * "hook" utile pour le cas de la vue locale (à gauche, on ne dessine pas le joueur)
      */
     protected boolean shouldDrawPlayer() {
-        return true;
+        return playerAnimation.isEnabled();
     }
 
     /** 
@@ -271,7 +287,10 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze> {
      * @return boolean
      */
     protected boolean shouldRenderEntity(Entity entity) {
-        return entity.getEntityType() != EntityType.PLAYER;
+        if (entity.getEntityType() == EntityType.PLAYER) {
+            return !playerAnimation.isEnabled();
+        }
+        return true;
     }
 
     /** 

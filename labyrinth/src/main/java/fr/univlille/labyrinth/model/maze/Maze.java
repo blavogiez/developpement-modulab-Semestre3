@@ -144,7 +144,12 @@ public class Maze {
 
     public void trapEffect(int playerID, Position oldPosition) {}
 
+    public void setMurHorizontaux(boolean[][] murHorizontaux) {
+        this.murHorizontaux = murHorizontaux;
+    }
 
-
+    public void setMurVerticaux(boolean[][] murVerticaux) {
+        this.murVerticaux = murVerticaux;
+    }
 
 }
