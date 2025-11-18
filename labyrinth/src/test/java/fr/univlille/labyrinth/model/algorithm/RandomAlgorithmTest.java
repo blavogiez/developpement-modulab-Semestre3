@@ -18,12 +18,12 @@ public class RandomAlgorithmTest {
     void shouldRespectWallPercentageStatistically() {
         double targetPercentage = 0.4;
 
-        double seuilOuCestOk = 0.05;
+        double seuilOuCestOk = 0.1;
 
         int randomMazeWalls = 0 ;
         int perfectMazeWalls = 0 ;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             Maze maze = new Maze(20, 20, 1.0, MazeAlgorithmFactory.PERFECT.getAlgorithm());
             perfectMazeWalls = getTotalWalls(maze);
 

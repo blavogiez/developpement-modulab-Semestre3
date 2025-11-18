@@ -1,5 +1,9 @@
 package fr.univlille.labyrinth.view;
 
+import fr.univlille.labyrinth.model.maze.entities.Entity;
+import fr.univlille.labyrinth.model.maze.entities.EntityType;
+import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import javafx.scene.paint.Color;
 
 public enum GameViewConfig {
@@ -51,5 +55,35 @@ public enum GameViewConfig {
 
     public Shape getShape() {
         return shape;
+    }
+
+    /*
+     * Méthodes d'identifications static pour la vue
+     */
+    public static GameViewConfig forTrap(Trap trap) {
+        try {
+            return valueOf(trap.name());
+        } catch (IllegalArgumentException e) {
+            return TRAP_RANDOM;
+        }
+    }
+
+    public static GameViewConfig forEntity(Entity entity) {
+        if (entity.getEntityType()==EntityType.PLAYER) {
+            return forPlayer(((PlayerEntity) entity).getID());
+        }
+        try {
+            return valueOf(entity.getEntityType().name());
+        } catch (IllegalArgumentException e) {
+            return PLAYER;
+        }
+    }
+
+    public static GameViewConfig forPlayer(int playerId) {
+        try {
+            return valueOf("PLAYER" + playerId);
+        } catch (IllegalArgumentException e) {
+            return PLAYER;
+        }
     }
 }

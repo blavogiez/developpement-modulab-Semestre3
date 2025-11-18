@@ -10,7 +10,6 @@ import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**

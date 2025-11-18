@@ -40,8 +40,10 @@ public class Benchmark {
      */
     public static void csvBench(int taille, int fin, int ecart) {
         for (MazeAlgorithmFactory algo : MazeAlgorithmFactory.values()) {
-            Benchmark.csvBench(algo, taille, fin, ecart, false);
-            Benchmark.csvBench(algo, taille, fin, ecart, true);
+            if(algo.name().equals("FUSION")) {
+                Benchmark.csvBench(algo, taille, fin, ecart, false);
+                Benchmark.csvBench(algo, taille, fin, ecart, true);
+            }
         }
     }
 

@@ -7,14 +7,12 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 import java.util.*;
 
-public class BreadthFirstSearch {
 
-    /*
-     * Record simple qui retourne la liste de toutes les positions demandées à la distance demandée
-     * actualDistance corrige la distance si elle était impossible (supérieure à la distance maximale) et va changer le parametre distance dans le labyrinthe
-     * Donc si on met une distance de 300 000 et que le maximum est à 140, le labyrinthe corrige et c'est bien la distance effective de 140 qui sera affichée lors du toString du labyrinthe. 
-     */
-    public record DistanceResult(List<Position> positions, int actualDistance) {}
+/*
+ * Classe statique utilitaire relative aux recherches de positions et de distance (une inconnue)
+ * pour trouver les positions à une distance X d'une position A, ou trouver la distance entre une position A et B
+ */
+public class MazeDistance {
 
     /**
      * @param maze
@@ -146,56 +144,5 @@ public class BreadthFirstSearch {
         }
 
         return null;
-    }
-
-
-    /** 
-     * @param maze
-     * @param start
-     * @param end
-     * @return List<Position>
-     */
-    public static List<Position> pathFinder(Maze maze, Position start, Position end){
-        Queue<Position> queue = new LinkedList<>();
-        Map<Position, Position> previousPos = new HashMap<>();
-        queue.add(start);
-        List<Position> finalPath = new ArrayList<>();
-
-        while (!queue.isEmpty()) {
-            Position current = queue.poll();
-            if(current.equals(end)){
-                Position positionPath = current;
-                while (!positionPath.equals(start)){
-                    finalPath.add(positionPath);
-                    positionPath = previousPos.get(positionPath);
-                }
-                Collections.reverse(finalPath);
-                return finalPath;
-            }
-            List<Position> nextPositions = getNextPosition(maze, current ,previousPos.keySet());
-            for (Position nextPos :nextPositions) {
-                previousPos.put(nextPos,current);
-                queue.add(nextPos);
-            }
-
-        }
-        return null;
-    }
-
-    /** 
-     * @param maze
-     * @param currentPos
-     * @param listedPosition
-     * @return List<Position>
-     */
-    public static List<Position> getNextPosition (Maze maze,Position currentPos,Set<Position> listedPosition){
-        List<Position> correctNextPositions = new ArrayList<>();
-        for (Direction direction : Direction.values()){
-            Position temp = new Position(currentPos.getX() + direction.getX(),currentPos.getY()  + direction.getY());
-            if(MazeWallChecker.positionCorrecte(temp,maze) && !listedPosition.contains(temp) && !MazeWallChecker.isWall(maze,currentPos.getY(), currentPos.getX(), temp.getY(), temp.getX())){
-                correctNextPositions.add(temp);
-            }
-        }
-        return correctNextPositions;
     }
 }

@@ -76,7 +76,7 @@
 % Couleurs spécifiques pour les boîtes d'information (tons sérieux)
 \definecolor{resultcolor}{HTML}{1B5E20}    % Vert très foncé pour résultats
 \definecolor{comparisoncolor}{HTML}{A91B60} % Bordeaux rosé pour comparaisons
-\definecolor{observationcolor}{HTML}{E65100} % Orange très foncé pour observations
+\definecolor{observationcolor}{HTML}{424242} % Orange très foncé pour observations
 \definecolor{attentioncolor}{HTML}{B71C1C}  % Rouge très foncé pour attention
 
 % Couleurs spécifiques par langage (tons professionnels)
@@ -656,12 +656,11 @@
 	enhanced,
 	arc=2pt,
 	boxrule=0.8pt,
-	top=10pt,
-	bottom=10pt,
+	top=0pt,
+	bottom=0pt,
 	left=0pt,
 	right=0pt,
 	boxsep=6pt,
-	attach boxed title to top left={yshift=-10pt,xshift=14pt},
 	boxed title style={
 		boxrule=0pt,
 		arc=2pt,
@@ -693,9 +692,7 @@
 	breakable,
 	colback=codebg,
 	colframe=primary,        % Couleur unique pour tous les cadres
-	coltext=textcolor,
-	coltitle=white,
-	title={\ttfamily\bfseries #2},
+	coltext=textcolor,    
 	#1
 }
 
