@@ -17,7 +17,10 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public class EntityListFactory {
 
-    /** 
+    private static final int MAX_MONSTERS = 5;
+    private static final int MAX_PLAYERS = 3;
+
+    /**
      * @param maze
      * @param configuration
      * @return List<Entity>
@@ -46,6 +49,7 @@ public class EntityListFactory {
      */
     public static void fillMazeEntities(ObservableMaze maze, String configuration) {
         List<EntityConfiguration> configs = EntityConfigurationParser.parse(configuration);
+        configs = validateEntityLimits(configs);
         EntityManager entityManager = maze.getEntityManager();
 
         for (EntityConfiguration config : configs) {
@@ -60,5 +64,18 @@ public class EntityListFactory {
                 entityManager.addEntity(entity);
             }
         }
+    }
+
+    private static List<EntityConfiguration> validateEntityLimits(List<EntityConfiguration> configs) {
+        List<EntityConfiguration> validated = new ArrayList<>();
+        for (EntityConfiguration config : configs) {
+            int limitedQuantity = switch (config.type()) {
+                case MONSTER -> Math.min(config.quantity(), MAX_MONSTERS);
+                case PLAYER -> Math.min(config.quantity(), MAX_PLAYERS);
+                default -> config.quantity();
+            };
+            validated.add(new EntityConfiguration(config.type(), limitedQuantity, config.moveBehaviorName()));
+        }
+        return validated;
     }
 }

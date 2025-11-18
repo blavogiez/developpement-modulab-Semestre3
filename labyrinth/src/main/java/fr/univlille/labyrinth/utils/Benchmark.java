@@ -26,13 +26,13 @@ public class Benchmark {
     public static final boolean delete = false ;
 
     // Nombre de tours que fera le benchmark pour calculer la moyenne
-    public static final int PRECISION = 10; 
+    public static final int PRECISION = 3; 
     /** 
      * @param args
      */
     public static void main(String[] args) {
         if(delete) deleteAllCsvFiles();
-        Benchmark.csvBench(5, 500, 5);
+        Benchmark.csvBench(5, 400, 5);
     }
 
     /**
