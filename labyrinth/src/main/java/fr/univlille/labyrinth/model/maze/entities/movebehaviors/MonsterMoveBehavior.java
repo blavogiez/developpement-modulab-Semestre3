@@ -35,7 +35,6 @@ public class MonsterMoveBehavior implements MoveBehavior {
         }
 
         if (shortestPath != null && !shortestPath.isEmpty()) {
-            System.out.println(position);
             entity.setPosition(shortestPath.get(0));
         }
     }
