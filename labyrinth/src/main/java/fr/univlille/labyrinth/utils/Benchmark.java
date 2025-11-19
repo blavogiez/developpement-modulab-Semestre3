@@ -26,13 +26,13 @@ public class Benchmark {
     public static final boolean delete = false ;
 
     // Nombre de tours que fera le benchmark pour calculer la moyenne
-    public static final int PRECISION = 3; 
+    public static final int PRECISION = 10; 
     /** 
      * @param args
      */
     public static void main(String[] args) {
         if(delete) deleteAllCsvFiles();
-        Benchmark.csvBench(5, 400, 5);
+        Benchmark.csvBench(5, 500, 5);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Benchmark {
      */
     public static void csvBench(int taille, int fin, int ecart) {
         for (MazeAlgorithmFactory algo : MazeAlgorithmFactory.values()) {
-            if(algo.name().equals("FUSIONTEST")) {
+            if(algo.name().equals("RANDOM")) {
                 Benchmark.csvBench(algo, taille, fin, ecart, false);
                 Benchmark.csvBench(algo, taille, fin, ecart, true);
             }
@@ -68,21 +68,25 @@ public class Benchmark {
             writer.write("taille,temps(ms)\n");
 
             while (taille < fin) {
-                
                 long sommeTemps = 0;
-                // executer PRECISION fois pour calculer la moyenne
-                for (int i = 0; i < PRECISION; i++) {
-                    Timer timer = new Timer();
-                    int distance = showDistance ? taille : 0 ;
-                    timer.start();
-                    new Maze(taille, taille * 2, 0.5, distance, algo.getAlgorithm());
-                    timer.stop();
-                    sommeTemps += timer.getChrono();
-                }
-                taille+=ecart ;
-                long tempsMoyen = sommeTemps / PRECISION;
+                int reps = algo.name().equals("RANDOM") ? PRECISION * 3 : PRECISION;
+                double[] percentages = algo.name().equals("RANDOM") ? new double[]{0.2, 0.3, 0.5} : new double[]{0.5};
+
+                for (double percentage : percentages)
+                    for (int i = 0; i < PRECISION; i++) {
+                        Timer timer = new Timer();
+                        int distance = showDistance ? taille : 0;
+                        timer.start();
+                        new Maze(taille, taille * 2, percentage, distance, algo.getAlgorithm());
+                        timer.stop();
+                        sommeTemps += timer.getChrono();
+                    }
+
+                long tempsMoyen = sommeTemps / reps;
                 writer.write(taille + "," + tempsMoyen + "\n");
                 System.out.println("Algorithme: " + algo.name() + ", Taille: " + taille + ", Temps moyen: " + tempsMoyen + " ms");
+
+                taille += ecart; 
             }
 
             System.out.println("Fichier créé: " + filename);

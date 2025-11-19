@@ -2,8 +2,8 @@ package fr.univlille.labyrinth.model.algorithm;
 
 public enum MazeAlgorithmFactory {
     PERFECT(PerfectAlgorithm.getInstance()),
-    FUSION(PerfectAlgorithmRandomFusion.getInstance()),
-    FUSIONTEST(PerfectAlgorithmFusionKruskalUnion.getInstance()),
+    FUSION(PerfectAlgorithmFusionKruskalUnion.getInstance()),
+    FUSION_LEGACY(PerfectAlgorithmRandomFusion.getInstance()),
     RANDOM(RandomAlgorithm.getInstance());
 
     private MazeAlgorithmFactory(MazeAlgorithm MazeAlgorithm) {

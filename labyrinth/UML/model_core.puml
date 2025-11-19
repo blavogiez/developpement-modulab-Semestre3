@@ -1,0 +1,177 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+package model.gamemode {
+    abstract class GameMode {
+        + GameMode(MazeManager, VictoryHandler, GameConfig)
+        + movePlayerPosition(int, Direction)
+        + addVictoryObserver(VictoryObserver<GameMode>)
+        # notifyVictory()
+        # notifyDefeat()
+        # handleVictory(PlayerEntity)
+        # handleLoose()
+        {static} + areDimensionsCorrect(int, int) : boolean
+    }
+
+    class FreeMode {
+        + FreeMode(MazeManager, VictoryHandler, FreeModeConfig)
+        + FreeMode(FreeModeConfig)
+        + FreeMode()
+        + createMaze()
+        # handleVictory(PlayerEntity)
+        + toString() : String
+    }
+
+    class ProgressionMode {
+        {static} + initDefaultProgress()
+        + ProgressionMode(MazeManager, ProgressionModeVictoryHandler, Player, Challenge)
+        + ProgressionMode(Player, Challenge)
+        + createMaze()
+        + toString() : String
+    }
+
+    class MazeManager {
+        + createMaze(GameConfig)
+        + hasMaze() : boolean
+        + randomWallRemoval(double)
+    }
+}
+
+package model.algorithm {
+    abstract class MazeAlgorithm {
+        + generateMaze(Maze)
+        + generateExitAndPlayer(Maze)
+        # removeWall(Position, Direction)
+        # removeWall(Position, Position)
+        # removeWall(Position, Position, Direction)
+        {static} + positionCorrecte(int, int, int, int) : boolean
+        {static} + allAreTrue(boolean[][])
+    }
+
+    enum MazeAlgorithmFactory {
+        PERFECT
+        FUSION
+        RANDOM
+        + isPerfect() : boolean
+    }
+}
+
+package model.maze {
+    class Maze {
+        + Maze(int, int, double, int, MazeAlgorithm)
+        + trapEffect(int, Position)
+    }
+
+    class ObservableMaze {
+        + ObservableMaze(int, int, int, String, MazeAlgorithm, String)
+        + movePlayer(int, Direction) : boolean
+        + trapEffect(int, Position)
+    }
+
+    class EntityManager {
+        + addCptPlayerID()
+        + addEntity(Entity)
+        + removeEntity(Entity)
+        + moveEntities(int, ObservableMaze, Direction)
+        + checkMonsterOnPlayer()
+        + checkPlayerOnExit() : PlayerEntity
+        + isEntityOnCell(Position) : boolean
+        + clear()
+    }
+
+    class TrapManager {
+        + TrapManager(ObservableMaze, String)
+        + trapEffect(int, Position)
+    }
+
+    class Position {
+        + Position(int, int)
+        + copy() : Position
+        + add(int, int) : Position
+        + min(Position) : Position
+        + diff(Position) : Direction
+    }
+
+    enum Direction {
+        UP
+        DOWN
+        LEFT
+        RIGHT
+    }
+}
+
+    package model.maze.entities {
+        abstract class Entity {
+        + move(ObservableMaze, Direction) : boolean
+        }
+
+    class PlayerEntity
+
+    class MonsterEntity
+    class ExitEntity
+
+    enum EntityType {
+        PLAYER
+        MONSTER
+        EXIT
+    }
+}
+
+    package model.maze.traps {
+        class TrapManager
+
+        enum TrapFactory {
+        + compactedValueOf(String) : TrapFactory
+        + generateTrap() : Trap
+        }
+    }
+
+    package model.maze.traps.trap {
+        abstract class Trap {
+            + onUse(int, Position, Position, ObservableMaze)
+            + name() : String
+        }
+
+    }
+
+    package model.gamemode.victory {
+        interface VictoryHandler {
+        + handleVictory(PlayerEntity)
+        + handleLoose()
+    }
+
+    class FreeModeVictoryHandler {
+        + handleVictory(PlayerEntity)
+        + handleLoose()
+    }
+
+    class ProgressionModeVictoryHandler {
+        + ProgressionModeVictoryHandler(Player, Challenge, Timer)
+        + handleVictory(PlayerEntity)
+        + handleLoose()
+    }
+}
+
+GameMode <|-- FreeMode
+GameMode <|-- ProgressionMode
+GameMode --> MazeManager
+GameMode --> VictoryHandler
+GameMode --> model.gamemode.config.GameConfig
+MazeManager --> ObservableMaze
+
+ObservableMaze --> EntityManager
+ObservableMaze --> TrapManager
+EntityManager --> Entity
+Entity <|-- PlayerEntity
+Entity <|-- MonsterEntity
+Entity <|-- ExitEntity
+
+TrapManager --> Trap
+model.maze.traps.TrapFactory --> Trap
+
+MazeAlgorithmFactory --> MazeAlgorithm
+Maze *--> Position
+GameMode ..> model.VictoryObserver
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+package app {
+    class App {
+        + start(Stage)
+        + main(String[])
+        {static} + goTo(String)
+    }
+
+    class SceneNavigator {
+        {static} + goTo(String)
+    }
+
+    class SceneLoader {
+        + load(String) : Parent
+    }
+
+    class NavigationContext {
+        + NavigationContext(Stage, StackPane, BackgroundManager)
+    }
+
+    class BackgroundManager {
+        + BackgroundManager(String, Stage)
+        + shouldShowBackground(String) : boolean
+    }
+
+    class ThemeManager {
+        {static} + isDarkMode() : boolean
+        {static} + applyTheme(Scene)
+        {static} + updateTheme(Scene)
+    }
+
+    class SettingsManager {
+        {static} + load()
+        {static} + save()
+    }
+
+    class Settings {
+        + isDarkMode() : boolean
+        + isAnimationEnabled() : boolean
+    }
+}
+
+App ..> SceneNavigator
+SceneNavigator o-- NavigationContext
+NavigationContext o-- BackgroundManager
+SceneNavigator ..> SceneLoader
+ThemeManager ..> SettingsManager
+SettingsManager ..> Settings
+
+@enduml

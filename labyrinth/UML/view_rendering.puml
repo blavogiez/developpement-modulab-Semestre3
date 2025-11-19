@@ -1,0 +1,124 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+package view {
+    enum Shape
+
+    enum GameViewConfig
+}
+
+package view.labyrinth {
+    class LabyrinthCanvasView {
+        + LabyrinthCanvasView(ObservableMaze)
+        + LabyrinthCanvasView(ObservableMaze, LabyrinthLayoutCalculator, ComponentRenderer, boolean)
+        + draw()
+        + update(ObservableMaze)
+    }
+
+    class LocalLabyrinthCanvasView {
+        + LocalLabyrinthCanvasView(ObservableMaze)
+        + update(ObservableMaze)
+        + draw()
+    }
+
+    class HiddenPlayerNormalLabyrinthCanvasView {
+        + HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze)
+    }
+
+    class ExplorationLabyrinthCanvasView {
+        + ExplorationLabyrinthCanvasView(ObservableMaze)
+    }
+}
+
+package view.labyrinth.animation {
+    interface AnimatableView {
+        + update(ObservableMaze)
+    }
+
+    class PlayerAnimation {
+        + PlayerAnimation(LabyrinthCanvasView)
+        + start()
+        + disable()
+    }
+}
+
+package view.layout {
+    class LabyrinthLayoutCalculator {
+        + calculate(double, double, int, int) : LabyrinthLayout
+    }
+
+    class LabyrinthLayout {
+    }
+}
+
+package view.renderer {
+    class ComponentRenderer {
+        + ComponentRenderer()
+        + renderComponent(GraphicsContext, Shape, Color, double, double, double)
+        + renderComponentAt(GraphicsContext, Shape, Color, int, int, LabyrinthLayout, double)
+    }
+
+    interface ShapeRenderer {
+        + render(GraphicsContext, double, double, double, Color)
+    }
+
+    class ShapeRendererManager {
+        + ShapeRendererManager()
+        + render(GraphicsContext, Shape, double, double, double, Color)
+    }
+
+    class CircleRenderer
+    class SquareRenderer
+    class TriangleRenderer
+}
+
+package view.labyrinth.renderer {
+    class WallRenderer {
+        + WallRenderer(WallFilter)
+        + dessinerMurs(GraphicsContext, ObservableMaze, LabyrinthLayout, int, int)
+    }
+
+    class EntityRenderer {
+        + EntityRenderer(ComponentRenderer, RenderingFilter)
+        + drawEntities(GraphicsContext, ObservableMaze, LabyrinthLayout)
+        + dessinerJoueur(GraphicsContext, ObservableMaze, LabyrinthLayout, Map<Integer, Double>, Map<Integer, Double>)
+    }
+
+    class TrapRenderer {
+        + TrapRenderer(ComponentRenderer, RenderingFilter)
+        + dessinerTrap(GraphicsContext, ObservableMaze, LabyrinthLayout)
+    }
+}
+
+package view.labyrinth.filter {
+    interface RenderingFilter {
+        + shouldDrawPlayer() : boolean
+        + shouldRenderEntity(Entity, int, int) : boolean
+        + shouldRenderTrap(Trap, int, int) : boolean
+    }
+
+    interface WallFilter {
+        + shouldDrawWall(boolean) : boolean
+    }
+}
+
+LabyrinthCanvasView <|-- LocalLabyrinthCanvasView
+LabyrinthCanvasView <|-- HiddenPlayerNormalLabyrinthCanvasView
+LabyrinthCanvasView <|-- ExplorationLabyrinthCanvasView
+LabyrinthCanvasView ..> ComponentRenderer
+LabyrinthCanvasView ..> LabyrinthLayoutCalculator
+LabyrinthCanvasView ..> AnimatableView
+LabyrinthCanvasView ..> view.labyrinth.renderer.WallRenderer
+LabyrinthCanvasView ..> view.labyrinth.renderer.EntityRenderer
+LabyrinthCanvasView ..> view.labyrinth.renderer.TrapRenderer
+LabyrinthCanvasView ..> view.labyrinth.filter.RenderingFilter
+LabyrinthCanvasView ..> view.labyrinth.filter.WallFilter
+ComponentRenderer ..> ShapeRendererManager
+ShapeRendererManager ..> CircleRenderer
+ShapeRendererManager ..> SquareRenderer
+ShapeRendererManager ..> TriangleRenderer
+PlayerAnimation ..> LabyrinthCanvasView
+
+@enduml

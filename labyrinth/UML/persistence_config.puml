@@ -1,0 +1,93 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+package model.gamemode.config {
+    interface GameConfig {
+        + isPerfectAlgorithm() : boolean
+    }
+
+    class FreeModeConfig {
+        + FreeModeConfig()
+        + FreeModeConfig(MazeAlgorithmFactory, int, int, double, int)
+    }
+
+    class ProgressionModeConfig {
+        + ProgressionModeConfig(Challenge)
+    }
+}
+
+package model.save {
+    class Player implements Comparable<Player> {
+        + Player(String)
+        + calculateScore() : int
+        + compareTo(Player) : int
+    }
+
+    class PlayerProgress {
+        + PlayerProgress(Level[])
+        + copy() : PlayerProgress
+        + markChallengeCompleted(Challenge, long)
+    }
+
+    class Level {
+        + Level(int)
+        + isCompleted() : boolean
+    }
+
+    class Challenge {
+        + Challenge(String, ViewType, String, int, int, double, int, ScoreCalculator, String, String)
+        + validate()
+        + isCompleted() : boolean
+    }
+
+    enum ViewType
+
+    class PlayerDatabase {
+        {static} + savePlayer(Player)
+        {static} + loadPlayer(String) : Player
+        {static} + loadAllPlayers() : List<Player>
+        {static} + playerExists(String) : boolean
+        {static} + playerExists(Player) : boolean
+        {static} + updatePlayer(Player, List<Player>)
+        {static} + clear()
+    }
+}
+
+package model.save.database {
+    class PlayerStorage {
+        {static} + writeAll(List<Player>)
+        {static} + readAll()
+        {static} + deleteFile()
+    }
+}
+
+package model.save.score {
+    interface ScoreCalculator {
+        + calculateScore(Challenge) : int
+    }
+
+    class StandardScoreCalculator {
+        + calculateScore(Challenge) : int
+    }
+
+    class SpeedrunScoreCalculator {
+        + calculateScore(Challenge) : int
+    }
+
+    class ScoreCalculatorFactory
+}
+
+GameConfig <|.. FreeModeConfig
+GameConfig <|.. ProgressionModeConfig
+Challenge --> ViewType
+Challenge --> ScoreCalculator
+PlayerProgress --> Level
+Level --> Challenge
+Player --> PlayerProgress
+PlayerDatabase ..> model.save.database.PlayerStorage
+ProgressionModeConfig --> Challenge
+FreeModeConfig --> MazeAlgorithmFactory
+
+@enduml
