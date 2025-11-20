@@ -9,8 +9,8 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MovingStepBehavi
 /*
  * Factory simple de MoveBehavior
  */
-public class MoveBehaviorFactory {
-
+public abstract class MoveBehaviorFactory {
+    private MoveBehaviorFactory(){}
     /** 
      * @param name
      * @return MoveBehavior
@@ -24,14 +24,13 @@ public class MoveBehaviorFactory {
         }
 
         return switch (name.toUpperCase()) {
-            case "PLAYER" -> {
-                yield new PlayerMoveBehavior();
-            }
-            case "MOVING" -> {
-                yield new MovingStepBehavior();
-            } case "MONSTER" -> {
-                yield new MonsterMoveBehavior();
-            }
+            case "PLAYER" ->
+                 new PlayerMoveBehavior();
+            case "MOVING" ->
+                 new MovingStepBehavior();
+             case "MONSTER" ->
+                 new MonsterMoveBehavior();
+
             default -> throw new MoveBehaviorException("MoveBehavior non supporte : " + name);
         };
     }

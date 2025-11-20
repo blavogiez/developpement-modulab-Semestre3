@@ -24,7 +24,7 @@ public class PerfectAlgorithm extends MazeAlgorithm {
     private void algoProfondeur(int height, int width) {
         Random random = new Random();
         boolean[][] visite = new boolean[height][width];
-        Stack<Position> positionStack = new Stack<>();
+        Deque<Position> positionStack = new ArrayDeque<>();
         Position start = new Position(random.nextInt(width), random.nextInt(height));
         visitePosition(positionStack, start, visite);
 
@@ -52,11 +52,10 @@ public class PerfectAlgorithm extends MazeAlgorithm {
         while (!directions.isEmpty()) {
             Direction direction = directions.remove(directions.size() - 1);
             Position next = peek.add(direction.getY(), direction.getX());
-            if (positionCorrecte(next.getY(), next.getX(), visite)) {
-                if (!visite[next.getY()][next.getX()]) {
+            if (positionCorrecte(next.getY(), next.getX(), visite) && !visite[next.getY()][next.getX()]) {
                     return next;
                 }
-            }
+
         }
         return null;
     }
@@ -66,7 +65,7 @@ public class PerfectAlgorithm extends MazeAlgorithm {
      * @param start
      * @param visite
      */
-    private static void visitePosition(Stack<Position> positionStack, Position start, boolean[][] visite) {
+    private static void visitePosition(Deque<Position> positionStack, Position start, boolean[][] visite) {
         positionStack.push(start);
         visite[start.getY()][start.getX()] = true;
     }

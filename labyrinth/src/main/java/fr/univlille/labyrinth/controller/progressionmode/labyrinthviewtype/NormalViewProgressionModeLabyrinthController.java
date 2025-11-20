@@ -9,13 +9,13 @@ import javafx.scene.layout.Pane;
 
 public class NormalViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController {
 
-    private LabyrinthCanvasView labyrinth;
 
     /**
      * Renvoie la gridPane du labyrinthe
      */
     @Override
     protected Pane setupViews(ProgressionMode gameMode) {
+        LabyrinthCanvasView labyrinth;
         labyrinth = new LabyrinthCanvasView(gameMode.getCurrentMaze());
         gameMode.getCurrentMaze().add(labyrinth);
         labyrinth.update(gameMode.getCurrentMaze());

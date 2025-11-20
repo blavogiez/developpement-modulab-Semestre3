@@ -20,6 +20,8 @@ public class MonsterEntity extends Entity {
         super(position, moveBehavior);
     }
 
+    private static final Random RANDOM = new Random();
+
     /** 
      * @param maze
      * @return Position
@@ -48,10 +50,8 @@ public class MonsterEntity extends Entity {
                 cpt= - 1 ;
             }
             if(cpt<-20) break ;
-        } while (distResult.positions().size()==0);
-        Random random = new Random();
-        Position monsterPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
-        return monsterPosition;
+        } while (distResult.positions().isEmpty());
+        return distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
         
     }
 
@@ -63,11 +63,5 @@ public class MonsterEntity extends Entity {
         return EntityType.MONSTER;
     }
 
-    /** 
-     * @return MoveBehavior
-     */
-    @Override
-    public MoveBehavior getMoveBehavior() {
-        return super.getMoveBehavior();
-    }
+
 }
