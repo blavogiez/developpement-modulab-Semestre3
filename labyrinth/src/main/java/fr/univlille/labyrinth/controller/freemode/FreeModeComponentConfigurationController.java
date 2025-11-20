@@ -4,6 +4,7 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityConfiguration;
+import fr.univlille.labyrinth.model.maze.traps.TrapConfig;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
@@ -28,6 +29,7 @@ import java.util.StringJoiner;
 public class FreeModeComponentConfigurationController {
     private static final int MAX_MONSTERS = 5;
     private static final int MAX_PLAYERS = 3;
+    private static final String DEFAULT = "DEFAULT";
 
     @FXML
     private ListView<EntityConfiguration> listView;
@@ -60,7 +62,7 @@ public class FreeModeComponentConfigurationController {
     private void initializeEntitySection() {
         entities = FXCollections.observableArrayList();
         listView.setItems(entities);
-        listView.setCellFactory(lv -> new EntityConfigCell());
+        listView.setCellFactory(lv -> new MazeThreatsListCellController<>(entities));
 
         comboBox1.getItems().setAll(EntityType.values());
         comboBox1.getSelectionModel().selectFirst();
@@ -68,7 +70,7 @@ public class FreeModeComponentConfigurationController {
         buttonAdd.setOnAction(e -> onAddEntity());
 
         String existingConfig = AppState.getInstance().getFreeModeConfig().getEntitiesConfiguration();
-        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals("DEFAULT")) {
+        if (existingConfig != null && !existingConfig.isEmpty() && !existingConfig.equals(DEFAULT)) {
             loadEntityConfiguration(existingConfig);
         } else {
             addDefaultEntities();
@@ -81,7 +83,7 @@ public class FreeModeComponentConfigurationController {
     private void initializeTrapSection() {
         traps = FXCollections.observableArrayList();
         trapListView.setItems(traps);
-        trapListView.setCellFactory(lv -> new TrapConfigCell());
+        trapListView.setCellFactory(lv -> new MazeThreatsListCellController<>(traps));
 
         trapComboBox.getItems().setAll(Arrays.stream(TrapFactory.values())
                 .filter(t -> !t.getCompactedName().isEmpty() && t != TrapFactory.NONE && t != TrapFactory.USED)
@@ -94,7 +96,7 @@ public class FreeModeComponentConfigurationController {
         buttonAddTrap.setOnAction(e -> onAddTrap());
 
         String existingTrapConfig = AppState.getInstance().getFreeModeConfig().getTrapsConfiguration();
-        if (existingTrapConfig != null && !existingTrapConfig.isEmpty() && !existingTrapConfig.equals("DEFAULT")) {
+        if (existingTrapConfig != null && !existingTrapConfig.isEmpty() && !existingTrapConfig.equals(DEFAULT)) {
             loadTrapConfiguration(existingTrapConfig);
         }
     }
@@ -132,7 +134,7 @@ public class FreeModeComponentConfigurationController {
                     existing.moveBehaviorName()
                 ));
             } else {
-                entities.add(new EntityConfiguration(selectedType, quantity, "DEFAULT"));
+                entities.add(new EntityConfiguration(selectedType, quantity, DEFAULT));
             }
             textField.setText("1");
         } catch (NumberFormatException ex) {
@@ -193,7 +195,7 @@ public class FreeModeComponentConfigurationController {
      * joiner utile pour compacter code
      */
     private String buildConfigurationString() {
-        if (entities.isEmpty()) return "DEFAULT";
+        if (entities.isEmpty()) return DEFAULT;
 
         StringJoiner joiner = new StringJoiner("|");
         for (EntityConfiguration e : entities) {
@@ -206,11 +208,11 @@ public class FreeModeComponentConfigurationController {
      * @return String
      */
     private String buildTrapConfigurationString() {
-        if (traps.isEmpty()) return "DEFAULT";
+        if (traps.isEmpty()) return DEFAULT;
 
         StringJoiner joiner = new StringJoiner("_");
         for (TrapConfig t : traps) {
-            joiner.add(t.type().getCompactedName() + t.quantity());
+            joiner.add(t.getType().getCompactedName() + t.quantity());
         }
         return joiner.toString();
     }
@@ -222,8 +224,8 @@ public class FreeModeComponentConfigurationController {
      * au moins 1 joueur / 1 sortie
      */
     private boolean isValid() {
-        boolean hasPlayer = entities.stream().anyMatch(e -> e.type() == EntityType.PLAYER);
-        boolean hasExit = entities.stream().anyMatch(e -> e.type() == EntityType.EXIT);
+        boolean hasPlayer = entities.stream().anyMatch(e -> e.getType() == EntityType.PLAYER);
+        boolean hasExit = entities.stream().anyMatch(e -> e.getType() == EntityType.EXIT);
         return hasPlayer && hasExit;
     }
 
@@ -246,7 +248,7 @@ public class FreeModeComponentConfigurationController {
      */
     private int getTotalQuantityByType(EntityType type) {
         return entities.stream()
-                .filter(e -> e.type() == type)
+                .filter(e -> e.getType() == type)
                 .mapToInt(EntityConfiguration::quantity)
                 .sum();
     }
@@ -269,7 +271,7 @@ public class FreeModeComponentConfigurationController {
      */
     private EntityConfiguration findEntityByType(EntityType type) {
         return entities.stream()
-                .filter(e -> e.type() == type)
+                .filter(e -> e.getType() == type)
                 .findFirst()
                 .orElse(null);
     }
@@ -280,14 +282,14 @@ public class FreeModeComponentConfigurationController {
      */
     private TrapConfig findTrapByType(TrapFactory type) {
         return traps.stream()
-                .filter(t -> t.type() == type)
+                .filter(t -> t.getType() == type)
                 .findFirst()
                 .orElse(null);
     }
 
     private void addDefaultEntities() {
-        entities.add(new EntityConfiguration(EntityType.PLAYER, 1, "DEFAULT"));
-        entities.add(new EntityConfiguration(EntityType.EXIT, 1, "DEFAULT"));
+        entities.add(new EntityConfiguration(EntityType.PLAYER, 1, DEFAULT));
+        entities.add(new EntityConfiguration(EntityType.EXIT, 1, DEFAULT));
     }
 
     /** 
@@ -299,27 +301,35 @@ public class FreeModeComponentConfigurationController {
             String[] params = part.split(";");
             EntityType type = null;
             int quantity = 1;
-            String behavior = "DEFAULT";
+            String behavior = DEFAULT;
 
-            for (String param : params) {
-                String[] kv = param.split("=");
-                if (kv.length == 2) {
-                    if (kv[0].equals("t")) {
-                        type = EntityType.valueOf(kv[1]);
-                    }
-                    if (kv[0].equals("q")) {
-                        quantity = Integer.parseInt(kv[1]);
-                    }
-                    if (kv[0].equals("m")) {
-                        behavior = kv[1];
-                    }
-                }
-            }
+            EntityData entityData = getEntityData(params, type, quantity, behavior);
 
-            if (type != null) {
-                entities.add(new EntityConfiguration(type, quantity, behavior));
+            if (entityData.type() != null) {
+                entities.add(new EntityConfiguration(entityData.type(), entityData.quantity(), entityData.behavior()));
             }
         }
+    }
+
+    private static EntityData getEntityData(String[] params, EntityType type, int quantity, String behavior) {
+        for (String param : params) {
+            String[] kv = param.split("=");
+            if (kv.length == 2) {
+                if (kv[0].equals("t")) {
+                    type = EntityType.valueOf(kv[1]);
+                }
+                if (kv[0].equals("q")) {
+                    quantity = Integer.parseInt(kv[1]);
+                }
+                if (kv[0].equals("m")) {
+                    behavior = kv[1];
+                }
+            }
+        }
+        return new EntityData(type, quantity, behavior);
+    }
+
+    private record EntityData(EntityType type, int quantity, String behavior) {
     }
 
     /** 
@@ -335,84 +345,10 @@ public class FreeModeComponentConfigurationController {
                 TrapFactory type = TrapFactory.compactedValueOf(compactedName);
                 int quantity = Integer.parseInt(quantityStr);
                 traps.add(new TrapConfig(type, quantity));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
+                //Do nothing
             }
         }
     }
 
-    private record TrapConfig(TrapFactory type, int quantity) {}
-
-    private class EntityConfigCell extends ListCell<EntityConfiguration> {
-        private final HBox content;
-        private final Label label;
-        private final Button deleteButton;
-
-        public EntityConfigCell() {
-            label = new Label();
-            deleteButton = new Button("X");
-            deleteButton.getStyleClass().add("delete-button");
-
-            Region spacer = new Region();
-            HBox.setHgrow(spacer, Priority.ALWAYS);
-
-            content = new HBox(10, label, spacer, deleteButton);
-            content.setAlignment(Pos.CENTER_LEFT);
-
-            deleteButton.setOnAction(e -> {
-                int index = getIndex();
-                if (index >= 0 && index < entities.size()) {
-                    entities.remove(index);
-                }
-            });
-        }
-
-        @Override
-        protected void updateItem(EntityConfiguration item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || item == null) {
-                setGraphic(null);
-            } else {
-                label.setText(String.format("%s x%d", item.type(), item.quantity()));
-                setGraphic(content);
-            }
-        }
-    }
-
-    private class TrapConfigCell extends ListCell<TrapConfig> {
-        private final HBox content;
-        private final Label label;
-        private final Button deleteButton;
-
-        public TrapConfigCell() {
-            label = new Label();
-            deleteButton = new Button("X");
-            deleteButton.getStyleClass().add("delete-button");
-
-            Region spacer = new Region();
-            HBox.setHgrow(spacer, Priority.ALWAYS);
-
-            content = new HBox(10, label, spacer, deleteButton);
-            content.setAlignment(Pos.CENTER_LEFT);
-
-            deleteButton.setOnAction(e -> {
-                int index = getIndex();
-                if (index >= 0 && index < traps.size()) {
-                    traps.remove(index);
-                }
-            });
-        }
-
-        @Override
-        protected void updateItem(TrapConfig item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || item == null) {
-                setGraphic(null);
-            } else {
-                label.setText(String.format("%s x%d", item.type().name(), item.quantity()));
-                setGraphic(content);
-            }
-        }
-    }
 }

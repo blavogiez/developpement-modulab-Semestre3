@@ -38,14 +38,6 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         this.explorationFilter = filter;
     }
 
-    /** 
-     * @param maze
-     */
-    @Override
-    public void update(ObservableMaze maze) {
-        super.update(maze);
-    }
-
     @Override
     public void draw() {
         explorationFilter.marquerCellulesExplorees();

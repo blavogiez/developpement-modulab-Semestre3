@@ -1,8 +1,6 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
-import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.ObservableMaze;
-import fr.univlille.labyrinth.model.maze.Position;
+import fr.univlille.labyrinth.model.maze.*;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 /*

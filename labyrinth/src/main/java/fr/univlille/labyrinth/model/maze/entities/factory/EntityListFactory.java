@@ -33,7 +33,7 @@ public abstract class EntityListFactory {
         for (EntityConfiguration config : configs) {
             for (int i = 0; i < config.quantity(); i++) {
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
-                Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
+                Entity entity = moveBehavior == null ? config.getType().create(maze) : config.getType().create(maze, moveBehavior);
                 entities.add(entity);
             }
         }
@@ -56,7 +56,7 @@ public abstract class EntityListFactory {
         for (EntityConfiguration config : configs) {
             for (int i = 0; i < config.quantity(); i++) {
                 MoveBehavior moveBehavior = MoveBehaviorFactory.create(config.moveBehaviorName());
-                Entity entity = moveBehavior == null ? config.type().create(maze) : config.type().create(maze, moveBehavior);
+                Entity entity = moveBehavior == null ? config.getType().create(maze) : config.getType().create(maze, moveBehavior);
                 if(entity.getEntityType()== EntityType.PLAYER) {
                     PlayerEntity playerEntity = (PlayerEntity) entity ;
                     playerEntity.setID(entityManager.getCptPlayerID());
@@ -77,12 +77,12 @@ public abstract class EntityListFactory {
     private static List<EntityConfiguration> validateEntityLimits(List<EntityConfiguration> configs) {
         List<EntityConfiguration> validated = new ArrayList<>();
         for (EntityConfiguration config : configs) {
-            int limitedQuantity = switch (config.type()) {
+            int limitedQuantity = switch (config.getType()) {
                 case MONSTER -> Math.min(config.quantity(), MAX_MONSTERS);
                 case PLAYER -> Math.min(config.quantity(), MAX_PLAYERS);
                 default -> config.quantity();
             };
-            validated.add(new EntityConfiguration(config.type(), limitedQuantity, config.moveBehaviorName()));
+            validated.add(new EntityConfiguration(config.getType(), limitedQuantity, config.moveBehaviorName()));
         }
         return validated;
     }

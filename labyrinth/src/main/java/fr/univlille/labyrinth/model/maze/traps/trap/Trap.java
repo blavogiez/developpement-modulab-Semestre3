@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model.maze.traps.trap;
 
+import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
@@ -8,7 +9,7 @@ import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 
 import java.util.Random;
 
-public abstract class Trap {
+public abstract class Trap implements MazeThreats {
     Position position;
 
     /**

@@ -11,6 +11,8 @@ import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
 public class ExitEntity extends Entity {
+    private static final Random RANDOM = new Random();
+
     public ExitEntity(Position position) {
         this(position, null);
     }
@@ -59,10 +61,10 @@ public class ExitEntity extends Entity {
                 stuckToMaximum=true ; 
                 cpt= - 1 ;
             }
-        } while (distResult.positions().size()==0);
-        Random random = new Random();
-        Position thisExitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
-        return thisExitPosition;
+        } while (distResult.positions().isEmpty());
+
+        return distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
+
         
     }
 

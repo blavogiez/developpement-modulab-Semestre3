@@ -64,16 +64,14 @@ public class EntityManager {
      * @param direction
      */
     public void moveEntities(int playerID, ObservableMaze maze, Direction direction) {
-        boolean stmt = true ;
+
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
                 PlayerEntity playerEntity = (PlayerEntity) entity ;
-                if(playerEntity.getID()==playerID) {
-                    if (!playerEntity.move(maze, direction)) stmt = false ;
-                }
+                if (playerEntity.getID()==playerID) playerEntity.move(maze, direction);
             }
             else {
-                if (!entity.move(maze, direction)) stmt = false ;
+                entity.move(maze, direction);
             }
         }
     }
@@ -131,7 +129,7 @@ public class EntityManager {
      * @return MonsterEntity
      */
     public List<Position> getMonstersPositions() {
-        List<Position> positions = new ArrayList<Position>();
+        List<Position> positions = new ArrayList<>();
         for (Entity e : this.entities) {
             if (e.getEntityType() == EntityType.MONSTER){
                 positions.add(e.getPosition());

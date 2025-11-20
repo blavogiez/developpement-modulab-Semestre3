@@ -1,9 +1,10 @@
 package fr.univlille.labyrinth.model.maze.entities;
 
+import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
 
-public enum EntityType {
+public enum EntityType implements MazeThreats {
 
     PLAYER{
         @Override
