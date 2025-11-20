@@ -7,7 +7,7 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 public class GenerateTrap extends Trap {
     /** 
-     * //Applique l'effet du trap au joueur
+     * /Applique l'effet du trap au joueur
      * 
      * @param playerID //ID du joueur
      * @param position //position du joueur
