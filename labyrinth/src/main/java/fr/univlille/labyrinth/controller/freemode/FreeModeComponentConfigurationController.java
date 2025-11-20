@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.StringJoiner;
 
 public class FreeModeComponentConfigurationController {
+    private static final int MAX_MONSTERS = 5;
+    private static final int MAX_PLAYERS = 3;
+
     @FXML
     private ListView<EntityConfiguration> listView;
     @FXML
@@ -104,6 +107,19 @@ public class FreeModeComponentConfigurationController {
         try {
             int quantity = Integer.parseInt(textField.getText());
             if (quantity <= 0) return;
+
+            int currentTotal = getTotalQuantityByType(selectedType);
+            int maxAllowed = getMaxAllowed(selectedType);
+
+            if (maxAllowed > 0 && currentTotal >= maxAllowed) {
+                errorLabel.setText("Maximum " + maxAllowed + " " + selectedType.name().toLowerCase() + "(s) autorisé(s)");
+                showError();
+                return;
+            }
+
+            if (maxAllowed > 0 && currentTotal + quantity > maxAllowed) {
+                quantity = maxAllowed - currentTotal;
+            }
 
             EntityConfiguration existing = findEntityByType(selectedType);
 
@@ -217,8 +233,26 @@ public class FreeModeComponentConfigurationController {
     private void showError() {
         errorLabel.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(e -> errorLabel.setVisible(false));
+        pause.setOnFinished(e -> {
+            errorLabel.setVisible(false);
+            errorLabel.setText("Au moins 1 joueur et 1 sortie requis");
+        });
         pause.play();
+    }
+
+    private int getTotalQuantityByType(EntityType type) {
+        return entities.stream()
+                .filter(e -> e.type() == type)
+                .mapToInt(EntityConfiguration::quantity)
+                .sum();
+    }
+
+    private int getMaxAllowed(EntityType type) {
+        return switch (type) {
+            case MONSTER -> MAX_MONSTERS;
+            case PLAYER -> MAX_PLAYERS;
+            default -> 0;
+        };
     }
 
     /** 

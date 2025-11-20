@@ -252,6 +252,7 @@ Création de la classe "PlayerDatabase"
 |--------------|-------------|
 | Fonctionnalité originale : Avec Antonin, implémentation du mode multijoueur (gestion des ID joueur et touches) | |
 | Fonctionnalité originale : Algorithmes de positionnement initial d'entité | |
+| Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
 
 
 ### **Romain** :
@@ -265,6 +266,7 @@ Création de la classe "PlayerDatabase"
 
 ## **Semaine du 17/11 au 21/11**
 
+**Cette semaine, nous avons principalement testé et finalisé l'application pour un rendu optimal.**
 
 ### **Antonin** :
 
@@ -273,6 +275,13 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Baptiste** :
+
+
+| Développement | Algorithmie |
+|--------------|-------------|
+| Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | |
+| Fonctionnalité originale : Algorithmes de positionnement initial d'entité | |
+| Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
 
 
 ### **Romain** :

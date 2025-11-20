@@ -1,6 +1,6 @@
 package fr.univlille.labyrinth.model.maze.entities.movebehaviors;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazePath;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -28,14 +28,13 @@ public class MonsterMoveBehavior implements MoveBehavior {
 
         List<Position> shortestPath = null;
         for (PlayerEntity player : players) {
-            List<Position> path = BreadthFirstSearch.pathFinder(maze, position, player.getPosition());
+            List<Position> path = MazePath.pathFinder(maze, position, player.getPosition());
             if (!path.isEmpty() && (shortestPath == null || path.size() < shortestPath.size())) {
                 shortestPath = path;
             }
         }
 
         if (shortestPath != null && !shortestPath.isEmpty()) {
-            System.out.println(position);
             entity.setPosition(shortestPath.get(0));
         }
     }

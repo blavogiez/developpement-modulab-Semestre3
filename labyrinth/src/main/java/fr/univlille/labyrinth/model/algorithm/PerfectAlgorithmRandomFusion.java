@@ -4,6 +4,9 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
+/*
+ * Version Fusion par Victor
+ */
 public class PerfectAlgorithmRandomFusion extends MazeAlgorithm {
 
     int[][] grid;

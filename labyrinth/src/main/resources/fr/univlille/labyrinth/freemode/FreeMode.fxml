@@ -34,7 +34,7 @@
                 </HBox>
                 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5">
                     <children>
-                        <Label fx:id="errorLabel" style="-fx-text-fill: red;" text="Dimensions invalides : min 3x4 ou 4x3" visible="false" />
+                        <Label fx:id="errorLabel" style="-fx-text-fill: red;" text="Dimensions invalides : min 1x1" visible="false" />
                     </children>
                 </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">

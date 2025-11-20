@@ -69,32 +69,17 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
-    /** 
-     * @param playerID
-     * @param direction
-     * @return boolean
-     */
     /*
      * Déplace le joueur à la direction souhaitée et avertit toutes les entités de ce déplacement (certaines peuvent être amenéees à bouger)
      * (Le joueur est contenu dans les entités)
      * 
+     * @param playerID
+     * @param direction
+     * @return boolean
      */
     public boolean movePlayer(int playerID, Direction direction){
         entityManager.moveEntities(playerID, this, direction);
         return true ;
-    }
-
-    /**
-     * Cette méthode permet de générer un labyrinthe avec la longueur de chemin minimale par défaut (maximale). Cette méthode sera notamment appelée par le createMaze du mode libre
-     *
-     * @param width La largeur du labyrinthe
-     * @param height La hauteur du labyrinthe
-     * @param wallPercentage Le pourcentage de mur entre 0 et 0.5
-     */
-
-
-    public PlayerEntity getPlayerAtExit() {
-        return entityManager.checkPlayerOnExit();
     }
 
     /** 

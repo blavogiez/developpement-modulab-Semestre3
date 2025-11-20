@@ -31,8 +31,8 @@ public class Player implements Serializable , Comparable<Player>{
     public int calculateScore() {
         int score = 0 ;
         for (Level level : progress.getLevelProgress()) {
-            for (Challenge chall : level.getChallenges()) {
-                score+=chall.getScoreValue();
+            for (Challenge challenge : level.getChallenges()) {
+                score+=challenge.getScoreValue();
             }
         }
         return score ;

@@ -1,6 +1,7 @@
 package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.maze.Maze;
+import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.traps.trap.NoneTrap;
 import fr.univlille.labyrinth.model.maze.traps.trap.RandomTrap;
@@ -29,7 +30,7 @@ public class TrapSetup {
      * @param trapMap
      * @return Trap[][]
      */
-    public Trap[][] generate(Maze maze, Map<TrapFactory, Integer> trapMap){
+    public Trap[][] generate(ObservableMaze maze, Map<TrapFactory, Integer> trapMap){
         traps = new Trap[maze.getHeight()][maze.getWidth()];
         fillPath();
         generateTraps(maze);
@@ -43,9 +44,9 @@ public class TrapSetup {
      * @param setup
      * @return Trap[][]
      */
-    public Trap[][] generate(Maze maze, String setup){
+    public Trap[][] generate(ObservableMaze maze, String setup){
 
-            trapMap = new EnumMap<>(TrapFactory.class);
+        trapMap = new EnumMap<>(TrapFactory.class);
         if (setup!=null) {
             String[] separatedTraps = setup.split("_");
             for (int i = 0; i < separatedTraps.length; i++) {
@@ -110,15 +111,23 @@ public class TrapSetup {
     /** 
      * @param maze
      */
-    public void generateTraps(Maze maze) {
+    public void generateTraps(ObservableMaze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
-            for (int i = 0; i < value; i++){
+            int i = 0;
+            int count = maze.getEntityManager().getEntities().size();
+            final int MAX = maze.getHeight()*maze.getWidth();
+            while (count<MAX && i<value){
                 Position position = getRandomCell(maze);
                 setTrap(position.getY(),  position.getX(), entry.getKey().generateTrap());
+                i++;
+                count++;
             }
+
         }
     }
+
+
 
     /** 
      * @param maze

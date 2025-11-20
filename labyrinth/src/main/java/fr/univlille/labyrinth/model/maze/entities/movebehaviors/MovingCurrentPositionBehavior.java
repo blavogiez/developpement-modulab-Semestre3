@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.model.maze.entities.movebehaviors;
 import java.util.List;
 import java.util.Random;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -37,8 +37,8 @@ public class MovingCurrentPositionBehavior implements MoveBehavior {
      * Déplace l'entité de pas Distance actuel  à sortie dans le labyrinthe (modifie sa position)
      */
     public void movingExitByCurrentDistance(Entity entity, Maze maze) {
-        int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, entity.getPosition(),maze.getExitPosition());
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit).positions();
+        int currentDistanceBetweenPlayerAndExit = MazeDistance.calculateDistance(maze, entity.getPosition(),maze.getExitPosition());
+        List<Position> candidates = MazeDistance.calculateAllDistances(maze, entity.getPosition(),currentDistanceBetweenPlayerAndExit).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }

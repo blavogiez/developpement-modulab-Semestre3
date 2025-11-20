@@ -1,43 +1,36 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
+import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
-import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
+import fr.univlille.labyrinth.view.labyrinth.filter.HiddenPlayerFilter;
+import fr.univlille.labyrinth.view.labyrinth.filter.NormalWallFilter;
+import fr.univlille.labyrinth.view.labyrinth.renderer.EntityRenderer;
+import fr.univlille.labyrinth.view.labyrinth.renderer.TrapRenderer;
+import fr.univlille.labyrinth.view.labyrinth.renderer.WallRenderer;
+import fr.univlille.labyrinth.view.layout.LabyrinthLayoutCalculator;
+import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
 
 public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze) {
-        super(maze);
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+    }
+
+    public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                                                 ComponentRenderer componentRenderer, boolean animationEnabled) {
+        this(maze, layoutCalculator, componentRenderer, animationEnabled,
+             new HiddenPlayerFilter(), new NormalWallFilter());
+    }
+
+    private HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
+                                                  ComponentRenderer componentRenderer, boolean animationEnabled,
+                                                  HiddenPlayerFilter hiddenPlayerFilter, NormalWallFilter normalWallFilter) {
+        super(maze, layoutCalculator, componentRenderer, animationEnabled,
+              hiddenPlayerFilter, normalWallFilter,
+              new WallRenderer(normalWallFilter),
+              new EntityRenderer(componentRenderer, hiddenPlayerFilter),
+              new TrapRenderer(componentRenderer, hiddenPlayerFilter),
+              null);
         this.playerAnimation.disable();
     }
-
-    /** 
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldDrawPlayer() {
-        return false;
-    }
-
-    /** 
-     * @param trap
-     * @param x
-     * @param y
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldRenderTrap(Trap trap, int x, int y) {
-        return trap.name().equals("FAKE_EXIT_TRAP");
-    }
-
-    /** 
-     * @param entity
-     * @return boolean
-     */
-    @Override
-    protected boolean shouldRenderEntity(Entity entity) {
-        return entity.getEntityType() == EntityType.EXIT;
-    }
-
 }

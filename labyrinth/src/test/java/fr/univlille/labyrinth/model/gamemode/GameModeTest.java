@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.VictoryObserver;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazePath;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -49,13 +49,13 @@ public class GameModeTest {
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
-        assertFalse(gameMode.getCurrentMaze().getPlayerAtExit() != null);
+        assertFalse(gameMode.getCurrentMaze().getEntityManager().checkPlayerOnExit() != null);
 
         ObservableMaze maze = gameMode.getCurrentMaze();
         Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
-        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        List<Position> path = MazePath.pathFinder(maze, start, exit);
         assertNotNull(path);
         assertFalse(path.isEmpty());
         path.add(0, start);
@@ -76,7 +76,7 @@ public class GameModeTest {
         }
 
         assertTrue(observer.isVictoryTriggered());
-        assertTrue(gameMode.getCurrentMaze().getPlayerAtExit() != null);
+        assertTrue(gameMode.getCurrentMaze().getEntityManager().getPlayerEntity().getPosition().equals(exit));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class GameModeTest {
         Position start = maze.getEntryPosition();
         Position exit = maze.getExitPosition();
 
-        List<Position> path = BreadthFirstSearch.pathFinder(maze, start, exit);
+        List<Position> path = MazePath.pathFinder(maze, start, exit);
         assertNotNull(path);
         assertFalse(path.isEmpty());
         
