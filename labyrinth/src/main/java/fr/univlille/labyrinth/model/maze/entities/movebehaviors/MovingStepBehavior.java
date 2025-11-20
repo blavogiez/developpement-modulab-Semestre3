@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.model.maze.entities.movebehaviors;
 import java.util.List;
 import java.util.Random;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
@@ -42,7 +42,7 @@ public class MovingStepBehavior implements MoveBehavior {
      * Déplace l'entité de pas MOVING_STEP dans le labyrinthe (modifie sa position)
      */
     private void movingExitByStep(Entity entity, Maze maze) {
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(maze, entity.getPosition(), MOVING_STEP).positions();
+        List<Position> candidates = MazeDistance.calculateAllDistances(maze, entity.getPosition(), MOVING_STEP).positions();
 
         if (!candidates.isEmpty()) {
             Position newExitPosition = candidates.get(random.nextInt(candidates.size()));

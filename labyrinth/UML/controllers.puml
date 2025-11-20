@@ -1,0 +1,136 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+package controller {
+    class AppState {
+        + reset()
+        + isPendingNotificationVictory() : boolean
+    }
+
+    abstract class LabyrinthController<T> {
+        + initialize()
+        + movement(KeyEvent)
+        # initializeGameMode()
+        + onVictory()
+        + onDefeat(GameMode)
+        # handleVictory()
+        # handleDefeat()
+    }
+
+    class VictoryNotification {
+        {static} + show(Pane, String, boolean)
+    }
+
+    class HomeMenuController {
+        + initialize()
+        + goToJouer()
+        + goToQuitter()
+        + goToParametres()
+        + resize()
+    }
+
+    class GameModeSelectionController {
+        + initialize()
+        + goToModeLibre()
+        + goToModeProgression()
+        + goToQuitter()
+        + resize()
+    }
+
+    class SettingsController {
+        + initialize()
+        + toggleButton()
+        + toggleAnimation()
+        + goToAccueil()
+    }
+
+    class PlayerMovementHandler {
+        + handleMovement(KeyEvent, GameMode)
+    }
+}
+
+package controller.freemode {
+    class FreeModeAlgorithmSelectionController {
+        + initialize()
+        + goToJouer()
+        + goToRetour()
+        + resize()
+    }
+
+    class FreeModeController {
+        + initialize()
+        + goToModeLaby()
+        + goToComponentConfiguration()
+        + goToRetour()
+    }
+
+    class FreeModeComponentConfigurationController {
+        + initialize()
+        + onAddEntity()
+        + onAddTrap()
+        + onValidate()
+    }
+
+    class FreeModeLabyrinthController {
+        + initialize()
+        # initializeGameMode()
+        + handleVictory()
+        + handleDefeat()
+        + goToRetour()
+    }
+}
+
+package controller.progressionmode {
+    class PlayerNameEntryController {
+        + initialize()
+        + goToProgression()
+    }
+
+    class ExistingProfileController {
+        + goToNewProgression()
+        + goToProgression()
+    }
+
+    class LevelSelectionController {
+        + initialize()
+    }
+
+    class PlayerRankingController {
+        + initialize()
+    }
+
+    abstract class ProgressionModeLabyrinthController {
+        # initializeGameMode()
+        + handleVictory()
+        + handleDefeat()
+        + goToProgression()
+    }
+}
+
+package controller.progressionmode.labyrinthviewtype {
+    class NormalViewProgressionModeLabyrinthController {
+    }
+
+    class LocalViewProgressionModeLabyrinthController {
+    }
+
+    class ExplorationViewProgressionModeLabyrinthController {
+    }
+
+    class ViewTypeFactory
+}
+
+LabyrinthController <|-- controller.freemode.FreeModeLabyrinthController
+LabyrinthController <|-- controller.progressionmode.ProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.NormalViewProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.LocalViewProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.ExplorationViewProgressionModeLabyrinthController
+
+VictoryNotification ..> AppState
+controller.freemode.FreeModeLabyrinthController ..> VictoryNotification
+controller.progressionmode.ProgressionModeLabyrinthController ..> VictoryNotification
+LabyrinthController ..> PlayerMovementHandler
+
+@enduml

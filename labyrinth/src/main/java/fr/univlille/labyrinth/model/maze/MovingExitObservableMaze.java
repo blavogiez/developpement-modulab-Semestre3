@@ -4,7 +4,7 @@ package fr.univlille.labyrinth.model.maze;
 import java.util.List;
 import java.util.Random;
 
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 
 public class MovingExitObservableMaze extends ObservableMaze {
     private final int MOVING_PERCENTAGE = 5;
@@ -34,8 +34,8 @@ public class MovingExitObservableMaze extends ObservableMaze {
     public void movingExitByCurrentDistance() {
         ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
-        int currentDistanceBetweenPlayerAndExit = BreadthFirstSearch.calculateDistance(maze, maze.getPlayerPosition(), maze.getExitPosition());
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getPlayerPosition(),currentDistanceBetweenPlayerAndExit).positions();
+        int currentDistanceBetweenPlayerAndExit = MazeDistance.calculateDistance(maze, maze.getPlayerPosition(), maze.getExitPosition());
+        List<Position> candidates = MazeDistance.calculateAllDistances(this, this.getPlayerPosition(),currentDistanceBetweenPlayerAndExit).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }
@@ -43,7 +43,7 @@ public class MovingExitObservableMaze extends ObservableMaze {
     public void movingExitByStep() {
         ObservableMaze maze = this;
         this.entryPosition=this.getPlayerPosition();
-        List<Position> candidates = BreadthFirstSearch.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP).positions();
+        List<Position> candidates = MazeDistance.calculateAllDistances(this, this.getExitPosition(),MOVING_STEP).positions();
         Position exitPosition = candidates.get(random.nextInt(candidates.size()));
         maze.setExit(exitPosition);
     }

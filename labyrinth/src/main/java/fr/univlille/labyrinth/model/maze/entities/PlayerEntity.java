@@ -3,7 +3,8 @@ package fr.univlille.labyrinth.model.maze.entities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import fr.univlille.labyrinth.model.algorithm.pathsearch.BreadthFirstSearch;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.DistanceResult;
+import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
@@ -34,7 +35,7 @@ public class PlayerEntity extends Entity {
         Position entryPos = maze.getEntryPosition();
         if(!maze.getEntityManager().isEntityOnCell(entryPos)) return entryPos;
 
-        BreadthFirstSearch.DistanceResult distResult;
+        DistanceResult distResult;
         int cpt = 0;
         boolean stuckToMaximum = false;
 
@@ -44,7 +45,7 @@ public class PlayerEntity extends Entity {
             Position exitPosition = maze.getExitPosition();
 
             List<Position> positionsWithEntities = new ArrayList<>();
-            distResult = BreadthFirstSearch.calculateAllDistances(maze, exitPosition, distanceBetweenEntryAndExit);
+            distResult = MazeDistance.calculateAllDistances(maze, exitPosition, distanceBetweenEntryAndExit);
             for(Position positionCheck : distResult.positions()) {
                 if(maze.getEntityManager().isEntityOnCell(positionCheck)) positionsWithEntities.add(positionCheck);
             }

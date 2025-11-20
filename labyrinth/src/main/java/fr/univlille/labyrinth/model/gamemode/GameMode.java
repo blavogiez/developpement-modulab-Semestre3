@@ -10,7 +10,6 @@ import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
-import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
 /**
@@ -46,7 +45,7 @@ public abstract class GameMode {
 
         Position oldPosition = player.getPosition().copy();
         if (maze.movePlayer(playerID, direction)) {
-            PlayerEntity winner = maze.getPlayerAtExit();
+            PlayerEntity winner = maze.getEntityManager().checkPlayerOnExit();
             if (winner != null) {
                 handleVictory(winner);
             } else {

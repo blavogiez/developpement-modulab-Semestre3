@@ -1,0 +1,617 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing true
+skinparam classAttributeIconSize 0
+
+class App {
+    {static} + main(String[])
+    {static} + goTo(String)
+    + start(Stage)
+}
+
+package app {
+    class NavigationContext {
+        + NavigationContext(Stage, StackPane, BackgroundManager)
+    }
+
+    class SceneNavigator {
+        {static} + goTo(String)
+    }
+
+    class SceneLoader {
+        + load(String) : Parent
+    }
+
+    class SceneTransition {
+        + transitionTo(Parent, Parent, Runnable)
+    }
+
+    class BackgroundManager {
+        + BackgroundManager(String, Stage)
+        + shouldShowBackground(String) : boolean
+    }
+
+    class Settings {
+        + isDarkMode() : boolean
+        + isAnimationEnabled() : boolean
+    }
+
+    class SettingsManager {
+        {static} + load()
+        {static} + save()
+    }
+
+    class ThemeManager {
+        {static} + isDarkMode() : boolean
+        {static} + applyTheme(Scene)
+        {static} + updateTheme(Scene)
+    }
+}
+
+package controller {
+    class AppState {
+        + reset()
+        + isPendingNotificationVictory() : boolean
+    }
+
+    class VictoryNotification {
+        {static} + show(Pane, String, boolean)
+    }
+
+    abstract class LabyrinthController<T> {
+        + initialize()
+        + movement(KeyEvent)
+        # initializeGameMode()
+        + onVictory()
+        + onDefeat(GameMode)
+        # handleVictory()
+        # handleDefeat()
+    }
+
+    class HomeMenuController {
+        + initialize()
+        + goToJouer()
+        + goToQuitter()
+        + goToParametres()
+    }
+
+    class GameModeSelectionController {
+        + initialize()
+        + goToModeLibre()
+        + goToModeProgression()
+        + goToQuitter()
+    }
+
+    class SettingsController {
+        + initialize()
+        + toggleButton()
+        + toggleAnimation()
+        + goToAccueil()
+    }
+
+    package freemode {
+        class FreeModeAlgorithmSelectionController {
+        + initialize()
+        + goToJouer()
+        + goToRetour()
+        }
+
+        class FreeModeController {
+            + initialize()
+            + goToModeLaby()
+            + goToComponentConfiguration()
+            + goToRetour()
+        }
+
+        class FreeModeComponentConfigurationController {
+            + initialize()
+            + onAddEntity()
+            + onAddTrap()
+            + onValidate()
+        }
+
+        class FreeModeLabyrinthController {
+            + initialize()
+            # initializeGameMode()
+            + handleVictory()
+            + handleDefeat()
+            + goToRetour()
+        }
+    }
+
+    package progressionmode {
+        class ExistingProfileController {
+            + goToNewProgression()
+            + goToProgression()
+        }
+
+        class LevelSelectionController {
+            + initialize()
+        }
+
+        class PlayerNameEntryController {
+            + initialize()
+            + goToProgression()
+        }
+
+        class PlayerRankingController {
+            + initialize()
+        }
+
+        abstract class ProgressionModeLabyrinthController {
+            # initializeGameMode()
+            + handleVictory()
+            + handleDefeat()
+            + goToProgression()
+        }
+
+        package labyrinthviewtype {
+            class ExplorationViewProgressionModeLabyrinthController {
+            }
+
+            class LocalViewProgressionModeLabyrinthController {
+            }
+
+            class NormalViewProgressionModeLabyrinthController {
+            }
+
+            class ViewTypeFactory {
+            }
+        }
+    }
+
+    package input {
+        class PlayerInputConfig
+        class PlayerMovementHandler {
+            + handleMovement(KeyEvent, GameMode)
+        }
+    }
+}
+
+package model {
+    interface Observer<T> {
+        + update(T)
+    }
+
+    interface VictoryObserver<T> {
+        + onVictory()
+        + onDefeat(T)
+    }
+
+    package algorithm {
+        abstract class MazeAlgorithm {
+            + generateMaze(Maze)
+            + generateExitAndPlayer(Maze)
+            # removeWall(Position, Direction)
+            # removeWall(Position, Position)
+            {static} + positionCorrecte(int, int, int, int) : boolean
+        }
+
+        class PerfectAlgorithm {
+            {static} - instance
+        }
+
+        class PerfectAlgorithmRandomFusion {
+            {static} - instance
+        }
+
+        class RandomAlgorithm {
+            {static} - instance
+        }
+
+        enum MazeAlgorithmFactory {
+            PERFECT
+            FUSION
+            RANDOM
+            - MazeAlgorithm
+            + isPerfect() : boolean
+        }
+
+        package pathsearch {
+            class DistanceResult {
+                + positions() : List<Position>
+                + actualDistance() : int
+            }
+            class MazeDistance
+            class MazePath
+            class DepthStackSearch
+        }
+    }
+
+    package gamemode {
+        abstract class GameMode {
+            - mazeManager
+            - victoryHandler
+            - config
+            + movePlayerPosition(int, Direction)
+            + addVictoryObserver(VictoryObserver<GameMode>)
+        }
+
+        class FreeMode {
+        }
+
+        class ProgressionMode {
+            - player
+            - challenge
+            {static} + defaultProgress : PlayerProgress
+        }
+
+        package manager {
+            class MazeManager {
+                - currentMaze
+                + createMaze(GameConfig)
+            }
+        }
+
+        package victory {
+            interface VictoryHandler {
+                + handleVictory(PlayerEntity)
+                + handleLoose()
+            }
+
+            class FreeModeVictoryHandler {
+            }
+
+            class ProgressionModeVictoryHandler {
+            }
+        }
+
+        package config {
+            class FreeModeConfig {
+                - width
+                - height
+                - wallPercentage
+                - distanceBetweenEntryAndExit
+                - entitiesConfiguration
+                - trapsConfiguration
+                - perfectAlgorithm
+                - algorithm
+            }
+
+            class ProgressionModeConfig {
+                - challenge
+            }
+
+            interface GameConfig {
+                + isPerfectAlgorithm() : boolean
+            }
+        }
+    }
+
+    package maze {
+        class Maze {
+            - width
+            - height
+            - entryPosition
+            - exitPosition
+            - distanceBetweenEntryAndExit
+            - wallPercentage
+            - murVerticaux
+            - murHorizontaux
+        }
+
+        class ObservableMaze {
+            - entityManager
+            - trapManager
+        }
+
+        interface Observable<T> {
+            + add(Observer<T>) : boolean
+            + notifyObserver()
+        }
+
+        class MazeWallChecker {
+        }
+
+        class Position {
+            - x
+            - y
+        }
+
+        class WallRemover {
+        }
+
+        enum Direction {
+            UP
+            DOWN
+            LEFT
+            RIGHT
+        }
+
+        class EntityManager {
+            - entities
+        }
+    }
+
+    package maze.entities {
+        abstract class Entity {
+            - position
+            - moveBehavior
+        }
+
+        class PlayerEntity {
+            - id
+        }
+
+        class MonsterEntity {
+        }
+
+        class ExitEntity {
+        }
+
+        enum EntityType {
+            PLAYER
+            MONSTER
+            EXIT
+        }
+
+        package movebehaviors {
+            interface MoveBehavior {
+            }
+
+            class MonsterMoveBehavior {
+            }
+
+            class PlayerMoveBehavior {
+            }
+
+            class MovingCurrentPositionBehavior {
+            }
+
+            class MovingStepBehavior {
+            }
+        }
+
+        package factory {
+            class EntityConfiguration
+            class EntityConfigurationParser
+            class EntityListFactory
+            class MoveBehaviorFactory
+            class TrapConfiguration
+        }
+    }
+
+    package maze.traps {
+        class TrapManager
+        class TrapSetup
+
+        enum TrapFactory {
+        + compactedValueOf(String) : TrapFactory
+        + generateTrap() : trap.Trap
+        }
+
+        package trap {
+            abstract class Trap {
+                + onUse(int, Position, Position, ObservableMaze)
+                + name() : String
+            }
+
+            class FakeTrap
+            class GenerateTrap
+            class HideWallTrap
+            class LavaTrap
+            class NoneTrap
+            class PushTrap
+            class RandomTrap
+            class StunTrap
+            class TeleportExitTrap
+            class TeleportTrap
+            class UsedTrap
+        }
+    }
+
+    package save {
+        class Player {
+            - name
+            - progress
+        }
+
+        class PlayerProgress {
+            - levelProgress
+        }
+
+        class Level {
+            - number
+            - challenges
+        }
+
+        class Challenge {
+            - difficulty
+            - width
+            - height
+            - wallPercentage
+            - distanceBetweenEntryAndExit
+            - completed
+            - timeCompleted
+            - scoreCalculator
+        }
+
+        enum ViewType {
+            NORMAL
+            LOCAL
+            EXPLORATION
+        }
+
+        class PlayerDatabase {
+        }
+
+        package database {
+            class PlayerStorage {
+                {static} - SAVE_FILE
+            }
+        }
+
+        package score {
+            interface ScoreCalculator {
+                + calculateScore(Challenge) : int
+            }
+
+            class StandardScoreCalculator {
+            }
+
+            class SpeedrunScoreCalculator {
+            }
+
+            enum ScoreCalculatorFactory {
+                STANDARD
+                SPEEDRUN
+                + create() : ScoreCalculator
+            }
+        }
+    }
+}
+
+package view {
+    enum GameViewConfig
+
+    enum Shape {
+        CIRCLE
+        SQUARE
+        TRIANGLE
+    }
+
+    package labyrinth {
+        class LabyrinthCanvasView {
+            - container
+            - canvas
+            - currentMaze
+            - layout
+            - layoutCalculator
+            - componentRenderer
+        }
+
+        class LocalLabyrinthCanvasView {
+        }
+
+        class HiddenPlayerNormalLabyrinthCanvasView {
+        }
+
+        class ExplorationLabyrinthCanvasView {
+        }
+
+        package animation {
+            interface AnimatableView {
+                + update(ObservableMaze)
+            }
+
+            class PlayerAnimation {
+            }
+        }
+
+        package filter {
+            interface RenderingFilter
+            interface WallFilter
+        }
+
+        package renderer {
+            class WallRenderer {
+                - wallFilter
+            }
+
+            class EntityRenderer {
+                - componentRenderer
+                - renderingFilter
+            }
+
+            class TrapRenderer {
+                - componentRenderer
+                - renderingFilter
+            }
+        }
+    }
+
+    package layout {
+        class LabyrinthLayout {
+            - offsetX
+            - offsetY
+            - cellSize
+            - wallThickness
+        }
+
+        class LabyrinthLayoutCalculator {
+        }
+    }
+
+    package renderer {
+        class ComponentRenderer {
+            - shapeManager
+        }
+
+        class ShapeRendererManager {
+            - renderers
+        }
+
+        interface ShapeRenderer
+        class CircleRenderer
+        class SquareRenderer
+        class TriangleRenderer
+    }
+}
+
+package utils {
+    class Benchmark
+    class DisplayDatabase
+    class ProgressionLoader {
+        {static} - DEFAULT_PROGRESSION_FILE
+    }
+    class ResizeUtil
+    class Timer
+    class TimerFX
+}
+
+Observer<T> <|.. view.labyrinth.LabyrinthCanvasView
+GameMode <|-- FreeMode
+GameMode <|-- ProgressionMode
+GameMode --> "1" model.gamemode.manager.MazeManager : mazeManager
+GameMode --> "1" model.gamemode.victory.VictoryHandler : victoryHandler
+GameMode --> "1" model.gamemode.config.GameConfig : config
+MazeManager --> "1" model.maze.ObservableMaze : currentMaze
+
+Maze --> "1" Position : entryPosition
+Maze --> "1" Position : exitPosition
+
+ObservableMaze --> "1" model.maze.entities.EntityManager : entityManager
+ObservableMaze --> "1" model.maze.traps.TrapManager : trapManager
+
+EntityManager --> "1" model.maze.entities.Entity : entities
+Entity <|-- PlayerEntity
+Entity <|-- MonsterEntity
+Entity <|-- ExitEntity
+EntityType <.. Entity
+
+TrapManager --> model.maze.traps.TrapFactory
+model.maze.traps.TrapFactory --> model.maze.traps.trap.Trap
+
+MazeAlgorithmFactory --> "1" MazeAlgorithm : MazeAlgorithm
+MazeAlgorithm <|.. PerfectAlgorithm
+MazeAlgorithm <|.. PerfectAlgorithmRandomFusion
+MazeAlgorithm <|.. RandomAlgorithm
+
+ProgressionMode --> "1" Player : player
+ProgressionMode --> "1" Challenge : challenge
+ProgressionMode --> "1" PlayerProgress : defaultProgress
+
+Player --> "1" PlayerProgress : progress
+PlayerProgress --> "*" Level : levelProgress
+Level --> "*" Challenge : challenges
+
+App ..> app.SceneNavigator : uses
+AppState --> "1" Player : currentPlayer
+AppState --> "1" Challenge : selectedChallenge
+
+LabyrinthController <|-- controller.freemode.FreeModeLabyrinthController
+LabyrinthController <|-- controller.progressionmode.ProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.NormalViewProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.LocalViewProgressionModeLabyrinthController
+controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.progressionmode.labyrinthviewtype.ExplorationViewProgressionModeLabyrinthController
+
+ShapeRendererManager --> "1" ShapeRenderer : renderers
+ShapeRenderer <|.. CircleRenderer
+ShapeRenderer <|.. SquareRenderer
+ShapeRenderer <|.. TriangleRenderer
+
+LabyrinthCanvasView <|-- LocalLabyrinthCanvasView
+LabyrinthCanvasView <|-- HiddenPlayerNormalLabyrinthCanvasView
+LabyrinthCanvasView <|-- ExplorationLabyrinthCanvasView
+
+@enduml

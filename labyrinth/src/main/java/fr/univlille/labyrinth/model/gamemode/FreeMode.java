@@ -6,6 +6,7 @@ import fr.univlille.labyrinth.model.gamemode.victory.FreeModeVictoryHandler;
 import fr.univlille.labyrinth.model.gamemode.victory.VictoryHandler;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
+// Ici le gagnant peut être différentes personnes, contrairement au mode progression.
 public class FreeMode extends GameMode {
     private PlayerEntity lastWinner;
 

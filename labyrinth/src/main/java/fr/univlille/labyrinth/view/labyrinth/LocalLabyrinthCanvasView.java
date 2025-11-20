@@ -1,32 +1,26 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
 import fr.univlille.labyrinth.model.Observer;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
-import fr.univlille.labyrinth.model.maze.Observable;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Observer<ObservableMaze> {
+public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     private static final int VIEW_RADIUS = 5;
     private static final int VIEW_SIZE = VIEW_RADIUS * 2 + 1;
-    private final double SIZE_RATIO = 0.6;
+    private static final double SIZE_RATIO = 0.6;
 
     public LocalLabyrinthCanvasView(ObservableMaze maze) {
         super(maze);
     }
 
-    /** 
-     * @param maze
-     */
     @Override
     public void update(ObservableMaze maze) {
         this.currentMaze = maze;
@@ -40,19 +34,47 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         draw();
     }
 
-    /** 
-     * @param gc
-     * @param height
-     * @param width
-     */
     @Override
-    protected void dessinerMurs(GraphicsContext gc, int height, int width) {
-        gc.setStroke(GameViewConfig.WALL.getColor());
-        gc.setLineWidth(layout.getWallThickness());
+    public void draw() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
         if (playerEntity == null) return;
         Position player = playerEntity.getPosition();
+
+        dessinerCellules(gc, player);
+        dessinerMursLocaux(gc, player);
+        dessinerTrapsLocaux(gc, player);
+        dessinerEntitiesLocaux(gc, player);
+
+        if (renderingFilter.shouldDrawPlayer()) {
+            dessinerJoueurLocal(gc);
+        }
+    }
+
+    private void dessinerCellules(GraphicsContext gc, Position player) {
+        for (int localY = 0; localY < VIEW_SIZE; localY++) {
+            for (int localX = 0; localX < VIEW_SIZE; localX++) {
+                int globalX = player.getX() - VIEW_RADIUS + localX;
+                int globalY = player.getY() - VIEW_RADIUS + localY;
+
+                Color cellColor = isOutOfBounds(globalX, globalY) ? Color.BLACK : GameViewConfig.PATH.getColor();
+
+                gc.setFill(cellColor);
+                gc.fillRect(
+                    layout.getOffsetX() + localX * layout.getCellSize(),
+                    layout.getOffsetY() + localY * layout.getCellSize(),
+                    layout.getCellSize(),
+                    layout.getCellSize()
+                );
+            }
+        }
+    }
+
+    private void dessinerMursLocaux(GraphicsContext gc, Position player) {
+        gc.setStroke(GameViewConfig.WALL.getColor());
+        gc.setLineWidth(layout.getWallThickness());
 
         for (int localY = 0; localY < VIEW_SIZE; localY++) {
             for (int localX = 0; localX <= VIEW_SIZE; localX++) {
@@ -77,29 +99,14 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         }
     }
 
-    /** 
-     * @param globalY
-     * @param globalX
-     * @return boolean
-     */
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
         return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
-    /** 
-     * @param globalY
-     * @param globalX
-     * @return boolean
-     */
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
         return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
-    /** 
-     * @param gc
-     * @param localX
-     * @param localY
-     */
     private void drawVerticalWallAt(GraphicsContext gc, int localX, int localY) {
         double x = layout.getOffsetX() + localX * layout.getCellSize();
         double y1 = layout.getOffsetY() + localY * layout.getCellSize();
@@ -107,11 +114,6 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         gc.strokeLine(x, y1, x, y2);
     }
 
-    /** 
-     * @param gc
-     * @param localX
-     * @param localY
-     */
     private void drawHorizontalWallAt(GraphicsContext gc, int localX, int localY) {
         double x1 = layout.getOffsetX() + localX * layout.getCellSize();
         double x2 = x1 + layout.getCellSize();
@@ -119,56 +121,17 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         gc.strokeLine(x1, y, x2, y);
     }
 
-    @Override
-    public void draw() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    private void dessinerEntitiesLocaux(GraphicsContext gc, Position playerPos) {
+        for (Entity entity : currentMaze.getEntityManager().getEntities()) {
+            int x = entity.getPosition().getX();
+            int y = entity.getPosition().getY();
 
-        PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
-        if (playerEntity == null) return;
-        Position player = playerEntity.getPosition();
+            if (renderingFilter.shouldRenderEntity(entity, x, y)) {
+                int localX = x - playerPos.getX() + VIEW_RADIUS;
+                int localY = y - playerPos.getY() + VIEW_RADIUS;
 
-        for (int localY = 0; localY < VIEW_SIZE; localY++) {
-            for (int localX = 0; localX < VIEW_SIZE; localX++) {
-                int globalX = player.getX() - VIEW_RADIUS + localX;
-                int globalY = player.getY() - VIEW_RADIUS + localY;
-
-                Color cellColor = isOutOfBounds(globalX, globalY) ? Color.BLACK : GameViewConfig.PATH.getColor();
-
-                gc.setFill(cellColor);
-                gc.fillRect(
-                    layout.getOffsetX() + localX * layout.getCellSize(),
-                    layout.getOffsetY() + localY * layout.getCellSize(),
-                    layout.getCellSize(),
-                    layout.getCellSize()
-                );
-            }
-        }
-
-        dessinerMurs(gc, VIEW_SIZE, VIEW_SIZE);
-        dessinerTrap(gc, currentMaze);
-        drawEntities(gc, currentMaze);
-
-        if (shouldDrawPlayer()) {
-            dessinerJoueur(gc, currentMaze);
-        }
-    }
-
-    /** 
-     * @param gc
-     * @param maze
-     */
-    @Override
-    protected void drawEntities(GraphicsContext gc, ObservableMaze maze) {
-        PlayerEntity playerEntity = maze.getEntityManager().getPlayerEntityByID(0);
-        if (playerEntity == null) return;
-        Position playerPos = playerEntity.getPosition();
-        for (Entity entity : maze.getEntityManager().getEntities()) {
-            if (shouldRenderEntity(entity)) {
-                int localX = entity.getPosition().getX() - playerPos.getX() + VIEW_RADIUS;
-                int localY = entity.getPosition().getY() - playerPos.getY() + VIEW_RADIUS;
                 if (localX >= 0 && localX < VIEW_SIZE && localY >= 0 && localY < VIEW_SIZE) {
-                    GameViewConfig config = GameViewConfig.valueOf(entity.getEntityType().name());
+                    GameViewConfig config = GameViewConfig.forEntity(entity);
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         localX, localY, layout, SIZE_RATIO);
                 }
@@ -176,18 +139,13 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         }
     }
 
-    /** 
-     * @param gc
-     * @param maze
-     */
-    @Override
-    protected void dessinerTrap(GraphicsContext gc, ObservableMaze maze) {
-        Trap[][] trapFactories = maze.getTrapManager().getTraps();
-        for (int globalY = 0; globalY < trapFactories.length; globalY++) {
-            for (int globalX = 0; globalX < trapFactories[globalY].length; globalX++) {
-                Position local = toLocalCoordinates(globalX, globalY);
+    private void dessinerTrapsLocaux(GraphicsContext gc, Position playerPos) {
+        Trap[][] traps = currentMaze.getTrapManager().getTraps();
+        for (int globalY = 0; globalY < traps.length; globalY++) {
+            for (int globalX = 0; globalX < traps[globalY].length; globalX++) {
+                Position local = toLocalCoordinates(globalX, globalY, playerPos);
                 if (local != null) {
-                    GameViewConfig config = GameViewConfig.valueOf(trapFactories[globalY][globalX].name());
+                    GameViewConfig config = GameViewConfig.forTrap(traps[globalY][globalX]);
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(),
                         local.getX(), local.getY(), layout, SIZE_RATIO);
                 }
@@ -195,40 +153,29 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView implements Obs
         }
     }
 
-    /** 
-     * @param gc
-     * @param maze
-     */
-    @Override
-    protected void dessinerJoueur(GraphicsContext gc, ObservableMaze maze) {
-        dessinerMarqueur(gc, VIEW_RADIUS, VIEW_RADIUS, GameViewConfig.PLAYER0.getColor());
+    private void dessinerJoueurLocal(GraphicsContext gc) {
+        double tailleMarqueur = layout.getCellSize() * 0.6;
+        double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
+
+        gc.setFill(GameViewConfig.PLAYER0.getColor());
+        gc.fillOval(
+                layout.getOffsetX() + VIEW_RADIUS * layout.getCellSize() + marginMarqueur,
+                layout.getOffsetY() + VIEW_RADIUS * layout.getCellSize() + marginMarqueur,
+                tailleMarqueur,
+                tailleMarqueur);
     }
 
-    /** 
-     * @param globalX
-     * @param globalY
-     * @return boolean
-     */
     private boolean isOutOfBounds(int globalX, int globalY) {
-        Position p=new Position(globalX, globalY);
-        return !MazeWallChecker.positionCorrecte(p,currentMaze);
+        Position p = new Position(globalX, globalY);
+        return !MazeWallChecker.positionCorrecte(p, currentMaze);
     }
 
-    /** 
-     * @param globalX
-     * @param globalY
-     * @return Position
-     */
-    private Position toLocalCoordinates(int globalX, int globalY) {
-        PlayerEntity playerEntity = currentMaze.getEntityManager().getPlayerEntityByID(0);
-        if (playerEntity == null) return null;
-        Position player = playerEntity.getPosition();
-        int localX = globalX - player.getX() + VIEW_RADIUS;
-        int localY = globalY - player.getY() + VIEW_RADIUS;
+    private Position toLocalCoordinates(int globalX, int globalY, Position playerPos) {
+        int localX = globalX - playerPos.getX() + VIEW_RADIUS;
+        int localY = globalY - playerPos.getY() + VIEW_RADIUS;
         if (localX < 0 || localX >= VIEW_SIZE || localY < 0 || localY >= VIEW_SIZE) {
             return null;
         }
         return new Position(localX, localY);
     }
-
 }
