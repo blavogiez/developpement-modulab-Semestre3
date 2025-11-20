@@ -1,8 +1,21 @@
-créer un fichier csv de nom "a_n_e_f"
+créer un fichier CSV de nom "a_n_e_f"
+
 tant que n < f :
-    t1 = mesurer le temps actuel
-    générer un labyrinthe d'algorithme (a) de taille n (largeur = n, hauteur = 2*n, distance = n)
-    t2 = mesurer le temps actuel
-    écrire sur la ligne actuelle (n, t2 - t1)
+    sommeTemps = 0
+    choisir P =
+        {0.5} si a != RANDOM
+        {0.2, 0.3, 0.5} si a = RANDOM
+
+    pour chaque p dans P :
+        répéter PRECISION fois :
+            t1 = temps actuel
+            générer un labyrinthe d'algorithme a
+                de taille (largeur = n, hauteur = 2*n)
+                avec pourcentage de murs p
+                et distance entrée/sortie (n ou 0 selon le test)
+            t2 = temps actuel
+            sommeTemps += (t2 - t1)
+
+    tempsMoyen = sommeTemps / (|P| * PRECISION)
+    écrire sur la ligne actuelle (n, tempsMoyen)
     n = n + e
-    passer à la ligne suivante

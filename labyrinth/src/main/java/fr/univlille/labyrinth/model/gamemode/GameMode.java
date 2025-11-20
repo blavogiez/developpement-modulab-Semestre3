@@ -132,17 +132,4 @@ public abstract class GameMode {
     protected VictoryHandler getVictoryHandler() {
         return victoryHandler;
     }
-
-    /** 
-     * @param width
-     * @param height
-     * @return boolean
-     */
-    /* Les dimensions demandées sont-elles possibles ?
-    à déplacer (CF fichier SOLID.md)
-     * @return boolean
-     */
-    public static boolean areDimensionsCorrect(int width, int height) {
-        return width >= 1 && height >= 1 ;
-    }
 }
