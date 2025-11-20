@@ -44,4 +44,9 @@ public enum EntityType implements MazeThreats {
 
     public abstract Entity create(ObservableMaze maze);
     public abstract Entity create(ObservableMaze maze, MoveBehavior moveBehavior);
+
+    @Override
+    public MazeThreats getType() {
+        return this;
+    }
 }

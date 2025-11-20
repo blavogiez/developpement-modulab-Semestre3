@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.controller.freemode;
 
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
+import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.entities.factory.EntityConfiguration;
 import fr.univlille.labyrinth.model.maze.traps.TrapConfig;
@@ -10,16 +11,11 @@ import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -123,7 +119,7 @@ public class FreeModeComponentConfigurationController {
                 quantity = maxAllowed - currentTotal;
             }
 
-            EntityConfiguration existing = findEntityByType(selectedType);
+            EntityConfiguration existing =(EntityConfiguration) findMazeThreatConfigurationByType(selectedType, entities);
 
             if (existing != null) {
                 int index = entities.indexOf(existing);
@@ -150,7 +146,7 @@ public class FreeModeComponentConfigurationController {
             int quantity = Integer.parseInt(trapTextField.getText());
             if (quantity <= 0) return;
 
-            TrapConfig existing = findTrapByType(selectedTrap);
+            TrapConfig existing =(TrapConfig) findMazeThreatConfigurationByType(selectedTrap, traps);
 
             if (existing != null) {
                 int index = traps.indexOf(existing);
@@ -269,20 +265,9 @@ public class FreeModeComponentConfigurationController {
      * @param type
      * @return EntityConfiguration
      */
-    private EntityConfiguration findEntityByType(EntityType type) {
-        return entities.stream()
+    private MazeThreatConfiguration findMazeThreatConfigurationByType(MazeThreats type, ObservableList<? extends MazeThreatConfiguration> list) {
+        return list.stream()
                 .filter(e -> e.getType() == type)
-                .findFirst()
-                .orElse(null);
-    }
-
-    /** 
-     * @param type
-     * @return TrapConfig
-     */
-    private TrapConfig findTrapByType(TrapFactory type) {
-        return traps.stream()
-                .filter(t -> t.getType() == type)
                 .findFirst()
                 .orElse(null);
     }
@@ -301,12 +286,30 @@ public class FreeModeComponentConfigurationController {
             String[] params = part.split(";");
             EntityType type = null;
             int quantity = 1;
-            String behavior = DEFAULT;
 
-            EntityData entityData = getEntityData(params, type, quantity, behavior);
+            EntityData entityData = getEntityData(params, type, quantity, DEFAULT);
 
             if (entityData.type() != null) {
                 entities.add(new EntityConfiguration(entityData.type(), entityData.quantity(), entityData.behavior()));
+            }
+        }
+    }
+
+    /**
+     * @param config
+     */
+    private void loadTrapConfiguration(String config) {
+        String[] parts = config.split("_");
+        for (String part : parts) {
+            String compactedName = part.replaceAll("\\d+$", "");
+            String quantityStr = part.replaceAll("^\\D+", "");
+
+            try {
+                TrapFactory type = TrapFactory.compactedValueOf(compactedName);
+                int quantity = Integer.parseInt(quantityStr);
+                traps.add(new TrapConfig(type, quantity));
+            } catch (Exception ignored) {
+                //Do nothing
             }
         }
     }
@@ -332,23 +335,5 @@ public class FreeModeComponentConfigurationController {
     private record EntityData(EntityType type, int quantity, String behavior) {
     }
 
-    /** 
-     * @param config
-     */
-    private void loadTrapConfiguration(String config) {
-        String[] parts = config.split("_");
-        for (String part : parts) {
-            String compactedName = part.replaceAll("\\d+$", "");
-            String quantityStr = part.replaceAll("^\\D+", "");
-
-            try {
-                TrapFactory type = TrapFactory.compactedValueOf(compactedName);
-                int quantity = Integer.parseInt(quantityStr);
-                traps.add(new TrapConfig(type, quantity));
-            } catch (Exception ignored) {
-                //Do nothing
-            }
-        }
-    }
 
 }

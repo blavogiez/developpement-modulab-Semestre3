@@ -9,7 +9,7 @@ import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 
 import java.util.Random;
 
-public abstract class Trap implements MazeThreats {
+public abstract class Trap {
     Position position;
 
     /**

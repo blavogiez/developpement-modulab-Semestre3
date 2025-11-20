@@ -39,7 +39,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @FXML
     private TableColumn<Entity, String> colDef;
 
-    private LabyrinthCanvasView labyrinth;
+
 
     @Override
     public void initialize() {
@@ -52,6 +52,8 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
 
     @Override
     protected void initializeGameMode() {
+        LabyrinthCanvasView labyrinth;
+
         colSymbole.getStyleClass().add("Symbole");
         colDef.getStyleClass().add("Def");
 

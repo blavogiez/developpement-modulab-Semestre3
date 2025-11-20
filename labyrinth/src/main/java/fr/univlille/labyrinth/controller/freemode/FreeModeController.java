@@ -73,7 +73,9 @@ public class FreeModeController {
      */
     @FXML
     private void goToModeLaby() throws IOException {
-        int width, height, distance ;
+        int width;
+        int height;
+        int distance ;
         try {
             width = Integer.parseInt(widthField.getText());
             height = Integer.parseInt(heightField.getText());

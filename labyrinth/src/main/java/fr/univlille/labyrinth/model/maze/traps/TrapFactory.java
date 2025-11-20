@@ -1,11 +1,12 @@
 package fr.univlille.labyrinth.model.maze.traps;
 
 import fr.univlille.labyrinth.model.exceptions.UnknownTrapException;
+import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.traps.trap.*;
 
 import java.util.function.Supplier;
 
-public enum TrapFactory {
+public enum TrapFactory implements MazeThreats {
     NONE(NoneTrap::new,""),
     RANDOM_TRAP(RandomTrap::new,"R"),
     USED(UsedTrap::new,"U"),
@@ -42,4 +43,8 @@ public enum TrapFactory {
         return trap.get();
     }
 
+    @Override
+    public MazeThreats getType() {
+        return this;
+    }
 }

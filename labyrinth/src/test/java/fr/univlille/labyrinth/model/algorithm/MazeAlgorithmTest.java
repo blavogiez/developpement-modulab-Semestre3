@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.maze.Direction;
@@ -12,22 +11,21 @@ import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
 
 // Test à fix (je n'y touche pas)
-
-public class MazeAlgorithmTest {
+ class MazeAlgorithmTest {
 
     MazeAlgorithm algo;
     @BeforeEach
-    public void init(){
+    void init(){
         algo = new MazeAlgorithm() {
             @Override
             public void generateMaze(Maze maze) {
-
+                /*We didnt need to generate a Maze since we test the abstract one*/
             }
         };
     }
 
     @Test
-    public void remove_wall_in_every_direction_test(){
+    void remove_wall_in_every_direction_test(){
         int height = 3;
         int width = 3;
         algo.horizontalsWalls = new boolean[height - 1][width];
@@ -47,7 +45,7 @@ public class MazeAlgorithmTest {
     }
 
     @Test
-    public void position_should_be_correct_or_not_test(){
+    void position_should_be_correct_or_not_test(){
         for (int x = 5; x < 15; x++){
             for (int y = 5; y<15; y++){
                 for (int i = 0; i<10;i++){
@@ -70,7 +68,7 @@ public class MazeAlgorithmTest {
     }
 
     @Test
-    public void should_all_be_true(){
+    void should_all_be_true(){
         boolean[][] tab = new boolean[100][100];
         MazeAlgorithm.allAreTrue(tab);
         for (boolean[] booleans : tab){
