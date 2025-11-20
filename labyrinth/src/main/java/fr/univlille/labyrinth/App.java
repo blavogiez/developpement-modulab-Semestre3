@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth;
 
+import javafx.scene.image.Image;
 import fr.univlille.labyrinth.app.BackgroundManager;
 import fr.univlille.labyrinth.app.NavigationContext;
 import fr.univlille.labyrinth.app.SceneNavigator;
@@ -43,9 +44,13 @@ public class App extends Application {
 
         Scene scene = new Scene(rootPane);
         ThemeManager.applyTheme(scene);
-        stage.setTitle("Labyrinth");
+        stage.setTitle("Modulab");
         stage.setMaximized(true);
         stage.setScene(scene);
+        stage.getIcons().add(
+            new Image(App.class.getResourceAsStream("/fr/univlille/labyrinth/images/icon.png"))
+        );
+
         stage.show();
     }
 

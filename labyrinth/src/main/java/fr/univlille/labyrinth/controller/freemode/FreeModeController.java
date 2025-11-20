@@ -6,6 +6,7 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -83,7 +84,7 @@ public class FreeModeController {
             return;
         }
 
-        if (!GameMode.areDimensionsCorrect(width, height)) {
+        if (!MazeManager.areDimensionsCorrect(width, height)) {
             showError();
             return;
         }

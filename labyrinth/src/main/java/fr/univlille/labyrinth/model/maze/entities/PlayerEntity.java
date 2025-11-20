@@ -51,10 +51,11 @@ public class PlayerEntity extends Entity {
             }
             distResult.positions().removeAll(positionsWithEntities);
             cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
-            if(cpt > 5) {
+            if(cpt > 20) {
                 stuckToMaximum = true;
                 cpt = -1;
             }
+            if(cpt<-20) break ;
         } while (distResult.positions().size() == 0);
 
         Random random = new Random();
@@ -99,15 +100,4 @@ public class PlayerEntity extends Entity {
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }
-
-    /** 
-     * @return String
-     */
-    @Override
-    public String getDefType() {
-        return "rond"; //TODO recup couleur joueur
-    }
-
-
-
 }

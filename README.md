@@ -54,7 +54,32 @@ Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
 ## Diagramme de classe
 
-Afin de ne pas surcharger le README, le diagramme UML ainsi que les choix de conception seront détaillés dans un fichier à part accesible à : [Rapport UML](labyrinth/UML/uml.md)
+L'architecture de l'application se compose sous la forme suivante, en plusieurs diagrammes à granularités différentes.
+Les packages seront ici séparés pour ne pas surcharger le rendu. Les relations inter-packages sont donc implicites ou induites par le nommage (Nommage strict des controlleurs).
+
+### Modèle
+
+#### Coeur
+
+#### Algorithme
+
+#### Persistance
+
+### Vue
+
+### Controlleurs
+
+Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code. Ce code n'est pas couvert à ce niveau de granularité. 
+
+Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue.
+
+Les contrôleurs ne font aucune logique métier. Ils servent uniquement à la liason (Pattern MVN strict).
+
+La logique de victoire se déroule dans le modèle, qui en avertit les contrôleurs (étant ses `victoryObserver`). Toute la logique de sauvegarde est réalisée par le modèle.
+
+### Ensemble
+
+**Le modèle est strictement indépendant de la vue et du contrôleur.**
 
 ## Lancer le projet
 ### Prérequis

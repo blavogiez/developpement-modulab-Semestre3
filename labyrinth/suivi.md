@@ -283,8 +283,9 @@ Création de la classe "PlayerDatabase"
 | Développement | Algorithmie |
 |--------------|-------------|
 | Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | |
-| Fonctionnalité originale : Algorithmes de positionnement initial d'entité | |
 | Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
+| Fonctionnalité originale : Avec Romain, affichage en panneau d'information  des entités / pièges contenus dans le labyrinthe | |
+| Fonctionnalité originale : Affichage en panneau d'information des entités dynamique avec pattern Observable / Observé | |
 
 
 ### **Romain** :

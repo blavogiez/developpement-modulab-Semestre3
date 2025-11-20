@@ -59,4 +59,17 @@ public class MazeManager {
     public void randomWallRemoval(double pourcentage) {
         WallRemover.randomWallRemoval(pourcentage,currentMaze);
     }
+
+    /** 
+     * @param width
+     * @param height
+     * @return boolean
+     */
+    /* Les dimensions demandées sont-elles possibles ?
+    à déplacer (CF fichier SOLID.md)
+     * @return boolean
+     */
+    public static boolean areDimensionsCorrect(int width, int height) {
+        return width >= 1 && height >= 1 ;
+    }
 }

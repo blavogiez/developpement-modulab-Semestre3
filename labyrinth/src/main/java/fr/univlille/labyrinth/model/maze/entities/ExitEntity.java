@@ -55,22 +55,15 @@ public class ExitEntity extends Entity {
             }
             distResult.positions().removeAll(positionsWithEntities);
             cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
-            if(cpt>5) {
+            if(cpt>20) {
                 stuckToMaximum=true ; 
                 cpt= - 1 ;
             }
+            if(cpt<-20) break ;
         } while (distResult.positions().size()==0);
         Random random = new Random();
         Position thisExitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
         return thisExitPosition;
-        
-    }
 
-    /** 
-     * @return String
-     */
-    @Override
-    public String getDefType() {
-        return "carre vert";
     }
 }

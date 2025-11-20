@@ -43,10 +43,11 @@ public class MonsterEntity extends Entity {
             }
             distResult.positions().removeAll(positionsWithEntities);
             cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
-            if(cpt>5) {
+            if(cpt>20) {
                 stuckToMaximum=true ; 
                 cpt= - 1 ;
             }
+            if(cpt<-20) break ;
         } while (distResult.positions().size()==0);
         Random random = new Random();
         Position monsterPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
@@ -69,13 +70,4 @@ public class MonsterEntity extends Entity {
     public MoveBehavior getMoveBehavior() {
         return super.getMoveBehavior();
     }
-
-    /** 
-     * @return String
-     */
-    @Override
-    public String getDefType() {
-        return"triangle marron";
-    }
-
 }
