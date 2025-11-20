@@ -42,10 +42,6 @@ public class ThemeManager {
     }
 
     public static void toggleTheme(){
-        if(!isDarkMode()){
-            SettingsManager.getSettings().setDarkMode(true);
-        }else{
-            SettingsManager.getSettings().setDarkMode(false);
-        }
+        SettingsManager.getSettings().setDarkMode(!isDarkMode());
     }
 }

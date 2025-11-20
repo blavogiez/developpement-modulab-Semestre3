@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.view.utils.ResizeUtil;

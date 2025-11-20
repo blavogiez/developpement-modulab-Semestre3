@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.controller;
 
-import java.io.IOException;
 
 import fr.univlille.labyrinth.controller.input.PlayerMovementHandler;
 import fr.univlille.labyrinth.model.VictoryObserver;

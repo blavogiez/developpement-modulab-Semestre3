@@ -8,11 +8,15 @@ package fr.univlille.labyrinth.model.gamemode;
  * @since 0.0
  */
 public class Timer{
-    private long debut=0;
-    private long fin=0;
-    private boolean encours=false;
+    private long debut;
+    private long fin;
+    private boolean encours;
 
-    public Timer(){}
+    public Timer(){
+        this.debut=0;
+        this.fin=0;
+        this.encours=false;
+    }
 
     /**
      * Cette méthode permet de lancer le chronomètre.

@@ -13,9 +13,9 @@ public class TeleportExitTrap extends Trap {
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-        maze.getEntityManager().getEntitiesByType(ExitEntity.class).forEach(x -> {
-            x.setPosition(getRandomCell(maze));
-        });
+        maze.getEntityManager().getEntitiesByType(ExitEntity.class).forEach(x ->
+            x.setPosition(getRandomCell(maze))
+        );
         revealTrap(position,maze.getTrapManager());
     }
 

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 public class TriangleRenderer implements ShapeRenderer {
 
-    private final int NPOINTS=3;
+    private static final int NPOINTS=3;
     /** 
      * @param gc
      * @param x

@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.save.score;
 
 import fr.univlille.labyrinth.model.save.Challenge;
 
-import java.io.Serializable;
 
 /**
  * Strategy pour le calcul du score d'un challenge

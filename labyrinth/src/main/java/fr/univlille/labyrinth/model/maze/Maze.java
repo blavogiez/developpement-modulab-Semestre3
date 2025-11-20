@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
-import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 
 /**
@@ -214,7 +213,9 @@ public class Maze {
      * @param playerID l'identifiant du joueur affecté
      * @param oldPosition la position précédente du joueur
      */
-    public void trapEffect(int playerID, Position oldPosition) {}
+    public void trapEffect(int playerID, Position oldPosition) {
+        /* Afin de pouvoir exécuter la méthode sans down cast */
+    }
 
     /**
      * Définit les murs horizontaux du labyrinthe.

@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
@@ -29,7 +28,6 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
     private final List<Observer<ObservableMaze>> observers = new ArrayList<>();
     protected EntityManager entityManager ;
      protected TrapManager trapManager ;
-    // protected EventManager eventManager ;
 
 
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
@@ -89,6 +87,7 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
      * @param playerID     l'identifiant du joueur affecté
      * @param oldPosition  l'ancienne position du joueur
      */
+    @Override
     public void trapEffect(int playerID, Position oldPosition) {
         trapManager.trapEffect(playerID, oldPosition);
         notifyObserver();

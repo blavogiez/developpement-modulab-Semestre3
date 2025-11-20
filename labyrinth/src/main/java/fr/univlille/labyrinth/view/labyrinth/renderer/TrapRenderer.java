@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.view.labyrinth.renderer;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.traps.TrapManager;
-import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;

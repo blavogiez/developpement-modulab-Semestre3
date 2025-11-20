@@ -2,7 +2,8 @@ package fr.univlille.labyrinth.app;
 
 import java.io.*;
 
-public class SettingsManager {
+public abstract class SettingsManager {
+    private SettingsManager(){}
     private static final String SETTINGS_FILE = "res/saves/settings.dat";
     private static Settings settings;
 

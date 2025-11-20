@@ -6,14 +6,14 @@ public enum MazeAlgorithmFactory {
     FUSION_LEGACY(PerfectAlgorithmRandomFusion.getInstance()),
     RANDOM(RandomAlgorithm.getInstance());
 
-    private MazeAlgorithmFactory(MazeAlgorithm MazeAlgorithm) {
-        this.MazeAlgorithm = MazeAlgorithm;
+    private MazeAlgorithmFactory(MazeAlgorithm mazeAlgorithm) {
+        this.mazeAlgorithm = mazeAlgorithm;
     }
 
-    private final MazeAlgorithm MazeAlgorithm;
+    private final MazeAlgorithm mazeAlgorithm;
 
     public MazeAlgorithm getAlgorithm(){
-        return MazeAlgorithm;
+        return mazeAlgorithm;
     }
 
     public boolean isPerfect() {
