@@ -7,10 +7,12 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 public class GenerateTrap extends Trap {
     /** 
-     * @param playerID
-     * @param position
-     * @param oldPosition
-     * @param maze
+     * /Applique l'effet du trap au joueur
+     * 
+     * @param playerID //ID du joueur
+     * @param position //position du joueur
+     * @param oldPosition //ancienne position d joueur
+     * @param maze //le labyrinthe
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {

@@ -66,6 +66,13 @@ public class EntityListFactory {
         }
     }
 
+    /**
+     * Génère une liste de configurations d'entités à partir des paramètres fournis.
+     *
+     * @param configs les configurations utilisées pour créer les entités
+     * @return une {@code List<EntityConfiguration>}
+     */
+
     private static List<EntityConfiguration> validateEntityLimits(List<EntityConfiguration> configs) {
         List<EntityConfiguration> validated = new ArrayList<>();
         for (EntityConfiguration config : configs) {
