@@ -15,6 +15,13 @@ public class WallRenderer {
         this.wallFilter = wallFilter;
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     * @param height
+     * @param width
+     */
     public void dessinerMurs(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout, int height, int width) {
         gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
@@ -23,6 +30,13 @@ public class WallRenderer {
         dessinerMursHorizontaux(gc, maze, layout, height, width);
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     * @param height
+     * @param width
+     */
     private void dessinerMursHorizontaux(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout, int height, int width) {
         for (int x = 0; x < width; x++) {
             if (wallFilter.shouldDrawHorizontalWall(-1, x, height, width)) {
@@ -42,6 +56,13 @@ public class WallRenderer {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     * @param height
+     * @param width
+     */
     private void dessinerMursVerticaux(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout, int height, int width) {
         for (int y = 0; y < height; y++) {
             if (wallFilter.shouldDrawVerticalWall(y, -1, height, width)) {

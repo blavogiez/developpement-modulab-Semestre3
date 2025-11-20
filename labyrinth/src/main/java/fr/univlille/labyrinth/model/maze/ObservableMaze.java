@@ -69,36 +69,31 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
-    /*
-     * Déplace le joueur à la direction souhaitée et avertit toutes les entités de ce déplacement (certaines peuvent être amenéees à bouger)
-     * (Le joueur est contenu dans les entités)
-     * 
-     * @param playerID
-     * @param direction
-     * @return boolean
+    /**
+     * Déplace le joueur dans la direction souhaitée et avertit toutes les entités
+     * de ce déplacement (certaines peuvent être amenées à bouger).  
+     * Le joueur est lui-même contenu dans les entités.
+     *
+     * @param playerID  l'identifiant du joueur à déplacer
+     * @param direction la direction du déplacement
+     * @return {@code true} si le déplacement a été effectué
      */
-    public boolean movePlayer(int playerID, Direction direction){
+    public boolean movePlayer(int playerID, Direction direction) {
         entityManager.moveEntities(playerID, this, direction);
-        return true ;
+        return true;
     }
 
-    /** 
-     * @param playerID
-     * @param oldPosition
+    /**
+     * Applique les effets des pièges après le déplacement d'un joueur.
+     *
+     * @param playerID     l'identifiant du joueur affecté
+     * @param oldPosition  l'ancienne position du joueur
      */
-    /*
-     * Surcharge pour ajouter les entités par défaut
-     */
-
-//    TrapHandler
-//    EventHandler
-//    MoveBehavoirHandler
-
-
     public void trapEffect(int playerID, Position oldPosition) {
         trapManager.trapEffect(playerID, oldPosition);
         notifyObserver();
     }
+
 
     /** 
      * @return TrapManager
@@ -126,10 +121,10 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
     }
     
     /** 
-     * @return List<Observer<ObservableMaze>>
+     * @return {@code List<Observer<ObservableMaze>>}
      */
     @Override
-    public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
+    public List<Observer<ObservableMaze>> getObservers() {
         return this.observers;
     }
 }

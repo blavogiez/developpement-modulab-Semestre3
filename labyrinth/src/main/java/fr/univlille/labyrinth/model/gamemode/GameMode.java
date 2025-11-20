@@ -11,6 +11,7 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.save.Player;
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -48,18 +49,20 @@ public abstract class GameMode {
             PlayerEntity winner = maze.getEntityManager().checkPlayerOnExit();
             if (winner != null) {
                 handleVictory(winner);
-            } else {
-                maze.getEntityManager().checkMonsterOnPlayer();
-                if (maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty()) {
-                    handleLoose();
-                } else {
-                    maze.trapEffect(playerID, oldPosition);
-                    if (maze.getEntityManager().getEntitiesByType(PlayerEntity.class).isEmpty()) {
-                        handleLoose();
-                    }
-                }
+            } else if (this.monsterBeatLastPlayer(maze) || this.trapBeatLastPlayer(maze, playerID, oldPosition) ){
+                handleLoose();
             }
         }
+    }
+
+    public boolean monsterBeatLastPlayer(ObservableMaze maze){
+        maze.getEntityManager().checkMonsterOnPlayer();
+        return (!maze.getEntityManager().containsType(PlayerEntity.class));
+    }
+
+    public boolean trapBeatLastPlayer(ObservableMaze maze,int playerID,Position oldPosition){
+        maze.trapEffect(playerID, oldPosition);
+        return (!maze.getEntityManager().containsType(PlayerEntity.class));
     }
 
     /**

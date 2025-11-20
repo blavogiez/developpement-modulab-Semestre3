@@ -34,25 +34,19 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
     protected Label challengeInfoLabel;
 
     /** 
+     * / Initialise les vues de labyrinthe nécessaires (abstrait car différents comportements possibles)
+     * 
      * @param initializeGameMode(
      * @return Node
      */
-    /** 
-     * @param initializeGameMode(
-     * @return Node
-     */
-    // Initialise les vues de labyrinthe nécessaires (abstrait car différents comportements possibles)
     protected abstract Node setupViews(ProgressionMode gameMode);
 
     /** 
+     * / Dans les informations (Label), on ajoute le suffixe correspondant au type de vue (donc, abstrait)
+     * 
      * @param initializeGameMode(
      * @return String
      */
-    /** 
-     * @param initializeGameMode(
-     * @return String
-     */
-    // Dans les informations (Label), on ajoute le suffixe correspondant au type de vue (donc, abstrait)
     protected abstract String getViewSuffix();
 
     @Override

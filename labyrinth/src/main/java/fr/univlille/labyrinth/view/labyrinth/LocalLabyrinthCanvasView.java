@@ -21,6 +21,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         super(maze);
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         this.currentMaze = maze;
@@ -53,6 +56,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param player
+     */
     private void dessinerCellules(GraphicsContext gc, Position player) {
         for (int localY = 0; localY < VIEW_SIZE; localY++) {
             for (int localX = 0; localX < VIEW_SIZE; localX++) {
@@ -72,6 +79,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param player
+     */
     private void dessinerMursLocaux(GraphicsContext gc, Position player) {
         gc.setStroke(GameViewConfig.WALL.getColor());
         gc.setLineWidth(layout.getWallThickness());
@@ -99,14 +110,33 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /**
+     * Vérifie une condition liée aux coordonnées spécifiées.
+     *
+     * @param globalY la position verticale (coordonnée Y)
+     * @param globalX la position horizontale (coordonnée X)
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     private boolean shouldDrawVerticalWall(int globalY, int globalX) {
         return MazeWallChecker.isWall(currentMaze, globalY, globalX - 1, globalY, globalX);
     }
 
+    /**
+     * Vérifie une condition liée aux coordonnées spécifiées.
+     *
+     * @param globalY la position verticale (coordonnée Y)
+     * @param globalX la position horizontale (coordonnée X)
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     private boolean shouldDrawHorizontalWall(int globalY, int globalX) {
         return MazeWallChecker.isWall(currentMaze, globalY - 1, globalX, globalY, globalX);
     }
 
+    /** 
+     * @param gc
+     * @param localX
+     * @param localY
+     */
     private void drawVerticalWallAt(GraphicsContext gc, int localX, int localY) {
         double x = layout.getOffsetX() + localX * layout.getCellSize();
         double y1 = layout.getOffsetY() + localY * layout.getCellSize();
@@ -114,6 +144,11 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.strokeLine(x, y1, x, y2);
     }
 
+    /** 
+     * @param gc
+     * @param localX
+     * @param localY
+     */
     private void drawHorizontalWallAt(GraphicsContext gc, int localX, int localY) {
         double x1 = layout.getOffsetX() + localX * layout.getCellSize();
         double x2 = x1 + layout.getCellSize();
@@ -121,6 +156,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         gc.strokeLine(x1, y, x2, y);
     }
 
+    /** 
+     * @param gc
+     * @param playerPos
+     */
     private void dessinerEntitiesLocaux(GraphicsContext gc, Position playerPos) {
         for (Entity entity : currentMaze.getEntityManager().getEntities()) {
             int x = entity.getPosition().getX();
@@ -139,6 +178,10 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param playerPos
+     */
     private void dessinerTrapsLocaux(GraphicsContext gc, Position playerPos) {
         TrapManager trapManager = currentMaze.getTrapManager();
         int height = trapManager.height();
@@ -155,6 +198,9 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     */
     private void dessinerJoueurLocal(GraphicsContext gc) {
         double tailleMarqueur = layout.getCellSize() * 0.6;
         double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;
@@ -167,11 +213,22 @@ public class LocalLabyrinthCanvasView extends LabyrinthCanvasView {
                 tailleMarqueur);
     }
 
+    /** 
+     * @param globalX
+     * @param globalY
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     private boolean isOutOfBounds(int globalX, int globalY) {
         Position p = new Position(globalX, globalY);
         return !MazeWallChecker.positionCorrecte(p, currentMaze);
     }
 
+    /** 
+     * @param globalX
+     * @param globalY
+     * @param playerPos
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     private Position toLocalCoordinates(int globalX, int globalY, Position playerPos) {
         int localX = globalX - playerPos.getX() + VIEW_RADIUS;
         int localY = globalY - playerPos.getY() + VIEW_RADIUS;

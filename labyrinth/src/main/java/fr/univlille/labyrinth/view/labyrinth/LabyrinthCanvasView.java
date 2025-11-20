@@ -109,7 +109,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     }
 
     public LabyrinthCanvasView(ObservableMaze maze) {
-        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.getSettings().isAnimationEnabled());
     }
 
     public void draw() {
@@ -131,6 +131,9 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
         }
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         this.currentMaze = maze;
@@ -147,22 +150,37 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
         draw();
     }
 
+    /** 
+     * @return Pane
+     */
     public Pane getView() {
         return container;
     }
 
+    /** 
+     * @return ObservableMaze
+     */
     public ObservableMaze getCurrentMaze() {
         return currentMaze;
     }
 
+    /** 
+     * @return Map<Integer, Double>
+     */
     public Map<Integer, Double> getPlayerXMap() {
         return playerXMap;
     }
 
+    /** 
+     * @return Map<Integer, Double>
+     */
     public Map<Integer, Double> getPlayerYMap() {
         return playerYMap;
     }
 
+    /** 
+     * @return Canvas
+     */
     public Canvas getCanvas() {
         return canvas;
     }

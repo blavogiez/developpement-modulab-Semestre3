@@ -19,6 +19,11 @@ public class TrapRenderer {
         this.renderingFilter = renderingFilter;
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     */
     public void dessinerTrap(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
         TrapManager trapManager = maze.getTrapManager();
         int height = trapManager.height();
