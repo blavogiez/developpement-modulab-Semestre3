@@ -13,7 +13,7 @@ import fr.univlille.labyrinth.view.renderer.ComponentRenderer;
 public class HiddenPlayerNormalLabyrinthCanvasView extends LabyrinthCanvasView {
 
     public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze) {
-        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.getSettings().isAnimationEnabled());
     }
 
     public HiddenPlayerNormalLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,

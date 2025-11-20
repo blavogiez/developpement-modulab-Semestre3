@@ -18,7 +18,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     private ExplorationFilter explorationFilter;
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze) {
-        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.getSettings().isAnimationEnabled());
     }
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
