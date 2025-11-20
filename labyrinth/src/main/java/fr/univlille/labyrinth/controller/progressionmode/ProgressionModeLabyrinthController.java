@@ -65,7 +65,8 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
         gameMode = new ProgressionMode(mazeManager, victoryHandler, currentPlayer, selectedChallenge);
         gameMode.createMaze();
 
-        pane1.setCenter(setupViews(gameMode));
+        Node centerContent = setupViews(gameMode);
+        setupLegendPanels(centerContent);
 
         gameMode.setChronometre(chrono);
     }

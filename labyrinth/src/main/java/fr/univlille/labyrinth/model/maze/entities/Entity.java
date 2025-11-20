@@ -20,9 +20,7 @@ public abstract class Entity {
 
     public abstract EntityType getEntityType();
 
-    public abstract String getDefType();
-
-    /** 
+    /**
      * @return Position
      */
     public Position getPosition() {
