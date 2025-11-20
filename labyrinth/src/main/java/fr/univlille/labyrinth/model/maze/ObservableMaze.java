@@ -82,12 +82,10 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         return true ;
     }
 
-    /** 
-     * @param playerID
-     * @param oldPosition
-     */
     /*
      * Surcharge pour ajouter les entités par défaut
+     * @param playerID
+     * @param oldPosition
      */
 
 //    TrapHandler
@@ -126,10 +124,10 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
     }
     
     /** 
-     * @return List<Observer<ObservableMaze>>
+     * @return {@code List<Observer<ObservableMaze>>}
      */
     @Override
-    public List<fr.univlille.labyrinth.model.Observer<ObservableMaze>> getObservers() {
+    public List<Observer<ObservableMaze>> getObservers() {
         return this.observers;
     }
 }
