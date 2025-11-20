@@ -31,6 +31,10 @@ L’application comporte deux modes de jeu principaux :
 
 Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
 
+### Fonctionnalités originales
+
+Nous avons conçu un système de pièges et d’entités entièrement modulaire, permettant de créer une grande variété de configurations et de comportements. Le mode multijoueur pousse encore plus loin cette modularité en offrant la possibilité d’affronter d’autres joueurs et de tenter de remporter la partie face à ses adversaires, en arrivant le premier à une sortie, que ce soit par la rapidité de mouvement, ou par les composants du labyrinthe (monstres) ayant éliminé les autres joueurs.
+
 ## Membres de l'équipe
 Réalisé par :
 - **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
@@ -54,32 +58,7 @@ Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
 ## Diagramme de classe
 
-L'architecture de l'application se compose sous la forme suivante, en plusieurs diagrammes à granularités différentes.
-Les packages seront ici séparés pour ne pas surcharger le rendu. Les relations inter-packages sont donc implicites ou induites par le nommage (Nommage strict des controlleurs).
-
-### Modèle
-
-#### Coeur
-
-#### Algorithme
-
-#### Persistance
-
-### Vue
-
-### Controlleurs
-
-Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code. Ce code n'est pas couvert à ce niveau de granularité. 
-
-Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue.
-
-Les contrôleurs ne font aucune logique métier. Ils servent uniquement à la liason (Pattern MVN strict).
-
-La logique de victoire se déroule dans le modèle, qui en avertit les contrôleurs (étant ses `victoryObserver`). Toute la logique de sauvegarde est réalisée par le modèle.
-
-### Ensemble
-
-**Le modèle est strictement indépendant de la vue et du contrôleur.**
+Afin de ne pas surcharger le README, le diagramme UML ainsi que les choix de conception seront détaillés dans un fichier à part accesible à : [Rapport UML](labyrinth/UML/uml.md)
 
 ## Lancer le projet
 ### Prérequis
@@ -143,6 +122,8 @@ Ensuite, exécutez avec :
 ---
 
 ## Démonstrations
+
+[Accueil](assets/accueil.png)
 
 [Vue d'un labyrinthe](assets/vueLaby.png)
 

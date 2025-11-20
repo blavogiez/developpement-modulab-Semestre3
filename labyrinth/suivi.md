@@ -41,8 +41,8 @@ Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démon
 ### **Baptiste** :
 | Développement | Analyse | Algorithmie |
 |--------------|---------|-------------|
-| Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven) | | |
-| Génération des classes et méthodes vides de l'UML | | |
+| Après la fin de l'UML, création de l'environnement du projet avec importation (JDK 17, JavaFX + Maven) | | |
+| Génération des classes et méthodes vides depuis l'UML | | |
 
 ### **Romain** :
 Fiche descriptive du "Déplacer joueur"
@@ -264,7 +264,9 @@ Création de la classe "PlayerDatabase"
 |--------------|-------------|
 | Fonctionnalité originale : Avec Antonin, implémentation du mode multijoueur (gestion des ID joueur et touches) | |
 | Fonctionnalité originale : Algorithmes de positionnement initial d'entité | |
-| Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
+| Fonctionnalité originale : Piège de regénération du labyrinthe | |
+| Style : Vidéo de fond dans les menus avec transitions | |
+| Tests : MonsterEatingPlayer, LiskovMaze + mise à jour des tests pour supporter le mode multijoueur | |
 
 
 ### **Romain** :
@@ -280,7 +282,7 @@ Création de la classe "PlayerDatabase"
 
 ## **Semaine du 17/11 au 21/11**
 
-**Cette semaine, nous avons principalement testé et finalisé l'application pour un rendu optimal.**
+**Cette semaine, nous avons principalement testé et finalisé l'application pour un rendu sans bugs / crash. Nous avons également tous discuté de la meilleure approche pour maximiser la qualité de code.**
 
 ### **Antonin** :
 
@@ -293,10 +295,10 @@ Création de la classe "PlayerDatabase"
 
 | Développement | Algorithmie |
 |--------------|-------------|
-| Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | |
+| Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | Optimisation de l'algorithme de fusion (Union-Find) avec tests correspondants |
 | Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
-| Fonctionnalité originale : Avec Romain, affichage en panneau d'information  des entités / pièges contenus dans le labyrinthe | |
-| Fonctionnalité originale : Affichage en panneau d'information des entités dynamique avec pattern Observable / Observé | |
+| Fonctionnalité originale : Avec Romain, affichage en panneau d'information  des entités/pièges contenus dans le labyrinthe | |
+| Fonctionnalité originale : Affichage du panneau d'information des entités/pièges dynamique avec pattern Observer / Observable | |
 
 
 ### **Romain** :

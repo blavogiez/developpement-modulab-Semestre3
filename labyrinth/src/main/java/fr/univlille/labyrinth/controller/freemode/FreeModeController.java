@@ -68,14 +68,8 @@ public class FreeModeController {
         resize();
     }
 
-    /**
-     * @throws IOException Renvoie une IOException si la scène est inaccessible.
-     */
-    @FXML
-    private void goToModeLaby() throws IOException {
-        int width;
-        int height;
-        int distance ;
+    private void saveConfig() {
+        int width, height, distance ;
         try {
             width = Integer.parseInt(widthField.getText());
             height = Integer.parseInt(heightField.getText());
@@ -95,8 +89,6 @@ public class FreeModeController {
         config.setHeight(height);
         config.setWallPercentage(wallPercentageSlider.getValue());
         config.setDistanceBetweenEntryAndExit(distance);
-
-        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     private void showError() {
@@ -104,6 +96,15 @@ public class FreeModeController {
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> errorLabel.setVisible(false));
         pause.play();
+    }
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
+    @FXML
+    private void goToModeLaby() throws IOException {
+        saveConfig();
+        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     /**
@@ -119,6 +120,7 @@ public class FreeModeController {
      */
     @FXML
     private void goToComponentConfiguration() throws IOException {
+        saveConfig();
         App.goTo("freemode/FreeModeComponentConfiguration.fxml");
     }
 

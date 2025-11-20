@@ -23,7 +23,7 @@ import javafx.stage.Screen;
 
 /**
  * Classe abstraite générique pour les contrôleurs de labyrinthe
- * Regroupe les fonctionnalités communes comme le mouvement du joueur et le chronomètre
+ * Regroupe les fonctionnalités communes comme le mouvement du joueur, les panels d'informations et le chronomètre
  *
  * @author Antonin, Angel, Baptise, Romain, Victor
  * @version 0.0
@@ -115,6 +115,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
 
     /*
     Setup de panneaux de légende pour indiquer les entités et pièges présents dans le labyrinthe
+    Le centerContent en argument sera les vues injectées par les classes enfants de LabyrinthController
     */
     protected void setupLegendPanels(Node centerContent) {
         leftLegendPanel = new LegendPanel("Entities", LegendPanel.LegendType.ENTITIES);

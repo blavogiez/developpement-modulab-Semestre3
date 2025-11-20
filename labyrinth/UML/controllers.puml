@@ -6,7 +6,20 @@ skinparam classAttributeIconSize 0
 package controller {
     class AppState {
         + reset()
+        + getCurrentPlayer() : Player
+        + setCurrentPlayer(Player)
+        + getSelectedLevelIndex() : int
+        + setSelectedLevelIndex(int)
+        + getSelectedChallengeIndex() : int
+        + setSelectedChallengeIndex(int)
+        + getSelectedChallenge() : Challenge
+        + setSelectedChallenge(Challenge)
+        + getFreeModeConfig() : FreeModeConfig
+        + setFreeModeConfig(FreeModeConfig)
+        + getPendingNotificationMessage() : String
+        + setPendingNotificationMessage(String)
         + isPendingNotificationVictory() : boolean
+        + setPendingNotificationIsVictory(boolean)
     }
 
     abstract class LabyrinthController<T> {
@@ -45,7 +58,9 @@ package controller {
         + toggleAnimation()
         + goToAccueil()
     }
+}
 
+package controller.input {
     class PlayerMovementHandler {
         + handleMovement(KeyEvent, GameMode)
     }
@@ -131,6 +146,6 @@ controller.progressionmode.ProgressionModeLabyrinthController <|-- controller.pr
 VictoryNotification ..> AppState
 controller.freemode.FreeModeLabyrinthController ..> VictoryNotification
 controller.progressionmode.ProgressionModeLabyrinthController ..> VictoryNotification
-LabyrinthController ..> PlayerMovementHandler
+LabyrinthController ..> controller.input.PlayerMovementHandler
 
 @enduml
