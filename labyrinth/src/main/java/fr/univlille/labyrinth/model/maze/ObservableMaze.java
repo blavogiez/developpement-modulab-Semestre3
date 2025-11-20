@@ -69,15 +69,13 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
-    /** 
-     * @param playerID
-     * @param direction
-     * @return boolean
-     */
     /*
      * Déplace le joueur à la direction souhaitée et avertit toutes les entités de ce déplacement (certaines peuvent être amenéees à bouger)
      * (Le joueur est contenu dans les entités)
      * 
+     * @param playerID
+     * @param direction
+     * @return boolean
      */
     public boolean movePlayer(int playerID, Direction direction){
         entityManager.moveEntities(playerID, this, direction);
