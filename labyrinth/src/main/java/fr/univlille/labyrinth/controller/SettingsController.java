@@ -34,7 +34,7 @@ public class SettingsController {
      */
     @FXML
     private void toggleButton(){
-        ThemeManager.setDarkMode(!ThemeManager.isDarkMode());
+        ThemeManager.toggleTheme();
         ThemeManager.updateTheme(SceneNavigator.getPrimaryStage().getScene());
         SettingsManager.save();
         updateButtonTexts();
@@ -42,7 +42,7 @@ public class SettingsController {
 
     @FXML
     private void toggleAnimation(){
-        Settings settings = SettingsManager.get();
+        Settings settings = SettingsManager.getSettings();
         settings.setAnimationEnabled(!settings.isAnimationEnabled());
         SettingsManager.save();
         updateButtonTexts();
@@ -57,7 +57,7 @@ public class SettingsController {
         updateButtonTexts();
     }
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
@@ -72,12 +72,12 @@ public class SettingsController {
 
     private void updateButtonTexts() {
         if (ThemeManager.isDarkMode()) {
-            themeButton.setText("Mode Nuit: ON");
+            themeButton.setText("Mode Nuit");
         } else {
-            themeButton.setText("Mode Jour: ON");
+            themeButton.setText("Mode Jour");
         }
 
-        Settings settings = SettingsManager.get();
+        Settings settings = SettingsManager.getSettings();
         if (settings.isAnimationEnabled()) {
             animationButton.setText("Animations: ON");
         } else {

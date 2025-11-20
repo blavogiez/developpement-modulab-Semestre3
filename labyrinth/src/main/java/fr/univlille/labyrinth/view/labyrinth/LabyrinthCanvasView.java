@@ -109,7 +109,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     }
 
     public LabyrinthCanvasView(ObservableMaze maze) {
-        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.getSettings().isAnimationEnabled());
     }
 
     public void draw() {
