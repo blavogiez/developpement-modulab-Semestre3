@@ -1,5 +1,6 @@
 package fr.univlille.labyrinth.model.maze.traps;
 
+import fr.univlille.labyrinth.model.exceptions.UnknownTrapException;
 import fr.univlille.labyrinth.model.maze.traps.trap.*;
 
 import java.util.function.Supplier;
@@ -16,14 +17,16 @@ public enum TrapFactory {
     TELEPORT_EXIT_TRAP(TeleportExitTrap::new,"TE"),
     LAVA_TRAP(LavaTrap::new,"L");
 
-    private Supplier<Trap> trap;
-    private String compactedName;
+    private final Supplier<Trap> trap;
+    private final String compactedName;
 
-    public static TrapFactory compactedValueOf(String compactedName) throws Exception{
-        for (int i = 0; i<values().length;i++){
-            if (compactedName.equals(values()[i].getCompactedName())) return values()[i];
+    public static TrapFactory compactedValueOf(String compactedName){
+        for (TrapFactory factory : values()){
+            if (compactedName.equals(factory.getCompactedName())) {
+                return factory;
+            }
         }
-        throw new Exception("Le trap n'existe pas");
+        throw new UnknownTrapException(compactedName);
     }
 
     public String getCompactedName(){

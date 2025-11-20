@@ -20,11 +20,11 @@ public class PlayerStorage {
     /** 
      * @param players
      */
-    public static void writeAll(List<Player> players) {
+    public static void writeAll(List<Player> players){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
             oos.writeObject(players);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur WriteAll"+e.getMessage());
         }
     }
 

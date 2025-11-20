@@ -1,6 +1,6 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.view.utils;
 
-import fr.univlille.labyrinth.utils.Timer;
+import fr.univlille.labyrinth.model.gamemode.Timer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
