@@ -41,7 +41,7 @@ public abstract class ProgressionLoader {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            reader.skip(1);
+            reader.readLine();
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -88,7 +88,7 @@ public abstract class ProgressionLoader {
     private static int getNumberLevel(File file){
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             int maxLevel = 0;
-            reader.skip(1);
+            reader.readLine();
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
