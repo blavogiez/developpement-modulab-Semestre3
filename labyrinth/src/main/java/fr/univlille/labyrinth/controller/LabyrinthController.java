@@ -68,13 +68,7 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         mazeInfoLabel.setText(gameMode.toString());
         
         pane1.requestFocus();
-        pane1.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            try {
-                movement(e);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+        pane1.addEventFilter(KeyEvent.KEY_PRESSED, this::movement);
 
         gameMode.addVictoryObserver(this);
     }
@@ -82,18 +76,15 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
 
     /**
      * Méthode abstraite pour initialiser le mode de jeu spécifique
-     * 
-     * @param e
-     * @throws IOException
+     *
      */
     protected abstract void initializeGameMode();
 
     /** 
      * @param e
-     * @throws IOException
      */
     @FXML
-    public void movement(KeyEvent e) throws IOException {
+    public void movement(KeyEvent e)  {
         movementHandler.handleMovement(e, gameMode);
     }
 

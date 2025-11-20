@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.maze.traps.trap;
 
-import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
@@ -10,6 +9,7 @@ import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import java.util.Random;
 
 public abstract class Trap {
+    private static final Random RANDOM = new Random();
     Position position;
 
     /**
@@ -48,14 +48,15 @@ public abstract class Trap {
      * @return une position libre aléatoire
      */
     protected static Position getRandomCell(ObservableMaze maze) {
-        Random random = new Random();
+
         TrapManager trapManager = maze.getTrapManager();
         EntityManager entityManager = maze.getEntityManager();
-        int x, y;
+        int x;
+        int y;
         Position position;
         do {
-            y = random.nextInt(trapManager.height());
-            x = random.nextInt(trapManager.width());
+            y = RANDOM.nextInt(trapManager.height());
+            x = RANDOM.nextInt(trapManager.width());
             position = new Position(x, y);
         } while (!isFree(trapManager.getTrap(y,x),entityManager,position));
 

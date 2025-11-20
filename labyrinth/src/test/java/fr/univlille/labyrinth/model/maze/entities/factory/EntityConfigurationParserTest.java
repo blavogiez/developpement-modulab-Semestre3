@@ -16,7 +16,7 @@ class EntityConfigurationParserTest {
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
 
         assertEquals(1, result.size());
-        assertEquals(EntityType.PLAYER, result.get(0).type());
+        assertEquals(EntityType.PLAYER, result.get(0).getType());
         assertEquals(1, result.get(0).quantity());
         assertEquals("PLAYER", result.get(0).moveBehaviorName());
     }
@@ -28,8 +28,8 @@ class EntityConfigurationParserTest {
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
 
         assertEquals(2, result.size());
-        assertEquals(EntityType.PLAYER, result.get(0).type());
-        assertEquals(EntityType.EXIT, result.get(1).type());
+        assertEquals(EntityType.PLAYER, result.get(0).getType());
+        assertEquals(EntityType.EXIT, result.get(1).getType());
         assertEquals("MOVING", result.get(1).moveBehaviorName());
     }
 
@@ -40,8 +40,8 @@ class EntityConfigurationParserTest {
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
 
         assertEquals(2, result.size());
-        assertEquals(EntityType.PLAYER, result.get(0).type());
-        assertEquals(EntityType.EXIT, result.get(1).type());
+        assertEquals(EntityType.PLAYER, result.get(0).getType());
+        assertEquals(EntityType.EXIT, result.get(1).getType());
     }
 
     @Test
@@ -60,8 +60,8 @@ class EntityConfigurationParserTest {
         List<EntityConfiguration> result = EntityConfigurationParser.parse(null);
 
         assertEquals(2, result.size());
-        assertEquals(EntityType.PLAYER, result.get(0).type());
-        assertEquals(EntityType.EXIT, result.get(1).type());
+        assertEquals(EntityType.PLAYER, result.get(0).getType());
+        assertEquals(EntityType.EXIT, result.get(1).getType());
     }
 
     @Test
@@ -69,7 +69,7 @@ class EntityConfigurationParserTest {
         List<EntityConfiguration> result = EntityConfigurationParser.parse("");
 
         assertEquals(2, result.size());
-        assertEquals(EntityType.PLAYER, result.get(0).type());
-        assertEquals(EntityType.EXIT, result.get(1).type());
+        assertEquals(EntityType.PLAYER, result.get(0).getType());
+        assertEquals(EntityType.EXIT, result.get(1).getType());
     }
 }

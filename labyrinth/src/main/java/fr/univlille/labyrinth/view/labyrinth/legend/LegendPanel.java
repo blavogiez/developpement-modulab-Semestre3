@@ -8,6 +8,7 @@ import fr.univlille.labyrinth.model.Observer;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.geometry.Insets;
@@ -44,12 +45,12 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         if (type == LegendType.ENTITIES) {
             updateEntities(maze.getEntityManager().getEntities());
         } else if (type == LegendType.TRAPS) {
-            updateTraps(maze.getTrapManager().getTraps());
+            updateTraps(maze.getTrapManager());
         }
     }
 
     public void updateEntities(List<Entity> entities) {
-        getChildren().removeIf(node -> node instanceof LegendItemView);
+        getChildren().removeIf(LegendItemView.class::isInstance);
 
         Map<String, EntityCount> entityCounts = new HashMap<>();
 
@@ -67,13 +68,16 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         );
     }
 
-    public void updateTraps(Trap[][] traps) {
-        getChildren().removeIf(node -> node instanceof LegendItemView);
+    public void updateTraps(TrapManager trapManager) {
+        getChildren().removeIf(LegendItemView.class::isInstance);
 
         Map<String, EntityCount> trapCounts = new HashMap<>();
+        int height = trapManager.height();
+        int width = trapManager.width();
 
-        for (Trap[] row : traps) {
-            for (Trap trap : row) {
+        for (int y = 0; y<height;y++) {
+            for (int x = 0; x<width;x++) {
+                Trap trap = trapManager.getTrap(y,x);
                 if (trap != null) {
                     GameViewConfig config = GameViewConfig.forTrap(trap);
 
@@ -103,8 +107,8 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
     }
 
     private String getEntityDisplayName(Entity entity, GameViewConfig config) {
-        if (entity instanceof PlayerEntity) {
-            int id = ((PlayerEntity) entity).getID();
+        if (entity instanceof PlayerEntity playerEntity) {
+            int id = playerEntity.getID();
             return "Player " + (id + 1);
         }
         return switch (config) {

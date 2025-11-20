@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze.entities.factory;
 
 
 import fr.univlille.labyrinth.controller.freemode.MazeThreatConfiguration;
-import fr.univlille.labyrinth.model.maze.MazeThreats;
 import fr.univlille.labyrinth.model.maze.entities.EntityType;
 
 public class EntityConfiguration implements MazeThreatConfiguration {

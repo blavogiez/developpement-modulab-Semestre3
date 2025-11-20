@@ -64,8 +64,8 @@ public class ExitEntity extends Entity {
 
             if(cpt<-20) break ;
         } while (distResult.positions().size()==0);
-        Random random = new Random();
-        Position thisExitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
+
+        Position thisExitPosition = distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
         return thisExitPosition;
 
     }
