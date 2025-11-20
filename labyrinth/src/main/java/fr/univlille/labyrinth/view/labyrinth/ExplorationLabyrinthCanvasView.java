@@ -18,7 +18,7 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
     private ExplorationFilter explorationFilter;
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze) {
-        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.get().isAnimationEnabled());
+        this(maze, new LabyrinthLayoutCalculator(), new ComponentRenderer(), SettingsManager.getSettings().isAnimationEnabled());
     }
 
     public ExplorationLabyrinthCanvasView(ObservableMaze maze, LabyrinthLayoutCalculator layoutCalculator,
@@ -38,6 +38,9 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         this.explorationFilter = filter;
     }
 
+    /** 
+     * @param maze
+     */
     @Override
     public void update(ObservableMaze maze) {
         super.update(maze);
@@ -67,6 +70,11 @@ public class ExplorationLabyrinthCanvasView extends LabyrinthCanvasView {
         }
     }
 
+    /** 
+     * @param gc
+     * @param hauteur
+     * @param largeur
+     */
     private void dessinerZonesNonExplorees(GraphicsContext gc, int hauteur, int largeur) {
         gc.setFill(Color.BLACK);
 

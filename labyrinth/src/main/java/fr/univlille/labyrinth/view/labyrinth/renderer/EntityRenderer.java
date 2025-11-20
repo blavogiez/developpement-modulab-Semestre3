@@ -22,6 +22,11 @@ public class EntityRenderer {
         this.renderingFilter = renderingFilter;
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     */
     public void drawEntities(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
         for (Entity entity : maze.getEntityManager().getEntities()) {
             int x = entity.getPosition().getX();
@@ -34,6 +39,13 @@ public class EntityRenderer {
         }
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     * @param playerXMap
+     * @param playerYMap
+     */
     public void dessinerJoueur(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout, Map<Integer, Double> playerXMap, Map<Integer, Double> playerYMap) {
         for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
             int id = player.getID();
@@ -47,6 +59,13 @@ public class EntityRenderer {
         }
     }
 
+    /** 
+     * @param gc
+     * @param y
+     * @param x
+     * @param couleur
+     * @param layout
+     */
     private void dessinerMarqueur(GraphicsContext gc, double y, double x, Color couleur, LabyrinthLayout layout) {
         double tailleMarqueur = layout.getCellSize() * 0.6;
         double marginMarqueur = (layout.getCellSize() - tailleMarqueur) / 2;

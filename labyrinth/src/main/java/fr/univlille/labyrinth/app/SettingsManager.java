@@ -33,7 +33,7 @@ public class SettingsManager {
     /** 
      * @return Settings
      */
-    public static Settings get() {
+    public static Settings getSettings() {
         return settings;
     }
 }
