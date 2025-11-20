@@ -34,6 +34,9 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     private static final int CANVAS_DEFAULT_SIZE = 800;
     private static final int CONTAINER_MAX_SIZE = 850;
 
+    private final int MINSIZEV=0;
+    private final int MINSIZEV1=0;
+
     protected Pane container;
     protected Canvas canvas;
     protected ObservableMaze currentMaze;
@@ -84,7 +87,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
         canvas = new Canvas(CANVAS_DEFAULT_SIZE, CANVAS_DEFAULT_SIZE);
         container.getChildren().add(canvas);
 
-        container.setMinSize(0, 0);
+        container.setMinSize(MINSIZEV, MINSIZEV1);
         container.setMaxSize(CONTAINER_MAX_SIZE, CONTAINER_MAX_SIZE);
         container.setPrefSize(canvas.getWidth(), canvas.getHeight());
 
@@ -114,7 +117,7 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
 
     public void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(MINSIZEV, MINSIZEV1, canvas.getWidth(), canvas.getHeight());
 
         int hauteur = currentMaze.getHeight();
         int largeur = currentMaze.getWidth();

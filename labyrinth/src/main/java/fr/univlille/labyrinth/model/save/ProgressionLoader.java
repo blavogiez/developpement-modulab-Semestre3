@@ -98,7 +98,7 @@ public class ProgressionLoader {
             return new PlayerProgress(levels);
 
         } catch (IOException e) {
-            throw new RuntimeException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
+            throw new ProgressionLoaderException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
         }
     }
     /** 

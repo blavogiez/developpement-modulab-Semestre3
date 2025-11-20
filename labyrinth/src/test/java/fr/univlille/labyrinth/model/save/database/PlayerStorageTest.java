@@ -31,7 +31,7 @@ class PlayerStorageTest {
     }
 
     @Test
-    void shouldWriteAndReadSinglePlayer() {
+    void shouldWriteAndReadSinglePlayer()  {
         Player joueur = new Player("TestPlayer");
         List<Player> joueurs = new ArrayList<>();
         joueurs.add(joueur);
@@ -44,7 +44,7 @@ class PlayerStorageTest {
     }
 
     @Test
-    void shouldWriteAndReadMultiplePlayers() {
+    void shouldWriteAndReadMultiplePlayers()  {
         List<Player> joueurs = new ArrayList<>();
         joueurs.add(new Player("Player1"));
         joueurs.add(new Player("Player2"));
@@ -71,7 +71,7 @@ class PlayerStorageTest {
     }
 
     @Test
-    void shouldDeleteFile() {
+    void shouldDeleteFile(){
         List<Player> joueurs = new ArrayList<>();
         joueurs.add(new Player("TestPlayer"));
         PlayerStorage.writeAll(joueurs);
