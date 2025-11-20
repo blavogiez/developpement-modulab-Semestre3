@@ -195,6 +195,7 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Victor** :
+- Je n'ai rien branlé pendant les vacs
 
 
 ## **Semaine du 3/11 au 9/11**
@@ -233,6 +234,14 @@ Création de la classe "PlayerDatabase"
 
 ### **Victor** :
 
+- Création de l'algorithme de fusion aléatoire
+- Création de javadoc
+- Création de test pour l'algorithme de fusion aléatoire
+- Ajout test de positon
+- Ajout test de direction
+- Modification de MazeAlgorithm de interface à classe abstract
+- Test de MazeAlgorithm en général
+
 ## **Semaine du 10/11 au 16/11**
 
 
@@ -265,6 +274,8 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Victor** :
+- Améliorations des traps (Factory, Méthode en OnUse, etc..)
+- Créations des tests des traps afin d'atteindre un coverage de ~85%
 
 
 ## **Semaine du 17/11 au 21/11**
@@ -294,3 +305,6 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Victor** :
+
+- Amélioration générale de tout le programme, factorisation afin d'éviter du DRY
+- Résolution de bug utilisateur / Crash
