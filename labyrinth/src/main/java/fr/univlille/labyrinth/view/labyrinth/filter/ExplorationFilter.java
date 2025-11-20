@@ -32,6 +32,12 @@ public class ExplorationFilter implements RenderingFilter {
         }
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @param rayon
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     private boolean estDansRayon(int x, int y, int rayon) {
         PlayerEntity player = maze.getEntityManager().getPlayerEntityByID(0);
         if (player == null) return false;
@@ -42,12 +48,23 @@ public class ExplorationFilter implements RenderingFilter {
         return Math.max(dx, dy) <= rayon;
     }
 
+    /** 
+     * @param x
+     * @param y
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     public boolean isExplored(int x, int y) {
         if (y < 0 || y >= cellulesExplorees.length) return false;
         if (x < 0 || x >= cellulesExplorees[0].length) return false;
         return cellulesExplorees[y][x];
     }
 
+    /** 
+     * @param entity
+     * @param x
+     * @param y
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     @Override
     public boolean shouldRenderEntity(Entity entity, int x, int y) {
         if (!isExplored(x, y)) return false;
@@ -57,16 +74,28 @@ public class ExplorationFilter implements RenderingFilter {
         return true;
     }
 
+    /** 
+     * @param trap
+     * @param x
+     * @param y
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     @Override
     public boolean shouldRenderTrap(Trap trap, int x, int y) {
         return isExplored(x, y);
     }
 
+    /** 
+     * @return {@code true} si la condition est remplie, sinon {@code false}
+     */
     @Override
     public boolean shouldDrawPlayer() {
         return animationEnabled;
     }
 
+    /** 
+     * @return {@code boolean}
+     */
     public boolean[][] getCellulesExplorees() {
         return cellulesExplorees;
     }

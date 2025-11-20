@@ -18,6 +18,11 @@ public class TrapRenderer {
         this.renderingFilter = renderingFilter;
     }
 
+    /** 
+     * @param gc
+     * @param maze
+     * @param layout
+     */
     public void dessinerTrap(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
         Trap[][] traps = maze.getTrapManager().getTraps();
         for (int y = 0; y < traps.length; y++) {

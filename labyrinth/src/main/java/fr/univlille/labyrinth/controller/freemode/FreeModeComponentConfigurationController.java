@@ -240,6 +240,10 @@ public class FreeModeComponentConfigurationController {
         pause.play();
     }
 
+    /** 
+     * @param type
+     * @return int
+     */
     private int getTotalQuantityByType(EntityType type) {
         return entities.stream()
                 .filter(e -> e.type() == type)
@@ -247,6 +251,10 @@ public class FreeModeComponentConfigurationController {
                 .sum();
     }
 
+    /** 
+     * @param type
+     * @return int
+     */
     private int getMaxAllowed(EntityType type) {
         return switch (type) {
             case MONSTER -> MAX_MONSTERS;

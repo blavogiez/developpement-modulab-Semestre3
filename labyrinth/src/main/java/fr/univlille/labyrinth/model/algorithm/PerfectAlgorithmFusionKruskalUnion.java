@@ -14,6 +14,9 @@ public class PerfectAlgorithmFusionKruskalUnion extends MazeAlgorithm {
     int[] size;        // tailles des ensembles
     int components;    // nombre de composantes restantes
 
+    /** 
+     * @param maze
+     */
     @Override
     public void generateMaze(Maze maze) {
         super.generateMaze(maze);
@@ -35,16 +38,29 @@ public class PerfectAlgorithmFusionKruskalUnion extends MazeAlgorithm {
         } while (!isAllTheSameNumber());
     }
 
+    /** 
+     * @param y
+     * @param x
+     * @return int
+     */
     int index(int y, int x) {
         return y * width + x;
     }
 
+    /** 
+     * @param x
+     * @return int
+     */
     int find(int x) {
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
     }
 
+    /** 
+     * @param a
+     * @param b
+     */
     void union(int a, int b) {
         int pa = find(a);
         int pb = find(b);
@@ -61,6 +77,10 @@ public class PerfectAlgorithmFusionKruskalUnion extends MazeAlgorithm {
         components--;
     }
 
+    /** 
+     * @param position
+     * @param direction
+     */
     void fusionPosition(Position position, Direction direction){
         Position next = position.add(direction.getX(), direction.getY());
         if (positionCorrecte(next, height, width)) {
@@ -76,12 +96,18 @@ public class PerfectAlgorithmFusionKruskalUnion extends MazeAlgorithm {
         }
     }
 
+    /** 
+     * @return boolean
+     */
     boolean isAllTheSameNumber(){
         return components == 1;
     }
 
     private static PerfectAlgorithmFusionKruskalUnion instance;
 
+    /** 
+     * @return PerfectAlgorithmFusionKruskalUnion
+     */
     public static PerfectAlgorithmFusionKruskalUnion getInstance(){
         if (instance == null){
             instance = new PerfectAlgorithmFusionKruskalUnion();
@@ -89,6 +115,9 @@ public class PerfectAlgorithmFusionKruskalUnion extends MazeAlgorithm {
         return instance;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Fusion";

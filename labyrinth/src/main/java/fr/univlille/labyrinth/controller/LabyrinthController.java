@@ -62,12 +62,12 @@ public abstract class LabyrinthController<T extends GameMode> implements Victory
         gameMode.addVictoryObserver(this);
     }
 
-    /** 
-     * @param e
-     * @throws IOException
-     */
+
     /**
      * Méthode abstraite pour initialiser le mode de jeu spécifique
+     * 
+     * @param e
+     * @throws IOException
      */
     protected abstract void initializeGameMode();
 
