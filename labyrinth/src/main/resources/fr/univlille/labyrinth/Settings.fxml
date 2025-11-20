@@ -11,7 +11,7 @@
    <center>
       <VBox fx:id="menu" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="themeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleButton" prefHeight="33.0" prefWidth="120.0" styleClass="toggle" text="Mode Jour/ Mode Nuit" />
+            <Button fx:id="themeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="33.0" prefWidth="120.0" styleClass="toggle" text="Mode Jour/ Mode Nuit" />
             <Button fx:id="animationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleAnimation" prefHeight="33.0" prefWidth="120.0" styleClass="toggle" text="Animation des joueurs" />
             <Button fx:id="quit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToAccueil" prefHeight="33.0" prefWidth="169.0" text="Quitter" />
          </children>

@@ -33,7 +33,7 @@ public class SettingsController {
      * Change de thème si le button est cliqué.
      */
     @FXML
-    private void toggleButton(){
+    private void toggleTheme(){
         ThemeManager.toggleTheme();
         ThemeManager.updateTheme(SceneNavigator.getPrimaryStage().getScene());
         SettingsManager.save();
@@ -44,6 +44,7 @@ public class SettingsController {
     private void toggleAnimation(){
         Settings settings = SettingsManager.getSettings();
         settings.setAnimationEnabled(!settings.isAnimationEnabled());
+
         SettingsManager.save();
         updateButtonTexts();
     }
