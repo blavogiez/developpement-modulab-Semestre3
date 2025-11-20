@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.model.gamemode;
 
 /**
  * Classe utilitaire du chronomètre d'une partie. Permet de mesurer le temps entre un début et une fin.

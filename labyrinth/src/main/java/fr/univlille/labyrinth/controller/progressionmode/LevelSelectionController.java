@@ -13,7 +13,7 @@ import fr.univlille.labyrinth.model.save.Level;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
 import fr.univlille.labyrinth.model.save.ViewType;
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

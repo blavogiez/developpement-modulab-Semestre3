@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.model.save;
 
 import java.io.BufferedReader;
 import java.io.File;

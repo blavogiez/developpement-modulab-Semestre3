@@ -8,8 +8,7 @@ import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerProgress;
-import fr.univlille.labyrinth.utils.ProgressionLoader;
-import fr.univlille.labyrinth.utils.Timer;
+import fr.univlille.labyrinth.model.save.ProgressionLoader;
 
 public class ProgressionMode extends GameMode {
     private Challenge challenge;
