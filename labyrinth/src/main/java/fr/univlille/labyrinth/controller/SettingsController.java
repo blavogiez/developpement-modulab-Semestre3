@@ -80,9 +80,9 @@ public class SettingsController {
 
         Settings settings = SettingsManager.getSettings();
         if (settings.isAnimationEnabled()) {
-            animationButton.setText("Animations: ON");
+            animationButton.setText("Animations Joueurs: ON");
         } else {
-            animationButton.setText("Animations: OFF");
+            animationButton.setText("Animations Joueurs: OFF");
         }
     }
 }
