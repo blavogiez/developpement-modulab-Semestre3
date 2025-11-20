@@ -49,7 +49,7 @@ public class GameModeTest {
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
-        assertFalse(gameMode.getCurrentMaze().getPlayerAtExit() != null);
+        assertFalse(gameMode.getCurrentMaze().getEntityManager().checkPlayerOnExit() != null);
 
         ObservableMaze maze = gameMode.getCurrentMaze();
         Position start = maze.getEntryPosition();
@@ -76,7 +76,7 @@ public class GameModeTest {
         }
 
         assertTrue(observer.isVictoryTriggered());
-        assertTrue(gameMode.getCurrentMaze().getPlayerAtExit() != null);
+        assertTrue(gameMode.getCurrentMaze().getEntityManager().getPlayerEntity().getPosition().equals(exit));
     }
 
     @Test

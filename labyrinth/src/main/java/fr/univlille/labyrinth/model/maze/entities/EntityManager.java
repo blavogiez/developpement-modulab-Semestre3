@@ -154,21 +154,25 @@ public class EntityManager {
     }
 
     /** 
+     * Renvoie le joueur présent sur une position de sortie 
+     * Si un joueur est effectivement présent, on supprime toutes les sorties (unique gagnant)
      * @return PlayerEntity
      */
     public PlayerEntity checkPlayerOnExit() {
+        PlayerEntity winner = null ;
         for (Entity player : this.entities) {
             if (player.getEntityType() == EntityType.PLAYER) {
                 for (Entity exit : this.entities) {
                     if (exit.getEntityType() == EntityType.EXIT) {
                         if (player.getPosition().equals(exit.getPosition())) {
-                            return (PlayerEntity) player;
+                            winner = (PlayerEntity) player;
                         }
                     }
                 }
             }
         }
-        return null;
+        if(winner!=null) entities.removeAll(getEntitiesByType(ExitEntity.class));
+        return winner;
     }
 
     /** 

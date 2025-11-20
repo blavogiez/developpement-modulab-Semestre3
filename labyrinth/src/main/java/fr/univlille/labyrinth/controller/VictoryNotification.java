@@ -47,16 +47,29 @@ public class VictoryNotification {
      */
     public static void show(Pane parent, String message, boolean isVictory) {
         Platform.runLater(() -> {
-            String color = isVictory ? "#4CAF50" : "#F44336";
+            String gradient = isVictory
+                ? "linear-gradient(to right, #10b981, #059669)"
+                : "linear-gradient(to right, #ef4444, #dc2626)";
             String text = isVictory ? "Le gagnant est : " + message : message;
 
             HBox notification = new HBox();
             notification.setAlignment(Pos.CENTER);
-            notification.setStyle("-fx-background-color: " + color + "; -fx-padding: 20px; -fx-background-radius: 5px;");
-            notification.setMaxWidth(400);
+            notification.setStyle(
+                "-fx-background-color: " + gradient + ";" +
+                "-fx-padding: 24px 32px;" +
+                "-fx-background-radius: 10px;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0.4, 0, 3);"
+            );
+            notification.setMaxWidth(420);
 
             Label label = new Label(text);
-            label.setStyle("-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;");
+            label.setStyle(
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 20px;" +
+                "-fx-font-weight: bold;" +
+                "-fx-font-family: 'Segoe UI';" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0.5, 0, 1);"
+            );
             notification.getChildren().add(label);
 
             StackPane overlay = new StackPane();
@@ -77,11 +90,15 @@ public class VictoryNotification {
                 bp.setTop(topContainer);
 
                 notification.setTranslateY(-80);
+                notification.setOpacity(0);
 
-                TranslateTransition slideDown = new TranslateTransition(Duration.millis(400), notification);
+                TranslateTransition slideDown = new TranslateTransition(Duration.millis(500), notification);
                 slideDown.setToY(20);
 
-                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), notification);
+                fadeIn.setToValue(1.0);
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
 
                 TranslateTransition slideUp = new TranslateTransition(Duration.millis(400), notification);
                 slideUp.setToY(-80);
@@ -90,6 +107,7 @@ public class VictoryNotification {
                 fadeOut.setToValue(0.0);
 
                 SequentialTransition sequence = new SequentialTransition(slideDown, pause, slideUp, fadeOut);
+                fadeIn.play();
                 sequence.setOnFinished(e -> bp.setTop(oldTop));
                 sequence.play();
             } else {
@@ -98,11 +116,15 @@ public class VictoryNotification {
                 overlay.toFront();
 
                 notification.setTranslateY(-80);
+                notification.setOpacity(0);
 
-                TranslateTransition slideDown = new TranslateTransition(Duration.millis(400), notification);
+                TranslateTransition slideDown = new TranslateTransition(Duration.millis(500), notification);
                 slideDown.setToY(20);
 
-                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(500), notification);
+                fadeIn.setToValue(1.0);
+
+                PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
 
                 TranslateTransition slideUp = new TranslateTransition(Duration.millis(400), notification);
                 slideUp.setToY(-80);
@@ -111,6 +133,7 @@ public class VictoryNotification {
                 fadeOut.setToValue(0.0);
 
                 SequentialTransition sequence = new SequentialTransition(slideDown, pause, slideUp, fadeOut);
+                fadeIn.play();
                 sequence.setOnFinished(e -> root.getChildren().remove(overlay));
                 sequence.play();
             }

@@ -45,7 +45,7 @@ public abstract class GameMode {
 
         Position oldPosition = player.getPosition().copy();
         if (maze.movePlayer(playerID, direction)) {
-            PlayerEntity winner = maze.getPlayerAtExit();
+            PlayerEntity winner = maze.getEntityManager().checkPlayerOnExit();
             if (winner != null) {
                 handleVictory(winner);
             } else {
