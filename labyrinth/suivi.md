@@ -288,6 +288,8 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Romain** :
+- javadoc
+- affichage entite dans le mode libre
 
 
 ### **Victor** :
