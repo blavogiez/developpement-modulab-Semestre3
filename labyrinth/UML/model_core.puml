@@ -8,11 +8,12 @@ package model.gamemode {
         + GameMode(MazeManager, VictoryHandler, GameConfig)
         + movePlayerPosition(int, Direction)
         + addVictoryObserver(VictoryObserver<GameMode>)
+        + getCurrentMaze() : ObservableMaze
+        + setCurrentMaze(ObservableMaze)
         # notifyVictory()
         # notifyDefeat()
         # handleVictory(PlayerEntity)
         # handleLoose()
-        {static} + areDimensionsCorrect(int, int) : boolean
     }
 
     class FreeMode {
@@ -36,6 +37,9 @@ package model.gamemode {
         + createMaze(GameConfig)
         + hasMaze() : boolean
         + randomWallRemoval(double)
+        + getCurrentMaze() : ObservableMaze
+        + setCurrentMaze(ObservableMaze)
+        {static} + areDimensionsCorrect(int, int) : boolean
     }
 }
 
@@ -53,21 +57,55 @@ package model.algorithm {
     enum MazeAlgorithmFactory {
         PERFECT
         FUSION
+        FUSION_LEGACY
         RANDOM
+        - MazeAlgorithm
+        + getAlgorithm() : MazeAlgorithm
         + isPerfect() : boolean
     }
 }
 
 package model.maze {
     class Maze {
+        - width
+        - height
+        - entryPosition
+        - exitPosition
+        - distanceBetweenEntryAndExit
+        - wallPercentage
+        - murVerticaux
+        - murHorizontaux
+        + getWidth() : int
+        + getHeight() : int
+        + getWallPercentage() : double
+        + getDistanceBetweenEntryAndExit() : int
+        + setDistanceBetweenEntryAndExit(int)
+        + getEntryPosition() : Position
+        + getExitPosition() : Position
+        + getMurHorizontaux() : boolean[][]
+        + getMurVerticaux() : boolean[][]
+        + setEntry(Position)
+        + setExit(Position)
+        + setMurHorizontaux(boolean[][])
+        + setMurVerticaux(boolean[][])
         + Maze(int, int, double, int, MazeAlgorithm)
+        + Maze(int, int, int, MazeAlgorithm)
+        + Maze(int, int, double)
+        + Maze(int, int)
         + trapEffect(int, Position)
     }
 
     class ObservableMaze {
+        - entityManager
+        - trapManager
         + ObservableMaze(int, int, int, String, MazeAlgorithm, String)
+        + ObservableMaze(int, int, double, int, String, MazeAlgorithm, String)
         + movePlayer(int, Direction) : boolean
         + trapEffect(int, Position)
+        + getTrapManager() : TrapManager
+        + getEntityManager() : EntityManager
+        + setPlayerPosition(int, Position)
+        + getObservers() : List<Observer<ObservableMaze>>
     }
 
     class EntityManager {
@@ -82,7 +120,9 @@ package model.maze {
     }
 
     class TrapManager {
+        - trap : Trap[][]
         + TrapManager(ObservableMaze, String)
+        + getTraps() : Trap[][]
         + trapEffect(int, Position)
     }
 
@@ -104,6 +144,8 @@ package model.maze {
 
     package model.maze.entities {
         abstract class Entity {
+        - position
+        - moveBehavior
         + move(ObservableMaze, Direction) : boolean
         }
 
@@ -121,6 +163,7 @@ package model.maze {
 
     package model.maze.traps {
         class TrapManager
+        class TrapSetup
 
         enum TrapFactory {
         + compactedValueOf(String) : TrapFactory

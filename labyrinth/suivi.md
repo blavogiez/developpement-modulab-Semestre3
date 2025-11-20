@@ -41,8 +41,8 @@ Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démon
 ### **Baptiste** :
 | Développement | Analyse | Algorithmie |
 |--------------|---------|-------------|
-| Après la fin de l'UML, création du corps du projet avec importation (JDK 17, JavaFX + Maven) | | |
-| Génération des classes et méthodes vides de l'UML | | |
+| Après la fin de l'UML, création de l'environnement du projet avec importation (JDK 17, JavaFX + Maven) | | |
+| Génération des classes et méthodes vides depuis l'UML | | |
 
 ### **Romain** :
 Fiche descriptive du "Déplacer joueur"

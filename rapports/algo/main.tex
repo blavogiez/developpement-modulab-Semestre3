@@ -42,7 +42,7 @@ row{1} = {bg=gray!20},
 column{1}= {bg=gray!40}
 }
 Nom & Victor & Antonin & Romain & Angèl & Baptiste & Total \\
-Part & 60 & 0 & 0 & 10 & 30 & 100\% \\
+Part & 60\% & 0\% & 0\% & 10\% & 30\% & 100\% \\
 \end{tblr}
 \caption{Répartition de l'investissement}
 \label{tab:repartition}
@@ -88,9 +88,11 @@ Chaque section est écrite par la personne l'ayant réalisée, et éventuellemen
 Les labyrinthes parfaits sont représentés à l’aide de deux structures de données simples et efficaces :
 
 \begin{enumerate}
-\item Un tableau de booléens représentant les murs verticaux ;
-\item Un tableau de booléens représentant les murs horizontaux.
+\item Un tableau de booléens représentant les murs verticaux, de taille [largeur-1][hauteur] ;
+\item Un tableau de booléens représentant les murs horizontaux, de taille [hauteur-1][largeur].
 \end{enumerate}
+
+Les positions sont représentées par une structure \texttt{Position}, étant un simple couple \textit{x et y}.
 
 Cette représentation, identique à celle utilisée dans le TP sur les labyrinthes parfaits, constitue la structure minimale pour modéliser correctement un labyrinthe. Elle se limite à des variables primitives, garantissant une excellente compacité mémoire et une absence totale de redondance.
 
@@ -115,7 +117,7 @@ Lien : \href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/tree/master/la
 
 \section{Algorithmes de génération}
 
-Toutes les implémentations \textbf{d'algorithme} sont trouvables dans le package \texttt{algorithm} : \href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/tree/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm?ref_type=heads}{Implémentation Java}
+Toutes les implémentations \textbf{d'algorithme} sont trouvables dans le package \texttt{algorithm} : \href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/tree/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm?ref_type=heads}{Package \texttt{algorithm}}
 
 L'implémentation précise de chaque algorithme est indiquée dans les sous-sections suivantes.
 
@@ -200,11 +202,6 @@ La mise à jour de la distance effective permet, entre autres, d’informer la s
 
 Pendant l'exécution, l'algorithme utilise principalement une file et un dictionnaire.
 
-\begin{itemize}
-\item La file est indispensable puisqu'il s'agit d'un parcours en largeur. Elle nous permet d'explorer plusieurs niveaux à la fois.
-\item Le dictionnaire sert à associer une position à sa distance, permettant de vérifier rapidement si une position a déjà été visitée et de récupérer les positions à la distance cible.
-\end{itemize}
-  
 Quant au retour, l'algorithme utilise un objet \texttt{distanceResultat} contenant :
   
 \begin{itemize}
@@ -212,12 +209,19 @@ Quant au retour, l'algorithme utilise un objet \texttt{distanceResultat} contena
 \item La distance effective.
 \end{itemize}
 
-Puis, il choisit aléatoirement une position parmi la liste.
+Puis, la liaison (prochaine sous-section) choisit aléatoirement une position parmi la liste.
 La distance effective est ensuite attribuée au labyrinthe, afin d'avertir de l'impossibilité de réaliser celle initialement voulue.
 
 \subsubsection{Pertinence}
 
-La motivation principale quant au choix des structures est l'efficacité. La structure choisie dans ce cas est minimale et comporte uniquement ce dont nous avons besoin pour déterminer une position aléatoire respectant la distance demandée (ou maximum si impossible).
+\begin{itemize}
+\item La file est indispensable puisqu'il s'agit d'un parcours en largeur. Elle nous permet d'explorer plusieurs niveaux à la fois.
+\item Le dictionnaire sert à associer une position à sa distance, permettant de vérifier rapidement si une position a déjà été visitée et de récupérer les positions à la distance cible.
+\end{itemize}
+
+L'objet \texttt{distanceResultat} permet une transmission facilitée des résultats vers les autres classes.
+
+Enfin, la motivation principale quant au choix des structures est l'efficacité. La structure choisie dans ce cas est minimale et comporte uniquement ce dont nous avons besoin pour déterminer une position aléatoire respectant la distance demandée (ou maximum si impossible).
 
 \subsubsection{Implémentation}
 
@@ -225,20 +229,22 @@ Classe : \texttt{fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance}
 
 Méthode principale : \texttt{calculateAllDistances(Maze maze, Position start, int targetDistance)}
 
-\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm/pathsearch/MazeDistance.java?ref_type=heads}{Implémentation Java}
+\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm/pathsearch/MazeDistance.java?ref_type=heads}{\texttt{MazeDistance}}
 
 \newpage 
 
 \subsection{Liaison distance/algorithme}
 
-Tous les algorithmes de génération héritent de la classe abstraite \texttt{MazeAlgorithm}, qui applique toujours le même schéma :
+\textbf{Cette sous-section ne présente pas un algorithme en particulier, mais décrit le fonctionnement commun à l’ensemble, afin de rendre les explications plus claires.}
+
+Tous les algorithmes de génération héritent de l'abstraction \texttt{MazeAlgorithm}, qui applique toujours le même schéma :
 
 \begin{enumerate}
     \item \textbf{Génération de la structure} : création des murs selon l’algorithme choisi (PERFECT, FUSION ou RANDOM)
     \item \textbf{Placement de l’entrée et de la sortie} : application de l’algorithme de distance pour respecter la distance demandée
 \end{enumerate}
 
-Cela permet de réunir les comportements communs et d'avoir une modularité accrue des algorithmes.
+Cela permet de réunir les comportements communs ainsi que de bénéfier d'une modularité accrue des algorithmes.
 
 \subsubsection{Pseudo-code}
 
@@ -276,7 +282,7 @@ Méthodes :
     \item \texttt{generateExitAndPlayer(Maze maze)} : placement commun entrée/sortie
 \end{itemize}
 
-\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm/MazeAlgorithm.java?ref_type=heads}{Implémentation complète}
+\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm/MazeAlgorithm.java?ref_type=heads}{MazeAlgorithm}
 
 \newpage 
 
@@ -565,11 +571,6 @@ Méthodes principales : \texttt{generateMaze(Maze maze)}, \texttt{randomlyRemove
 
 \subsection{Méthode}
 
-\begin{enumerate}
-    \item Test de performance ;
-    \item Modélisation.
-\end{enumerate}
-
 \subsubsection{Test de performance}
 
 On note :
@@ -639,9 +640,9 @@ tant que n < f :
 \label{tab:output_example}
 \end{table}
 
-\info{Les tests de performance ont été réalisés sur la même machine avec la même configuration afin de garantir des comparaisons fiables.}
+\info{Les tests de performance ont été réalisés sur la même machine et avec la même configuration afin de garantir des comparaisons fiables.}
 
-\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Benchmark.java?ref_type=heads}{Implémentation Java}
+\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/utils/Benchmark.java?ref_type=heads}{\texttt{Classe Benchmark}}
 
 \subsubsection{Modélisation}
 
@@ -867,8 +868,6 @@ Ce maximum peut toutefois s'estimer : pour $n = 500$, soit un labyrinthe de tail
     \caption{Résultats FUSION pour les tailles 10–500}
 \end{figure}
 
-\obs{La différence entre la version avec et sans distance (à $n$) relève davantage de la variance des résultats que d'un écart fondamental de complexité algorithmique.}
-
 \newpage
 
 \subsubsection{Comparaisons inter-algorithmes}
@@ -894,7 +893,7 @@ Ce maximum peut toutefois s'estimer : pour $n = 500$, soit un labyrinthe de tail
     \label{fig:efficacité_résultats_2}
 \end{figure}
 
-\obs{Comme prévu, les labyrinthes ont une efficacité très proche, la seule différence notable étant conceptuelle (distance entrée/sortie imposée).}
+\obs{Comme prévu, les labyrinthes ont une efficacité très proche, la seule différence notable étant conceptuelle (distance entrée/sortie maximale imposée pour la courbe RANDOM\_DISTANCE).}
 
 \newpage
 
@@ -951,6 +950,10 @@ Les performances de l'algorithme parfait ont été multipliées par 10 après ap
 
 Classe : \href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/blob/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/algorithm/pathsearch/MazeDistance.java?ref_type=heads}{\texttt{MazeDistance.java}}
 
+\newpage
+
+\textbf{Les sous-sous-sections suivantes ne portent plus sur la génération de labyrinthes. Elles présentent l’implémentation d’algorithmes, proches de ceux utilisés précédemment mais appliqués à d’autres tâches, afin d’illustrer l’extensibilité et la réutilisabilité de notre approche algorithmique.}
+
 \subsubsection{Placement des entités}
 
 Notre projet comporte des \textbf{entités} (\emph{joueurs, monstres, sorties...}) qui doivent être placées initialement selon des stratégies. Le problème étant très similaire à celui du placement de l'entrée et de la sortie, un algorithme de la sorte a été implémenté pour le calcul de leurs positions de départ.
@@ -964,6 +967,9 @@ Classes concernées :
     \item \texttt{fr.univlille.labyrinth.model.maze.entities.ExitEntity} : méthode \texttt{getInitialPosition(ObservableMaze)}
     \item \texttt{fr.univlille.labyrinth.model.maze.entities.factory.EntityListFactory} : méthode \texttt{fillMazeEntities(ObservableMaze, String)}
 \end{itemize}
+
+\href{https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/tree/master/labyrinth/src/main/java/fr/univlille/labyrinth/model/maze/entities}{Package \texttt{entities}}
+
 
 \subsubsection{Déplacement des monstres}
 
@@ -1026,6 +1032,9 @@ Plusieurs axes d'amélioration pourraient être explorés :
 La solution présentée répond pleinement aux exigences du jalon 2 et établit des bases solides et durables pour l’algorithme de génération de labyrinthes.
 
 \end{document}
+
+
+
 
 
 

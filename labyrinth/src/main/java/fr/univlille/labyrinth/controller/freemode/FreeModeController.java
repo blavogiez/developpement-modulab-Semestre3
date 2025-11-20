@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.view.utils.ResizeUtil;
@@ -74,6 +73,11 @@ public class FreeModeController {
      */
     @FXML
     private void goToModeLaby() throws IOException {
+        saveConfig();
+        App.goTo("freemode/FreeModeLabyrinth.fxml");
+    }
+
+    private void saveConfig() {
         int width, height, distance ;
         try {
             width = Integer.parseInt(widthField.getText());
@@ -94,8 +98,6 @@ public class FreeModeController {
         config.setHeight(height);
         config.setWallPercentage(wallPercentageSlider.getValue());
         config.setDistanceBetweenEntryAndExit(distance);
-
-        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     private void showError() {
@@ -118,6 +120,7 @@ public class FreeModeController {
      */
     @FXML
     private void goToComponentConfiguration() throws IOException {
+        saveConfig();
         App.goTo("freemode/FreeModeComponentConfiguration.fxml");
     }
 
