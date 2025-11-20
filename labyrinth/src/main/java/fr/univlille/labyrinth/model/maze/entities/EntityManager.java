@@ -172,18 +172,16 @@ public class EntityManager {
      */
     public PlayerEntity checkPlayerOnExit() {
         PlayerEntity winner = null ;
-        for (Entity player : this.entities) {
-            if (player.getEntityType() == EntityType.PLAYER) {
-                for (Entity exit : this.entities) {
-                    if (exit.getEntityType() == EntityType.EXIT) {
-                        if (player.getPosition().equals(exit.getPosition())) {
-                            winner = (PlayerEntity) player;
-                        }
-                    }
-                }
-            }
+        List<PlayerEntity> playerList = getEntitiesByType(PlayerEntity.class);
+        List<ExitEntity> exitList = getEntitiesByType(ExitEntity.class);
+        List<Position> exitListPosition = exitList.parallelStream().map(Entity::getPosition).toList();
+
+        for (PlayerEntity player : playerList){
+            if (exitListPosition.contains(player.getPosition())) winner=player;
         }
+
         if(winner!=null) entities.removeAll(getEntitiesByType(ExitEntity.class));
+
         return winner;
     }
 

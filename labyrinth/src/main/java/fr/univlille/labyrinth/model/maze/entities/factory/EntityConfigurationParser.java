@@ -11,14 +11,13 @@ import java.util.Map;
  * Initialise une EntityConfiguration à partir d'une chaine de caractères (typiquement contenue dans le csv des défis par défaut)
  * Si rien n'est entré, on considère qu'il y a juste un joueur et une sortie aux comportements basiques (étapes 1 à 6)
  */
-public class EntityConfigurationParser {
+public abstract class EntityConfigurationParser {
+    private EntityConfigurationParser(){}
     private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
     /** 
      * @param configuration
      * @return List<EntityConfiguration>
      */
-    //private static final String DEFAULT_CONFIGURATION = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=DEFAULT";
-
     public static List<EntityConfiguration> parse(String configuration) {
         if (configuration == null || configuration.trim().isEmpty() || configuration.equalsIgnoreCase("DEFAULT")) {
             configuration = DEFAULT_CONFIGURATION;

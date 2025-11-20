@@ -13,7 +13,7 @@ public abstract class Entity {
     protected Position position ;
     protected MoveBehavior moveBehavior ;
 
-    public Entity(Position position, MoveBehavior moveBehavior) {
+    protected Entity(Position position, MoveBehavior moveBehavior) {
         this.position = position;
         this.moveBehavior = moveBehavior;
     }

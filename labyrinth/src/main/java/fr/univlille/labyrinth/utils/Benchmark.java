@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.maze.Maze;
@@ -23,7 +24,7 @@ public class Benchmark {
     public static final double WALL_PERCENTAGE = 0.5 ;
 
     // Nilpotence du programme vis-à-vis des fichiers CSV
-    public static final boolean delete = false ;
+    public static final boolean DELETE = false ;
 
     // Nombre de tours que fera le benchmark pour calculer la moyenne
     public static final int PRECISION = 10; 
@@ -31,16 +32,18 @@ public class Benchmark {
      * @param args
      */
     public static void main(String[] args) {
-        if(delete) deleteAllCsvFiles();
+        if(DELETE) deleteAllCsvFiles();
         Benchmark.csvBench(5, 500, 5);
     }
+
+    private static final String RANDOM = "RANDOM";
 
     /**
      * Pour tous les algorithmes présents, enregistre les données mesurées dans des fichiers aux noms des algorithmes.
      */
     public static void csvBench(int taille, int fin, int ecart) {
         for (MazeAlgorithmFactory algo : MazeAlgorithmFactory.values()) {
-            if(algo.name().equals("RANDOM")) {
+            if(algo.name().equals(RANDOM)) {
                 Benchmark.csvBench(algo, taille, fin, ecart, false);
                 Benchmark.csvBench(algo, taille, fin, ecart, true);
             }
@@ -69,18 +72,10 @@ public class Benchmark {
 
             while (taille < fin) {
                 long sommeTemps = 0;
-                int reps = algo.name().equals("RANDOM") ? PRECISION * 3 : PRECISION;
-                double[] percentages = algo.name().equals("RANDOM") ? new double[]{0.2, 0.3, 0.5} : new double[]{0.5};
+                int reps = algo.name().equals(RANDOM) ? PRECISION * 3 : PRECISION;
+                double[] percentages = algo.name().equals(RANDOM) ? new double[]{0.2, 0.3, 0.5} : new double[]{0.5};
 
-                for (double percentage : percentages)
-                    for (int i = 0; i < PRECISION; i++) {
-                        Timer timer = new Timer();
-                        int distance = showDistance ? taille : 0;
-                        timer.start();
-                        new Maze(taille, taille * 2, percentage, distance, algo.getAlgorithm());
-                        timer.stop();
-                        sommeTemps += timer.getChrono();
-                    }
+                sommeTemps = getSommeTemps(algo, taille, showDistance, percentages, sommeTemps);
 
                 long tempsMoyen = sommeTemps / reps;
                 writer.write(taille + "," + tempsMoyen + "\n");
@@ -95,13 +90,26 @@ public class Benchmark {
         }
     }
 
+    private static long getSommeTemps(MazeAlgorithmFactory algo, int taille, boolean showDistance, double[] percentages, long sommeTemps) {
+        for (double percentage : percentages)
+            for (int i = 0; i < PRECISION; i++) {
+                Timer timer = new Timer();
+                int distance = showDistance ? taille : 0;
+                timer.start();
+                new Maze(taille, taille * 2, percentage, distance, algo.getAlgorithm());
+                timer.stop();
+                sommeTemps += timer.getChrono();
+            }
+        return sommeTemps;
+    }
+
     /**
      * Supprime tous les fichiers CSV du dossier res/benchmarks
      */
     public static void deleteAllCsvFiles() {
         File dir = new File("res/benchmarks");
         if (dir.exists()) {
-            for (File file : dir.listFiles((d, name) -> name.endsWith(".csv"))) {
+            for (File file : Objects.requireNonNull(dir.listFiles((d, name) -> name.endsWith(".csv")))) {
                 file.delete();
             }
         }

@@ -15,7 +15,8 @@ import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MoveBehavior;
  * Initialise une entité complète à partir d'une configuration (Paramètres) et d'un labyrinthe (Position de l'entité)
  */
 
-public class EntityListFactory {
+public abstract class EntityListFactory {
+    private EntityListFactory(){}
 
     private static final int MAX_MONSTERS = 5;
     private static final int MAX_PLAYERS = 3;

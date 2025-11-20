@@ -1,5 +1,7 @@
 package fr.univlille.labyrinth.model.maze;
 
+import fr.univlille.labyrinth.model.exceptions.DirectionException;
+
 import java.util.Random;
 
 /**
@@ -52,15 +54,17 @@ public enum     Direction {
         else if (x==0 && y>0) return DOWN;
         else if (x<0 && y == 0) return LEFT;
         else if (x>0 && y == 0) return RIGHT;
-        else throw new RuntimeException("Impossible d'obtenir la direction si les valeurs sont nuls !");
+        else throw new DirectionException("Impossible d'obtenir la direction si les valeurs sont nuls !");
     }
 
     public static Direction getDirection(Position playerPosition, Position playerPosition2){
 
         return getDirection(playerPosition.getX()-playerPosition2.getX(), playerPosition.getY()-playerPosition2.getY());
     }
+    private static Random random;
 
     public static Direction getRandomDirection(){
-        return values()[new Random().nextInt(0,values().length)];
+        if (random==null) random=new Random();
+        return values()[random.nextInt(0,values().length)];
     }
 }
