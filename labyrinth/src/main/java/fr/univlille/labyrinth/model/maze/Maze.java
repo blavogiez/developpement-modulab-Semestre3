@@ -31,7 +31,15 @@ public class Maze {
     protected boolean[][] murVerticaux;
     protected boolean[][] murHorizontaux;
 
-
+    /**
+     * Crée un labyrinthe avec tous les paramètres.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @param wallPercentage pourcentage de murs (0.0 à 1.0)
+     * @param distanceBetweenEntryAndExit distance souhaitée entre l'entrée et la sortie
+     * @param algo algorithme utilisé pour générer le labyrinthe
+     */
     public Maze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
         this.width = width;
         this.height = height;
@@ -43,122 +51,186 @@ public class Maze {
         algo.generateExitAndPlayer(this);
     }
 
+    /**
+     * Crée un labyrinthe avec distance maximale par défaut et algorithme donné.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit distance souhaitée entre l'entrée et la sortie
+     * @param algo algorithme utilisé pour générer le labyrinthe
+     */
     public Maze(int width, int height, int distanceBetweenEntryAndExit, MazeAlgorithm algo){
         this(width, height, 1.0, distanceBetweenEntryAndExit, algo);
     }
 
+    /**
+     * Crée un labyrinthe avec pourcentage de murs donné et distance maximale.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @param wallPercentage pourcentage de murs (0.0 à 1.0)
+     * @param algo algorithme utilisé pour générer le labyrinthe
+     */
     public Maze(int width, int height, double wallPercentage, MazeAlgorithm algo) {
         this(width, height, wallPercentage, Integer.MAX_VALUE, algo);
     }
 
+    /**
+     * Crée un labyrinthe avec seulement le pourcentage de murs.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @param wallPercentage pourcentage de murs (0.0 à 1.0)
+     */
     public Maze(int width, int height, double wallPercentage) {
         this(width, height, wallPercentage, MazeAlgorithmFactory.RANDOM.getAlgorithm());
     }
 
+    /**
+     * Crée un labyrinthe avec distance maximale et algorithme parfait.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit distance souhaitée entre l'entrée et la sortie
+     */
     public Maze(int width, int height, int distanceBetweenEntryAndExit) {
         this(width, height, distanceBetweenEntryAndExit, MazeAlgorithmFactory.PERFECT.getAlgorithm());
     }
 
+    /**
+     * Crée un labyrinthe par défaut avec distance maximale et algorithme parfait.
+     *
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     */
     public Maze(int width, int height) {
         this(width, height, Integer.MAX_VALUE);
     }
-
     
 
     /**
-     * Cette méthode renvoie la largeur du labyrinthe.
+     * Retourne la largeur du labyrinthe en nombre de cellules.
+     *
+     * @return la largeur du labyrinthe
      */
-    public int getWidth()    {
+    public int getWidth() {
         return width;
     }
 
     /**
-     * Cette méthode renvoie la hauteur du labyrinthe.
+     * Retourne la hauteur du labyrinthe en nombre de cellules.
+     *
+     * @return la hauteur du labyrinthe
      */
     public int getHeight() {
         return height;
     }
 
-    /** 
-     * @return double
+    /**
+     * Retourne le pourcentage de murs présents dans le labyrinthe.
+     *
+     * @return le pourcentage de murs (valeur entre 0.0 et 1.0)
      */
     public double getWallPercentage() {
         return this.wallPercentage;
     }
+
     
-    /** 
-     * @return int
-     */
-    /*
-     * Cette méthode renvoie la distance entre l'entrée et la sortie du labyrinthe
+    /**
+     * Retourne la distance entre l'entrée et la sortie du labyrinthe.
+     *
+     * @return la distance entre l'entrée et la sortie
      */
     public int getDistanceBetweenEntryAndExit() {
         return distanceBetweenEntryAndExit;
     }
 
-    /** 
-     * @param distanceBetweenEntryAndExit
+    /**
+     * Définit la distance entre l'entrée et la sortie du labyrinthe.
+     *
+     * @param distanceBetweenEntryAndExit la distance à définir
      */
     public void setDistanceBetweenEntryAndExit(int distanceBetweenEntryAndExit) {
         this.distanceBetweenEntryAndExit = distanceBetweenEntryAndExit;
     }
 
     /**
-     * Cette méthode renvoie la position de l'entrée.
+     * Retourne la position de l'entrée du labyrinthe.
+     *
+     * @return la position de l'entrée
      */
     public Position getEntryPosition() {
         return entryPosition;
     }
 
     /**
-     * Cette méthode renvoie la position de la sortie.
+     * Retourne la position de la sortie du labyrinthe.
+     *
+     * @return la position de la sortie
      */
     public Position getExitPosition() {
         return exitPosition;
     }
 
-    /** 
-     * @return boolean[][]
+    /**
+     * Retourne les murs horizontaux du labyrinthe.
+     *
+     * @return un tableau 2D de booléens représentant les murs horizontaux
      */
     public boolean[][] getMurHorizontaux() {
         return murHorizontaux;
     }
 
-    /** 
-     * @return boolean[][]
+    /**
+     * Retourne les murs verticaux du labyrinthe.
+     *
+     * @return un tableau 2D de booléens représentant les murs verticaux
      */
     public boolean[][] getMurVerticaux() {
         return murVerticaux;
     }
 
-    /** 
-     * @param entryPosition
+    /**
+     * Définit la position de l'entrée du labyrinthe.
+     *
+     * @param entryPosition la position de l'entrée
      */
     public void setEntry(Position entryPosition) {
-        this.entryPosition=entryPosition;
+        this.entryPosition = entryPosition;
     }
 
-    /** 
-     * @param exitPosition
+    /**
+     * Définit la position de la sortie du labyrinthe.
+     *
+     * @param exitPosition la position de la sortie
      */
     public void setExit(Position exitPosition) {
-        this.exitPosition=exitPosition;
+        this.exitPosition = exitPosition;
     }
 
+    /**
+     * Applique l'effet d'un piège à un joueur.
+     *
+     * @param playerID l'identifiant du joueur affecté
+     * @param oldPosition la position précédente du joueur
+     */
     public void trapEffect(int playerID, Position oldPosition) {}
 
-    /** 
-     * @param murHorizontaux
+    /**
+     * Définit les murs horizontaux du labyrinthe.
+     *
+     * @param murHorizontaux un tableau 2D de booléens représentant les murs horizontaux
      */
     public void setMurHorizontaux(boolean[][] murHorizontaux) {
         this.murHorizontaux = murHorizontaux;
     }
 
-    /** 
-     * @param murVerticaux
+    /**
+     * Définit les murs verticaux du labyrinthe.
+     *
+     * @param murVerticaux un tableau 2D de booléens représentant les murs verticaux
      */
     public void setMurVerticaux(boolean[][] murVerticaux) {
         this.murVerticaux = murVerticaux;
     }
-
 }

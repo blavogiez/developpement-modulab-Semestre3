@@ -13,8 +13,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.utils.ProgressionLoader;
-
 /*
  * Test pour la progression par défaut (csv) et son chargement 
  */

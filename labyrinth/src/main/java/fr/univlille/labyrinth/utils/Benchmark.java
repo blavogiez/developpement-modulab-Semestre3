@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
+import fr.univlille.labyrinth.model.gamemode.Timer;
 import fr.univlille.labyrinth.model.maze.Maze;
 
 /**
