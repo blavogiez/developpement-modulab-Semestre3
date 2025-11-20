@@ -101,6 +101,18 @@ public class EntityManager {
         return result;
     }
 
+    /**
+     * @return boolean
+     */
+    public boolean containsType(Class<?> cla) {
+        for (Object entity : this.entities) {
+            if (entity != null && entity.getClass() == cla) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /** 
      * @param playerID
