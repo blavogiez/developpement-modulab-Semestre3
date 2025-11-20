@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.model.save;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,21 +36,7 @@ public class ProgressionLoader {
             throw new ProgressionLoaderException("Le fichier de progression par défaut n'existe pas: " + DEFAULT_PROGRESSION_FILE);
         }
 
-        int maxLevel = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            reader.readLine();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
-                String[] parts = line.split(",");
-                if (parts.length == EXPECTED_LENGTH) {
-                    int levelNumber = Integer.parseInt(parts[3]);
-                    if (levelNumber > maxLevel) maxLevel = levelNumber;
-                }
-            }
-        } catch (IOException e) {
-            throw new ProgressionLoaderException("Erreur lors de la détection des niveaux: " + e.getMessage(), e);
-        }
+        int maxLevel = getNumberLevel(file);
 
         Level[] levels = new Level[maxLevel];
         for (int i = 0; i < maxLevel; i++) {
@@ -80,15 +66,15 @@ public class ProgressionLoader {
                 String trapsConfiguration = parts[11];
 
                 Challenge challenge = new Challenge(
-                    algorithm,
-                    viewType,
-                    difficulty,
-                    width,
-                    height,
-                    wallPercentage,
-                    distanceBetweenEntryAndExit,
-                    scoreFactory.create(),
-                    entitiesConfiguration,
+                        algorithm,
+                        viewType,
+                        difficulty,
+                        width,
+                        height,
+                        wallPercentage,
+                        distanceBetweenEntryAndExit,
+                        scoreFactory.create(),
+                        entitiesConfiguration,
                         trapsConfiguration
 
                 );
@@ -98,14 +84,32 @@ public class ProgressionLoader {
             return new PlayerProgress(levels);
 
         } catch (IOException e) {
-            throw new RuntimeException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
+            throw new ProgressionLoaderException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
         }
     }
-    /** 
+
+    private static int getNumberLevel(File file){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            int maxLevel = 0;
+            reader.readLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = line.split(",");
+                if (parts.length == EXPECTED_LENGTH) {
+                    int levelNumber = Integer.parseInt(parts[3]);
+                    if (levelNumber > maxLevel) maxLevel = levelNumber;
+                }
+            }
+            return maxLevel;
+        } catch (IOException e) {
+            throw new ProgressionLoaderException("Erreur lors de la détection des niveaux: " + e.getMessage(), e);
+        }
+    }
+    /**
      * @param path
      */
     public static void setDefaultProgressPath(String path) {
-    DEFAULT_PROGRESSION_FILE = path;
-}
-
+        DEFAULT_PROGRESSION_FILE = path;
+    }
 }

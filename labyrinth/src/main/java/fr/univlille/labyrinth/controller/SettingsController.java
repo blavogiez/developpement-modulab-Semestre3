@@ -5,7 +5,7 @@ import fr.univlille.labyrinth.app.SceneNavigator;
 import fr.univlille.labyrinth.app.Settings;
 import fr.univlille.labyrinth.app.SettingsManager;
 import fr.univlille.labyrinth.app.ThemeManager;
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -33,8 +33,8 @@ public class SettingsController {
      * Change de thème si le button est cliqué.
      */
     @FXML
-    private void toggleButton(){
-        ThemeManager.setDarkMode(!ThemeManager.isDarkMode());
+    private void toggleTheme(){
+        ThemeManager.toggleTheme();
         ThemeManager.updateTheme(SceneNavigator.getPrimaryStage().getScene());
         SettingsManager.save();
         updateButtonTexts();
@@ -42,8 +42,9 @@ public class SettingsController {
 
     @FXML
     private void toggleAnimation(){
-        Settings settings = SettingsManager.get();
+        Settings settings = SettingsManager.getSettings();
         settings.setAnimationEnabled(!settings.isAnimationEnabled());
+
         SettingsManager.save();
         updateButtonTexts();
     }
@@ -57,7 +58,7 @@ public class SettingsController {
         updateButtonTexts();
     }
 
-    /** 
+    /**
      * @throws IOException
      */
     @FXML
@@ -72,16 +73,16 @@ public class SettingsController {
 
     private void updateButtonTexts() {
         if (ThemeManager.isDarkMode()) {
-            themeButton.setText("Mode Nuit: ON");
+            themeButton.setText("Mode Nuit");
         } else {
-            themeButton.setText("Mode Jour: ON");
+            themeButton.setText("Mode Jour");
         }
 
-        Settings settings = SettingsManager.get();
+        Settings settings = SettingsManager.getSettings();
         if (settings.isAnimationEnabled()) {
-            animationButton.setText("Animations: ON");
+            animationButton.setText("Animations Joueurs: ON");
         } else {
-            animationButton.setText("Animations: OFF");
+            animationButton.setText("Animations Joueurs: OFF");
         }
     }
 }

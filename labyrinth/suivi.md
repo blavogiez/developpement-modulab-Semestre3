@@ -237,7 +237,10 @@ Création de la classe "PlayerDatabase"
 
 
 ### **Antonin** :
-
+- Fxml entity
+- Création des classes exception et implémentation
+- Ajout de test
+- Mode 2 player
 
 ### **Angèl** :
 

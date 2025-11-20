@@ -12,17 +12,10 @@ public class ThemeManager {
     }
 
     /**
-     * @param darkMode
-     */
-    public static void setDarkMode(boolean darkMode) {
-        SettingsManager.get().setDarkMode(darkMode);
-    }
-
-    /**
      * @return boolean
      */
     public static boolean isDarkMode() {
-        return SettingsManager.get().isDarkMode();
+        return SettingsManager.getSettings().isDarkMode();
     }
 
     /**
@@ -43,6 +36,16 @@ public class ThemeManager {
      * @param scene
      */
     public static void updateTheme(Scene scene) {
-        scene.getStylesheets().set(0, App.class.getResource(getThemeCss()).toExternalForm());
+        String oldTheme = getThemeCss();
+        scene.getStylesheets().removeIf(s -> s.contains(oldTheme));
+        scene.getStylesheets().add(App.class.getResource(getThemeCss()).toExternalForm());
+    }
+
+    public static void toggleTheme(){
+        if(!isDarkMode()){
+            SettingsManager.getSettings().setDarkMode(true);
+        }else{
+            SettingsManager.getSettings().setDarkMode(false);
+        }
     }
 }

@@ -47,54 +47,14 @@ Mr Delecroix :
 
 | Documents | Code |
 |-----------|------|
-| [Rapport qualité](rapports/qualite/main.pdf) | [Répertoire principal](labyrinth/src/main/java/fr/univlille/labyrinth) |
-| [Suivi](labyrinth/suivi.md) | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
-| [Issues](https://gitlab.univ-lille.fr/sae302/2025/G2_SAE3.3/-/boards) | |
+| [Suivi](labyrinth/suivi.md) | [Répertoire principal](labyrinth/src/main/java/fr/univlille/labyrinth) |
+| | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
 
 Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
 ## Diagramme de classe
 
-L'architecture de l'application se compose sous la forme suivante, en deux diagrammes à granularité différente :
-
-### Modèle | Algorithme 
-
-[Diagramme du modèle | algorithm](assets/uml_model_algorithm.png)
-
-**Ne sont concernés que les modules "model", "algorithm" et classes utilitaires associées.**
-
-### Clarifications
-
-**ProgressionLoader :**
-
-La progression par défaut `defaultProgress` est chargée en lisant un fichier CSV (classe utilitaire `ProgressionLoader`) contenant les informations nécessaires. Puis, elle est passée à chaque nouveau joueur, par *deep copy* afin de ne pas modifier la référence initiale.
-
-**Algorithme :**
-
-La factory `MazeAlgorithmFactory` permet de changer d'algorithme rapidement en ne changeant qu'une seule ligne dans l'appel.
-Un appel typique est (dans Maze) `this.grid = MazeAlgorithmFactory.STANDARDLARGEUR.getAlgorithm().createMaze(width, height, wallPercentage, minPathLength);`
-
-**Pour ce jalon 1, seul l'algorithme *Standard Largeur* est utilisé. Les autres ne sont pas demandés et ne seront donc pas couverts par les tests, ayant uniquement été réalisés pour se familiariser avec les futurs algorithmes du jalon 2 (efficacité, implémentation...). Cependant, le jalon 2 permettra d'utiliser ces différents algorithmes.**
-
-### Modèle | Vue | Controlleur
-
-[Diagramme du modèle | vue | controlleur](assets/uml_model_view_controller.png)
-
-L'algorithme n'étant pas lié à la vue ni au controlleur, mais uniquement au modèle, il n'est pas mentionné dans ce deuxième diagramme afin de ne pas surcharger l'image.
-
-### Clarifications
-
-#### Contrôleurs
-
-Les contrôleurs manipulent des vues FXML. Les contrôleurs menus contiennent donc peu de code. Ce code n'est pas couvert à ce niveau de granularité. 
-
-Les autres contrôleurs, contenus dans des packages, lient donc le modèle à la vue.
-
-Les contrôleurs ne font aucune logique métier. Ils servent uniquement à la liason (Pattern MVN strict).
-
-La logique de victoire se déroule dans le modèle, qui en avertit les contrôleurs (étant ses `victoryObserver`). Toute la logique de sauvegarde est réalisée par le modèle.
-
-**Le modèle est strictement indépendant de la vue et du contrôleur.**
+Afin de ne pas surcharger le README, le diagramme UML ainsi que les choix de conception seront détaillés dans un fichier à part accesible à : [Rapport UML](labyrinth/UML/uml.md)
 
 ## Lancer le projet
 ### Prérequis
