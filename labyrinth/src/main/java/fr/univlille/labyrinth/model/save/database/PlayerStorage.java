@@ -1,7 +1,5 @@
 package fr.univlille.labyrinth.model.save.database;
 
-import fr.univlille.labyrinth.model.exceptions.PlayerExceptionsWrite;
-import fr.univlille.labyrinth.model.exceptions.PlayerLoadDataException;
 import fr.univlille.labyrinth.model.save.Player;
 
 import java.io.*;
