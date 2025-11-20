@@ -6,10 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fr.univlille.labyrinth.model.exceptions.ProgressionLoaderException;
-import fr.univlille.labyrinth.model.save.Challenge;
-import fr.univlille.labyrinth.model.save.Level;
-import fr.univlille.labyrinth.model.save.PlayerProgress;
-import fr.univlille.labyrinth.model.save.ViewType;
 import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
 
 /**
@@ -20,9 +16,10 @@ import fr.univlille.labyrinth.model.save.score.ScoreCalculatorFactory;
  * @since 0.0
  */
 
-public class ProgressionLoader {
-    private static String DEFAULT_PROGRESSION_FILE = "res/default_progression.csv";
-    private static int EXPECTED_LENGTH=12;
+public abstract class ProgressionLoader {
+    private ProgressionLoader(){}
+    private static String defaultProgressionFile = "res/default_progression.csv";
+    private static final int EXPECTED_LENGTH=12;
 
 
     /**
@@ -31,9 +28,9 @@ public class ProgressionLoader {
      * @return PlayerProgress la progression par défaut
      */
     public static PlayerProgress loadDefaultProgress() {
-        File file = new File(DEFAULT_PROGRESSION_FILE);
+        File file = new File(defaultProgressionFile);
         if (!file.exists()) {
-            throw new ProgressionLoaderException("Le fichier de progression par défaut n'existe pas: " + DEFAULT_PROGRESSION_FILE);
+            throw new ProgressionLoaderException("Le fichier de progression par défaut n'existe pas: " + defaultProgressionFile);
         }
 
         int maxLevel = getNumberLevel(file);
@@ -44,7 +41,7 @@ public class ProgressionLoader {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            reader.readLine();
+            reader.skip(1);
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -91,7 +88,7 @@ public class ProgressionLoader {
     private static int getNumberLevel(File file){
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             int maxLevel = 0;
-            reader.readLine();
+            reader.skip(1);
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
@@ -110,6 +107,6 @@ public class ProgressionLoader {
      * @param path
      */
     public static void setDefaultProgressPath(String path) {
-        DEFAULT_PROGRESSION_FILE = path;
+        defaultProgressionFile = path;
     }
 }

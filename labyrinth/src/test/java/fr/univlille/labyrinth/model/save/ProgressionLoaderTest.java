@@ -20,7 +20,7 @@ class ProgressionLoaderTest {
 
     private static final String TEST_FILE = "res/test_progression.csv";
     private File testFile;
-    private final String HEADER = "MonHeaderPasImportant";
+    private static final String HEADER = "MonHeaderPasImportant";
 
     /** 
      * @throws IOException

@@ -17,6 +17,7 @@ public class MovingCurrentPositionBehavior implements MoveBehavior {
     private Random random;
 
     public MovingCurrentPositionBehavior() {
+        this.random = new Random();
     }
 
     /** 

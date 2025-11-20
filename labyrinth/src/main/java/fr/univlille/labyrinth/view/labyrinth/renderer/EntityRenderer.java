@@ -48,7 +48,7 @@ public class EntityRenderer {
      */
     public void dessinerJoueur(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout, Map<Integer, Double> playerXMap, Map<Integer, Double> playerYMap) {
         for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
-            int id = player.getID();
+            int id = player.getId();
             Double x = playerXMap.get(id);
             Double y = playerYMap.get(id);
 

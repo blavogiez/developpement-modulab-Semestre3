@@ -6,7 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerStorage {
+public abstract class PlayerStorage {
+    private PlayerStorage(){}
     private static final String SAVE_FILE = "res/saves/players.dat";
 
     static {

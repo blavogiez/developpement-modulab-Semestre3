@@ -190,7 +190,7 @@ class TrapTest {
     private void playerMoving(Direction direction) {
         playerPosition = player.getPosition().copy();
         player.move(maze, direction);
-        maze.trapEffect(player.getID(), playerPosition);
+        maze.trapEffect(player.getId(), playerPosition);
     }
 
     /** 
@@ -199,7 +199,7 @@ class TrapTest {
     private void teleportPlayerFrom(Position from) {
         TrapFactory.TELEPORTER_TRAP
                 .generateTrap()
-                .onUse(player.getID(), from, playerPosition, maze);
+                .onUse(player.getId(), from, playerPosition, maze);
     }
 
     /** 

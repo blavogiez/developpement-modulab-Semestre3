@@ -75,7 +75,7 @@ import fr.univlille.labyrinth.model.maze.Position;
 
     @Test
     void should_generate_mazes_with_minimum_distance() {
-        int minDistance = 8;
+        int minDistance;
         int failCount = 0;
 
         for (int i = 0; i < 50; i++) {

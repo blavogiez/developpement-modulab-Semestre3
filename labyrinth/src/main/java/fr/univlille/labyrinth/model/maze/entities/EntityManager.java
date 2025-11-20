@@ -68,7 +68,7 @@ public class EntityManager {
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
                 PlayerEntity playerEntity = (PlayerEntity) entity ;
-                if (playerEntity.getID()==playerID) playerEntity.move(maze, direction);
+                if (playerEntity.getId()==playerID) playerEntity.move(maze, direction);
             }
             else {
                 entity.move(maze, direction);
@@ -118,7 +118,7 @@ public class EntityManager {
      */
     public PlayerEntity getPlayerEntityByID(int playerID) {
         for (PlayerEntity player : getEntitiesByType(PlayerEntity.class)) {
-            if (player.getID() == playerID) {
+            if (player.getId() == playerID) {
                 return player;
             }
         }

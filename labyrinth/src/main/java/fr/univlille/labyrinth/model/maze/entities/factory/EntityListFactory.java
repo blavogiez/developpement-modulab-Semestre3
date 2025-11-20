@@ -59,7 +59,7 @@ public abstract class EntityListFactory {
                 Entity entity = moveBehavior == null ? config.getType().create(maze) : config.getType().create(maze, moveBehavior);
                 if(entity.getEntityType()== EntityType.PLAYER) {
                     PlayerEntity playerEntity = (PlayerEntity) entity ;
-                    playerEntity.setID(entityManager.getCptPlayerID());
+                    playerEntity.setId(entityManager.getCptPlayerID());
                     entityManager.addCptPlayerID();
                 }
                 entityManager.addEntity(entity);

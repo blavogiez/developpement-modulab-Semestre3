@@ -57,7 +57,7 @@ public class FreeModeLabyrinthController extends LabyrinthController<FreeMode> {
     @Override
     public void handleVictory() {
         try {
-            String message = "Joueur " + (gameMode.getWinner().getID() + 1);
+            String message = "Joueur " + (gameMode.getWinner().getId() + 1);
             VictoryNotification.setPendingWinner(message, true);
             App.goTo("freemode/FreeModeLabyrinth.fxml");
         } catch (Exception e) {

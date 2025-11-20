@@ -3,16 +3,17 @@ package fr.univlille.labyrinth.controller.input;
 import fr.univlille.labyrinth.model.maze.Direction;
 import javafx.scene.input.KeyCode;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /*
  * Classe de configuration pour les touches des joueurs
  * Utile pour le multijoueur
  */
-public class PlayerInputConfig {
-    private static final Map<KeyCode, Integer> keyToPlayer = new HashMap<>();
-    private static final Map<KeyCode, Direction> keyToDirection = new HashMap<>();
+public abstract class PlayerInputConfig {
+    private PlayerInputConfig(){}
+    private static final Map<KeyCode, Integer> keyToPlayer = new EnumMap<>(KeyCode.class);
+    private static final Map<KeyCode, Direction> keyToDirection = new EnumMap<>(KeyCode.class);
 
     static {
         initializePlayer(0, KeyCode.UP, KeyCode.LEFT, KeyCode.DOWN, KeyCode.RIGHT);

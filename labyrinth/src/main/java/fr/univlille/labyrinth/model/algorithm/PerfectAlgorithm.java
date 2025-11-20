@@ -17,15 +17,16 @@ public class PerfectAlgorithm extends MazeAlgorithm {
         algoProfondeur(height, width);
     }
 
+    private static final Random RANDOM = new Random();
+
     /** 
      * @param height
      * @param width
      */
     private void algoProfondeur(int height, int width) {
-        Random random = new Random();
         boolean[][] visite = new boolean[height][width];
         Deque<Position> positionStack = new ArrayDeque<>();
-        Position start = new Position(random.nextInt(width), random.nextInt(height));
+        Position start = new Position(RANDOM.nextInt(width), RANDOM.nextInt(height));
         visitePosition(positionStack, start, visite);
 
         while (!positionStack.isEmpty()) {

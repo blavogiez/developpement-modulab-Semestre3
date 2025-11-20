@@ -59,8 +59,7 @@ public class ProgressionModeConfig implements GameConfig {
      */
     @Override
     public String getEntitiesConfiguration() {
-        String config = challenge.getEntitiesConfiguration();
-        return config;
+        return challenge.getEntitiesConfiguration();
     }
 
     /** 

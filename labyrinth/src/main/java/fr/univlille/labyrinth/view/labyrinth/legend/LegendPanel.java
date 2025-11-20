@@ -108,7 +108,7 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
 
     private String getEntityDisplayName(Entity entity, GameViewConfig config) {
         if (entity instanceof PlayerEntity playerEntity) {
-            int id = playerEntity.getID();
+            int id = playerEntity.getId();
             return "Player " + (id + 1);
         }
         return switch (config) {

@@ -17,7 +17,7 @@ Si le multijoueur n'est pas activé, alors il n'y a que le joueur d'ID 0 qui est
 OCP mieux respecté de ce fait
  */
 public class PlayerEntity extends Entity {
-    private int ID;
+    private int id;
 
     public PlayerEntity(Position position) {
         this(position, new PlayerMoveBehavior());
@@ -56,25 +56,25 @@ public class PlayerEntity extends Entity {
                 cpt = -1;
             }
             if(cpt<-20) break ;
-        } while (distResult.positions().size() == 0);
+        } while (distResult.positions().isEmpty());
 
-        Random random = new Random();
-        Position thisPlayerPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
-        return thisPlayerPosition;
+        return distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
     }
+
+    private static final Random RANDOM = new Random();
 
     /** 
      * @param id
      */
-    public void setID(int id) {
-        this.ID=id;
+    public void setId(int id) {
+        this.id =id;
     }
 
     /** 
      * @return int
      */
-    public int getID() {
-        return ID ;
+    public int getId() {
+        return id;
     }
 
     /** 
@@ -85,13 +85,6 @@ public class PlayerEntity extends Entity {
         return EntityType.PLAYER;
     }
 
-    /** 
-     * @return MoveBehavior
-     */
-    @Override
-    public MoveBehavior getMoveBehavior() {
-        return super.getMoveBehavior();
-    }
 
     /** 
      * @param maze

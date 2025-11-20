@@ -18,7 +18,7 @@ class PlayerDatabaseTest {
     static String playerName1, playerName2, playerName3, nonExistentPlayerName;
 
     @BeforeAll
-    public static void initialization() {
+    static void initialization() {
         playerName1 = "TestPlayer1";
         playerName2 = "TestPlayer2";
         playerName3 = "TestPlayer3";
