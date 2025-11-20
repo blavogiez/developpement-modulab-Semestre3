@@ -15,7 +15,7 @@ public class RandomAlgorithmTest {
      * L'objectif de ce test est de vérifier qu'après passage de l'algorithme aléatoire, le labyrinthe initialement parfait est maintenant imparfait avec le pourcentage voulu de murs.
      */
     @Test
-    void shouldRespectWallPercentageStatistically() {
+    void should_respect_wall_percentage_statistically() {
         double targetPercentage = 0.4;
 
         double seuilOuCestOk = 0.1;

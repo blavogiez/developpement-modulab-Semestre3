@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TrapFactoryTest {
+class TrapFactoryTest {
 
     @Test
-    public void onCreateTrapTest(){
+    void should_generate_different_trap_test(){
         Trap trap = TrapFactory.NONE.generateTrap();
         Trap trap2 = TrapFactory.NONE.generateTrap();
 

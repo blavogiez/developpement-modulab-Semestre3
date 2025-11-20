@@ -27,7 +27,7 @@ public class MazeAlgorithmTest {
     }
 
     @Test
-    public void removeWallTest(){
+    public void remove_wall_in_every_direction_test(){
         int height = 3;
         int width = 3;
         algo.horizontalsWalls = new boolean[height - 1][width];
@@ -47,7 +47,7 @@ public class MazeAlgorithmTest {
     }
 
     @Test
-    public void estPositionCorrecteTest(){
+    public void position_should_be_correct_or_not_test(){
         for (int x = 5; x < 15; x++){
             for (int y = 5; y<15; y++){
                 for (int i = 0; i<10;i++){
@@ -70,7 +70,7 @@ public class MazeAlgorithmTest {
     }
 
     @Test
-    public void allAreTrueTest(){
+    public void should_all_be_true(){
         boolean[][] tab = new boolean[100][100];
         MazeAlgorithm.allAreTrue(tab);
         for (boolean[] booleans : tab){

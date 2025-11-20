@@ -16,7 +16,7 @@ public class TeleportExitTrap extends Trap {
         maze.getEntityManager().getEntitiesByType(ExitEntity.class).forEach(x -> {
             x.setPosition(getRandomCell(maze));
         });
-        revealTrap(position,maze.getTrapManager().getTraps());
+        revealTrap(position,maze.getTrapManager());
     }
 
     /** 

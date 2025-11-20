@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.univlille.labyrinth.model.VictoryObserver;
@@ -21,9 +22,8 @@ import fr.univlille.labyrinth.model.maze.Position;
  * La sortie est cherchée, puis remontée et nous testons si l'observeur est prévenu.
  * C'est donc également un test implicite pour les controllers, puisqu'ils sont des victory observer.
  */
-public class GameModeTest {
+class GameModeTest {
 
-    //mock rapide d'un observer
     private static class MockVictoryObserver implements VictoryObserver<GameMode> {
         private boolean victoryTriggered = false;
 
@@ -32,6 +32,7 @@ public class GameModeTest {
         }
 
         public void onDefeat(GameMode observable) {
+            throw new UnsupportedOperationException();
         }
 
         public boolean isVictoryTriggered() {
@@ -40,7 +41,7 @@ public class GameModeTest {
     }
 
     @Test
-    public void should_player_move_to_exit_trigger_victory() {
+    void should_player_move_to_exit_trigger_victory() {
         FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 31);
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();
@@ -49,7 +50,7 @@ public class GameModeTest {
         gameMode.addVictoryObserver(observer);
 
         assertFalse(observer.isVictoryTriggered());
-        assertFalse(gameMode.getCurrentMaze().getEntityManager().checkPlayerOnExit() != null);
+        Assertions.assertNull(gameMode.getCurrentMaze().getEntityManager().checkPlayerOnExit());
 
         ObservableMaze maze = gameMode.getCurrentMaze();
         Position start = maze.getEntryPosition();
@@ -76,11 +77,11 @@ public class GameModeTest {
         }
 
         assertTrue(observer.isVictoryTriggered());
-        assertTrue(gameMode.getCurrentMaze().getEntityManager().getPlayerEntity().getPosition().equals(exit));
+        Assertions.assertEquals(gameMode.getCurrentMaze().getEntityManager().getPlayerEntity().getPosition(),exit);
     }
 
     @Test
-    public void should_multiple_observers_be_notified() {
+    void should_multiple_observers_be_notified() {
         FreeModeConfig config = new FreeModeConfig(MazeAlgorithmFactory.PERFECT, 50, 50, 0.4, 30);
         FreeMode gameMode = new FreeMode(config);
         gameMode.createMaze();
@@ -118,7 +119,6 @@ public class GameModeTest {
      * @param to
      * @return Direction
      */
-    // methode helper
     private Direction determineDirectionStep(Position from, Position to) {
         int dx = to.getX() - from.getX();
         int dy = to.getY() - from.getY();

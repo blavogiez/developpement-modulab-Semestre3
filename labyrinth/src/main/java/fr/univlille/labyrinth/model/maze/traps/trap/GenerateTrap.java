@@ -14,7 +14,7 @@ public class GenerateTrap extends Trap {
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-        revealTrap(position, maze.getTrapManager().getTraps());
+        revealTrap(position, maze.getTrapManager());
         MazeAlgorithm algo = maze.getWallPercentage() < 1.0
             ? MazeAlgorithmFactory.RANDOM.getAlgorithm()
             : MazeAlgorithmFactory.PERFECT.getAlgorithm();

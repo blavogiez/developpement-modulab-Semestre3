@@ -39,7 +39,7 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void generateNumberGridTest(){
+    public void should_generate_number_grid_test(){
         assertArrayEquals(new int[][]{{0,1},{2,3}}, algo.generateNumberGrid(2,2));
         assertArrayEquals(new int[][]{{0,1,2},{3,4,5},{6,7,8}}, algo.generateNumberGrid(3,3));
         assertArrayEquals(new int[][]{{0,1,2},{3,4,5}}, algo.generateNumberGrid(2,3));
@@ -47,22 +47,22 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void fusionPositionTest(){
+    public void should_fusion_number_from_two_adjacent_cell(){
         algo.horizontalsWalls = new boolean[2][2];
         algo.verticalsWalls = new boolean[2][2];
         algo.grid = algo.generateNumberGrid(2,2);
         algo.fusionPosition(new Position(1,0), Direction.DOWN);
         assertArrayEquals(new int[][]{{0,1},{2,1}},algo.grid);
-//        algo.fusionPosition(new Position(0,1), Direction.UP);
-//        assertArrayEquals(new int[][]{{2,3},{2,3}},algo.grid);
-//        algo.fusionPosition(new Position(1,0), Direction.LEFT);
-//        assertArrayEquals(new int[][]{{3,3},{3,3}},algo.grid);
-//
-//        algo.grid = algo.generateNumberGrid(2,2);
-//        algo.fusionPosition(new Position(0,0), Direction.RIGHT);
-//        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
-//        algo.fusionPosition(new Position(0,0), Direction.UP);
-//        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
+        algo.fusionPosition(new Position(0,1), Direction.UP);
+        assertArrayEquals(new int[][]{{2,1},{2,1}},algo.grid);
+        algo.fusionPosition(new Position(1,0), Direction.LEFT);
+        assertArrayEquals(new int[][]{{1,1},{1,1}},algo.grid);
+
+        algo.grid = algo.generateNumberGrid(2,2);
+        algo.fusionPosition(new Position(0,0), Direction.RIGHT);
+        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
+        algo.fusionPosition(new Position(0,0), Direction.UP);
+        assertArrayEquals(new int[][]{{0,0},{2,3}},algo.grid);
     }
 
 
@@ -70,7 +70,7 @@ public class PerfectAlgorithmRandomFusionTest {
 
 
     @Test
-    public void isAlltheSameNumberTest(){
+    public void should_detect_if_all_the_number_are_the_same(){
         algo.grid = new int[][]{{1,1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1,1}};
         assertTrue(algo.isAllTheSameNumber());
         algo.grid = new int[][]{{1,1,1,1,1,2,1,1,1},{1,1,1,1,1,1,1,1,1}};
@@ -83,7 +83,7 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void transformAllNumberTest(){
+    public void should_transform_all_the_number(){
         algo.grid = algo.generateNumberGrid(10,10);
         for (int i = 0; i<algo.grid.length*algo.grid[0].length;i++){
             algo.transformAllNumber(i,0);
@@ -97,7 +97,7 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void generateMazeTest(){
+    public void should_generate_wall_in_the_maze(){
         Maze maze = new Maze(10,10,5);
         algo.generateMaze(maze);
         assertArrayEquals(maze.getMurHorizontaux(), algo.horizontalsWalls);
@@ -105,15 +105,14 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void testStartAndEndAreDifferent() {
-        //Le point de depart et d'arrivee doivent etre differents
+    public void start_and_end_should_be_different() {
         assertNotEquals(start1, end1);
         assertNotEquals(start2, end2);
         assertNotEquals(start3, end3);
     }
 
     @Test
-    public void testPathExists() {
+    public void path_between_end_and_start_should_exist() {
         // Il doit exister un chemin (PATH = true) entre start et end
 
         //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
@@ -128,7 +127,7 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void testMinimumPathLength() {
+    public void path_should_have_distance_min() {
         // la distance BFS reelle entre start et end doit etre >= pathLength demande
         Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
@@ -144,17 +143,17 @@ public class PerfectAlgorithmRandomFusionTest {
     }
 
     @Test
-    public void testDistanceConsistency() {
-        // gen 50 labyrinthes et verif que tous respectent la distance minimale
-        int minDistance = 8;
+    public void distance_should_be_calculated() {
+        int minDistance;
         int failCount = 0;
 
         for (int i = 0; i < 50; i++) {
-            // dimensions variables 1 fois sur 2 !
             minDistance = (i%2 == 0) ? 15 : 8 ;
-
-            // on choisit le i aussi ; l'objectif est de tester beaucoup de combis :)
-            Maze maze = new Maze(15+i, 15+(2*i), minDistance);
+            int taille_1 = 15+i;
+            int taille_2 = 15+(2*i);
+            Maze maze;
+            if (i%2 == 0) maze = new Maze(taille_1, taille_2, minDistance);
+            else maze = new Maze(taille_2, taille_1, minDistance);
             Position start = maze.getEntryPosition();
             Position end = maze.getExitPosition();
 
@@ -165,7 +164,7 @@ public class PerfectAlgorithmRandomFusionTest {
         }
 
         // verif que tous les labyrinthes respectent la distance minimale
-        assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale de " + minDistance);
+        assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale");
     }
 
 

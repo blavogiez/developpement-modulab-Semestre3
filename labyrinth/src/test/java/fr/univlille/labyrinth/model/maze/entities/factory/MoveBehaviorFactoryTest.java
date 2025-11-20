@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MoveBehaviorFactoryTest {
 
     @Test
-    void shouldCreatePlayerMoveBehavior() {
+    void should_create_player_move_behavior() {
         MoveBehavior behavior = MoveBehaviorFactory.create("PLAYER");
 
         assertNotNull(behavior);
@@ -18,7 +18,7 @@ class MoveBehaviorFactoryTest {
     }
 
     @Test
-    void shouldCreateMovingStepBehavior() {
+    void should_create_moving_step_behavior() {
         MoveBehavior behavior = MoveBehaviorFactory.create("MOVING");
 
         assertNotNull(behavior);
@@ -26,21 +26,21 @@ class MoveBehaviorFactoryTest {
     }
 
     @Test
-    void shouldReturnNullForDefault() {
+    void should_return_null_for_default() {
         MoveBehavior behavior = MoveBehaviorFactory.create("DEFAULT");
 
         assertNull(behavior);
     }
 
     @Test
-    void shouldReturnNullForNull() {
-        MoveBehavior behavior = MoveBehaviorFactory.create(null);
+    void should_return_null_for_null() {
 
+        MoveBehavior behavior = MoveBehaviorFactory.create(null);
         assertNull(behavior);
     }
 
     @Test
-    void shouldHandleCaseInsensitive() {
+    void should_handle_case_insensitive() {
         MoveBehavior behavior1 = MoveBehaviorFactory.create("player");
         MoveBehavior behavior2 = MoveBehaviorFactory.create("moving");
 
@@ -49,14 +49,14 @@ class MoveBehaviorFactoryTest {
     }
 
     @Test
-    void shouldThrowExceptionForUnknownBehavior() {
+    void should_throw_exception_for_unknown_behavior() {
         assertThrows(IllegalArgumentException.class, () -> {
             MoveBehaviorFactory.create("UNKNOWN");
         });
     }
 
     @Test
-    void shouldCreateNewInstancesEachTime() {
+    void should_create_new_instances_each_time() {
         MoveBehavior behavior1 = MoveBehaviorFactory.create("PLAYER");
         MoveBehavior behavior2 = MoveBehaviorFactory.create("PLAYER");
 

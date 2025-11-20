@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EntityConfigurationParserTest {
 
     @Test
-    void shouldParseSimpleConfiguration() {
+    void should_parse_simple_configuration() {
         String config = "t=PLAYER;q=1;m=PLAYER";
 
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
@@ -22,7 +22,7 @@ class EntityConfigurationParserTest {
     }
 
     @Test
-    void shouldParseMultipleEntities() {
+    void should_parse_multiple_entities() {
         String config = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=MOVING";
 
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
@@ -34,7 +34,7 @@ class EntityConfigurationParserTest {
     }
 
     @Test
-    void shouldHandleDefaultConfiguration() {
+    void should_handle_default_configuration() {
         String config = "DEFAULT";
 
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
@@ -45,7 +45,7 @@ class EntityConfigurationParserTest {
     }
 
     @Test
-    void shouldParseQuantityAndMoveBehavior() {
+    void should_parse_quantity_and_move_behavior() {
         String config = "t=PLAYER;q=3;m=DEFAULT";
 
         List<EntityConfiguration> result = EntityConfigurationParser.parse(config);
@@ -56,7 +56,7 @@ class EntityConfigurationParserTest {
     }
 
     @Test
-    void shouldHandleNullConfiguration() {
+    void should_handle_null_configuration() {
         List<EntityConfiguration> result = EntityConfigurationParser.parse(null);
 
         assertEquals(2, result.size());
@@ -65,7 +65,7 @@ class EntityConfigurationParserTest {
     }
 
     @Test
-    void shouldHandleEmptyConfiguration() {
+    void should_handle_empty_configuration() {
         List<EntityConfiguration> result = EntityConfigurationParser.parse("");
 
         assertEquals(2, result.size());
