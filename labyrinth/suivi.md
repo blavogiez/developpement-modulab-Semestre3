@@ -303,7 +303,6 @@ Création de la classe "PlayerDatabase"
 | Développement | Algorithmie |
 |--------------|-------------|
 | Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | Optimisation de l'algorithme de fusion (Union-Find) avec tests correspondants |
-| Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
 | Fonctionnalité originale : Avec Romain, affichage en panneau d'information des entités/pièges contenus dans le labyrinthe | |
 | Fonctionnalité originale : Affichage du panneau d'information des entités/pièges dynamique avec pattern Observer / Observable | |
 | Test : MultiplayerGameMode | |
