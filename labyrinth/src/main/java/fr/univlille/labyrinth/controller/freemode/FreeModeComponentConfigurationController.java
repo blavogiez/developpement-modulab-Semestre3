@@ -249,6 +249,8 @@ public class FreeModeComponentConfigurationController {
                 .sum();
     }
 
+    private static final int MAX_EXITS = 5;
+
     /** 
      * @param type
      * @return int
@@ -257,6 +259,7 @@ public class FreeModeComponentConfigurationController {
         return switch (type) {
             case MONSTER -> MAX_MONSTERS;
             case PLAYER -> MAX_PLAYERS;
+            case EXIT -> MAX_EXITS;
             default -> 0;
         };
     }

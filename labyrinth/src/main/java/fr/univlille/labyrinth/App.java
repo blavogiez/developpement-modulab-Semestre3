@@ -16,18 +16,25 @@ import java.io.IOException;
 /**
  * App est la classe principale de l'application Labyrinth
  * elle délègue la gestion du thème et de la navigation à des classes spécialisées (single responsibility principle)
+ *
+ * @author Antonin, Angèl, Baptiste, Romain, Victor
+ * @version 1.0
+ * @since 1.0
  */
 public class App extends Application {
-    /** 
-     * @param page
-     * @throws IOException
+    /**
+     * Navigue vers la page spécifiée.
+     *
+     * @param page Le nom de la page vers laquelle naviguer
+     * @throws IOException Si la page ne peut pas être chargée
      */
     public static void goTo(String page) throws IOException {
         SceneNavigator.goTo(page);
     }
 
-    /** 
+    /**
      * Méthode de démarrage de l'application JavaFX
+     *
      * @param stage La scène principale de l'application
      * @throws IOException Si le fichier FXML de la scène initiale ne peut pas être chargé
      */
@@ -54,8 +61,9 @@ public class App extends Application {
         stage.show();
     }
 
-    /** 
+    /**
      * Point d'entrée principal de l'application
+     *
      * @param args Arguments de la ligne de commande
      */
     public static void main(String[] args) {
