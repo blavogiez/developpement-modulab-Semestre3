@@ -311,6 +311,7 @@ Création de la classe "PlayerDatabase"
 ### **Romain** :
 - javadoc
 - affichage entite dans le mode libre
+- fix run.sh pour absence de dependance
 
 
 ### **Victor** :

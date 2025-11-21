@@ -9,6 +9,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+
+/**
+ * Utilitaire pour le redimensionnement des composants graphiques.
+ * Cette classe fournit des méthodes pour redimensionner dynamiquement les contrôles et les panneaux
+ * en fonction de la taille de leur conteneur parent.
+ *
+ * @author Antonin, Angèl, Baptiste, Romain, Victor
+ * @version 1.0
+ * @since 1.0
+ */
 public abstract class ResizeUtil {
     private ResizeUtil(){}
 
@@ -16,15 +26,18 @@ public abstract class ResizeUtil {
     private static final double DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN = 0.5;
     private static final double DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN = 0.15;
 
-    /** 
-     * @param parent
-     * @param cont
-     * @param width
-     * @param height
-     * @param marginT
-     * @param marginR
-     * @param marginB
-     * @param marginL
+    /**
+     * Redimensionne un contrôle dans un panneau avec des dimensions et des marges spécifiées.
+     * Cette méthode redimensionne également la police des contrôles en fonction de leur taille.
+     *
+     * @param parent le panneau parent contenant le contrôle
+     * @param cont le contrôle à redimensionner
+     * @param width la largeur souhaitée pour le contrôle
+     * @param height la hauteur souhaitée pour le contrôle
+     * @param MarginT la marge supérieure
+     * @param MarginR la marge droite
+     * @param MarginB la marge inférieure
+     * @param MarginL la marge gauche
      */
     public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double marginT, double marginR, double marginB, double marginL){
         cont.setMinWidth(width);
@@ -88,10 +101,12 @@ public abstract class ResizeUtil {
     }
 
     /**
-     * @param parent
-     * @param cont
-     * @param percentageWidth
-     * @param percentageHeight
+     * Redimensionne un contrôle en pourcentage de la taille de son panneau parent.
+     *
+     * @param parent le panneau parent contenant le contrôle
+     * @param cont le contrôle à redimensionner
+     * @param percentageWidth le pourcentage de la largeur du parent à utiliser
+     * @param percentageHeight le pourcentage de la hauteur du parent à utiliser
      */
     public static void resizeControlToParentSize(Pane parent, Control cont, double percentageWidth, double percentageHeight){
         double width = parent.getWidth();
@@ -109,14 +124,12 @@ public abstract class ResizeUtil {
         resizeImageViewInPane(parent, img,(width/nbChildren)*percentageWidth,height*percentageHeight, 0, 0, 0, 0);
     }
 
-    /** 
-     * @param parent
-     * @param width
-     * @param height
-     * @param marginT
-     * @param marginR
-     * @param marginB
-     * @param marginL
+    /**
+     * Redimensionne tous les contrôles dans un panneau avec des dimensions et des marges spécifiées.
+     *
+     * @param parent le panneau parent contenant les contrôles
+     * @param width la largeur souhaitée pour les contrôles
+     * @param height la hauteur souhaitée pour les contrôles
      */
     public static void resizeControlsInPane(Pane parent, double width, double height, double marginT, double marginR, double marginB, double marginL){
         ObservableList<Node> children = parent.getChildren();
@@ -125,10 +138,12 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param parent
-     * @param percentageWidth
-     * @param percentageHeight
+    /**
+     * Redimensionne tous les contrôles dans un panneau en pourcentage de la taille du parent.
+     *
+     * @param parent le panneau parent contenant les contrôles
+     * @param percentageWidth le pourcentage de la largeur du parent à utiliser
+     * @param percentageHeight le pourcentage de la hauteur du parent à utiliser
      */
     public static void resizeControlsToParentSize(Pane parent,  double percentageWidth, double percentageHeight){
         double width = parent.getWidth();
@@ -144,8 +159,10 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param parent
+    /**
+     * Redimensionne tous les contrôles dans un panneau en utilisant des paramètres par défaut.
+     *
+     * @param parent le panneau parent contenant les contrôles
      */
     public static void resizeControlsToParentSize(Pane parent){
         boolean isHBox = parent instanceof HBox;
@@ -157,15 +174,17 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param parent
-     * @param pane
-     * @param width
-     * @param height
-     * @param marginT
-     * @param marginR
-     * @param marginB
-     * @param marginL
+    /**
+     * Redimensionne un panneau dans un panneau parent avec des dimensions et des marges spécifiées.
+     *
+     * @param parent le panneau parent contenant le panneau à redimensionner
+     * @param pane le panneau à redimensionner
+     * @param width la largeur souhaitée pour le panneau
+     * @param height la hauteur souhaitée pour le panneau
+     * @param MarginT la marge supérieure
+     * @param MarginR la marge droite
+     * @param MarginB la marge inférieure
+     * @param MarginL la marge gauche
      */
     public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double marginT, double marginR, double marginB, double marginL){
         pane.setMinWidth(width);
@@ -182,14 +201,16 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param parent
-     * @param width
-     * @param height
-     * @param marginT
-     * @param marginR
-     * @param marginB
-     * @param marginL
+    /**
+     * Redimensionne tous les panneaux dans un panneau parent avec des dimensions et des marges spécifiées.
+     *
+     * @param parent le panneau parent contenant les panneaux
+     * @param width la largeur souhaitée pour les panneaux
+     * @param height la hauteur souhaitée pour les panneaux
+     * @param MarginT la marge supérieure
+     * @param MarginR la marge droite
+     * @param MarginB la marge inférieure
+     * @param MarginL la marge gauche
      */
     public static void resizePanesInPane(Pane parent, double width, double height, double marginT, double marginR, double marginB, double marginL){
         ObservableList<Node> children = parent.getChildren();
@@ -198,8 +219,10 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param parent
+    /**
+     * Redimensionne tous les panneaux dans un panneau parent en utilisant des paramètres par défaut.
+     *
+     * @param parent le panneau parent contenant les panneaux
      */
     public static void resizePanesInPane(Pane parent){
         double width = parent.getWidth();
@@ -215,9 +238,11 @@ public abstract class ResizeUtil {
         }
     }
 
-    /** 
-     * @param comboBox
-     * @return int
+    /**
+     * Calcule la longueur maximale des éléments d'une ComboBox.
+     *
+     * @param comboBox la ComboBox à analyser
+     * @return la longueur du plus long élément dans la ComboBox
      */
     private static int getMaxLengthItemComboBox(ComboBox comboBox){
         int maxLength = 0;

@@ -2,11 +2,22 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.Random;
 
+
+/**
+ * Utilitaire pour la suppression de murs dans un labyrinthe.
+ * Cette classe fournit des méthodes pour compter et supprimer aléatoirement des murs dans un labyrinthe.
+ *
+ * @author Antonin, Angèl, Baptiste, Romain, Victor
+ * @version 1.0
+ * @since 1.0
+ */
 public abstract class WallRemover { //Classe présente pour des futurs implementations
     private WallRemover(){}
-    /** 
-     * @param maze
-     * @return int
+    /**
+     * Compte le nombre total de murs dans un labyrinthe.
+     *
+     * @param maze le labyrinthe à analyser
+     * @return le nombre total de murs (horizontaux et verticaux) dans le labyrinthe
      */
     public static int countWalls(Maze maze){
         int count = 0;
@@ -28,8 +39,11 @@ public abstract class WallRemover { //Classe présente pour des futurs implement
     }
 
     /**
-     * @param percentage
-     * @param maze
+     * Supprime aléatoirement un pourcentage de murs dans un labyrinthe.
+     * La méthode supprime à la fois des murs horizontaux et verticaux.
+     *
+     * @param percentage le pourcentage de murs à supprimer
+     * @param maze le labyrinthe dans lequel supprimer les murs
      */
     public static void randomWallRemoval(double percentage, Maze maze){
         int nbWallToRemove = (int)(countWalls(maze)*percentage);
@@ -42,6 +56,11 @@ public abstract class WallRemover { //Classe présente pour des futurs implement
     /**
      * @param nbWall
      * @param maze
+    /**
+     * Supprime aléatoirement un nombre spécifié de murs verticaux dans un labyrinthe.
+     *
+     * @param nbWall le nombre de murs verticaux à supprimer
+     * @param maze le labyrinthe dans lequel supprimer les murs
      */
     public static void randomVerticalWallRemoval(int nbWall, Maze maze){
 
@@ -56,8 +75,10 @@ public abstract class WallRemover { //Classe présente pour des futurs implement
     }
 
     /**
-     * @param nbWall
-     * @param maze
+     * Supprime aléatoirement un nombre spécifié de murs horizontaux dans un labyrinthe.
+     *
+     * @param nbWall le nombre de murs horizontaux à supprimer
+     * @param maze le labyrinthe dans lequel supprimer les murs
      */
     public static void randomHorizontalWallRemoval(int nbWall,Maze maze){
         while(nbWall > 0){
