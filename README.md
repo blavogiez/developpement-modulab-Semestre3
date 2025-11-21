@@ -40,12 +40,12 @@ Réalisé par :
 - **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr)  
 - **Antonin Marouze** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
 - **Romain Harlaut** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
-- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr)   
+- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr)   
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 
 ## Liens utiles
 
-Mme Boneva : [Rapport d'analyse](rapports/analyse/main.pdf)
+Mme Boneva : [Rapport d'analyse](rendus/analyse/rapport/G2_SAE3.3-Rapport_Analyse.pdf)
 
 Mr Delecroix :
 
@@ -54,7 +54,7 @@ Mr Delecroix :
 | [Suivi](labyrinth/suivi.md) | [Répertoire principal](labyrinth/src/main/java/fr/univlille/labyrinth) |
 | [Rapport UML](rapports/UML/uml.md) | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
 
-Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
+Mme Everaere : [Rapport algorithmique](rendus/algo/rapport/G2_SAE3.3-Rapport_Algorithmie.pdf)
 
 **Le code se trouve dans le répertoire `labyrinth`.**
 
@@ -78,7 +78,7 @@ Pour exécuter le projet, vous aurez besoin de :
   mvn -v
   ```
  
-* installé **JavaFX 17** sur votre machine :
+* Installer **JavaFX 17** sur votre machine :
 
   ```bash
   sudo apt install openjfx
