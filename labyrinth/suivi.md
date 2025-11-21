@@ -254,7 +254,8 @@ Création de la classe "PlayerDatabase"
 ### **Angèl** :
 
 - Développement et intégration de MonsterEntity.
-- Refactor de certaines parties du codes pour respecter les principes SOLID
+- Ajout classe wallRemover.
+- Refactor de certaines parties du code pour respecter les principes SOLID.
 
 
 ### **Baptiste** :
@@ -293,6 +294,8 @@ Création de la classe "PlayerDatabase"
 
 ### **Angèl** :
 
+- Fix de la sélection des paramètres, fix de divers problèmes d'affichage.
+- Refactor de certaines parties du code pour respecter les principes SOLID.
 
 ### **Baptiste** :
 

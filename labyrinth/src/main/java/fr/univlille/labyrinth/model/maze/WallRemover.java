@@ -2,7 +2,7 @@ package fr.univlille.labyrinth.model.maze;
 
 import java.util.Random;
 
-public abstract class WallRemover {
+public abstract class WallRemover { //Classe présente pour des futurs implementations
     private WallRemover(){}
     /** 
      * @param maze
@@ -27,7 +27,7 @@ public abstract class WallRemover {
         return count;
     }
 
-    /** 
+    /**
      * @param percentage
      * @param maze
      */
@@ -39,7 +39,7 @@ public abstract class WallRemover {
 
     private static final Random RANDOM = new Random();
 
-    /** 
+    /**
      * @param nbWall
      * @param maze
      */
@@ -55,7 +55,7 @@ public abstract class WallRemover {
         }
     }
 
-    /** 
+    /**
      * @param nbWall
      * @param maze
      */

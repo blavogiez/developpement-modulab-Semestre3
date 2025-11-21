@@ -53,12 +53,6 @@ public class MazeManager {
     public boolean hasMaze() {
         return currentMaze != null;
     }
-    /** 
-     * @param pourcentage
-     */
-    public void randomWallRemoval(double pourcentage) {
-        WallRemover.randomWallRemoval(pourcentage,currentMaze);
-    }
 
     /** 
      * @param width
