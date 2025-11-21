@@ -16,8 +16,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-/*
-Panel d'informations observant le labyrinthe pour mettre à jour les données à chaque changement 
+/**
+ * Panneau d'informations observant le labyrinthe pour mettre à jour les données à chaque changement.
+ * Cette classe affiche une légende pour les entités ou les pièges dans le labyrinthe.
+ *
+ * @author Antonin, Angèl, Baptiste, Romain, Victor
+ * @version 1.0
+ * @since 1.0
  */
 public class LegendPanel extends VBox implements Observer<ObservableMaze> {
     private static final double PANEL_PADDING = 10;
@@ -30,6 +35,12 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         TRAPS
     }
 
+    /**
+     * Constructeur de la légende.
+     *
+     * @param title le titre de la légende
+     * @param type le type de la légende (entités ou pièges)
+     */
     public LegendPanel(String title, LegendType type) {
         this.type = type;
         setPadding(new Insets(PANEL_PADDING));
@@ -41,6 +52,12 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
     }
 
     @Override
+    /**
+     * Met à jour la légende en fonction du labyrinthe observé.
+     * Selon le type de la légende, met à jour les entités ou les pièges.
+     *
+     * @param maze le labyrinthe observé
+     */
     public void update(ObservableMaze maze) {
         if (type == LegendType.ENTITIES) {
             updateEntities(maze.getEntityManager().getEntities());
@@ -49,6 +66,11 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         }
     }
 
+    /**
+     * Met à jour l'affichage des entités dans la légende.
+     *
+     * @param entities la liste des entités à afficher dans la légende
+     */
     public void updateEntities(List<Entity> entities) {
         getChildren().removeIf(LegendItemView.class::isInstance);
 
@@ -68,6 +90,11 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         );
     }
 
+    /**
+     * Met à jour l'affichage des pièges dans la légende.
+     *
+     * @param traps la matrice des pièges à afficher dans la légende
+     */
     public void updateTraps(TrapManager trapManager) {
         getChildren().removeIf(LegendItemView.class::isInstance);
 
@@ -99,6 +126,12 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         );
     }
 
+    /**
+     * Vérifie si une configuration correspond à un élément du labyrinthe standard.
+     *
+     * @param config la configuration à vérifier
+     * @return true si la configuration correspond à un élément standard du labyrinthe
+     */
     private boolean isMazeElement(GameViewConfig config) {
         return config == GameViewConfig.PATH ||
                config == GameViewConfig.WALL ||
@@ -106,6 +139,13 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
                config == GameViewConfig.COMPLETED;
     }
 
+    /**
+     * Obtient le nom d'affichage d'une entité.
+     *
+     * @param entity l'entité à afficher
+     * @param config la configuration de l'entité
+     * @return le nom d'affichage de l'entité
+     */
     private String getEntityDisplayName(Entity entity, GameViewConfig config) {
         if (entity instanceof PlayerEntity playerEntity) {
             int id = playerEntity.getId();
@@ -118,6 +158,12 @@ public class LegendPanel extends VBox implements Observer<ObservableMaze> {
         };
     }
 
+    /**
+     * Obtient le nom d'affichage d'un piège.
+     *
+     * @param trapName le nom du piège
+     * @return le nom d'affichage du piège
+     */
     private String getTrapDisplayName(String trapName) {
         return switch (trapName) {
             case "TRAP_LAVA" -> "Lava";
