@@ -254,7 +254,8 @@ Création de la classe "PlayerDatabase"
 ### **Angèl** :
 
 - Développement et intégration de MonsterEntity.
-- Refactor de certaines parties du codes pour respecter les principes SOLID
+- Ajout classe wallRemover.
+- Refactor de certaines parties du code pour respecter les principes SOLID.
 
 
 ### **Baptiste** :
@@ -285,10 +286,16 @@ Création de la classe "PlayerDatabase"
 **Cette semaine, nous avons principalement testé et finalisé l'application pour un rendu sans bugs / crash. Nous avons également tous discuté de la meilleure approche pour maximiser la qualité de code.**
 
 ### **Antonin** :
+- Ajout Exception
+
+>Probléme branche 'develop-antonin' commit non publié sur master car probléme de merge
+
 
 
 ### **Angèl** :
 
+- Fix de la sélection des paramètres, fix de divers problèmes d'affichage.
+- Refactor de certaines parties du code pour respecter les principes SOLID.
 
 ### **Baptiste** :
 

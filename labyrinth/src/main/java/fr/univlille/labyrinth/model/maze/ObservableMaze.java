@@ -30,24 +30,70 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
      protected TrapManager trapManager ;
 
 
+    /**
+     * Constructeur de l'ObservableMaze avec une distance et configuration d'entités par défaut.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     */
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit) {
         this(width, height, distanceBetweenEntryAndExit, "DEFAULT");
     }
 
+    /**
+     * Constructeur de l'ObservableMaze avec une distance et une configuration d'entités spécifiées.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     */
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration) {
         this(width, height, distanceBetweenEntryAndExit, entitiesConfiguration, MazeAlgorithmFactory.PERFECT.getAlgorithm(),"DEFAULT");
     }
 
 
 
+    /**
+     * Constructeur de l'ObservableMaze avec un pourcentage de murs, distance, configuration d'entités et algorithme spécifiés.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param wallPercentage le pourcentage de murs
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     * @param algo l'algorithme de génération du labyrinthe
+     */
     public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
         this(width,height,wallPercentage,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
 
+    /**
+     * Constructeur de l'ObservableMaze avec un pourcentage de murs, configuration d'entités, algorithme et configuration de pièges spécifiés.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param wallPercentage le pourcentage de murs
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     * @param algo l'algorithme de génération du labyrinthe
+     * @param trapsConfiguration la configuration des pièges dans le labyrinthe
+     */
     public ObservableMaze(int width, int height, double wallPercentage, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         this(width, height, wallPercentage, Integer.MAX_VALUE, entitiesConfiguration, algo, trapsConfiguration);
     }
 
+    /**
+     * Constructeur principal de l'ObservableMaze avec tous les paramètres.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param wallPercentage le pourcentage de murs
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     * @param algo l'algorithme de génération du labyrinthe
+     * @param trapsConfiguration la configuration des pièges dans le labyrinthe
+     */
     public ObservableMaze(int width, int height, double wallPercentage, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         super(width, height, wallPercentage, distanceBetweenEntryAndExit, algo) ;
         this.entityManager = new EntityManager();
@@ -55,6 +101,16 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this.trapManager = new TrapManager(this, trapsConfiguration);
     }
 
+    /**
+     * Constructeur de l'ObservableMaze avec une distance, configuration d'entités, algorithme et configuration de pièges spécifiés.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     * @param algo l'algorithme de génération du labyrinthe
+     * @param trapsConfiguration la configuration des pièges dans le labyrinthe
+     */
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo, String trapsConfiguration) {
         super(width, height, distanceBetweenEntryAndExit, algo) ;
 
@@ -63,6 +119,15 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
         this.trapManager = new TrapManager(this, trapsConfiguration);
     }
 
+    /**
+     * Constructeur de l'ObservableMaze avec une distance, configuration d'entités et algorithme spécifiés.
+     *
+     * @param width la largeur du labyrinthe
+     * @param height la hauteur du labyrinthe
+     * @param distanceBetweenEntryAndExit la distance entre l'entrée et la sortie
+     * @param entitiesConfiguration la configuration des entités dans le labyrinthe
+     * @param algo l'algorithme de génération du labyrinthe
+     */
     public ObservableMaze(int width, int height, int distanceBetweenEntryAndExit, String entitiesConfiguration, MazeAlgorithm algo) {
         this(width,height,distanceBetweenEntryAndExit,entitiesConfiguration,algo,"DEFAULT");
     }
@@ -94,23 +159,29 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
     }
 
 
-    /** 
-     * @return TrapManager
+    /**
+     * Retourne le gestionnaire de pièges.
+     *
+     * @return le TrapManager gérant les pièges du labyrinthe
      */
     public TrapManager getTrapManager() {
         return trapManager;
     }
 
-    /** 
-     * @return EntityManager
+    /**
+     * Retourne le gestionnaire d'entités.
+     *
+     * @return l'EntityManager gérant les entités du labyrinthe
      */
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
-    /** 
-     * @param playerID
-     * @param position
+    /**
+     * Définit la position d'un joueur dans le labyrinthe.
+     *
+     * @param playerID l'identifiant du joueur
+     * @param position la nouvelle position du joueur
      */
     public void setPlayerPosition(int playerID, Position position) {
         PlayerEntity player = entityManager.getPlayerEntityByID(playerID);
@@ -118,9 +189,11 @@ public class ObservableMaze extends Maze implements Observable<ObservableMaze> {
             player.setPosition(position);
         }
     }
-    
-    /** 
-     * @return {@code List<Observer<ObservableMaze>>}
+
+    /**
+     * Retourne la liste des observateurs du labyrinthe.
+     *
+     * @return la liste des observateurs
      */
     @Override
     public List<Observer<ObservableMaze>> getObservers() {

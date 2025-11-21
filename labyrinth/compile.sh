@@ -13,7 +13,7 @@ rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 javac -Xlint:unchecked \
   --module-path "/usr/share/openjfx/lib" \
-  --add-modules javafx.controls,javafx.fxml \
+  --add-modules javafx.controls,javafx.fxml,javafx.media\
   -d "$TARGET_DIR" \
   $(find "src/main/java" -name "*.java")
 cp -r "src/main/resources"/* "$TARGET_DIR"/ 2>/dev/null || true

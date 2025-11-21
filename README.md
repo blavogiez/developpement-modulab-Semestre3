@@ -106,7 +106,10 @@ Si JavaFX n’est pas encore installé, faites :
 ```bash
 sudo apt install openjfx
 ```
-
+Vous aurez aussi besoin de GStreamer (ce framework permet de gérer les médias, comme la vidéo en fond)
+```bash
+sudo apt install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
+```
 Tout d’abord, placez-vous dans le répertoire labyrinth puis compilez le projet avec la commande suivante (en veillant à bien avoir les dépendances requises) :
 ```bash
 cd labyrinth
@@ -118,8 +121,7 @@ Ensuite, exécutez avec :
 ./run.sh
 ```
 
->Vérifiez que vous avez bien les droits sur les fichiers. Le script configure automatiquement le chemin vers JavaFX.
----
+>Vérifiez que vous avez les droits nécessaires sur les fichiers, et assurez-vous que vos bibliothèques JavaFX se trouvent bien dans `/usr/share/openjfx/lib`
 
 ## Démonstrations
 
