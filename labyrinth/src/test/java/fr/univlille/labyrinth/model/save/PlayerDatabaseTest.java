@@ -42,7 +42,6 @@ class PlayerDatabaseTest {
             for (int j = 0 ; j < 3 ; j++) {
                 Challenge unDefi = player4.getProgress().getLevelProgress()[i].getChallenges()[j];
                 player4.getProgress().markChallengeCompleted(unDefi, 500);
-                System.out.println(unDefi);
             }
             
         }

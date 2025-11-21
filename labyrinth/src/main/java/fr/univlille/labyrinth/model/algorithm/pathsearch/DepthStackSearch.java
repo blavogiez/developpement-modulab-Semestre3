@@ -47,7 +47,7 @@ public abstract class DepthStackSearch {
     private static boolean isNeighborFound(Maze maze, Position current, boolean neighborFound, Deque<Position> stack) {
         for (Position neighbor : getNeighbors(current)) {
             if (neighbor != null && !neighborFound && isValid(neighbor, maze) &&!marked.contains(neighbor) && !MazeWallChecker.isWall(maze, current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
-                        System.out.println(neighbor.getY() + "," + neighbor.getX());
+                        //System.out.println(neighbor.getY() + "," + neighbor.getX());
                         marked.add(neighbor);
                         stack.push(neighbor);
                         neighborFound = true;
