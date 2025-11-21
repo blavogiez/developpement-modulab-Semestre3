@@ -6,23 +6,35 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
+import fr.univlille.labyrinth.model.maze.entities.movebehaviors.MonsterMoveBehavior;
 
 class MonsterEatingPlayerTest {
 
-    @Test
-    void should_monster_eat_player_after_playing_dumbly() {
+// On désactive le cooldown pour ce test
+@Test
+void should_monster_eat_player_after_playing_dumbly() {
+    
+    MonsterMoveBehavior.setIgnoreCooldown(true);
+    try {
         String entitiesConfiguration = "t=PLAYER;q=1;m=PLAYER|t=EXIT;q=1;m=MOVING|t=MONSTER;q=3;m=MONSTER";
         ObservableMaze maze = new ObservableMaze(15, 10, 1, entitiesConfiguration);
 
-        assertEquals(1, maze.getEntityManager().getEntitiesByType(PlayerEntity.class).size(), "Devrait avoir 1 joueur au départ");
+        assertEquals(1,
+            maze.getEntityManager().getEntitiesByType(PlayerEntity.class).size(),
+            "Devrait avoir 1 joueur au départ");
 
-        for (int i = 0 ; i < 100 ; i++) {
+        for (int i = 0; i < 100; i++) {
             maze.getEntityManager().moveEntities(0, maze, Direction.LEFT);
         }
         maze.getEntityManager().checkMonsterOnPlayer();
 
-        assertEquals(0, maze.getEntityManager().getEntitiesByType(PlayerEntity.class).size(), "Le joueur devrait être mangé");
+        assertEquals(0,
+            maze.getEntityManager().getEntitiesByType(PlayerEntity.class).size(),
+            "Le joueur devrait être mangé");
+    } finally {
+        MonsterMoveBehavior.setIgnoreCooldown(false);
     }
+}
 
     @Test
     void should_remove_player_when_monster_on_same_position() {

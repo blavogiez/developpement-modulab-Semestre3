@@ -4,7 +4,7 @@ import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.Player;
 import fr.univlille.labyrinth.model.save.PlayerDatabase;
-import fr.univlille.labyrinth.utils.Timer;
+import fr.univlille.labyrinth.model.gamemode.Timer;
 
 public class ProgressionModeVictoryHandler implements VictoryHandler {
     private Player player;

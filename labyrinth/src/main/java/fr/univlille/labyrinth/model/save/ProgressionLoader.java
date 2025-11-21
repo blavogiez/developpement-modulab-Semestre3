@@ -1,4 +1,4 @@
-package fr.univlille.labyrinth.utils;
+package fr.univlille.labyrinth.model.save;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,7 +84,7 @@ public class ProgressionLoader {
             return new PlayerProgress(levels);
 
         } catch (IOException e) {
-            throw new RuntimeException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
+            throw new ProgressionLoaderException("Erreur lors du chargement de la progression par défaut: " + e.getMessage(), e);
         }
     }
 

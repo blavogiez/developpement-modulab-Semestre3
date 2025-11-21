@@ -1,27 +1,35 @@
 package fr.univlille.labyrinth.model.maze.entities.movebehaviors;
 
+import java.util.List;
+
 import fr.univlille.labyrinth.model.algorithm.pathsearch.MazePath;
 import fr.univlille.labyrinth.model.maze.Direction;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.Entity;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
 
-import java.util.List;
-
 public class MonsterMoveBehavior implements MoveBehavior {
+    private static final long MOVE_INTERVAL_MS = 500 ;
 
+    private static boolean ignoreCooldown = false;
 
-    /** 
-     * @param entity
-     * @param direction
-     * @param maze
-     */
+    private long lastMoveTime = 0;
+
     /*
-     * Observable maze à mettre en parametre apres
-     */
+    Ignore le cooldown
+    Utile dans le cadre des tests */
+    public static void setIgnoreCooldown(boolean ignore) {
+        ignoreCooldown = ignore;
+    }
+
+    @Override
     public void move(Entity entity, Direction direction, ObservableMaze maze) {
+        if (!canMoveNow()) {
+            return;
+        }
+        updateLastMoveTime();
+
         Position position = entity.getPosition();
         List<PlayerEntity> players = maze.getEntityManager().getEntitiesByType(PlayerEntity.class);
         if (players.isEmpty()) return;
@@ -39,10 +47,17 @@ public class MonsterMoveBehavior implements MoveBehavior {
         }
     }
 
-    /** 
-     * @return boolean
-     */
-    public boolean isMoving() {
-        return true;
+    private boolean canMoveNow() {
+        if (ignoreCooldown) {
+            return true;
+        }
+        long now = System.currentTimeMillis();
+        return now - lastMoveTime >= MOVE_INTERVAL_MS;
+    }
+
+    private void updateLastMoveTime() {
+        if (!ignoreCooldown) {
+            lastMoveTime = System.currentTimeMillis();
+        }
     }
 }

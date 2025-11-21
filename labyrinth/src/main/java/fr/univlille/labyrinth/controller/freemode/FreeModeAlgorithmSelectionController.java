@@ -3,7 +3,7 @@ package fr.univlille.labyrinth.controller.freemode;
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.utils.ResizeUtil;
+import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
