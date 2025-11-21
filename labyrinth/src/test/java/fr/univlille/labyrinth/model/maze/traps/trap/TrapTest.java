@@ -1,7 +1,5 @@
 package fr.univlille.labyrinth.model.maze.traps.trap;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -140,15 +138,19 @@ class TrapTest {
 
     @Test
     void generate_trap_test_reload_algorithm_test(){
-        /*
-        boolean[][] initialVerticalWalls = cloneMatrix(verticalsWalls);
-        boolean[][] initialHorizontalsWalls = cloneMatrix(horizontalsWalls);
-        maze.getTrapManager().setTrap(0,1,TrapFactory.GENERATE_TRAP.generateTrap());
-        Assertions.assertTrue(areEqualMatrices(initialVerticalWalls, maze.getMurVerticaux()) && areEqualMatrices(initialHorizontalsWalls, maze.getMurVerticaux()));
-        playerMoving(Direction.RIGHT);
-        Assertions.assertFalse(areEqualMatrices(initialVerticalWalls, maze.getMurVerticaux()) && areEqualMatrices(initialHorizontalsWalls, maze.getMurVerticaux()));
-        */
-        assertTrue(true);
+        for (int i = 0; i<10000; i++){
+            init();
+            boolean[][] initialVerticalWalls = cloneMatrix(maze.getMurVerticaux());
+            boolean[][] initialHorizontalsWalls = cloneMatrix(maze.getMurHorizontaux());
+            maze.getTrapManager().setTrap(0,1,TrapFactory.GENERATE_TRAP.generateTrap());
+            Assertions.assertArrayEquals(initialVerticalWalls, maze.getMurVerticaux());
+            Assertions.assertArrayEquals(initialHorizontalsWalls, maze.getMurHorizontaux());
+            playerMoving(Direction.RIGHT);
+            Assertions.assertFalse(areEqualMatrices(initialVerticalWalls, maze.getMurVerticaux()) && areEqualMatrices(initialHorizontalsWalls, maze.getMurHorizontaux()));
+
+        }
+
+
     }
 
     @Test
