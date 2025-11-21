@@ -285,6 +285,10 @@ Création de la classe "PlayerDatabase"
 **Cette semaine, nous avons principalement testé et finalisé l'application pour un rendu sans bugs / crash. Nous avons également tous discuté de la meilleure approche pour maximiser la qualité de code.**
 
 ### **Antonin** :
+- Ajout Exception
+
+>Probléme branche 'develop-antonin' commit non publié sur master car probléme de merge
+
 
 
 ### **Angèl** :
