@@ -65,7 +65,6 @@ public abstract class ResizeUtil {
 
     public static void resizeImageViewInPane(Pane parent, ImageView imageView, double width, double height, double marginT, double marginR, double marginB, double marginL){
         imageViewEffect(width, height, imageView);
-        System.out.println("ICI");
     }
 
     private static void comboBoxEffect(double width, double height, ComboBox combo) {
