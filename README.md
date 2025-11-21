@@ -37,10 +37,10 @@ Nous avons conçu un système de pièges et d’entités entièrement modulaire,
 
 ## Membres de l'équipe
 Réalisé par :
-- **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
+- **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr)  
 - **Antonin Marouze** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
 - **Romain Harlaut** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
-- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr@univ-lille.fr)   
+- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr)   
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 
 ## Liens utiles
@@ -52,13 +52,15 @@ Mr Delecroix :
 | Documents | Code |
 |-----------|------|
 | [Suivi](labyrinth/suivi.md) | [Répertoire principal](labyrinth/src/main/java/fr/univlille/labyrinth) |
-| | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
+| [Rapport UML](rapports/UML/uml.md) | [Répertoire de tests](labyrinth/src/test/java/fr/univlille/labyrinth) |
 
 Mme Everaere : [Rapport algorithmique](rapports/algo/main.pdf)
 
+**Le code se trouve dans le répertoire `labyrinth`.**
+
 ## Diagramme de classe
 
-Afin de ne pas surcharger le README, le diagramme UML ainsi que les choix de conception seront détaillés dans un fichier à part accesible à : [Rapport UML](labyrinth/UML/uml.md)
+Afin de ne pas surcharger le README, le diagramme UML ainsi que les choix de conception seront détaillés dans un fichier à part accessible à : [Rapport UML](rapports/UML/uml.md)
 
 ## Lancer le projet
 ### Prérequis
@@ -95,7 +97,7 @@ cd labyrinth
 mvn javafx:run
 ```
 
-> Attention cette méthode utilise Maven pour gérer JavaFX automatiquement.
+> Attention, cette méthode utilise Maven pour gérer JavaFX automatiquement.
 
 ---
 
@@ -125,13 +127,13 @@ Ensuite, exécutez avec :
 
 ## Démonstrations
 
-[Accueil](assets/accueil.png)
+![Accueil](assets/accueil.png)
 
-[Vue d'un labyrinthe](assets/vueLaby.png)
+![Vue d'un labyrinthe](assets/vueLaby.png)
 
-[Vue limitée d'un labyrinthe](assets/vueLimiteeLaby.png)
+![Vue limitée d'un labyrinthe](assets/vueLimiteeLaby.png)
 
-[Affichage de la progression](assets/progression.png)
+![Affichage de la progression](assets/progression.png)
 
 ## Documentation
 

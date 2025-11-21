@@ -567,6 +567,47 @@ Méthodes principales : \texttt{generateMaze(Maze maze)}, \texttt{randomlyRemove
 
 \newpage
 
+\subsection{Affichage graphique}
+
+Les figures suivantes illustrent les différences de rendu entre les algorithmes, qui seront étudiées plus en détail dans la section suivante.
+
+\vspace{2.5em}
+
+\begin{figure}[H]
+    \centering
+
+    % Première ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/algorithmes_de_génération/représentations/default/fig_1.png}
+        \caption{Algorithme PERFECT}
+        \label{fig:triangle_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/algorithmes_de_génération/représentations/default/fig_2.png}
+        \caption{Algorithme FUSION}
+        \label{fig:triangle_2}
+    \end{subfigure}
+
+    \vspace{0.6cm}
+
+    % Deuxième ligne : image centrée
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/algorithmes_de_génération/représentations/default/fig_3.png}
+        \caption{Algorithme RANDOM (0.5)}
+        \label{fig:triangle_3}
+    \end{subfigure}
+
+    \caption{Comparaison des labyrinthes générés selon différents algorithmes}
+    \label{fig:labyrinthes_triangle}
+\end{figure}
+
+
+\newpage
+
 \section{Efficacité}
 
 \subsection{Méthode}
@@ -582,7 +623,7 @@ On note :
     \item \( P \) : l'ensemble des pourcentages de murs testés.
 \end{itemize}
 
-\info{Pour les labyrinthes aléatoires, la mesure enregistrée est la moyenne des résultats pour des pourcentages de 20\%, 30\%, 50\% (demande du sujet). Ce résultat est moyenné afin de présenter des modélisations uniformes.}
+\info{Pour les labyrinthes aléatoires, la mesure enregistrée est la moyenne des résultats avec des pourcentages de 20\%, 30\%, 50\% (demande du sujet). Ce résultat est moyenné afin de présenter des modélisations uniformes.}
 
 Ainsi, pour tous les algorithmes sauf \texttt{RANDOM}, on utilise un pourcentage fixe \(P = \{0{,}5\}\) (non pris en compte à l'exécution).  
 Pour l’algorithme \texttt{RANDOM}, on utilise \(P = \{0{,}2, 0{,}3, 0{,}5\}\).  
@@ -726,7 +767,7 @@ Seuls ces tableaux et leurs modélisations graphiques sont présentés en résul
     \caption{Résultats RANDOM pour les tailles 10–500.}
 \end{figure}
 
-\obs{La distance paramétrée a un impact crucial puisqu'elle est maximale dans le cadre des labyrinthes aléatoires (spécification du sujet). Ainsi, l'algorithme doit trouver la position la plus éloignée en explorant tout le labyrinthe, le maximum étant inconnu à chaque génération.}
+\obs{La distance paramétrée a un impact crucial puisqu'elle est maximale dans le cadre des labyrinthes aléatoires (spécification du sujet). Ainsi, l'algorithme doit trouver la position la plus éloignée (tenant compte des murs) en explorant tout le labyrinthe, le maximum étant inconnu à chaque génération.}
 
 Ce maximum peut toutefois s'estimer : pour $n = 500$, soit un labyrinthe de taille $500 \times 1000$, elle \textbf{est concentrée entre 10 000 et 20 000}.
 
@@ -901,7 +942,7 @@ Ce maximum peut toutefois s'estimer : pour $n = 500$, soit un labyrinthe de tail
 
 Dans tous nos algorithmes, la représentation du labyrinthe repose sur la même structure que dans le TP2 : deux tableaux de booléens pour les murs horizontaux et verticaux. La comparaison des performances se fait donc à structure de données identique, par conséquent les écarts observés proviennent uniquement des algorithmes de génération eux-mêmes.
 
-Sur la plage de tailles testées (de $10 \times 20$ à $500 \times 1000$), l’algorithme \texttt{PERFECT} issu du TP2 (parcours en profondeur) est systématiquement plus rapide que l’algorithme par fusion. Pour les grandes tailles, on observe qu’un labyrinthe généré par \texttt{PERFECT} est de l’ordre de dix fois plus rapide à produire qu’avec l’algorithme de fusion intégrant le calcul de distance.
+Sur la plage de tailles testées (de $5 \times 10$ à $500 \times 1000$), l’algorithme \texttt{PERFECT} issu du TP2 (parcours en profondeur) est systématiquement plus rapide que l’algorithme par fusion. Pour les grandes tailles, on observe qu’un labyrinthe généré par \texttt{PERFECT} est de l’ordre de dix fois plus rapide à produire qu’avec l’algorithme de fusion intégrant le calcul de distance.
 
 Cette différence s’explique par les structures auxiliaires utilisées : \texttt{PERFECT} ne s’appuie que sur une pile de positions et un tableau de booléens \texttt{visited}, alors que l’algorithme de fusion maintient en plus des tableaux \texttt{parent[]} et \texttt{size[]} pour la structure Union--Find et effectue davantage de tirages aléatoires.
 
@@ -1032,6 +1073,8 @@ Plusieurs axes d'amélioration pourraient être explorés :
 La solution présentée répond pleinement aux exigences du jalon 2 et établit des bases solides et durables pour l’algorithme de génération de labyrinthes.
 
 \end{document}
+
+
 
 
 

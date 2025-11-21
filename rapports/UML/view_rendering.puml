@@ -32,6 +32,26 @@ package view.labyrinth {
     }
 }
 
+package view.labyrinth.legend {
+    class LegendPanel {
+        + LegendPanel(String, LegendType)
+        + update(ObservableMaze)
+        + updateEntities(List<Entity>)
+        + updateTraps(TrapManager)
+    }
+
+    enum LegendType
+
+    class LegendItemView {
+        + LegendItemView(String, Shape, Color, int)
+        + updateCount(int)
+    }
+}
+
+package model {
+    interface Observer
+}
+
 package view.labyrinth.animation {
     interface AnimatableView {
         + update(ObservableMaze)
@@ -107,6 +127,7 @@ package view.labyrinth.filter {
 LabyrinthCanvasView <|-- LocalLabyrinthCanvasView
 LabyrinthCanvasView <|-- HiddenPlayerNormalLabyrinthCanvasView
 LabyrinthCanvasView <|-- ExplorationLabyrinthCanvasView
+LabyrinthCanvasView ..|> Observer
 LabyrinthCanvasView ..> ComponentRenderer
 LabyrinthCanvasView ..> LabyrinthLayoutCalculator
 LabyrinthCanvasView ..> AnimatableView
@@ -115,6 +136,11 @@ LabyrinthCanvasView ..> view.labyrinth.renderer.EntityRenderer
 LabyrinthCanvasView ..> view.labyrinth.renderer.TrapRenderer
 LabyrinthCanvasView ..> view.labyrinth.filter.RenderingFilter
 LabyrinthCanvasView ..> view.labyrinth.filter.WallFilter
+LegendPanel ..> ObservableMaze
+LegendPanel ..> LegendItemView
+LegendPanel ..> GameViewConfig
+LegendPanel ..|> Observer
+LegendItemView ..> ComponentRenderer
 ComponentRenderer ..> ShapeRendererManager
 ShapeRendererManager ..> CircleRenderer
 ShapeRendererManager ..> SquareRenderer

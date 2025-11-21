@@ -9,27 +9,44 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PlayerDatabaseTest {
-    static Player player1, player2, player3;
-    static String playerName1, playerName2, playerName3, nonExistentPlayerName;
+    static Player player1, player2, player3, player4;
+    static String playerName1, playerName2, playerName3, playerName4, nonExistentPlayerName;
 
     @BeforeAll
     static void initialization() {
         playerName1 = "TestPlayer1";
         playerName2 = "TestPlayer2";
         playerName3 = "TestPlayer3";
+        playerName4 = "Admin" ;
         nonExistentPlayerName = "NonExistentPlayer";
 
         player1 = new Player(playerName1);
         player2 = new Player(playerName2);
         player3 = new Player(playerName3);
+        player4 = new Player(playerName4);
 
         Challenge unDefi = player1.getProgress().getLevelProgress()[1].getChallenges()[1];
         player1.getProgress().markChallengeCompleted(unDefi, 500);
+    }
+
+    // joueur "Admin" avec accès à tout pour debugger apres
+    @AfterAll
+    static void admin() {
+        for(int i = 0 ; i < 9 ; i++){
+            for (int j = 0 ; j < 3 ; j++) {
+                Challenge unDefi = player4.getProgress().getLevelProgress()[i].getChallenges()[j];
+                player4.getProgress().markChallengeCompleted(unDefi, 500);
+                System.out.println(unDefi);
+            }
+            
+        }
+        PlayerDatabase.savePlayer(player4);
     }
 
     @BeforeEach
