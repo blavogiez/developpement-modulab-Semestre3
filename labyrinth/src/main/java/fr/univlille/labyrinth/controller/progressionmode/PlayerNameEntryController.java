@@ -13,6 +13,7 @@ import java.io.IOException;
 public class PlayerNameEntryController {
     static String playerName = "toto";
     //ceci est un test afin d'éviter de refaire la même erreur de séparer les comptes
+    //Un deuxième test
     @FXML
     private TextField nameField;
 
