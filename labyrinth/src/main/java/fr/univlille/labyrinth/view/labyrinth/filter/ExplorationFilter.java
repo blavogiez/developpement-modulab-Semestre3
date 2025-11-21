@@ -67,11 +67,7 @@ public class ExplorationFilter implements RenderingFilter {
      */
     @Override
     public boolean shouldRenderEntity(Entity entity, int x, int y) {
-        if (!isExplored(x, y)) return false;
-        if (entity.getEntityType() == EntityType.PLAYER) {
-            return !animationEnabled;
-        }
-        return true;
+        return false ;
     }
 
     /** 
@@ -86,11 +82,11 @@ public class ExplorationFilter implements RenderingFilter {
     }
 
     /** 
-     * @return {@code true} si la condition est remplie, sinon {@code false}
+     * @return false
      */
     @Override
     public boolean shouldDrawPlayer() {
-        return animationEnabled;
+        return false ;
     }
 
     /** 

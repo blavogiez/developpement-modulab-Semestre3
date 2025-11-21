@@ -4,10 +4,10 @@ Notre équipe communique sur un groupe *Discord* et nous faisons une mini-démon
 
 # Membres de l'équipe
 
-- **Bredelle Victor** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
+- **Bredelle Victor** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr)  
 - **Marouze Antonin** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
 - **Harlaut Romain** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
-- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr@univ-lille.fr)   
+- **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr)   
 - **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
 
 **Chaque personne complète soi-même sa contribution (vendez-vous bien)**
@@ -304,7 +304,7 @@ Création de la classe "PlayerDatabase"
 |--------------|-------------|
 | Refactor / extraction du package "view" avec un système de filtres pour alléger les classes | Optimisation de l'algorithme de fusion (Union-Find) avec tests correspondants |
 | Fonctionnalité originale : Vidéo de fond dans les menus avec transitions | |
-| Fonctionnalité originale : Avec Romain, affichage en panneau d'information  des entités/pièges contenus dans le labyrinthe | |
+| Fonctionnalité originale : Avec Romain, affichage en panneau d'information des entités/pièges contenus dans le labyrinthe | |
 | Fonctionnalité originale : Affichage du panneau d'information des entités/pièges dynamique avec pattern Observer / Observable | |
 
 
