@@ -14,8 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
-public class VictoryNotification {
-
+public abstract class VictoryNotification {
+    private VictoryNotification(){}
     /** 
      * @param message
      * @param isVictory
@@ -78,8 +78,7 @@ public class VictoryNotification {
             overlay.getChildren().add(notification);
             StackPane.setAlignment(notification, Pos.TOP_CENTER);
 
-            if (parent instanceof BorderPane) {
-                BorderPane bp = (BorderPane) parent;
+            if (parent instanceof BorderPane bp) {
                 Node oldTop = bp.getTop();
                 StackPane topContainer = new StackPane();
                 if (oldTop != null) {

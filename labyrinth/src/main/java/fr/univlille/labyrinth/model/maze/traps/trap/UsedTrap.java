@@ -12,7 +12,7 @@ public class UsedTrap extends Trap{
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-
+        /* Literally it does nothing */
     }
 
     /** 

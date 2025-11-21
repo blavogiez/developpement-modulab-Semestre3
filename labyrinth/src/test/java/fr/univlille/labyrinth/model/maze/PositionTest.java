@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PositionTest {
 
     @Test
-    void shouldCreatePositionWithCoordinates() {
+    void should_create_position_with_coordinates() {
         Position position = new Position(3, 4);
 
         assertEquals(3, position.getX());
@@ -15,7 +15,7 @@ class PositionTest {
     }
 
     @Test
-    void shouldBeEqualWhenSameCoordinates() {
+    void should_Be_equal_when_same_coordinates() {
         Position pos1 = new Position(3, 4);
         Position pos2 = new Position(3, 4);
 
@@ -23,7 +23,7 @@ class PositionTest {
     }
 
     @Test
-    void shouldNotBeEqualWhenDifferentCoordinates() {
+    void should_not_be_equal_when_different_coordinates() {
         Position pos1 = new Position(3, 4);
         Position pos2 = new Position(4, 5);
 
@@ -31,7 +31,7 @@ class PositionTest {
     }
 
     @Test
-    void shouldHaveSameHashcodeWhenEqual() {
+    void should_have_same_hash_code_when_equal() {
         Position pos1 = new Position(3, 4);
         Position pos2 = new Position(3, 4);
 
@@ -39,7 +39,7 @@ class PositionTest {
     }
 
     @Test
-    void shouldUpdateXCoordinate() {
+    void should_update_X_coordinate() {
         Position position = new Position(0, 0);
 
         position.setX(5);
@@ -48,7 +48,7 @@ class PositionTest {
     }
 
     @Test
-    void shouldUpdateYCoordinate() {
+    void should_update_Y_coordinate() {
         Position position = new Position(0, 0);
 
         position.setY(7);
@@ -57,7 +57,7 @@ class PositionTest {
     }
 
     @Test
-    public void randomPositionTest(){
+    void should_generate_a_random_position_within_range_test(){
         for (int heigth = 10; heigth<15;heigth++){
             for (int width = 10; width<15; width++){
                 boolean[][] wasGenerated = new boolean[heigth][width];
@@ -74,7 +74,7 @@ class PositionTest {
     }
 
     @Test
-    public void addTest(){
+    void should_return_another_position_with_updated_parameters(){
         Position pos = new Position(1,1);
         Position pos2 = pos.add(0,0);
         Position pos3 = pos.add(2,0);
@@ -85,7 +85,7 @@ class PositionTest {
     }
 
     @Test
-    public void minTest(){
+    void should_return_the_minimum_position_between_two(){
         Position pos = new Position(0,0);
         Position pos2 = new Position(1,0);
         Position pos3 = new Position(0,1);
@@ -103,7 +103,7 @@ class PositionTest {
     }
 
     @Test
-    public void copyTest(){
+    void should_copy_the_position(){
         Position pos = new Position(1,1);
         Position pos2 = pos.copy();
         assertEquals(pos, pos2);

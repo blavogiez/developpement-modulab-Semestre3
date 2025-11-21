@@ -61,8 +61,10 @@ public enum     Direction {
 
         return getDirection(playerPosition.getX()-playerPosition2.getX(), playerPosition.getY()-playerPosition2.getY());
     }
+    private static Random random;
 
     public static Direction getRandomDirection(){
-        return values()[new Random().nextInt(0,values().length)];
+        if (random==null) random=new Random();
+        return values()[random.nextInt(0,values().length)];
     }
 }

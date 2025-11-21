@@ -4,10 +4,12 @@ import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.EntityManager;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 
 import java.util.Random;
 
 public abstract class Trap {
+    private static final Random RANDOM = new Random();
     Position position;
 
     /**
@@ -24,10 +26,10 @@ public abstract class Trap {
      * Remplace le piège à la position donnée par un piège "utilisé".
      *
      * @param position la position du piège à révéler
-     * @param traps    le tableau de pièges du labyrinthe
+     * @param trapManager le manager des traps de maze
      */
-    protected void revealTrap(Position position, Trap[][] traps) {
-        traps[position.getY()][position.getX()] = TrapFactory.USED.generateTrap();
+    protected void revealTrap(Position position, TrapManager trapManager) {
+        trapManager.setTrap(position.getY(),position.getX(),TrapFactory.USED.generateTrap());
     }
 
     /**
@@ -46,16 +48,18 @@ public abstract class Trap {
      * @return une position libre aléatoire
      */
     protected static Position getRandomCell(ObservableMaze maze) {
-        Random random = new Random();
-        Trap[][] traps = maze.getTrapManager().getTraps();
+
+        TrapManager trapManager = maze.getTrapManager();
         EntityManager entityManager = maze.getEntityManager();
-        int x, y;
+        int x;
+        int y;
         Position position;
         do {
-            y = random.nextInt(traps.length);
-            x = random.nextInt(traps[y].length);
+            y = RANDOM.nextInt(trapManager.height());
+            x = RANDOM.nextInt(trapManager.width());
             position = new Position(x, y);
-        } while (!isFree(traps, entityManager, position));
+        } while (!isFree(trapManager.getTrap(y,x),entityManager,position));
+
         return position;
     }
 
@@ -64,13 +68,12 @@ public abstract class Trap {
      * <p>
      * Une position est libre si elle contient un {@code NoneTrap} et qu'aucune entité ne s'y trouve.
      *
-     * @param traps         le tableau de pièges du labyrinthe
-     * @param entityManager le gestionnaire des entités du labyrinthe
-     * @param position      la position à tester
+     * @param trap          le piège du labyrinthe
+     * @param entityManager  le gestionnaire des entités du labyrinthe
+     * @param position       la position à tester
      * @return {@code true} si la position est libre, sinon {@code false}
      */
-    private static boolean isFree(Trap[][] traps, EntityManager entityManager, Position position) {
-        return traps[position.getY()][position.getX()] instanceof NoneTrap
-                && !entityManager.isEntityOnCell(position);
+    private static boolean isFree(Trap trap, EntityManager entityManager, Position position){
+        return trap instanceof NoneTrap && !entityManager.isEntityOnCell(position);
     }
 }

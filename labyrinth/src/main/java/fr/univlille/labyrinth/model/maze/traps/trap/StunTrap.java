@@ -13,9 +13,9 @@ public class StunTrap extends Trap {
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-        int STUNT_DURATION = 5;
+        final int STUNT_DURATION = 5;
         ((PlayerMoveBehavior) maze.getEntityManager().getPlayerEntityByID(playerID).getMoveBehavior()).setStuntDuration(STUNT_DURATION);
-        revealTrap(position,maze.getTrapManager().getTraps());
+        revealTrap(position,maze.getTrapManager());
     }
 
     /** 

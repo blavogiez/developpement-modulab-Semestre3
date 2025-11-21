@@ -31,6 +31,10 @@ L’application comporte deux modes de jeu principaux :
 
 Un système de sauvegarde enregistre la progression à partir du pseudo saisi par le joueur.
 
+### Fonctionnalités originales
+
+Nous avons conçu un système de pièges et d’entités entièrement modulaire, permettant de créer une grande variété de configurations et de comportements. Le mode multijoueur pousse encore plus loin cette modularité en offrant la possibilité d’affronter d’autres joueurs et de tenter de remporter la partie face à ses adversaires, en arrivant le premier à une sortie, que ce soit par la rapidité de mouvement, ou par les composants du labyrinthe (monstres) ayant éliminé les autres joueurs.
+
 ## Membres de l'équipe
 Réalisé par :
 - **Victor Bredelle** : [victor.bredelle.etu@univ-lille.fr](mailto:victor.bredelle.etu@univ-lille.fr.fr)  
@@ -118,6 +122,8 @@ Ensuite, exécutez avec :
 ---
 
 ## Démonstrations
+
+[Accueil](assets/accueil.png)
 
 [Vue d'un labyrinthe](assets/vueLaby.png)
 

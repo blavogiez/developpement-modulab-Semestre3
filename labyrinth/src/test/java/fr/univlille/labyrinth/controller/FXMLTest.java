@@ -11,70 +11,64 @@ import static org.junit.jupiter.api.Assertions.*;
 // chaque test vérifie qu'un fichier FXML est accessible via Main.class.getResource()
 
 // Nous avons eu des problèmes de nommage de fichiers FXML différents ; cette classe sert désormais à la non régression des nommages / chemins
-public class FXMLTest {
+class FXMLTest {
 
     @Test
-    public void testHomeMenuFxmlExists() {
+    void testHomeMenuFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/HomeMenu.fxml");
         assertNotNull(resource, "Le fichier HomeMenu.fxml devrait exister");
     }
 
     @Test
-    public void testSettingsFxmlExists() {
+    void testSettingsFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/Settings.fxml");
         assertNotNull(resource, "Le fichier Settings.fxml devrait exister");
     }
 
     @Test
-    public void testGameModeSelectionFxmlExists() {
+    void testGameModeSelectionFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/GameModeSelection.fxml");
         assertNotNull(resource, "Le fichier GameModeSelection.fxml devrait exister");
     }
 
     @Test
-    public void testFreeModeFxmlExists() {
+    void testFreeModeFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/freemode/FreeMode.fxml");
         assertNotNull(resource, "Le fichier freemode/FreeMode.fxml devrait exister");
     }
 
     @Test
-    public void testFreeModeLabyrinthFxmlExists() {
+    void testFreeModeLabyrinthFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/freemode/FreeModeLabyrinth.fxml");
         assertNotNull(resource, "Le fichier freemode/FreeModeLabyrinth.fxml devrait exister");
     }
 
     @Test
-    public void testPlayerNameEntryFxmlExists() {
+    void testPlayerNameEntryFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/PlayerNameEntry.fxml");
         assertNotNull(resource, "Le fichier progressionmode/PlayerNameEntry.fxml devrait exister");
     }
 
     @Test
-    public void testPlayerNameEntryFxmlExistsWithCapitalM() {
-        URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/PlayerNameEntry.fxml");
-        assertNotNull(resource, "Le fichier progressionmode/PlayerNameEntry.fxml devrait exister");
-    }
-
-    @Test
-    public void testExistingProfileFxmlExists() {
+    void testExistingProfileFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/ExistingProfile.fxml");
         assertNotNull(resource, "Le fichier progressionmode/ExistingProfile.fxml devrait exister");
     }
 
     @Test
-    public void testLevelSelectionFxmlExistsLowercase() {
+    void testLevelSelectionFxmlExistsLowercase() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/LevelSelection.fxml");
         assertNotNull(resource, "Le fichier progressionmode/LevelSelection.fxml devrait exister");
     }
 
     @Test
-    public void testProgressionModeLabyrinthFxmlExists() {
+    void testProgressionModeLabyrinthFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/labyrinthviewtype/NormalViewProgressionModeLabyrinth.fxml");
         assertNotNull(resource, "Le fichier progressionmode/ProgressionModeLabyrinth.fxml devrait exister");
     }
 
     @Test
-    public void testLimitedViewProgressionModeLabyrinthFxmlExists() {
+    void testLimitedViewProgressionModeLabyrinthFxmlExists() {
         URL resource = App.class.getResource("/fr/univlille/labyrinth/progressionmode/labyrinthviewtype/LocalViewProgressionModeLabyrinth.fxml");
         assertNotNull(resource, "Le fichier progressionmode/LimitedViewProgressionModeLabyrinth.fxml devrait exister");
     }

@@ -2,7 +2,6 @@ package fr.univlille.labyrinth.model.maze.traps;
 
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.traps.trap.NoneTrap;
 import fr.univlille.labyrinth.model.maze.traps.trap.RandomTrap;
@@ -17,8 +16,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class TrapSetupTest {
+class TrapSetupTest {
     Map<TrapFactory, Integer> map1;
     Map<TrapFactory, Integer> map2;
     Map<TrapFactory, Integer> map3;
@@ -26,7 +24,7 @@ public class TrapSetupTest {
 
 
     @BeforeEach
-    public void init(){
+    void init(){
         map1 = new EnumMap<>(TrapFactory.class);
         map1.put(TrapFactory.RANDOM_TRAP,5);
         map1.put(TrapFactory.FAKE_EXIT_TRAP,3);
@@ -55,7 +53,7 @@ public class TrapSetupTest {
     }
 
     @Test
-    public void generateTrapsWithStringTest(){
+    void should_generate_traps_with_string_test(){
         TrapSetup trapSetup = TrapSetup.getInstance();
         trapSetup.generate(new ObservableMaze(10,10,10),"R5_F3_P10_L2_S3");
         assertEquals(map1, trapSetup.trapMap);
@@ -72,18 +70,20 @@ public class TrapSetupTest {
     }
 
     @Test
-    public void trap_setup_random_should_generate_one_real_random_trap() {
+    void trap_setup_random_should_generate_one_real_random_trap() {
         for (int i = 0;i<1000;i++){
         ObservableMaze maze = new ObservableMaze(2, 2, 2,"DEFAULT", MazeAlgorithmFactory.PERFECT.getAlgorithm(),"R1");
-        Trap[][] traps = maze.getTrapManager().getTraps();
+        TrapManager trapManager = maze.getTrapManager();
+        int height = trapManager.height();
+        int width = trapManager.width();
 
         int noneCount = 0;
         int realTrapCount = 0;
 
-            for (int y = 0; y < traps.length; y++) {
-                for (int x = 0; x < traps[y].length; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
 
-                    Trap t = traps[y][x];
+                    Trap t = trapManager.getTrap(y,x);
 
                     if (t instanceof NoneTrap) {
                         noneCount++;

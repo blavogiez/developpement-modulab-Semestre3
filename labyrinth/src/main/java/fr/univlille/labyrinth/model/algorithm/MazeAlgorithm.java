@@ -11,8 +11,10 @@ import fr.univlille.labyrinth.model.maze.Position;
 
 
 public abstract class MazeAlgorithm{
-    boolean[][] verticalsWalls, horizontalsWalls;
-    int height, width;
+    boolean[][] verticalsWalls;
+    boolean[][] horizontalsWalls;
+    int height;
+    int width;
 
     /** 
      * @param maze
@@ -24,20 +26,21 @@ public abstract class MazeAlgorithm{
         allAreTrue(verticalsWalls);
         width = maze.getWidth();
         height = maze.getHeight();
-    };
+    }
 
+    private static final Random RANDOM = new Random();
     /** 
      * @param maze
      */
     public void generateExitAndPlayer(Maze maze){
 
         int distanceBetweenEntryAndExit = maze.getDistanceBetweenEntryAndExit();
-        Random random = new Random();
-        Position entryPosition = new Position(random.nextInt(width), random.nextInt(height));
+
+        Position entryPosition = new Position(RANDOM.nextInt(width), RANDOM.nextInt(height));
 
         DistanceResult distResult = MazeDistance.calculateAllDistances(maze, entryPosition, distanceBetweenEntryAndExit);
 
-        Position exitPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
+        Position exitPosition = distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
 
         maze.setEntry(entryPosition);
         maze.setExit(exitPosition);
@@ -122,12 +125,12 @@ public abstract class MazeAlgorithm{
         if (min.getX()<0 || min.getY()<0) return;
 
         switch (direction) {
-            case LEFT, RIGHT -> {
+            case LEFT, RIGHT ->
                 verticalsWalls[min.getX()][min.getY()] = false;
-            }
-            case UP, DOWN -> {
+
+            case UP, DOWN ->
                 horizontalsWalls[min.getY()][min.getX()] = false;
-            }
+
 
         }
     }

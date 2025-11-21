@@ -1,7 +1,7 @@
 package fr.univlille.labyrinth.view.labyrinth.renderer;
 
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
-import fr.univlille.labyrinth.model.maze.traps.trap.Trap;
+import fr.univlille.labyrinth.model.maze.traps.TrapManager;
 import fr.univlille.labyrinth.view.GameViewConfig;
 import fr.univlille.labyrinth.view.labyrinth.filter.RenderingFilter;
 import fr.univlille.labyrinth.view.layout.LabyrinthLayout;
@@ -24,11 +24,13 @@ public class TrapRenderer {
      * @param layout
      */
     public void dessinerTrap(GraphicsContext gc, ObservableMaze maze, LabyrinthLayout layout) {
-        Trap[][] traps = maze.getTrapManager().getTraps();
-        for (int y = 0; y < traps.length; y++) {
-            for (int x = 0; x < traps[y].length; x++) {
-                if (renderingFilter.shouldRenderTrap(traps[y][x], x, y)) {
-                    GameViewConfig config = GameViewConfig.forTrap(traps[y][x]);
+        TrapManager trapManager = maze.getTrapManager();
+        int height = trapManager.height();
+        int width = trapManager.width();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (renderingFilter.shouldRenderTrap(trapManager.getTrap(y,x), x, y)) {
+                    GameViewConfig config = GameViewConfig.forTrap(trapManager.getTrap(y,x));
                     componentRenderer.renderComponentAt(gc, config.getShape(), config.getColor(), x, y, layout, 0.6);
                 }
             }

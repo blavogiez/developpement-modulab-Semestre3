@@ -1,7 +1,6 @@
 package fr.univlille.labyrinth.model.maze;
 
 import fr.univlille.labyrinth.model.Observer;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Observable<T extends Observable<T>> {

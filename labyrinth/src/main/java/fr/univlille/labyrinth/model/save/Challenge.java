@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
-import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.save.score.ScoreCalculator;
 import fr.univlille.labyrinth.model.save.score.StandardScoreCalculator;
 
@@ -32,6 +31,7 @@ public class Challenge implements Serializable {
     private long timeCompleted;
     private boolean completed;
     private ScoreCalculator scoreCalculator;
+
 
     /**
      * Génère un challenge avec injection de la stratégie de calcul de score

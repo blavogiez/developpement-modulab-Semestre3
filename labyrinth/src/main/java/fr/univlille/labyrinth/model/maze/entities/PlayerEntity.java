@@ -17,7 +17,7 @@ Si le multijoueur n'est pas activé, alors il n'y a que le joueur d'ID 0 qui est
 OCP mieux respecté de ce fait
  */
 public class PlayerEntity extends Entity {
-    private int ID;
+    private int id;
 
     public PlayerEntity(Position position) {
         this(position, new PlayerMoveBehavior());
@@ -51,29 +51,30 @@ public class PlayerEntity extends Entity {
             }
             distResult.positions().removeAll(positionsWithEntities);
             cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
-            if(cpt > 5) {
+            if(cpt > 20) {
                 stuckToMaximum = true;
                 cpt = -1;
             }
-        } while (distResult.positions().size() == 0);
+            if(cpt<-20) break ;
+        } while (distResult.positions().isEmpty());
 
-        Random random = new Random();
-        Position thisPlayerPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
-        return thisPlayerPosition;
+        return distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
     }
+
+    private static final Random RANDOM = new Random();
 
     /** 
      * @param id
      */
-    public void setID(int id) {
-        this.ID=id;
+    public void setId(int id) {
+        this.id =id;
     }
 
     /** 
      * @return int
      */
-    public int getID() {
-        return ID ;
+    public int getId() {
+        return id;
     }
 
     /** 
@@ -84,13 +85,6 @@ public class PlayerEntity extends Entity {
         return EntityType.PLAYER;
     }
 
-    /** 
-     * @return MoveBehavior
-     */
-    @Override
-    public MoveBehavior getMoveBehavior() {
-        return super.getMoveBehavior();
-    }
 
     /** 
      * @param maze
@@ -99,15 +93,4 @@ public class PlayerEntity extends Entity {
     public boolean isPlayerPositionAtExit(Maze maze) {
         return this.position.equals(maze.getExitPosition());
     }
-
-    /** 
-     * @return String
-     */
-    @Override
-    public String getDefType() {
-        return "rond"; //TODO recup couleur joueur
-    }
-
-
-
 }

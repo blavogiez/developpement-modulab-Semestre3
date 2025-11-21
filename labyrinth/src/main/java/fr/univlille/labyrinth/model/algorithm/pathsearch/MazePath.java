@@ -10,8 +10,8 @@ import java.util.*;
 /*
  * Classe statique utilitaire pour trouver le chemin entre une position A et B.
  */
-public class MazePath {
-
+public abstract class MazePath {
+    private MazePath(){}
     /**
      * @param maze
      * @param start
@@ -42,7 +42,7 @@ public class MazePath {
             }
 
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**

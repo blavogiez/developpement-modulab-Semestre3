@@ -16,17 +16,15 @@ import javafx.scene.layout.HBox;
  * @since 0.0
  */
 public class LocalViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController {
-    private final int HBOX_SPACING=150;
-
-    private HiddenPlayerNormalLabyrinthCanvasView fullMazeView;
-    private LocalLabyrinthCanvasView localView;
-
+    private static final int HBOX_SPACING=150;
     /** 
      * @param gameMode
      * @return Node
      */
     @Override
     protected Node setupViews(ProgressionMode gameMode) {
+        HiddenPlayerNormalLabyrinthCanvasView fullMazeView;
+        LocalLabyrinthCanvasView localView;
         fullMazeView = new HiddenPlayerNormalLabyrinthCanvasView(gameMode.getCurrentMaze());
         localView = new LocalLabyrinthCanvasView(gameMode.getCurrentMaze());
 

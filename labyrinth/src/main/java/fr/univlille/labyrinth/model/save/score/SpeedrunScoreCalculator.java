@@ -34,8 +34,8 @@ public class SpeedrunScoreCalculator implements ScoreCalculator, Serializable {
 
         long completionTime = challenge.getTimeCompleted();
         if (completionTime > 0 && completionTime < TIME_THRESHOLD) {
-            double timeFactor = Math.max(0.5, (double) TIME_THRESHOLD / (completionTime + TIME_THRESHOLD / 2));
-            baseScore *= timeFactor * SPEED_MULTIPLIER;
+            double timeFactor = Math.max(0.5, TIME_THRESHOLD / (completionTime + TIME_THRESHOLD / 2.0));
+            baseScore *= (int) (timeFactor * SPEED_MULTIPLIER);
         }
         return baseScore;
     }

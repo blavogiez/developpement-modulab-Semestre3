@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.view.labyrinth;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +33,8 @@ public class LabyrinthCanvasView implements Observer<ObservableMaze>, Animatable
     private static final int CANVAS_DEFAULT_SIZE = 800;
     private static final int CONTAINER_MAX_SIZE = 850;
 
-    private final int MINSIZEV=0;
-    private final int MINSIZEV1=0;
+    private static final int MINSIZEV=0;
+    private static final int MINSIZEV1=0;
 
     protected Pane container;
     protected Canvas canvas;

@@ -27,7 +27,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldCreateEntitiesFromDefaultConfiguration() {
+    void should_create_entities_from_default_configuration() {
         List<Entity> entities = EntityListFactory.createEntities(maze,"DEFAULT");
 
         assertEquals(2, entities.size());
@@ -36,7 +36,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldCreateMultipleEntitiesWithQuantity() {
+    void should_create_multiple_entities_with_quantity() {
         String config = "t=PLAYER;q=3;m=PLAYER";
 
         List<Entity> entities = EntityListFactory.createEntities(maze, config);
@@ -46,7 +46,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldCreateEntitiesWithCorrectMoveBehavior() {
+    void should_create_entities_with_correct_move_behavior() {
         String config = "t=EXIT;q=1;m=MOVING";
 
         List<Entity> entities = EntityListFactory.createEntities(maze, config);
@@ -56,7 +56,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldCreateEntityWithNullMoveBehavior() {
+    void should_create_entity_with_null_move_behavior() {
         String config = "t=EXIT;q=1;m=DEFAULT";
 
         List<Entity> entities = EntityListFactory.createEntities(maze, config);
@@ -66,7 +66,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldAssignCorrectPositions() {
+    void should_assign_correct_positions() {
         Position exitPos = maze.getExitPosition();
         List<Entity> entities = maze.getEntityManager().getEntities();
 
@@ -76,7 +76,7 @@ class EntityListFactoryTest {
     }
 
     @Test
-    void shouldCreateMixedEntities() {
+    void should_create_mixed_entities() {
         String config = "t=PLAYER;q=2;m=PLAYER|t=EXIT;q=5;m=MOVING";
 
         List<Entity> entities = EntityListFactory.createEntities(maze, config);

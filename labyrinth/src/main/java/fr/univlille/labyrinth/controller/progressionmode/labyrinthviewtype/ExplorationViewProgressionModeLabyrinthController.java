@@ -11,24 +11,24 @@ import javafx.scene.layout.HBox;
 
 
 public class ExplorationViewProgressionModeLabyrinthController extends ProgressionModeLabyrinthController{
-    private final int HBOX_SPACING=150;
 
-    private ExplorationLabyrinthCanvasView explorationView;
-    private LocalLabyrinthCanvasView localView;
+
 
     /** 
-     * @param gameMode
+     * @param gameMode Mode de jeu
      * @return Node
      */
     @Override
     protected Node setupViews(ProgressionMode gameMode) {
-        explorationView = new ExplorationLabyrinthCanvasView(gameMode.getCurrentMaze());
-        localView = new LocalLabyrinthCanvasView(gameMode.getCurrentMaze());
+        ExplorationLabyrinthCanvasView explorationView = new ExplorationLabyrinthCanvasView(gameMode.getCurrentMaze());
+        LocalLabyrinthCanvasView localView = new LocalLabyrinthCanvasView(gameMode.getCurrentMaze());
 
         gameMode.getCurrentMaze().add(explorationView);
         gameMode.getCurrentMaze().add(localView);
 
-        HBox viewContainer = new HBox(HBOX_SPACING);
+        final int INTERSPACING = 150;
+
+        HBox viewContainer = new HBox(INTERSPACING);
         viewContainer.setAlignment(Pos.CENTER);
         viewContainer.getChildren().addAll(explorationView.getView(), localView.getView());
 

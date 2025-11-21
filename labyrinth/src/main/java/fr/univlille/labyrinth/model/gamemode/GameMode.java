@@ -11,7 +11,6 @@ import fr.univlille.labyrinth.model.maze.Direction;
 import fr.univlille.labyrinth.model.maze.ObservableMaze;
 import fr.univlille.labyrinth.model.maze.Position;
 import fr.univlille.labyrinth.model.maze.entities.PlayerEntity;
-import fr.univlille.labyrinth.model.save.Player;
 
 /**
  * GameMode est la classe abstraite qui gère le mode de jeu choisi par le joueur. Elle sera l'intermédiaire entre Labyrinthe et Joueur.
@@ -26,7 +25,7 @@ public abstract class GameMode {
     protected GameConfig config;
     private List<VictoryObserver<GameMode>> victoryObservers = new ArrayList<>();
 
-    public GameMode(MazeManager mazeManager, VictoryHandler victoryHandler, GameConfig config) {
+    protected GameMode(MazeManager mazeManager, VictoryHandler victoryHandler, GameConfig config) {
         this.mazeManager = mazeManager;
         this.victoryHandler = victoryHandler;
         this.config = config;
@@ -132,18 +131,5 @@ public abstract class GameMode {
      */
     protected VictoryHandler getVictoryHandler() {
         return victoryHandler;
-    }
-
-    /** 
-     * @param width
-     * @param height
-     * @return boolean
-     */
-    /* Les dimensions demandées sont-elles possibles ?
-    à déplacer (CF fichier SOLID.md)
-     * @return boolean
-     */
-    public static boolean areDimensionsCorrect(int width, int height) {
-        return width >= 1 && height >= 1 ;
     }
 }

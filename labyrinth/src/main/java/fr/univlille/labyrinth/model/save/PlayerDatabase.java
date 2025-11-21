@@ -12,8 +12,8 @@ import java.util.List;
  * @version 0.0
  * @since 0.0
  */
-public class PlayerDatabase {
-
+public abstract class PlayerDatabase {
+    private PlayerDatabase(){}
     /**
      * Sauvegarde, ou remplace automatiquement une progression dans le dossier
      * associé

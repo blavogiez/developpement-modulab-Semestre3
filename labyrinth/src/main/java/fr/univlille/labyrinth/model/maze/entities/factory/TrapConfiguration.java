@@ -1,6 +1,5 @@
 package fr.univlille.labyrinth.model.maze.entities.factory;
 
-import fr.univlille.labyrinth.model.maze.entities.EntityType;
 import fr.univlille.labyrinth.model.maze.traps.TrapFactory;
 
 /*

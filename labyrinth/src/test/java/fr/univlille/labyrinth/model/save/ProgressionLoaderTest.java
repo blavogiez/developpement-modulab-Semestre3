@@ -20,7 +20,7 @@ class ProgressionLoaderTest {
 
     private static final String TEST_FILE = "res/test_progression.csv";
     private File testFile;
-    private String HEADER = "MonHeaderPasImportant";
+    private static final String HEADER = "MonHeaderPasImportant";
 
     /** 
      * @throws IOException
@@ -58,7 +58,7 @@ class ProgressionLoaderTest {
         if (testFile.exists()) {
             testFile.delete();
         }
-        assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
+        assertThrows(RuntimeException.class, ProgressionLoader::loadDefaultProgress);
     }
 
     /** 
@@ -145,7 +145,7 @@ class ProgressionLoaderTest {
             writer.write(HEADER + "\n");
             writer.write("STANDARD,PERFECT,NORMAL,abc,0,EASY,10,10,0.2,5,config1,DEFAULT\n");
         }
-        assertThrows(RuntimeException.class, () -> ProgressionLoader.loadDefaultProgress());
+        assertThrows(RuntimeException.class, ProgressionLoader::loadDefaultProgress);
     }
 
     /** 

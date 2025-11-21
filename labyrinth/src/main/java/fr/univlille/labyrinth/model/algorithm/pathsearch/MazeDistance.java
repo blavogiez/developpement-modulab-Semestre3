@@ -12,8 +12,8 @@ import java.util.*;
  * Classe statique utilitaire relative aux recherches de positions et de distance (une inconnue)
  * pour trouver les positions à une distance X d'une position A, ou trouver la distance entre une position A et B
  */
-public class MazeDistance {
-
+public abstract class MazeDistance {
+    private MazeDistance(){}
     /**
      * @param maze
      * @param start

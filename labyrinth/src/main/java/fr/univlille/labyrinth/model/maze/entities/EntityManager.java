@@ -64,16 +64,14 @@ public class EntityManager {
      * @param direction
      */
     public void moveEntities(int playerID, ObservableMaze maze, Direction direction) {
-        boolean stmt = true ;
+
         for (Entity entity : entities) {
             if(entity.getEntityType()==EntityType.PLAYER) {
                 PlayerEntity playerEntity = (PlayerEntity) entity ;
-                if(playerEntity.getID()==playerID) {
-                    if (!playerEntity.move(maze, direction)) stmt = false ;
-                }
+                if (playerEntity.getId()==playerID) playerEntity.move(maze, direction);
             }
             else {
-                if (!entity.move(maze, direction)) stmt = false ;
+                entity.move(maze, direction);
             }
         }
     }
@@ -120,7 +118,7 @@ public class EntityManager {
      */
     public PlayerEntity getPlayerEntityByID(int playerID) {
         for (PlayerEntity player : getEntitiesByType(PlayerEntity.class)) {
-            if (player.getID() == playerID) {
+            if (player.getId() == playerID) {
                 return player;
             }
         }
@@ -131,7 +129,7 @@ public class EntityManager {
      * @return MonsterEntity
      */
     public List<Position> getMonstersPositions() {
-        List<Position> positions = new ArrayList<Position>();
+        List<Position> positions = new ArrayList<>();
         for (Entity e : this.entities) {
             if (e.getEntityType() == EntityType.MONSTER){
                 positions.add(e.getPosition());
@@ -172,18 +170,16 @@ public class EntityManager {
      */
     public PlayerEntity checkPlayerOnExit() {
         PlayerEntity winner = null ;
-        for (Entity player : this.entities) {
-            if (player.getEntityType() == EntityType.PLAYER) {
-                for (Entity exit : this.entities) {
-                    if (exit.getEntityType() == EntityType.EXIT) {
-                        if (player.getPosition().equals(exit.getPosition())) {
-                            winner = (PlayerEntity) player;
-                        }
-                    }
-                }
-            }
+        List<PlayerEntity> playerList = getEntitiesByType(PlayerEntity.class);
+        List<ExitEntity> exitList = getEntitiesByType(ExitEntity.class);
+        List<Position> exitListPosition = exitList.parallelStream().map(Entity::getPosition).toList();
+
+        for (PlayerEntity player : playerList){
+            if (exitListPosition.contains(player.getPosition())) winner=player;
         }
+
         if(winner!=null) entities.removeAll(getEntitiesByType(ExitEntity.class));
+
         return winner;
     }
 

@@ -4,12 +4,11 @@ import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.MazeWallChecker;
 import fr.univlille.labyrinth.model.maze.Position;
 
-import java.util.Stack;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 // Algorithme tiré du TP02 de dev efficace ; utile pour les tests et sera demandé en dev efficace.
-public class DepthStackSearch {
+public abstract class DepthStackSearch {
+    private DepthStackSearch(){}
 
    private static Set<Position> marked;
 
@@ -20,7 +19,7 @@ public class DepthStackSearch {
    public static boolean isExitPossible(Maze maze) {
        marked = new HashSet<>();
 
-       Stack<Position> stack = new Stack<>();
+       Deque<Position> stack = new ArrayDeque<>();
 
        Position start = maze.getEntryPosition();
        stack.push(start);
@@ -31,40 +30,39 @@ public class DepthStackSearch {
            Position current = stack.peek();
 
            if (current.equals(maze.getExitPosition())) {
-               ///System.out.println("Exit found !!!");
                return true;
            }
 
            else {
                boolean neighborFound = false;
-               for (Position neighbor : getNeighbors(current, maze)) {
-                   if (neighbor != null && !neighborFound) {
-                       if (isValid(neighbor, maze)) {
-                           if (!marked.contains(neighbor) && !MazeWallChecker.isWall(maze,current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
-                               System.out.println(neighbor.getY() + "," + neighbor.getX());
-                               marked.add(neighbor);
-                               stack.push(neighbor);
-                               neighborFound = true;
-                           }
-                       }
-                   }
-               }
+               neighborFound = isNeighborFound(maze, current, neighborFound, stack);
                if (!neighborFound) {
                    stack.pop();
                }
            }
        }
-
-       ///System.out.println("No path from entry to exit");
        return false;
    }
 
-   /**
+    private static boolean isNeighborFound(Maze maze, Position current, boolean neighborFound, Deque<Position> stack) {
+        for (Position neighbor : getNeighbors(current)) {
+            if (neighbor != null && !neighborFound && isValid(neighbor, maze) &&!marked.contains(neighbor) && !MazeWallChecker.isWall(maze, current.getY(), current.getX(), neighbor.getY(), neighbor.getX())) {
+                        System.out.println(neighbor.getY() + "," + neighbor.getX());
+                        marked.add(neighbor);
+                        stack.push(neighbor);
+                        neighborFound = true;
+                    }
+
+
+        }
+        return neighborFound;
+    }
+
+    /**
     * @param pos
-    * @param maze
     * @return Position[]
     */
-   private static Position[] getNeighbors(Position pos, Maze maze) {
+   private static Position[] getNeighbors(Position pos) {
        Position[] neighbors = new Position[4];
        neighbors[0] = new Position(pos.getX() + 1, pos.getY());
        neighbors[1] = new Position(pos.getX() - 1, pos.getY());

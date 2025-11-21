@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.config.FreeModeConfig;
+import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.view.utils.ResizeUtil;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -68,11 +68,7 @@ public class FreeModeController {
         resize();
     }
 
-    /**
-     * @throws IOException Renvoie une IOException si la scène est inaccessible.
-     */
-    @FXML
-    private void goToModeLaby() throws IOException {
+    private void saveConfig() {
         int width, height, distance ;
         try {
             width = Integer.parseInt(widthField.getText());
@@ -83,7 +79,7 @@ public class FreeModeController {
             return;
         }
 
-        if (!GameMode.areDimensionsCorrect(width, height)) {
+        if (!MazeManager.areDimensionsCorrect(width, height)) {
             showError();
             return;
         }
@@ -93,8 +89,6 @@ public class FreeModeController {
         config.setHeight(height);
         config.setWallPercentage(wallPercentageSlider.getValue());
         config.setDistanceBetweenEntryAndExit(distance);
-
-        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     private void showError() {
@@ -102,6 +96,15 @@ public class FreeModeController {
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> errorLabel.setVisible(false));
         pause.play();
+    }
+
+    /**
+     * @throws IOException Renvoie une IOException si la scène est inaccessible.
+     */
+    @FXML
+    private void goToModeLaby() throws IOException {
+        saveConfig();
+        App.goTo("freemode/FreeModeLabyrinth.fxml");
     }
 
     /**
@@ -117,6 +120,7 @@ public class FreeModeController {
      */
     @FXML
     private void goToComponentConfiguration() throws IOException {
+        saveConfig();
         App.goTo("freemode/FreeModeComponentConfiguration.fxml");
     }
 
@@ -126,8 +130,8 @@ public class FreeModeController {
 
         for (Node ligne : menu.getChildren()) {
             if(ligne instanceof Pane pane){
-                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize( pane,0.3,0.8,0,0,0,0));
-                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize( pane,0.3,0.8,0,0,0,0));
+                pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize( pane,0.3,0.8));
+                pane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize( pane,0.3,0.8));
                 for (Node controls : pane.getChildren()) {
                     if(controls instanceof Label label){
                         pane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlToParentSize( pane,label,0.9,0.9));

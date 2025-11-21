@@ -14,12 +14,12 @@ import fr.univlille.labyrinth.model.maze.entities.Entity;
  * Déplace l'entité de pas MOVING_STEP dans le labyrinthe (modifie sa position) avec une probabilité de 1/MOVING_PERCENTAGE
  */
 public class MovingStepBehavior implements MoveBehavior {
-    private final int MOVING_PERCENTAGE = 5;
-    private final int MOVING_STEP = 1;
-    private Random random;
+    private static final int MOVING_PERCENTAGE = 5;
+    private static final int MOVING_STEP = 1;
+    private static final Random random = new Random();
 
     public MovingStepBehavior() {
-        this.random = new Random();
+        /* Nothing to setup since all is final and static */
     }
 
     /** 

@@ -29,9 +29,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class LevelSelectionController {
-    private static final double BUTTON_SCALE = 2.0;
-    private static final double ETAPE_PREF_HEIGHT = 300.0;
-    private static final double ETAPE_PREF_WIDTH = 200.0;
 
     @FXML
     private javafx.scene.layout.BorderPane fond;
@@ -159,9 +156,11 @@ public class LevelSelectionController {
                 btn.setDisable(levelLocked);
             }
         }
+        if (totalChallenges!=0){
+            progressBar.setProgress(completedCount / totalChallenges);
+            textProgressBar.setText(String.format("%.2f%%", completedCount / totalChallenges * 100));
+        }
 
-        progressBar.setProgress(completedCount / totalChallenges);
-        textProgressBar.setText(String.format("%.2f%%", completedCount / totalChallenges * 100));
     }
 
     /** 
@@ -221,7 +220,6 @@ public class LevelSelectionController {
     public static void resizeEtapeControlsInPane(Pane parent){
         double width = parent.getWidth();
         double height = parent.getHeight();
-        boolean isHBox = parent instanceof HBox;
 
         ObservableList<Node> childs = parent.getChildren();
         int nbChilds = childs.size();

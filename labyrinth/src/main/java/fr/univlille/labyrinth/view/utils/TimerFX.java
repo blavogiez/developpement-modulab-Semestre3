@@ -15,7 +15,8 @@ import javafx.util.Duration;
  * @since 0.0
  */
 
-public class TimerFX {
+public abstract class TimerFX {
+    private TimerFX(){}
     /**
      * Retourne une timeline JavaFX pour un chronomètre.
      * @param chrono

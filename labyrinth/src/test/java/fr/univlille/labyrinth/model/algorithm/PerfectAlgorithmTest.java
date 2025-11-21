@@ -16,15 +16,14 @@ import fr.univlille.labyrinth.model.maze.Position;
 // Cette classe teste l'algo de generation de labyrinthe en largeur (BFS) ; c'est le labyrinthe utilisé par défaut de l'application (Demandé pour le jalon 1)
 // On verifie que le labyrinthe genere respecte la distance minimale entre start et end
 // et que l'algo fonctionne correctement dans differents cas!
-
-public class PerfectAlgorithmTest {
+ class PerfectAlgorithmTest {
 
     static MazeAlgorithm algo;
     static Maze maze1, maze2, maze3;
     static Position start1, end1, start2, end2, start3, end3;
 
     @BeforeAll
-    public static void initialization() {
+    static void initialization() {
         algo = MazeAlgorithmFactory.PERFECT.getAlgorithm();
 
         //petit labyrinthe de taille avec distance minimale
@@ -45,7 +44,7 @@ public class PerfectAlgorithmTest {
     }
 
     @Test
-    public void testStartPosition() {
+    void start_position_should_be_correct() {
         assertTrue(MazeWallChecker.positionCorrecte(start1.getY(), start1.getX(), maze1), "" + start1);
 
         assertTrue(MazeWallChecker.positionCorrecte(start2.getY(), start2.getX(), maze2), "" + start2);
@@ -54,7 +53,7 @@ public class PerfectAlgorithmTest {
     }
 
     @Test
-    public void testExitPosition() {
+    void exit_position_should_be_correct() {
         assertTrue(MazeWallChecker.positionCorrecte(end1.getY(), end1.getX(), maze1));
 
         assertTrue(MazeWallChecker.positionCorrecte(end2.getY(), end2.getX(), maze2));
@@ -63,18 +62,14 @@ public class PerfectAlgorithmTest {
     }
 
     @Test
-    public void testStartAndEndAreDifferent() {
-        //Le point de depart et d'arrivee doivent etre differents
+    void start_and_exit_position_should_be_different() {
         assertNotEquals(start1, end1);
         assertNotEquals(start2, end2);
         assertNotEquals(start3, end3);
     }
 
     @Test
-    public void testPathExists() {
-        // Il doit exister un chemin (PATH = true) entre start et end
-
-        //(la fonction appelée retourne null si rien n'est trouvée ou la distance sinon)
+    void should_a_path_exist_between_start_and_exit() {
         Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1, "Un chemin doit exister entre start et end dans maze1");
 
@@ -86,33 +81,32 @@ public class PerfectAlgorithmTest {
     }
 
     @Test
-    public void testMinimumPathLength() {
-        // la distance BFS reelle entre start et end doit etre >= pathLength demande
+    void path_should_have_minimum_length() {
         Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
-        assertEquals(distance1,10, "Distance dans maze1 devrait être = 10, mais est " + distance1);
+        assertEquals(10,distance1, "Distance dans maze1 devrait être = 10, mais est " + distance1);
 
         Integer distance2 = MazeDistance.calculateDistance(maze2, start2, end2);
         assertNotNull(distance2);
-        assertEquals(distance2,20, "Distance dans maze2 devrait être = 20, mais est " + distance2);
+        assertEquals(20,distance2, "Distance dans maze2 devrait être = 20, mais est " + distance2);
 
         Integer distance3 = MazeDistance.calculateDistance(maze3, start3, end3);
         assertNotNull(distance3);
-        assertEquals(distance3,30, "Distance dans maze3 devrait être = 30, mais est " + distance3);
+        assertEquals(30,distance3, "Distance dans maze3 devrait être = 30, mais est " + distance3);
     }
 
     @Test
-    public void testDistanceConsistency() {
-        // gen 50 labyrinthes et verif que tous respectent la distance minimale
-        int minDistance = 8;
+    void should_calculate_distance() {
+        int minDistance;
         int failCount = 0;
 
         for (int i = 0; i < 50; i++) {
-            // dimensions variables 1 fois sur 2 !
             minDistance = (i%2 == 0) ? 15 : 8 ;
-
-            // on choisit le i aussi ; l'objectif est de tester beaucoup de combis :)
-            Maze maze = new Maze(15+i, 15+(2*i), minDistance);
+            int taille1 = 15+i;
+            int taille2 = 15+(2*i);
+            Maze maze;
+            if (i%2 == 0) maze = new Maze(taille1, taille2, minDistance);
+            else maze = new Maze(taille2, taille1, minDistance);
             Position start = maze.getEntryPosition();
             Position end = maze.getExitPosition();
 
@@ -123,6 +117,6 @@ public class PerfectAlgorithmTest {
         }
 
         // verif que tous les labyrinthes respectent la distance minimale
-        assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale de " + minDistance);
+        assertEquals(0, failCount, failCount + " labyrinthes sur 50 ne respectent pas la distance minimale");
     }
 }

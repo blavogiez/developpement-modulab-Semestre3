@@ -2,6 +2,7 @@ package fr.univlille.labyrinth.model.save.score;
 
 import fr.univlille.labyrinth.model.save.Challenge;
 
+
 /**
  * Strategy pour le calcul du score d'un challenge
  * Permet de définir différentes stratégies de scoring selon le mode de jeu
@@ -12,7 +13,7 @@ import fr.univlille.labyrinth.model.save.Challenge;
  * @version 0.0
  * @since 0.0
  */
-public interface ScoreCalculator {
+public interface ScoreCalculator{
 
     /**
      * Calcule le score d'un challenge.

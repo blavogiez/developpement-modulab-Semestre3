@@ -12,7 +12,7 @@ public class NoneTrap extends Trap {
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-
+        /* Its the trap suggesting that there is not trap so that can't be used ! */
     }
 
     /** 

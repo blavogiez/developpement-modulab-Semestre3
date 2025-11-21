@@ -3,6 +3,7 @@ package fr.univlille.labyrinth.model.save;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Player est le modèle de la situation actuelle du joueur. Il suivra sa progression et l'associera avec un nom et un score dans le but d'être sérialisé.
@@ -51,8 +52,7 @@ public class Player implements Serializable , Comparable<Player>{
      * @return true
      */
     public boolean isLevelLocked(int levelIdx) {
-        //return getHighestLevel() < levelIdx;
-        return false ; // debug
+        return getHighestLevel() < levelIdx;
     }
 
     /** 
@@ -80,9 +80,12 @@ public class Player implements Serializable , Comparable<Player>{
      * @param other
      * @return int
      */
+    @Override
     public int compareTo(Player other) {
         return Integer.compare(other.getScore(),this.calculateScore());
     }
+
+
 
     /** 
      * @return String
@@ -92,5 +95,15 @@ public class Player implements Serializable , Comparable<Player>{
         return name + " avec un score de : " + getScore() ;
     }
 
-    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) && Objects.equals(progress, player.progress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, progress);
+    }
 }

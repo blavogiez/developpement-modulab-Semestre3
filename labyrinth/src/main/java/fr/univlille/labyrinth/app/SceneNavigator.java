@@ -5,7 +5,8 @@ import java.io.IOException;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-public class SceneNavigator {
+public abstract class SceneNavigator {
+    private SceneNavigator(){}
     private static NavigationContext context;
     private static final SceneLoader sceneLoader = new SceneLoader();
     private static final SceneTransition sceneTransition = new SceneTransition();

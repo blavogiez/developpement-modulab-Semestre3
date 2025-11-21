@@ -13,7 +13,7 @@ public class RandomTrap extends Trap{
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-
+        /* That's the trap that transform into one random, player can't step on it */
     }
 
     /** 

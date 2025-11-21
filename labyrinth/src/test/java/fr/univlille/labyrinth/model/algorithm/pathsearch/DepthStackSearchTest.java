@@ -37,20 +37,18 @@ class DepthStackSearchTest {
     }
 
     @Test
-    void shouldNotFindPathInFullMaze() {
+    void should_not_find_path_in_full_maze() {
         Maze maze = new Maze(10, 10, 12);
-
         allAreTrue(maze.getMurHorizontaux());
         allAreTrue(maze.getMurVerticaux());
         assertFalse(DepthStackSearch.isExitPossible(maze));
     }
 
     @Test
-    void shouldFindPathInEmptyMaze() {
+    void should_find_path_in_empty_maze() {
         Maze maze = new Maze(15, 10, 15);
         allAreFalse(maze.getMurHorizontaux());
         allAreFalse(maze.getMurVerticaux());
-
         assertTrue(DepthStackSearch.isExitPossible(maze));
     }
 }

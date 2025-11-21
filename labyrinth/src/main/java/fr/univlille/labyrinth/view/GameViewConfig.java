@@ -70,7 +70,7 @@ public enum GameViewConfig {
 
     public static GameViewConfig forEntity(Entity entity) {
         if (entity.getEntityType()==EntityType.PLAYER) {
-            return forPlayer(((PlayerEntity) entity).getID());
+            return forPlayer(((PlayerEntity) entity).getId());
         }
         try {
             return valueOf(entity.getEntityType().name());

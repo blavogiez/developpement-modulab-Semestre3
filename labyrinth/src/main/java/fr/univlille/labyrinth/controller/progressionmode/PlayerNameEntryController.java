@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class PlayerNameEntryController {
-    public static String playerName = "toto";
+    static String playerName = "toto";
 
     @FXML
     private TextField nameField;

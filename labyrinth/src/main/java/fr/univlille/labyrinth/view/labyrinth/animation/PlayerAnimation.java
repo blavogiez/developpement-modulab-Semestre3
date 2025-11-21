@@ -61,7 +61,7 @@ public class PlayerAnimation extends AnimationTimer {
 
         for (PlayerEntity player : maze.getEntityManager().getEntitiesByType(PlayerEntity.class)) {
 
-            int id = player.getID();
+            int id = player.getId();
             double targetX = player.getPosition().getX();
             double targetY = player.getPosition().getY();
 

@@ -29,7 +29,19 @@ public class TrapManager {
     /** 
      * @return Trap[][]
      */
-    public Trap[][] getTraps() {
-        return trap;
+    public Trap getTrap(int y, int x) {
+        return trap[y][x];
+    }
+
+    public void setTrap(int y, int x, Trap trap){
+        this.trap[y][x]=trap;
+    }
+    
+    public int height(){
+        return this.trap.length;
+    }
+
+    public int width(){
+        return this.trap[0].length;
     }
 }

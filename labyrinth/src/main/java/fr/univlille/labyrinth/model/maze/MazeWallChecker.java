@@ -6,8 +6,8 @@ import fr.univlille.labyrinth.model.exceptions.MazeWallIllegalState;
  * Classe helper contenant les vérifications de murs
  * Sert à ne pas surcharger la classe Maze de méthodes en réalité plus static.
  */
-public class MazeWallChecker {
-
+public abstract class MazeWallChecker {
+    private MazeWallChecker(){}
     /** 
      * @param maze
      * @param y1

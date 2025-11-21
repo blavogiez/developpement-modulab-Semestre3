@@ -20,6 +20,8 @@ public class MonsterEntity extends Entity {
         super(position, moveBehavior);
     }
 
+    private static final Random RANDOM = new Random();
+
     /** 
      * @param maze
      * @return Position
@@ -43,14 +45,13 @@ public class MonsterEntity extends Entity {
             }
             distResult.positions().removeAll(positionsWithEntities);
             cpt = stuckToMaximum ? cpt - 1 : cpt + 1;
-            if(cpt>5) {
+            if(cpt>20) {
                 stuckToMaximum=true ; 
                 cpt= - 1 ;
             }
-        } while (distResult.positions().size()==0);
-        Random random = new Random();
-        Position monsterPosition = distResult.positions().get(random.nextInt(distResult.positions().size()));
-        return monsterPosition;
+            if(cpt<-20) break ;
+        } while (distResult.positions().isEmpty());
+        return distResult.positions().get(RANDOM.nextInt(distResult.positions().size()));
         
     }
 
@@ -62,20 +63,5 @@ public class MonsterEntity extends Entity {
         return EntityType.MONSTER;
     }
 
-    /** 
-     * @return MoveBehavior
-     */
-    @Override
-    public MoveBehavior getMoveBehavior() {
-        return super.getMoveBehavior();
-    }
-
-    /** 
-     * @return String
-     */
-    @Override
-    public String getDefType() {
-        return"triangle marron";
-    }
 
 }

@@ -4,14 +4,14 @@ import fr.univlille.labyrinth.view.Shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ShapeRendererManager {
     private final Map<Shape, ShapeRenderer> renderers;
 
     public ShapeRendererManager() {
-        this.renderers = new HashMap<>();
+        this.renderers = new EnumMap<>(Shape.class);
         this.renderers.put(Shape.CIRCLE, new CircleRenderer());
         this.renderers.put(Shape.SQUARE, new SquareRenderer());
         this.renderers.put(Shape.TRIANGLE, new TriangleRenderer());

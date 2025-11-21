@@ -19,21 +19,21 @@ import fr.univlille.labyrinth.model.algorithm.pathsearch.DepthStackSearch;
 class LiskovMazeTest {
 
     @Test
-    void shouldStoreWidth() {
+    void should_store_width() {
         ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertEquals(15, maze.getWidth());
     }
 
     @Test
-    void shouldStoreHeight() {
+    void should_store_height() {
         ObservableMaze maze = new ObservableMaze(15, 20, 15);
 
         assertEquals(20, maze.getHeight());
     }
 
     @Test
-    void shouldVerticalArrayStoreHeight() {
+    void should_vertical_array_store_height() {
         ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertEquals(maze.getWidth() - 1, maze.getMurVerticaux().length);
@@ -41,7 +41,7 @@ class LiskovMazeTest {
     }
 
     @Test
-    void shouldHorizontalArrayStoreWidth() {
+    void should_horizontal_array_store_width() {
         ObservableMaze maze = new ObservableMaze(15, 20, 15);
 
         assertEquals(maze.getHeight() - 1, maze.getMurHorizontaux().length);
@@ -49,7 +49,7 @@ class LiskovMazeTest {
     }
 
     @Test
-    void shouldHaveEntryAndExitPositions() {
+    void should_have_entry_and_exit_positions() {
         ObservableMaze maze = new ObservableMaze(15, 10, 15);
 
         assertNotNull(maze.getEntryPosition());
@@ -57,7 +57,7 @@ class LiskovMazeTest {
     }
 
     @Test
-    void shouldHavePathBetweenEntryAndExit() {
+    void should_have_path_between_entry_and_exit() {
         ObservableMaze maze = new ObservableMaze(15, 20, 15);
         assertTrue(DepthStackSearch.isExitPossible(maze));
     }

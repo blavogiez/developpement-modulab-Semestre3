@@ -11,14 +11,13 @@ import org.junit.jupiter.api.Test;
 import fr.univlille.labyrinth.model.algorithm.pathsearch.MazeDistance;
 import fr.univlille.labyrinth.model.maze.Maze;
 import fr.univlille.labyrinth.model.maze.Position;
-
-public class PerfectAlgorithmFusionKruskalUnionTest {
+ class PerfectAlgorithmFusionKruskalUnionTest {
     PerfectAlgorithmFusionKruskalUnion algo = PerfectAlgorithmFusionKruskalUnion.getInstance();
     Maze maze1, maze2, maze3;
     Position start1, start2, start3, end1, end2, end3;
 
     @BeforeEach
-    public void init() {
+    void init() {
         maze1 = new Maze(10, 12, 10, algo);
         start1 = maze1.getEntryPosition();
         end1 = maze1.getExitPosition();
@@ -33,7 +32,7 @@ public class PerfectAlgorithmFusionKruskalUnionTest {
     }
 
     @Test
-    public void should_generate_maze() {
+    void should_generate_maze() {
         Maze maze = new Maze(10, 10, 5);
         algo.generateMaze(maze);
         assertArrayEquals(maze.getMurHorizontaux(), algo.horizontalsWalls);
@@ -41,14 +40,14 @@ public class PerfectAlgorithmFusionKruskalUnionTest {
     }
 
     @Test
-    public void should_have_different_start_and_end() {
+    void should_have_different_start_and_end() {
         assertNotEquals(start1, end1);
         assertNotEquals(start2, end2);
         assertNotEquals(start3, end3);
     }
 
     @Test
-    public void should_have_path_between_start_and_end() {
+    void should_have_path_between_start_and_end() {
         Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
 
@@ -60,7 +59,7 @@ public class PerfectAlgorithmFusionKruskalUnionTest {
     }
 
     @Test
-    public void should_respect_minimum_path_length() {
+    void should_respect_minimum_path_length() {
         Integer distance1 = MazeDistance.calculateDistance(maze1, start1, end1);
         assertNotNull(distance1);
         assertEquals(10, distance1);
@@ -75,8 +74,8 @@ public class PerfectAlgorithmFusionKruskalUnionTest {
     }
 
     @Test
-    public void should_generate_mazes_with_minimum_distance() {
-        int minDistance = 8;
+    void should_generate_mazes_with_minimum_distance() {
+        int minDistance;
         int failCount = 0;
 
         for (int i = 0; i < 50; i++) {

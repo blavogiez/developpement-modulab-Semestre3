@@ -13,7 +13,7 @@ public class FakeTrap extends Trap {
      */
     @Override
     public void onUse(int playerID, Position position, Position oldPosition, ObservableMaze maze) {
-        revealTrap(position,maze.getTrapManager().getTraps());
+        revealTrap(position,maze.getTrapManager());
     }
 
     /** 

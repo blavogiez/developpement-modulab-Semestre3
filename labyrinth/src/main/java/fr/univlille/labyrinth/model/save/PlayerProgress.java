@@ -48,12 +48,7 @@ public class PlayerProgress implements Serializable {
      * @param time
      */
     public void markChallengeCompleted(Challenge challenge, long time) {
-        if(challenge.getTimeCompleted()<=0) {
-            challenge.setTimeCompleted(time);
-        }
-        else if(time<challenge.getTimeCompleted()) {
-            challenge.setTimeCompleted(time);
-        }
+        if(challenge.getTimeCompleted()<=0 || (time<challenge.getTimeCompleted())) challenge.setTimeCompleted(time);
         challenge.setCompleted(true);
     }
 

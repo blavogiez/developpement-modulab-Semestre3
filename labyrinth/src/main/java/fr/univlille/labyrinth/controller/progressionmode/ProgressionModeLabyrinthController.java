@@ -6,7 +6,6 @@ import fr.univlille.labyrinth.App;
 import fr.univlille.labyrinth.controller.AppState;
 import fr.univlille.labyrinth.controller.LabyrinthController;
 import fr.univlille.labyrinth.controller.VictoryNotification;
-import fr.univlille.labyrinth.model.gamemode.GameMode;
 import fr.univlille.labyrinth.model.gamemode.ProgressionMode;
 import fr.univlille.labyrinth.model.gamemode.manager.MazeManager;
 import fr.univlille.labyrinth.model.gamemode.victory.ProgressionModeVictoryHandler;
@@ -65,7 +64,8 @@ public abstract class ProgressionModeLabyrinthController extends LabyrinthContro
         gameMode = new ProgressionMode(mazeManager, victoryHandler, currentPlayer, selectedChallenge);
         gameMode.createMaze();
 
-        pane1.setCenter(setupViews(gameMode));
+        Node centerContent = setupViews(gameMode);
+        setupLegendPanels(centerContent);
 
         gameMode.setChronometre(chrono);
     }

@@ -88,15 +88,17 @@ public class Position {
         return Direction.getDirection(values[0],values[1]);
     }
 
+    private static final Random RANDOM = new Random();
+
     /** 
      * @param height
      * @param width
      * @return Position
      */
     public static Position getRandomPosition(int height, int width){
-        Random random = new Random();
-        int x = random.nextInt(width);
-        int y = random.nextInt(height);
+
+        int x = RANDOM.nextInt(width);
+        int y = RANDOM.nextInt(height);
         return new Position(x,y);
     }
 

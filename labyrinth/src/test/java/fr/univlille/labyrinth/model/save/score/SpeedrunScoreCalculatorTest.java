@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.univlille.labyrinth.model.algorithm.MazeAlgorithm;
 import fr.univlille.labyrinth.model.algorithm.MazeAlgorithmFactory;
 import fr.univlille.labyrinth.model.save.Challenge;
 import fr.univlille.labyrinth.model.save.ViewType;

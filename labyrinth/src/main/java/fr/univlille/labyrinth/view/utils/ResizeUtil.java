@@ -8,7 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-public class ResizeUtil {
+public abstract class ResizeUtil {
+    private ResizeUtil(){}
 
     private static final double FONT_PERCENTAGE_WIDTH = 0.55;
     private static final double DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN = 0.5;
@@ -19,12 +20,12 @@ public class ResizeUtil {
      * @param cont
      * @param width
      * @param height
-     * @param MarginT
-     * @param MarginR
-     * @param MarginB
-     * @param MarginL
+     * @param marginT
+     * @param marginR
+     * @param marginB
+     * @param marginL
      */
-    public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizeControlInPane(Pane parent, Control cont, double width, double height, double marginT, double marginR, double marginB, double marginL){
         cont.setMinWidth(width);
         cont.setPrefWidth(width);
         cont.setMaxWidth(width);
@@ -33,34 +34,45 @@ public class ResizeUtil {
         cont.setMaxHeight(height);
 
         if(cont instanceof Button button){
-            button.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
-            button.setPadding(new Insets(0, 0, 0, 0));
-            if(button.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
-                button.setFont(new Font(height*FONT_PERCENTAGE_WIDTH));
-            }else{
-                button.setFont(new Font(width/button.getText().length()));
-            }
+            buttonEffect(width, height, button);
         } else if(cont instanceof Label label){
-            if(label.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
-                label.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
-            }else{
-                label.setFont(new Font(width/label.getText().length()));
-            }
+            labelEffect(width, height, label);
         } else if(cont instanceof TextField textField){
             textField.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
         }else if(cont instanceof ComboBox combo) {
-
-            int maxItemLength = getMaxLengthItemComboBox(combo);
-            if ( maxItemLength * height * FONT_PERCENTAGE_WIDTH < width) {
-                combo.setStyle("-fx-font-size: " + (height * FONT_PERCENTAGE_WIDTH) + "px;");
-            } else {
-                combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
-            }
+            comboBoxEffect(width, height, combo);
         }
         if(parent instanceof VBox){
-            VBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));
+            VBox.setMargin(cont, new Insets(marginT, marginR, marginB, marginL));
         } else if (parent instanceof HBox) {
-            HBox.setMargin(cont, new Insets(MarginT, MarginR, MarginB, MarginL));
+            HBox.setMargin(cont, new Insets(marginT, marginR, marginB, marginL));
+        }
+    }
+
+    private static void comboBoxEffect(double width, double height, ComboBox combo) {
+        int maxItemLength = getMaxLengthItemComboBox(combo);
+        if ( maxItemLength * height * FONT_PERCENTAGE_WIDTH < width || maxItemLength==0) {
+            combo.setStyle("-fx-font-size: " + (height * FONT_PERCENTAGE_WIDTH) + "px;");
+        } else {
+            combo.setStyle("-fx-font-size: " + (width / maxItemLength) + "px;");
+        }
+    }
+
+    private static void labelEffect(double width, double height, Label label) {
+        if(label.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
+            label.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
+        }else{
+            label.setFont(new Font(width / label.getText().length()));
+        }
+    }
+
+    private static void buttonEffect(double width, double height, Button button) {
+        button.setFont(new Font(height * FONT_PERCENTAGE_WIDTH));
+        button.setPadding(new Insets(0, 0, 0, 0));
+        if(button.getText().length() * height * FONT_PERCENTAGE_WIDTH < width){
+            button.setFont(new Font(height *FONT_PERCENTAGE_WIDTH));
+        }else{
+            button.setFont(new Font(width / button.getText().length()));
         }
     }
 
@@ -82,15 +94,15 @@ public class ResizeUtil {
      * @param parent
      * @param width
      * @param height
-     * @param MarginT
-     * @param MarginR
-     * @param MarginB
-     * @param MarginL
+     * @param marginT
+     * @param marginR
+     * @param marginB
+     * @param marginL
      */
-    public static void resizeControlsInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizeControlsInPane(Pane parent, double width, double height, double marginT, double marginR, double marginB, double marginL){
         ObservableList<Node> children = parent.getChildren();
         for (Node child : children) {
-            resizeControlInPane( parent, (Control)child,width,height, height*MarginT, MarginR, MarginB, MarginL);
+            resizeControlInPane( parent, (Control)child,width,height, height*marginT, marginR, marginB, marginL);
         }
     }
 
@@ -98,12 +110,8 @@ public class ResizeUtil {
      * @param parent
      * @param percentageWidth
      * @param percentageHeight
-     * @param MarginT
-     * @param MarginR
-     * @param MarginB
-     * @param MarginL
      */
-    public static void resizeControlsToParentSize(Pane parent,  double percentageWidth, double percentageHeight, double MarginT, double MarginR, double MarginB, double MarginL ){
+    public static void resizeControlsToParentSize(Pane parent,  double percentageWidth, double percentageHeight){
         double width = parent.getWidth();
         double height = parent.getHeight();
         boolean isHBox = parent instanceof HBox;
@@ -117,20 +125,6 @@ public class ResizeUtil {
         }
     }
 
-    /**
-     * @param parent
-     * @param percentageWidth
-     * @param percentageHeight
-     */
-    public static void resizeControlsToParentSize(Pane parent, double percentageWidth, double percentageHeight ){
-        boolean isHBox = parent instanceof HBox;
-        if(isHBox){
-            resizeControlsInPane( parent,percentageWidth,percentageHeight, 0, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
-        }else{
-            resizeControlsInPane( parent,percentageWidth,percentageHeight, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
-        }
-    }
-
     /** 
      * @param parent
      */
@@ -138,9 +132,9 @@ public class ResizeUtil {
         boolean isHBox = parent instanceof HBox;
 
         if(isHBox){
-            resizeControlsToParentSize( parent,0.5,0.4, 0, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_LEFT_MARGIN);
+            resizeControlsToParentSize( parent,0.5,0.4);
         }else{
-            resizeControlsToParentSize( parent,0.4,0.5, 0, 0, DEFAULT_CONTROLS_PERCENTAGE_BOTTOM_MARGIN, 0);
+            resizeControlsToParentSize( parent,0.4,0.5);
         }
     }
 
@@ -149,12 +143,12 @@ public class ResizeUtil {
      * @param pane
      * @param width
      * @param height
-     * @param MarginT
-     * @param MarginR
-     * @param MarginB
-     * @param MarginL
+     * @param marginT
+     * @param marginR
+     * @param marginB
+     * @param marginL
      */
-    public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizePaneInPane(Pane parent, Pane pane, double width, double height, double marginT, double marginR, double marginB, double marginL){
         pane.setMinWidth(width);
         pane.setPrefWidth(width);
         pane.setMaxWidth(width);
@@ -163,9 +157,9 @@ public class ResizeUtil {
         pane.setMaxHeight(height);
 
         if(parent instanceof VBox){
-            VBox.setMargin(pane, new Insets(MarginT, MarginR, MarginB, MarginL));
+            VBox.setMargin(pane, new Insets(marginT, marginR, marginB, marginL));
         } else if (parent instanceof HBox) {
-            HBox.setMargin(pane, new Insets(MarginT, MarginR, MarginB, MarginL));
+            HBox.setMargin(pane, new Insets(marginT, marginR, marginB, marginL));
         }
     }
 
@@ -173,15 +167,15 @@ public class ResizeUtil {
      * @param parent
      * @param width
      * @param height
-     * @param MarginT
-     * @param MarginR
-     * @param MarginB
-     * @param MarginL
+     * @param marginT
+     * @param marginR
+     * @param marginB
+     * @param marginL
      */
-    public static void resizePanesInPane(Pane parent, double width, double height, double MarginT, double MarginR, double MarginB, double MarginL){
+    public static void resizePanesInPane(Pane parent, double width, double height, double marginT, double marginR, double marginB, double marginL){
         ObservableList<Node> children = parent.getChildren();
         for (Node child : children) {
-            resizePaneInPane( parent, (Pane) child,width,height, height*MarginT, MarginR, MarginB, MarginL);
+            resizePaneInPane( parent, (Pane) child,width,height, height*marginT, marginR, marginB, marginL);
         }
     }
 

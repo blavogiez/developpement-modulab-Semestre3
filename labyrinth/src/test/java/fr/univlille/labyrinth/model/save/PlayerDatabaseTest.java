@@ -18,7 +18,7 @@ class PlayerDatabaseTest {
     static String playerName1, playerName2, playerName3, nonExistentPlayerName;
 
     @BeforeAll
-    public static void initialization() {
+    static void initialization() {
         playerName1 = "TestPlayer1";
         playerName2 = "TestPlayer2";
         playerName3 = "TestPlayer3";
@@ -33,18 +33,18 @@ class PlayerDatabaseTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         PlayerDatabase.clear();
     }
 
     @Test
-    public void testSavePlayer() {
+    void testSavePlayer() {
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
         assertTrue(PlayerDatabase.playerExists(playerName1));
     }
 
     @Test
-    public void testSaveMultiplePlayers() {
+    void testSaveMultiplePlayers() {
         assertDoesNotThrow(() -> {
             PlayerDatabase.savePlayer(player1);
             PlayerDatabase.savePlayer(player2);
@@ -57,7 +57,7 @@ class PlayerDatabaseTest {
     }
 
     @Test
-    public void testLoadPlayer() {
+    void testLoadPlayer() {
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
 
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
@@ -67,13 +67,13 @@ class PlayerDatabaseTest {
     }
 
     @Test
-    public void testLoadNonExistentPlayer() {
+    void testLoadNonExistentPlayer() {
         Player result = PlayerDatabase.loadPlayer(nonExistentPlayerName);
         assertNull(result);
     }
 
     @Test
-    public void testPlayerExists() {
+    void testPlayerExists() {
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
 
         assertTrue(PlayerDatabase.playerExists(playerName1));
@@ -81,7 +81,7 @@ class PlayerDatabaseTest {
     }
 
     @Test
-    public void testPlayerExistsAfterSave() {
+    void testPlayerExistsAfterSave() {
         assertFalse(PlayerDatabase.playerExists(playerName2));
 
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player2));
@@ -90,7 +90,7 @@ class PlayerDatabaseTest {
     }
 
     @Test
-    public void testLoadPlayerVerifyAllProperties() {
+    void testLoadPlayerVerifyAllProperties() {
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
 
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
@@ -100,7 +100,7 @@ class PlayerDatabaseTest {
     }
 
     @Test
-    public void testLoadPlayerAndChallenge() {
+    void testLoadPlayerAndChallenge() {
         assertDoesNotThrow(() -> PlayerDatabase.savePlayer(player1));
 
         Player loadedPlayer = PlayerDatabase.loadPlayer(playerName1);
@@ -112,7 +112,7 @@ class PlayerDatabaseTest {
 
     // test si le joueur est mis à jour par son nom après une autre session de jeu théorique
     @Test
-    public void testUpdatePlayer() {
+    void testUpdatePlayer() {
         PlayerDatabase.savePlayer(player1);
 
         Player autreSessionDuPlayer1 = new Player("TestPlayer1");

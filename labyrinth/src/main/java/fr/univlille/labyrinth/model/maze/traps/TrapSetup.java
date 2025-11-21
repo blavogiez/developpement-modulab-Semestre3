@@ -27,10 +27,9 @@ public class TrapSetup {
 
     /** 
      * @param maze
-     * @param trapMap
      * @return Trap[][]
      */
-    public Trap[][] generate(ObservableMaze maze, Map<TrapFactory, Integer> trapMap){
+    public Trap[][] generate(ObservableMaze maze){
         traps = new Trap[maze.getHeight()][maze.getWidth()];
         fillPath();
         generateTraps(maze);
@@ -50,18 +49,18 @@ public class TrapSetup {
         if (setup!=null) {
             String[] separatedTraps = setup.split("_");
             for (int i = 0; i < separatedTraps.length; i++) {
-                extractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
+                ExtractTrapAndValueFromConfiguration result = getExtractTrapAndValueFromConfiguration(separatedTraps[i]);
                 verifyAndAddTrapIfExists(result);
             }
         }
-            return generate(maze, trapMap);
+            return generate(maze);
         }
 
     /** 
      * @param result
      */
-    private void verifyAndAddTrapIfExists(extractTrapAndValueFromConfiguration result) {
-        TrapFactory trapType = TrapFactory.NONE;
+    private void verifyAndAddTrapIfExists(ExtractTrapAndValueFromConfiguration result) {
+        TrapFactory trapType;
         int numberTrap = 0;
         if (result.trap() != null && result.value() != null) {
 
@@ -79,7 +78,7 @@ public class TrapSetup {
      * @param trapandvalue
      * @return extractTrapAndValueFromConfiguration
      */
-    private extractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
+    private ExtractTrapAndValueFromConfiguration getExtractTrapAndValueFromConfiguration(String trapandvalue) {
         String trap = null;
         String value = null;
         for (int j = 0; j < trapandvalue.length(); j++) {
@@ -90,40 +89,44 @@ public class TrapSetup {
                 break;
             }
         }
-        return new extractTrapAndValueFromConfiguration(trap, value);
+        return new ExtractTrapAndValueFromConfiguration(trap, value);
     }
 
-    private record extractTrapAndValueFromConfiguration(String trap, String value) {
+    private record ExtractTrapAndValueFromConfiguration(String trap, String value) {
     }
 
-
+    private static final Random RANDOM = new Random();
     private void randomizeRandomTrap() {
-        Random random = new Random();
+
         for (int x = 0; x < traps.length; x++) {
             for (int y = 0; y < traps[x].length; y++) {
                 if (traps[x][y] instanceof RandomTrap) {
-                    traps[x][y] = TrapFactory.values()[random.nextInt(TrapFactory.TELEPORTER_TRAP.ordinal(), TrapFactory.values().length)].generateTrap();
+                    traps[x][y] = TrapFactory.values()[RANDOM.nextInt(TrapFactory.TELEPORTER_TRAP.ordinal(), TrapFactory.values().length)].generateTrap();
                 }
             }
         }
     }
 
     /** 
+     * Génère les pièges avec une protection contre une boucle infinie (par exemple : 200 000 pièges voulus)
      * @param maze
      */
     public void generateTraps(ObservableMaze maze) {
         for(Map.Entry<TrapFactory, Integer> entry : trapMap.entrySet()){
             int value = entry.getValue();
             int i = 0;
-            int count = maze.getEntityManager().getEntities().size();
+            int count = 0;
             final int MAX = maze.getHeight()*maze.getWidth();
             while (count<MAX && i<value){
-                Position position = getRandomCell(maze);
-                setTrap(position.getY(),  position.getX(), entry.getKey().generateTrap());
-                i++;
-                count++;
+                try {
+                    Position position = getRandomCell(maze);
+                    setTrap(position.getY(),  position.getX(), entry.getKey().generateTrap());
+                    i++;
+                    count++;
+                } catch (IllegalStateException e) {
+                    break;
+                }
             }
-
         }
     }
 
@@ -134,13 +137,22 @@ public class TrapSetup {
      * @return Position
      */
     public Position getRandomCell(Maze maze){
-        Random random = new Random();
-        int x, y;
+
+        int x;
+        int y;
         Position position;
+        int attempts = 0;
+        final int MAX_ATTEMPTS = traps.length * traps[0].length * 10;
+
         do {
-            y = random.nextInt(traps.length);
-            x = random.nextInt(traps[y].length);
+            y = RANDOM.nextInt(traps.length);
+            x = RANDOM.nextInt(traps[y].length);
             position = new Position(x, y);
+            attempts++;
+
+            if (attempts > MAX_ATTEMPTS) {
+                throw new IllegalStateException("Cannot find available cell for trap placement");
+            }
         } while (!(getTrap(y,x) instanceof NoneTrap) ||
                 position.equals(maze.getExitPosition()) ||
                 position.equals(maze.getEntryPosition()));
