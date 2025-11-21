@@ -7,7 +7,7 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
 ![License](https://img.shields.io/badge/License-Université%20de%20Lille-green?style=for-the-badge)
 
-**[Présentation](#présentation)** • **[Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Démonstrations](#démonstrations)** • **[Déploiement](#déploiement)**
+**[Présentation](#présentation)** • **[Équipe](#membres-de-léquipe)** • **[Liens utiles](#liens-utiles)** • **[Diagramme de classe](#diagramme-de-classe)** • **[Démonstrations](#démonstrations)**
 
 </div>
 
