@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -21,16 +22,13 @@ import java.io.IOException;
 public class HomeMenuController {
 
     @FXML
-    private Button bouttonJouer;
-    @FXML
-    private Button bouttonQuitter;
-    @FXML
-    private Button bouttonParametres;
-    @FXML
     private VBox menuBoutons;
     @FXML
-    private HBox logo;
-
+    private HBox menuLogo;
+    @FXML
+    private BorderPane homePane;
+    @FXML
+    private ImageView logo;
 
 
     /**
@@ -64,9 +62,12 @@ public class HomeMenuController {
     }
 
     public void resize(){
+        homePane.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizePaneInPane(homePane, menuLogo,homePane.getWidth(),homePane.getHeight()*0.4,0,0,0,0));
+        homePane.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizePaneInPane(homePane, menuLogo,homePane.getWidth(),homePane.getHeight()*0.4,0,0,0,0));
+
         menuBoutons.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
         menuBoutons.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
-        logo.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
-        logo.idProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeControlsToParentSize(menuBoutons));
+        menuLogo.widthProperty().addListener((o, oldW, newW) -> ResizeUtil.resizeImageViewToParentSize(menuLogo,logo,1,1));
+        menuLogo.heightProperty().addListener((o, oldH, newH) -> ResizeUtil.resizeImageViewToParentSize(menuLogo,logo,1,1));
     }
 }

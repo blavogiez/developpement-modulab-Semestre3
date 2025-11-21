@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
@@ -49,6 +50,11 @@ public abstract class ResizeUtil {
         }
     }
 
+    public static void resizeImageViewInPane(Pane parent, ImageView imageView, double width, double height, double marginT, double marginR, double marginB, double marginL){
+        imageViewEffect(width, height, imageView);
+        System.out.println("ICI");
+    }
+
     private static void comboBoxEffect(double width, double height, ComboBox combo) {
         int maxItemLength = getMaxLengthItemComboBox(combo);
         if ( maxItemLength * height * FONT_PERCENTAGE_WIDTH < width || maxItemLength==0) {
@@ -76,6 +82,11 @@ public abstract class ResizeUtil {
         }
     }
 
+    private static void imageViewEffect(double width, double height, ImageView imageView){
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+    }
+
     /**
      * @param parent
      * @param cont
@@ -90,6 +101,14 @@ public abstract class ResizeUtil {
         resizeControlInPane(parent, cont,(width/nbChildren)*percentageWidth,height*percentageHeight, 0, 0, 0, 0);
     }
 
+    public static void resizeImageViewToParentSize(Pane parent, ImageView img, double percentageWidth, double percentageHeight){
+        double width = parent.getWidth();
+        double height = parent.getHeight();
+        ObservableList<Node> children = parent.getChildren();
+        int nbChildren = children.size();
+        resizeImageViewInPane(parent, img,(width/nbChildren)*percentageWidth,height*percentageHeight, 0, 0, 0, 0);
+    }
+
     /** 
      * @param parent
      * @param width
@@ -102,7 +121,7 @@ public abstract class ResizeUtil {
     public static void resizeControlsInPane(Pane parent, double width, double height, double marginT, double marginR, double marginB, double marginL){
         ObservableList<Node> children = parent.getChildren();
         for (Node child : children) {
-            resizeControlInPane( parent, (Control)child,width,height, height*marginT, marginR, marginB, marginL);
+            resizeControlInPane( parent, (Control) child,width,height, height*marginT, marginR, marginB, marginL);
         }
     }
 
