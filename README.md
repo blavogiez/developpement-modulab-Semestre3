@@ -45,7 +45,7 @@ Réalisé par :
 
 Notes obtenues :
 - 19/20 Rapport d'analyse
-- 19.5/20 Rapport développement Efficace
+- 19.5/20 Rapport développement efficace
 - 19.75/20 Qualité de code
 - 20/20 Soutenance
 
