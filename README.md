@@ -41,7 +41,13 @@ Réalisé par :
 - **Antonin Marouze** : [antonin.marouze.etu@univ-lille.fr](mailto:antonin.marouze.etu@univ-lille.fr) 
 - **Romain Harlaut** : [romain.harlaut.etu@univ-lille.fr](mailto:romain.harlaut.etu@univ-lille.fr)  
 - **Angèl Zheng** : [angel.zheng.etu@univ-lille.fr](mailto:angel.zheng.etu@univ-lille.fr)   
-- **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)  
+- **Baptiste Lavogiez** : [baptiste.lavogiez.etu@univ-lille.fr](mailto:baptiste.lavogiez.etu@univ-lille.fr)
+
+Notes obtenues :
+- 19/20 Rapport d'analyse
+- 19.5/20 Rapport développement Efficace
+- 19.75/20 Qualité de code
+- 20/20 Soutenance
 
 ## Liens utiles
 
